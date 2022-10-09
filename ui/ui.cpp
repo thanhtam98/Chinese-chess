@@ -1,11 +1,9 @@
+#include "ui.h"
 #include <iostream>
-#include "ui/ui.h"
 #include "utils/constant.h"
 
 using namespace std;
 
-int main (void)
-{
-    cout << "Hello woasdasdasrld " << endl;
+void UI::draw() {
     cout << chessman_name[RED][GENERAL] << endl;
 }
