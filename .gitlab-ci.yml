@@ -7,7 +7,7 @@ build:
   # before_script:
   #   - apt update && apt -y install make autoconf
   script:
-    - g++ main.cpp -o chinese-chess
+    - g++ -g -I./ **/*.cpp *.cpp -o chinese-chess
   artifacts:
     paths:
       - chinese-chess
