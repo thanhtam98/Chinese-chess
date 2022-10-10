@@ -7,7 +7,9 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "-I./",
+                "**/*.cpp",
+                "*.cpp",
                 "-o",
                 "${fileDirname}/chinese-chess"
             ],
