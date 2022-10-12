@@ -22,4 +22,9 @@ enum chessman_code {
 };
 
 extern string chessman_name[TEAM_SIZE][CHESSMAN_SIZE];
+
+#define BOARD_WIDTH      9
+#define BOARD_LENGTH     10
+#define FRONTIER         4
+
 #endif
