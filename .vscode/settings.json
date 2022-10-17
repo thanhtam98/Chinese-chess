@@ -3,6 +3,12 @@
         "iostream": "cpp",
         "ostream": "cpp",
         "string": "c",
-        "constant.h": "c"
+        "constant.h": "c",
+        "array": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "ranges": "cpp",
+        "utility": "cpp",
+        "new": "cpp"
     }
 }

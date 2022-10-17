@@ -1,5 +1,5 @@
 #include "logic/chessman.h"
 
-bool IChessman::move(){
-    
+bool IChessman::move() {
+    return true;
 }
