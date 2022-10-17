@@ -6,11 +6,11 @@
 
 class Board {
 public:
-    Board* getInstance();
+    static Board* getInstance();
     std::vector<Point*> get();
 private:
     Board() {};
-    Board* instance;
+    static Board* instance;
     IChessman* chessmen[BOARD_WIDTH][BOARD_LENGTH];
 };
 
