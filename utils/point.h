@@ -7,12 +7,17 @@ public:
     static Point *of(int _x, int _y);
     // static Point** alloc_cache();
     team_code getTeam();
+    int getX();
+    int getY();
+    static bool isWithinBoundary(int x, int y);
 private:
-    Point() {};
+    // Point() {};
     Point(int _x, int _y): x(_x), y(_y) {};
-    int x;
-    int y;
-    static Point* cache[BOARD_LENGTH*BOARD_WIDTH];
+    const int x;
+    const int y;
+    static Point *cache[BOARD_LENGTH*BOARD_WIDTH];
+    // static Point **cache;
+
 };
 
 #endif

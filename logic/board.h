@@ -11,7 +11,7 @@ public:
 private:
     Board() {};
     static Board* instance;
-    IChessman* chessmen[BOARD_WIDTH][BOARD_LENGTH];
+    IChessman* map[BOARD_WIDTH][BOARD_LENGTH];
 };
 
 #endif
