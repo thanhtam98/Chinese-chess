@@ -20,10 +20,10 @@ int main(void)
     //         << Point::of(i,j) << endl;
     // }
     UI::draw();
-    // Rule rule = Rule::create().at(Point::of(2, 1)).getPlusShape();
-    // cout << rule;
+    Rule rule = Rule::create().at(Point::of(2, 1)).getPlusShape();
+    cout << rule;
     Rule rule_a = Rule::create().at(Point::of(2, 1)).getCrossShape();
     cout << rule_a;
-    // Rule rule_b = Rule::create().at(Point::of(2, 1)).getElsShape();
-    // cout << rule_b;
+    Rule rule_b = Rule::create().at(Point::of(2, 1)).getElsShape();
+    cout << rule_b;
 }
