@@ -13,12 +13,6 @@ int main(void)
 {
     // cout << "Hello woasdasdasrld " << endl;
     cout << chessman_name[RED][GENERAL] << endl;
-    // for (int i = 0 ; i < 9 ; i++)
-    // {
-    //     for (int j = 0; j < 10 ; j++)
-    //     cout << i << j << " "<< Point::of(i,j) << " "
-    //         << Point::of(i,j) << endl;
-    // }
     UI::draw();
     Rule rule = Rule::create().at(Point::of(2, 1)).getPlusShape();
     cout << rule;
