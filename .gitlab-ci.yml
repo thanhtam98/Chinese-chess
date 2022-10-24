@@ -17,6 +17,6 @@ build:
 test:
   stage: test
   before_script:
-    - apt update && apt -y install cmake && cmake -S . -B build && cmake --build build
+    - apt update && apt -y install cmake
   script:
-    - cd build && ctest
+    - cmake -S . -B build && cmake --build build && cd build && ctest
