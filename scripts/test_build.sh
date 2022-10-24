@@ -3,7 +3,7 @@
 mkdir build
 echo $(pwd)
 ls
-cat CmakeLists.txt
-cmake -S /builds/oop-programming/chinese-chess -B build
+#cat CmakeLists.txt
+cmake -S . -B build
 cmake --build build
 cd build && ctest
