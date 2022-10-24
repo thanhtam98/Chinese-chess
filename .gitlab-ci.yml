@@ -1,5 +1,7 @@
 image: gcc
 
+
+
 build:
   stage: build
   # instead of calling g++ directly you can also use some build toolkit like make
@@ -11,3 +13,8 @@ build:
   artifacts:
     paths:
       - chinese-chess
+
+test:
+  stage: test
+  script:
+    - scripts/test_build.sh

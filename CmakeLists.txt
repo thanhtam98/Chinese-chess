@@ -17,14 +17,13 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  # point
-  hello_test
-  hello_test.cc
-  utils/point.cc
+  mainTest
+  mainTest.cc
+  utils/point.cpp
 )
 
 target_link_libraries(
-  hello_test
+  mainTest
   GTest::gtest_main
 )
 
@@ -32,4 +31,4 @@ include(GoogleTest)
 include_directories(
   .
   ) 
-gtest_discover_tests(hello_test)
+gtest_discover_tests(mainTest)
