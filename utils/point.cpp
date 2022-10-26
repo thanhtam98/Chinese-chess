@@ -8,7 +8,6 @@ Point* Point::of(int _x, int _y) {
         throw std::invalid_argument("Class Point: Invalid Coordinate");
     int index =  _y * BOARD_WIDTH + _x;
     if (cache[index] == nullptr) {
-        std::cout << "Assign a new Point a(" << _x << ", " << _y << ");" << endl;
         return cache[index] = new Point(_x, _y);
     }
     return cache[index];
