@@ -19,4 +19,4 @@ test:
   before_script:
     - apt update && apt -y install cmake
   script:
-    - cmake -S . -B build && cmake --build build && cd build && ctest
+    - cmake --version && cmake -S . -B build && cmake --build build && cd build && ctest
