@@ -1,9 +1,9 @@
-image: gcc
+image: alpine
 
 test:
   stage: test
   before_script:
-    - apt update && apt -y install cmake
+    - apk update && apk add g++ git make cmake
   script:
     - cmake -S . -B build
     - cmake --build build
