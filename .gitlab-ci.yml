@@ -5,7 +5,7 @@ test:
   before_script:
     - apt update && apt -y install cmake
   script:
-    - mkdir build && cd build && cmake .. -B build && cmake --build build && cd build && ctest
+    - cmake --help && cmake -S . -B build && cmake --build build && cd build && ctest
 
 # build:
 #   stage: build
