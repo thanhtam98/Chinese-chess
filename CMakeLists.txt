@@ -18,8 +18,10 @@ enable_testing()
 
 add_executable(
   mainTest
-  mainTest.cc
+  test/pointTest.cc
+  test/ruleTest.cc
   utils/point.cpp
+  rule/rule.cpp
 )
 
 target_link_libraries(
