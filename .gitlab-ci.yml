@@ -1,22 +1,22 @@
 image: gcc
 
-
-
-build:
-  stage: build
-  # instead of calling g++ directly you can also use some build toolkit like make
-  # install the necessary build tools when needed
-  # before_script:
-  #   - apt update && apt -y install make autoconf
-  script:
-    - g++ -g -I./ **/*.cpp *.cpp -o chinese-chess
-  artifacts:
-    paths:
-      - chinese-chess
-
 test:
   stage: test
   before_script:
     - apt update && apt -y install cmake
   script:
-    - cmake --version && cmake -S . -B build && cmake --build build && cd build && ctest
+    - mkdir build && cd build && cmake .. -B build && cmake --build build && cd build && ctest
+
+# build:
+#   stage: build
+#   # instead of calling g++ directly you can also use some build toolkit like make
+#   # install the necessary build tools when needed
+#   # before_script:
+#   #   - apt update && apt -y install make autoconf
+#   script:
+#     - g++ -g -I./ **/*.cpp *.cpp -o chinese-chess
+#   artifacts:
+#     paths:
+#       - chinese-chess
+
+
