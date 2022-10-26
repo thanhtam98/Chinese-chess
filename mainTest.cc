@@ -12,7 +12,7 @@
 // Demonstrate some basic assertions.
 TEST(PointTest, reusePointAdress) {
   // Expect two strings not to be equal.
-  Point* point1 = Point::of(7, 3);
+  Point* point1 = Point::of(2, 3);
   Point* point2 = Point::of(8, 9);
   // Expect equality.
   EXPECT_EQ(Point::of(2, 3), point1);
