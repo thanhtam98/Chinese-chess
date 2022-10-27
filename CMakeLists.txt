@@ -22,6 +22,9 @@ add_executable(
   test/ruleTest.cc
   utils/point.cpp
   rule/rule.cpp
+  rule/ruleLimitBuilder.cpp
+  rule/ruleShapeBuilder.cpp
+  rule/ruleTargetBuilder.cpp
 )
 
 target_link_libraries(

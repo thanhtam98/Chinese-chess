@@ -6,6 +6,13 @@
 RuleTargetBuilder Rule::create() {
     return RuleTargetBuilder{};
 }
+Point* Rule::getTarget()
+{
+    return target;
+}
+vector<Point*> Rule::getPossibleMove(){
+    return possibleMoves;
+}
 
 std::ostream& operator<<(std::ostream &os, const Rule &obj)
 {

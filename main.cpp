@@ -20,5 +20,4 @@ int main(void)
     cout << rule_a;
     Rule rule_b = Rule::create().at(Point::of(2, 1)).getElsShape();
     cout << rule_b;
-    cout << "Nguyen Duy Tan - a 10k bet"
 }

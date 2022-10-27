@@ -15,6 +15,8 @@ public:
     friend class RuleLimitBuilder;
     static RuleTargetBuilder create();
     friend std::ostream& operator<<(std::ostream &os, const Rule &obj);
+    Point* getTarget();
+    vector<Point*> getPossibleMove();
 private:
     Point* target;
     vector<Point*> possibleMoves;
