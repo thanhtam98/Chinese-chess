@@ -8,6 +8,7 @@
 #include "rule/ruleLimitBuilder.h"
 #include "rule/ruleShapeBuilder.h"
 #include "rule/ruleTargetBuilder.h"
+#include "logic/iBoard.h"
 
 TEST(PointTest, reusePointAdress) {
   Point* point1 = Point::of(2, 3);

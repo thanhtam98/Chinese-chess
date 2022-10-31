@@ -2,7 +2,6 @@
 #include "rule/ruleLimitBuilder.h"
 #include "utils/constant.h"
 
-
 RuleLimitBuilder RuleShapeBuilder::getPlusShape() {
     Point* target = rule.target;
     vector<Point*> *possibleMoves = &(rule.possibleMoves);

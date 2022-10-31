@@ -6,4 +6,5 @@ class RuleLimitBuilder : public AbstractRuleBuilder {
 private:
 public:
     RuleLimitBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
+    RuleLimitBuilder getValid();
 };

@@ -1,0 +1,11 @@
+#pragma once
+#include <gtest/gtest.h>
+#include "gmock/gmock.h"
+#include "logic/iBoard.h"
+
+class MockBoard : public IBoard{
+public:
+    MOCK_METHOD(bool, isOccupied, (Point *point), (override));
+    MOCK_METHOD(IChessman*, getChessman, (Point *point), (override));
+
+};

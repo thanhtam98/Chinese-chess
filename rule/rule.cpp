@@ -3,8 +3,9 @@
 #include <string>
 #include <iostream>
 
-RuleTargetBuilder Rule::create() {
-    return RuleTargetBuilder{};
+RuleTargetBuilder Rule::create(IBoard *_board) {
+    // board = _board;
+    return RuleTargetBuilder{_board};
 }
 Point* Rule::getTarget()
 {

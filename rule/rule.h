@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "utils/point.h"
+#include "logic/iBoard.h"
 
 class RuleShapeBuilder;
 class RuleTargetBuilder;
@@ -13,13 +14,14 @@ public:
     friend class RuleTargetBuilder;
     friend class RuleShapeBuilder;
     friend class RuleLimitBuilder;
-    static RuleTargetBuilder create();
+    static RuleTargetBuilder create(IBoard *_board);
     friend std::ostream& operator<<(std::ostream &os, const Rule &obj);
     Point* getTarget();
     vector<Point*> getPossibleMove();
 private:
     Point* target;
     vector<Point*> possibleMoves;
+    IBoard* board;
     // Rule() {};
 };
 

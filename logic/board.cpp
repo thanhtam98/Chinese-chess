@@ -7,3 +7,10 @@ Board* Board::getInstance() {
     }
     return instance;
 }
+
+bool Board::isOccupied (Point *point) {
+    return true;
+}
+IChessman* Board::getChessman(Point *point){
+    return nullptr;
+}

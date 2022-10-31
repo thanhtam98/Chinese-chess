@@ -25,11 +25,13 @@ add_executable(
   rule/ruleLimitBuilder.cpp
   rule/ruleShapeBuilder.cpp
   rule/ruleTargetBuilder.cpp
+
 )
 
 target_link_libraries(
   mainTest
   GTest::gtest_main
+  GTest::gmock_main
 )
 
 include(GoogleTest)
