@@ -9,8 +9,8 @@ class Board : public IBoard{
 public:
     static Board* getInstance();
     std::vector<Point*> get();
-    bool isOccupied (Point *point);
-    IChessman* getChessman(Point *point);;
+    bool isOccupied (int x, int y);
+    IChessman* getChessman(int x, int y);;
 private:
     Board() {};
     static Board* instance;

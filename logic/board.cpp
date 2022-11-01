@@ -8,9 +8,9 @@ Board* Board::getInstance() {
     return instance;
 }
 
-bool Board::isOccupied (Point *point) {
+bool Board::isOccupied (int x, int y) {
     return true;
 }
-IChessman* Board::getChessman(Point *point){
+IChessman* Board::getChessman(int x, int y){
     return nullptr;
 }

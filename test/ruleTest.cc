@@ -162,8 +162,17 @@ using ::testing::AtLeast;
 TEST(RunTest, testGmockBoard)
 {
   MockBoard board;
-  EXPECT_CALL(board,isOccupied(Point::of(0,3)))
+  EXPECT_CALL(board,isOccupied(0,3))
               .WillOnce(Return(true));
   Rule rule = Rule::create(&board).at(Point::of(4,3)).getPlusShape().getValid();
   
 }
+
+// TEST(RunTest, testGmockBoard)
+// {
+//   MockBoard board;
+//   EXPECT_CALL(board,isOccupied(0,3))
+//               .WillOnce(Return(true));
+//   Rule rule = Rule::create(&board).at(Point::of(4,3)).getPlusShape().getValid();
+  
+// }

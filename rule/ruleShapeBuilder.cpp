@@ -45,7 +45,7 @@ RuleLimitBuilder RuleShapeBuilder::getElsShape() {
     int x = target->getX();
     int y = target->getY();
     vector<Point*> *possibleMoves = &(rule.possibleMoves);
-
+    
     if (Point::isWithinBoundary(x+1, y+2)) possibleMoves->push_back(Point::of(x+1, y+2));
     if (Point::isWithinBoundary(x+1, y-2)) possibleMoves->push_back(Point::of(x+1, y-2));
     if (Point::isWithinBoundary(x-1, y+2)) possibleMoves->push_back(Point::of(x-1, y+2));

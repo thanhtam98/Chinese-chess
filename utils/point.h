@@ -17,7 +17,7 @@ private:
     const int y;
     static Point *cache[BOARD_LENGTH*BOARD_WIDTH];
     // static Point **cache;
-
+    
 };
 
 #endif

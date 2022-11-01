@@ -5,7 +5,7 @@
 
 class MockBoard : public IBoard{
 public:
-    MOCK_METHOD(bool, isOccupied, (Point *point), (override));
-    MOCK_METHOD(IChessman*, getChessman, (Point *point), (override));
+    MOCK_METHOD(bool, isOccupied, (int x, int y), (override));
+    MOCK_METHOD(IChessman*, getChessman, (int x, int y), (override));
 
 };

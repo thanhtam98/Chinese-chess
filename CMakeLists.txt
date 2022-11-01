@@ -21,6 +21,7 @@ add_executable(
   test/pointTest.cc
   test/ruleTest.cc
   utils/point.cpp
+  utils/utils.cpp
   rule/rule.cpp
   rule/ruleLimitBuilder.cpp
   rule/ruleShapeBuilder.cpp
