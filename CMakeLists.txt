@@ -20,6 +20,7 @@ add_executable(
   mainTest
   test/pointTest.cc
   test/ruleTest.cc
+  test/utilsTest.cc
   utils/point.cpp
   utils/utils.cpp
   rule/rule.cpp
