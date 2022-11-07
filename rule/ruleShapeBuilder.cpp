@@ -2,20 +2,52 @@
 #include "rule/ruleLimitBuilder.h"
 #include "utils/constant.h"
 
-RuleLimitBuilder RuleShapeBuilder::getPlusShape() {
+void RuleShapeBuilder::getPlusShapeHelper(Point *point,std::function<bool(Point *point)> predicate)
+{
+    vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    IChessman *chessman;
+    IBoard *board = rule.board;
+    Point* target = rule.target;
+    int x = target->getX();
+    int y = target->getY();
+    IChessman *targetChessman = board->getChessman(x,y);
+
+    if (predicate(point)){
+            possibleMoves->push_back(point);
+        }else{
+            chessman = board->getChessman(point->getX(),point->getY());
+            if (chessman->getTeam() != targetChessman->getTeam()){
+                possibleMoves->push_back(point);
+            }
+            return;
+    }
+}
+RuleLimitBuilder RuleShapeBuilder::getPlusShape(std::function<bool(Point *point)> predicate) {
     Point* target = rule.target;
     vector<Point*> *possibleMoves = &(rule.possibleMoves);
     int x = target->getX();
     int y = target->getY();
+    IBoard *board = rule.board;
+    IChessman *targetChessman = board->getChessman(x,y);
+    IChessman *chessman;
 
-    for (int i = 0; i < BOARD_WIDTH; i++){
-        if (i != x)
-            possibleMoves->push_back(Point::of(i,y));
+    /* Left ->  */
+    for (int i = x+1; i < BOARD_WIDTH; i++){
+        getPlusShapeHelper(Point::of(i,y), predicate);
     }
-    for (int i = 0; i < BOARD_LENGTH; i++){
-        if (i != y)
-            possibleMoves->push_back(Point::of(x,i));
+    /* Right <-  */
+    for (int i = x-1; i >= 0; i--){
+        getPlusShapeHelper(Point::of(i,y), predicate);
     }
+    /* Up  /\ */
+    for (int i = y+1; i < BOARD_LENGTH; i++){
+        getPlusShapeHelper(Point::of(x,i), predicate);
+    }
+    /* Down \/ */
+    for (int i = y-1; i >= 0; i--){
+        getPlusShapeHelper(Point::of(x,i), predicate);
+    }
+  
     return RuleLimitBuilder{rule};
 }
 

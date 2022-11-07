@@ -10,5 +10,4 @@ public:
 
     RuleLimitBuilder excludeHobbling();
     RuleLimitBuilder excludeChessmen();
-    
 };
