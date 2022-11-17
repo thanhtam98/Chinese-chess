@@ -18,6 +18,7 @@ public:
     friend std::ostream& operator<<(std::ostream &os, const Rule &obj);
     Point* getTarget();
     vector<Point*> getPossibleMove();
+    IBoard* getIBoard();
 private:
     Point* target;
     vector<Point*> possibleMoves;

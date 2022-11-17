@@ -14,6 +14,9 @@ Point* Rule::getTarget()
 vector<Point*> Rule::getPossibleMove(){
     return possibleMoves;
 }
+IBoard* Rule::getIBoard(){
+    return board;
+}
 
 std::ostream& operator<<(std::ostream &os, const Rule &obj)
 {

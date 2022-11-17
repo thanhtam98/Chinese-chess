@@ -2,27 +2,42 @@
 #include "rule/ruleLimitBuilder.h"
 #include "utils/constant.h"
 
-void RuleShapeBuilder::getPlusShapeHelper(Point *point,std::function<bool(Point *point)> predicate)
-{
-    vector<Point*> *possibleMoves = &(rule.possibleMoves);
-    IChessman *chessman;
-    IBoard *board = rule.board;
-    Point* target = rule.target;
-    int x = target->getX();
-    int y = target->getY();
-    IChessman *targetChessman = board->getChessman(x,y);
-
-    if (predicate(point)){
+std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::defaultHandleTrue = 
+        [] (Point *point, Rule &rule) {
+            vector<Point*> *possibleMoves = &(rule.possibleMoves);
             possibleMoves->push_back(point);
+        };
+std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::defaultHandleFalse = 
+        [] (Point *point, Rule &rule) {
+                vector<Point*> *possibleMoves = &(rule.possibleMoves);
+                IChessman *chessman;
+                IBoard *board = rule.board;
+                Point* target = rule.target;
+                int x = target->getX();
+                int y = target->getY();
+                IChessman *targetChessman = board->getChessman(x,y);
+                chessman = board->getChessman(point->getX(),point->getY());
+
+                if (chessman && chessman->getTeam() != targetChessman->getTeam()){
+                    possibleMoves->push_back(point);
+                }
+        };
+
+bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,std::function<bool(Point *point, Rule &rule)> predicate,
+        std::function<void(Point *point, Rule &rule)> handleTrue, 
+        std::function<void(Point *point, Rule &rule)> handleFalse)
+{
+    if (predicate(point, rule)){
+            handleTrue(point, rule);
         }else{
-            chessman = board->getChessman(point->getX(),point->getY());
-            if (chessman->getTeam() != targetChessman->getTeam()){
-                possibleMoves->push_back(point);
-            }
-            return;
+            handleFalse(point, rule);
+            return false;
     }
+    return true;
 }
-RuleLimitBuilder RuleShapeBuilder::getPlusShape(std::function<bool(Point *point)> predicate) {
+RuleLimitBuilder RuleShapeBuilder::getPlusShape(std::function<bool(Point *point, Rule &rule)> predicate, 
+        std::function<void(Point *point, Rule &rule)> handleTrue = RuleShapeBuilder::defaultHandleTrue, 
+        std::function<void(Point *point, Rule &rule)> handleFalse = RuleShapeBuilder::defaultHandleFalse){
     Point* target = rule.target;
     vector<Point*> *possibleMoves = &(rule.possibleMoves);
     int x = target->getX();
@@ -33,19 +48,23 @@ RuleLimitBuilder RuleShapeBuilder::getPlusShape(std::function<bool(Point *point)
 
     /* Left ->  */
     for (int i = x+1; i < BOARD_WIDTH; i++){
-        getPlusShapeHelper(Point::of(i,y), predicate);
+        if (isContinuedAndAddPossibleMoves(Point::of(i,y), predicate,handleTrue,handleFalse) == false)
+            break;
     }
     /* Right <-  */
     for (int i = x-1; i >= 0; i--){
-        getPlusShapeHelper(Point::of(i,y), predicate);
+        if (isContinuedAndAddPossibleMoves(Point::of(i,y), predicate,handleTrue,handleFalse) == false)
+            break;
     }
     /* Up  /\ */
     for (int i = y+1; i < BOARD_LENGTH; i++){
-        getPlusShapeHelper(Point::of(x,i), predicate);
+        if (isContinuedAndAddPossibleMoves(Point::of(x,i), predicate,handleTrue,handleFalse) == false)
+            break;
     }
     /* Down \/ */
     for (int i = y-1; i >= 0; i--){
-        getPlusShapeHelper(Point::of(x,i), predicate);
+        if (isContinuedAndAddPossibleMoves(Point::of(x,i), predicate,handleTrue,handleFalse) == false)
+            break;
     }
   
     return RuleLimitBuilder{rule};
