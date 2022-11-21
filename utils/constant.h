@@ -21,6 +21,14 @@ enum chessman_code {
     CHESSMAN_SIZE
 };
 
+enum direction_code {
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN,
+    DIR_SIZE    
+};
+
 extern string chessman_name[TEAM_SIZE][CHESSMAN_SIZE];
 
 #define BOARD_WIDTH      9   // x-axis

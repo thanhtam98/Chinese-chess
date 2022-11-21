@@ -11,10 +11,13 @@ private:
 public:  
     static std::function<void(Point *point, Rule &rule)> defaultHandleTrue;
     static std::function<void(Point *point, Rule &rule)> defaultHandleFalse;
+    static std::function<void(Point *point, Rule &rule)> soldierHandleFalse;
+    
     RuleShapeBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
     RuleLimitBuilder getPlusShape(std::function<bool(Point *point, Rule &rule)> predicate,
-                                std::function<void(Point *point, Rule &rule)> handleTrue, 
-                                std::function<void(Point *point, Rule &rule)> handleFalse);
+                                std::vector<direction_code> denyDirList = {},
+                                std::function<void(Point *point, Rule &rule)> handleTrue = defaultHandleTrue, 
+                                std::function<void(Point *point, Rule &rule)> handleFalse = defaultHandleFalse);
     RuleLimitBuilder getCrossShape();
     RuleLimitBuilder getElsShape();
 };

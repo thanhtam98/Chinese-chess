@@ -58,8 +58,7 @@ TEST(RunTest, testGetPlusShapeCase1)
       Point::of(7, 3),
       Point::of(8, 3)};
   auto predicate = [] (Point *point, Rule &rule) {return true;};
-  Rule rule = Rule::create(&board).at(Point::of(4, 3)).getPlusShape(predicate,
-    RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::defaultHandleFalse);
+  Rule rule = Rule::create(&board).at(Point::of(4, 3)).getPlusShape(predicate);
   vector<Point *> actual = rule.getPossibleMove();
   listPossibleMoveCmp(expect, actual);
 }
@@ -87,8 +86,7 @@ TEST(RunTest, testGetPlusShapeCase2)
       Point::of(4, 9)};
   auto predicate = [] (Point *point, Rule &rule) {return true;};
   
-  Rule rule = Rule::create(&board).at(Point::of(8, 9)).getPlusShape(predicate,
-      RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::defaultHandleFalse);
+  Rule rule = Rule::create(&board).at(Point::of(8, 9)).getPlusShape(predicate);
 
   vector<Point *> actual = rule.getPossibleMove();
   listPossibleMoveCmp(expect, actual);
@@ -393,9 +391,9 @@ TEST(RunTest, testChariotChessman1)
               .WillOnce(Return(false));  
 
    EXPECT_CALL(board,isOccupied(2,7))
-              .WillOnce(Return(true));  
+              .Times(2).WillOnce(Return(true)).WillOnce(Return(true));  
    EXPECT_CALL(board,isOccupied(5,3))
-              .WillOnce(Return(true));             
+              .Times(2).WillOnce(Return(true)).WillOnce(Return(true));            
 /* Exclude chessmen */
   EXPECT_CALL(board,getChessman(2,7))
               .WillOnce(Return(&blackChessman));
@@ -429,8 +427,7 @@ TEST(RunTest, testChariotChessman1)
     IBoard *board = rule.getIBoard();
     return !board->isOccupied(point->getX(), point->getY());
   };
-  Rule rule = Rule::create(&board).at(Point::of(2, 3)).getPlusShape(predicate,
-      RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::defaultHandleFalse);
+  Rule rule = Rule::create(&board).at(Point::of(2, 3)).getPlusShape(predicate);
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -446,9 +443,9 @@ TEST(RunTest, testChariotChessman2)
   MockChessman redChessman;
 
    EXPECT_CALL(board,isOccupied(7,0))
-              .WillOnce(Return(true));  
+              .Times(2).WillOnce(Return(true)).WillOnce(Return(true));            
    EXPECT_CALL(board,isOccupied(8,1))
-              .WillOnce(Return(true));             
+              .Times(2).WillOnce(Return(true)).WillOnce(Return(true));            
 /* Exclude chessmen */
   EXPECT_CALL(board,getChessman(7,0))
               .WillOnce(Return(&redChessman));
@@ -472,8 +469,7 @@ TEST(RunTest, testChariotChessman2)
     IBoard *board = rule.getIBoard();
     return !board->isOccupied(point->getX(), point->getY());
   };
-  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getPlusShape(predicate,
-      RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::defaultHandleFalse);
+  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getPlusShape(predicate);
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -488,17 +484,13 @@ TEST(RunTest, testSoldierChessman1)
   MockChessman blackChessman;
   MockChessman redChessman;
 
-   EXPECT_CALL(board,isOccupied(7,0))
-              .WillOnce(Return(true));  
-   EXPECT_CALL(board,isOccupied(8,1))
+   EXPECT_CALL(board,isOccupied(3,4))
               .WillOnce(Return(true));             
 /* Exclude chessmen */
-  EXPECT_CALL(board,getChessman(7,0))
-              .WillOnce(Return(&redChessman));
-  EXPECT_CALL(board,getChessman(8,1))
+  EXPECT_CALL(board,getChessman(3,4))
               .WillOnce(Return(&blackChessman));
 
-  EXPECT_CALL(board,getChessman(8,0))
+  EXPECT_CALL(board,getChessman(3,3))
               .WillRepeatedly(Return(&targetChessman)); 
 
   EXPECT_CALL(targetChessman, getTeam())
@@ -509,14 +501,60 @@ TEST(RunTest, testSoldierChessman1)
               .WillRepeatedly(Return(RED));
     
   vector<Point *> expect = {
-      Point::of(8, 1)
+      Point::of(3, 4)
   };
   auto predicate = [] (Point *point, Rule &rule) {
-    IBoard *board = rule.getIBoard();
-    return !board->isOccupied(point->getX(), point->getY());
+    return false;
   };
-  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getPlusShape(predicate,
-    RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::defaultHandleFalse);
+  std::vector <direction_code> list = {DOWN,LEFT,RIGHT};
+
+  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(predicate,list);
+
+  vector<Point *> actual = rule.getPossibleMove();
+
+  listPossibleMoveCmp(expect, actual);
+  // MOCK_METHOD
+}
+
+TEST(RunTest, testSoldierChessman2)
+{
+  MockBoard board;
+  MockChessman targetChessman; // red
+  MockChessman blackChessman;
+  MockChessman redChessman;
+
+   EXPECT_CALL(board,isOccupied(5,6))
+              .WillOnce(Return(true)); 
+   EXPECT_CALL(board,isOccupied(6,7))
+              .WillOnce(Return(true)); 
+   EXPECT_CALL(board,isOccupied(4,7))
+              .WillOnce(Return(false));             
+/* Exclude chessmen */
+  EXPECT_CALL(board,getChessman(5,6))
+              .WillOnce(Return(&redChessman)); 
+  EXPECT_CALL(board,getChessman(6,7))
+              .WillOnce(Return(&blackChessman));
+  EXPECT_CALL(board,getChessman(5,7))
+              .WillRepeatedly(Return(&targetChessman)); 
+
+  EXPECT_CALL(targetChessman, getTeam())
+              .WillRepeatedly(Return(RED));
+  EXPECT_CALL(blackChessman, getTeam())
+              .WillRepeatedly(Return(BLACK));
+  EXPECT_CALL(redChessman, getTeam())
+              .WillRepeatedly(Return(RED));
+    
+  vector<Point *> expect = {
+      Point::of(6, 7),
+      Point::of(4, 7)
+
+  };
+  auto predicate = [] (Point *point, Rule &rule) {
+    return false;
+  };
+  std::vector <direction_code> list = {UP};
+
+  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(predicate,list);
 
   vector<Point *> actual = rule.getPossibleMove();
 

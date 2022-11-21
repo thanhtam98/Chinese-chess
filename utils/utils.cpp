@@ -11,3 +11,7 @@ void Utils::removePointFromVector(std::vector<Point*> *pointVector, int x, int y
 
     }
 }
+bool Utils::isDirContainsInList(std::vector<direction_code> list, direction_code dir)
+{
+    return std::find(list.begin(), list.end(), dir) != list.end();
+}
