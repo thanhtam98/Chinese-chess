@@ -593,18 +593,12 @@ TEST(RunTest, testCannonChessman1)
               .WillOnce(Return(false)); 
 
 /* Exclude chessmen */
-  // EXPECT_CALL(board,getChessman(3,5))
-              // .WillOnce(Return(&redChessman));
   EXPECT_CALL(board,getChessman(3,6))
               .WillOnce(Return(&redChessman));
   EXPECT_CALL(board,getChessman(6,2))
               .WillOnce(Return(&redChessman)); 
   EXPECT_CALL(board,getChessman(1,2))
               .WillOnce(Return(&blackChessman));
-  // EXPECT_CALL(board,getChessman(2,2))
-  //             .WillOnce(Return(&blackChessman));
-  // EXPECT_CALL(board,getChessman(5,2))
-  //             .WillOnce(Return(&blackChessman));
   EXPECT_CALL(board,getChessman(3,2))
               .WillRepeatedly(Return(&targetChessman)); 
 

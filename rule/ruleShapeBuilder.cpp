@@ -3,6 +3,8 @@
 #include "utils/constant.h"
 #include "utils/utils.h"
 #include <iostream>
+
+
 /* ########### HANDLE IF TRUE ########### */
 std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::defaultHandleTrue = 
         [] (Point *point, Rule &rule) {
@@ -72,72 +74,41 @@ std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::cannonHandleFals
                 if (targetY == stopY)
                     dir = (targetX > stopX) ? LEFT : RIGHT;
                 
-                switch (dir)
-                {
-                case LEFT:
-                    stopX--;
-                    while (Point::isWithinBoundary(stopX,stopY)){
-                        if (board->isOccupied(stopX,stopY))
-                        {
-                            chessman = board->getChessman(stopX,stopY);
-                            if (chessman->getTeam() != targetChessman->getTeam()){
-                                possibleMoves->push_back(Point::of(stopX,stopY));
-                            }
-                            break;
+                changeForDirection(dir, stopX,stopY);
+                while (Point::isWithinBoundary(stopX,stopY)){
+                    if (board->isOccupied(stopX,stopY))
+                    {
+                        chessman = board->getChessman(stopX,stopY);
+                        if (chessman->getTeam() != targetChessman->getTeam()){
+                            possibleMoves->push_back(Point::of(stopX,stopY));
                         }
-                        stopX--;
-                    }                    
-                    break;
-                case RIGHT:
-                    stopX++;
-                    while (Point::isWithinBoundary(stopX,stopY)){
-                        if (board->isOccupied(stopX,stopY))
-                        {
-                            chessman = board->getChessman(stopX,stopY);
-                            if (chessman->getTeam() != targetChessman->getTeam()){
-                                possibleMoves->push_back(Point::of(stopX,stopY));
-                            }
-                            break;
-                        }
-                        stopX++;
-                    }      
-                    break;
-                case UP:
-                    stopY++;
-                    while (Point::isWithinBoundary(stopX,stopY)){
-                        if (board->isOccupied(stopX,stopY))
-                        {
-                            chessman = board->getChessman(stopX,stopY);
-                            if (chessman->getTeam() != targetChessman->getTeam()){
-                                possibleMoves->push_back(Point::of(stopX,stopY));
-                            }
-                            break;
-                        }
-                        stopY++;
-                    }      
-                    break;
-
-                case DOWN:
-                    stopY--;
-                    while (Point::isWithinBoundary(stopX,stopY)){
-                        if (board->isOccupied(stopX,stopY))
-                        {
-                            chessman = board->getChessman(stopX,stopY);
-                            if (chessman->getTeam() != targetChessman->getTeam()){
-                                possibleMoves->push_back(Point::of(stopX,stopY));
-                            }
-                            break;
-                        }
-                        stopY--;
-                    }      
-                    break;
-                default:
-                    std::cout << "Throw exception " << std::endl;
-                    break;
-                }
+                        break;
+                    }
+                    changeForDirection(dir, stopX,stopY);
+                }                    
         };
 /* ########### END OF HANDLE IF FALSE ########### */
-
+void RuleShapeBuilder::changeForDirection(direction_code dir, int &x, int  &y)
+{
+    switch (dir)
+    {
+        case LEFT:
+            x--;
+            break;
+        case RIGHT:
+            x++;
+            break;
+        case UP:
+            y++;
+            break;
+        case DOWN:
+            y--;
+            break;    
+        default:
+            std::cout << "Throw exception " << std::endl;
+            break;
+    }
+}
 bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,std::function<bool(Point *point, Rule &rule)> predicate,
         std::function<void(Point *point, Rule &rule)> handleTrue, 
         std::function<void(Point *point, Rule &rule)> handleFalse)
@@ -162,8 +133,6 @@ RuleLimitBuilder RuleShapeBuilder::getPlusShape(std::function<bool(Point *point,
     int x = target->getX();
     int y = target->getY();
     IBoard *board = rule.board;
-    IChessman *targetChessman = board->getChessman(x,y);
-    IChessman *chessman;
 
     /* Left ->  */
     if (!Utils::isDirContainsInList(denyDirList, LEFT))

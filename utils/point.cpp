@@ -16,6 +16,9 @@ Point* Point::of(int _x, int _y) {
 bool Point::isWithinBoundary(int x, int y) {
     return !(x < 0 || x >= BOARD_WIDTH || y < 0 || y >= BOARD_LENGTH);
 }
+bool Point::isWithinPalace(int x, int y) {
+    return (x >= 3 && x <= 5) && ((y >= 0 && y <= 2)||(y >= 7 && y <= 9));
+}
 
 // Point** Point::alloc_cache(){
 //     int size = BOARD_LENGTH*BOARD_WIDTH;

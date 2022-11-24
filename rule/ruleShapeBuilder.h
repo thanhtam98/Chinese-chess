@@ -8,6 +8,8 @@ private:
     bool isContinuedAndAddPossibleMoves(Point *point,std::function<bool(Point *point, Rule &rule)> predicate,
                                         std::function<void(Point *point, Rule &rule)> handleTrue, 
                                         std::function<void(Point *point, Rule &rule)> handleFalse);
+    static void changeForDirection(direction_code dir, int &x, int  &y);
+
 public:  
     static std::function<void(Point *point, Rule &rule)> defaultHandleTrue;
     static std::function<void(Point *point, Rule &rule)> defaultHandleFalse;

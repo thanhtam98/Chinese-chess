@@ -18,6 +18,20 @@ TEST(PointTest, reusePointAdress) {
   EXPECT_EQ(Point::of(8, 9), point2); 
 }
 
+TEST(PointTest, withinPalace) {
+
+  EXPECT_EQ(Point::isWithinPalace(4, 1), true);
+  EXPECT_EQ(Point::isWithinPalace(3, 7), true);
+  EXPECT_EQ(Point::isWithinPalace(5, 0), true);
+  EXPECT_EQ(Point::isWithinPalace(4, 9), true);
+  EXPECT_EQ(Point::isWithinPalace(4, 6), false);
+  EXPECT_EQ(Point::isWithinPalace(6, 6), false);
+  EXPECT_EQ(Point::isWithinPalace(2, 0), false);
+  EXPECT_EQ(Point::isWithinPalace(2, 8), false);
+
+
+}
+
 
 TEST(PointTest, throwException)
 {
