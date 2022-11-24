@@ -2,7 +2,7 @@
 #include "rule/ruleLimitBuilder.h"
 #include "utils/constant.h"
 #include "utils/utils.h"
-
+#include <iostream>
 /* ########### HANDLE IF TRUE ########### */
 std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::defaultHandleTrue = 
         [] (Point *point, Rule &rule) {
@@ -51,6 +51,89 @@ std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::soldierHandleFal
                     return;
                 if (chessman && chessman->getTeam() != targetChessman->getTeam()){
                     possibleMoves->push_back(point);
+                }
+        };
+std::function<void(Point *point, Rule &rule)> RuleShapeBuilder::cannonHandleFalse = 
+        [] (Point *point, Rule &rule) {
+                vector<Point*> *possibleMoves = &(rule.possibleMoves);
+                IChessman *chessman;
+                IBoard *board = rule.board;
+                Point* target = rule.target;
+                int targetX = target->getX();
+                int targetY = target->getY();
+                IChessman *targetChessman = board->getChessman(targetX,targetY);
+
+                int stopX = point->getX();
+                int stopY = point->getY();
+                direction_code dir ;
+                
+                if (targetX == stopX)
+                    dir = (targetY > stopY) ? DOWN : UP;
+                if (targetY == stopY)
+                    dir = (targetX > stopX) ? LEFT : RIGHT;
+                
+                switch (dir)
+                {
+                case LEFT:
+                    stopX--;
+                    while (Point::isWithinBoundary(stopX,stopY)){
+                        if (board->isOccupied(stopX,stopY))
+                        {
+                            chessman = board->getChessman(stopX,stopY);
+                            if (chessman->getTeam() != targetChessman->getTeam()){
+                                possibleMoves->push_back(Point::of(stopX,stopY));
+                            }
+                            break;
+                        }
+                        stopX--;
+                    }                    
+                    break;
+                case RIGHT:
+                    stopX++;
+                    while (Point::isWithinBoundary(stopX,stopY)){
+                        if (board->isOccupied(stopX,stopY))
+                        {
+                            chessman = board->getChessman(stopX,stopY);
+                            if (chessman->getTeam() != targetChessman->getTeam()){
+                                possibleMoves->push_back(Point::of(stopX,stopY));
+                            }
+                            break;
+                        }
+                        stopX++;
+                    }      
+                    break;
+                case UP:
+                    stopY++;
+                    while (Point::isWithinBoundary(stopX,stopY)){
+                        if (board->isOccupied(stopX,stopY))
+                        {
+                            chessman = board->getChessman(stopX,stopY);
+                            if (chessman->getTeam() != targetChessman->getTeam()){
+                                possibleMoves->push_back(Point::of(stopX,stopY));
+                            }
+                            break;
+                        }
+                        stopY++;
+                    }      
+                    break;
+
+                case DOWN:
+                    stopY--;
+                    while (Point::isWithinBoundary(stopX,stopY)){
+                        if (board->isOccupied(stopX,stopY))
+                        {
+                            chessman = board->getChessman(stopX,stopY);
+                            if (chessman->getTeam() != targetChessman->getTeam()){
+                                possibleMoves->push_back(Point::of(stopX,stopY));
+                            }
+                            break;
+                        }
+                        stopY--;
+                    }      
+                    break;
+                default:
+                    std::cout << "Throw exception " << std::endl;
+                    break;
                 }
         };
 /* ########### END OF HANDLE IF FALSE ########### */

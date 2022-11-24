@@ -12,7 +12,7 @@ public:
     static std::function<void(Point *point, Rule &rule)> defaultHandleTrue;
     static std::function<void(Point *point, Rule &rule)> defaultHandleFalse;
     static std::function<void(Point *point, Rule &rule)> soldierHandleFalse;
-    
+    static std::function<void(Point *point, Rule &rule)> cannonHandleFalse;
     RuleShapeBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
     RuleLimitBuilder getPlusShape(std::function<bool(Point *point, Rule &rule)> predicate,
                                 std::vector<direction_code> denyDirList = {},
