@@ -2,24 +2,15 @@
 #include <functional>
 #include "rule/rule.h"
 #include "rule/abstractRuleBuilder.h"
+#include "rule/behaviorProvider/abstractBehaviorProvider.h"
 
 class RuleShapeBuilder : public AbstractRuleBuilder {
 private:
-    bool isContinuedAndAddPossibleMoves(Point *point,std::function<bool(Point *point, Rule &rule)> predicate,
-                                        std::function<void(Point *point, Rule &rule)> handleTrue, 
-                                        std::function<void(Point *point, Rule &rule)> handleFalse);
-    static void changeForDirection(direction_code dir, int &x, int  &y);
-
+    bool isContinuedAndAddPossibleMoves(Point *point, AbstractBehaviorProvider* behaviorProvider);
 public:  
-    static std::function<void(Point *point, Rule &rule)> defaultHandleTrue;
-    static std::function<void(Point *point, Rule &rule)> defaultHandleFalse;
-    static std::function<void(Point *point, Rule &rule)> soldierHandleFalse;
-    static std::function<void(Point *point, Rule &rule)> cannonHandleFalse;
     RuleShapeBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
-    RuleLimitBuilder getPlusShape(std::function<bool(Point *point, Rule &rule)> predicate,
-                                std::vector<direction_code> denyDirList = {},
-                                std::function<void(Point *point, Rule &rule)> handleTrue = defaultHandleTrue, 
-                                std::function<void(Point *point, Rule &rule)> handleFalse = defaultHandleFalse);
+    RuleLimitBuilder getPlusShape(AbstractBehaviorProvider* behaviorProvider,
+                                std::vector<direction_code> denyDirList = {});
     RuleLimitBuilder getCrossShape();
     RuleLimitBuilder getElsShape();
 };

@@ -6,6 +6,8 @@
 class RuleShapeBuilder;
 class RuleTargetBuilder;
 class RuleLimitBuilder;
+class DefaultBehaviorProvider;
+class CannonBehaviorProvider;
 
 class Rule
 {
@@ -14,6 +16,8 @@ public:
     friend class RuleTargetBuilder;
     friend class RuleShapeBuilder;
     friend class RuleLimitBuilder;
+    friend class DefaultBehaviorProvider;
+    friend class CannonBehaviorProvider;
     static RuleTargetBuilder create(IBoard *_board);
     friend std::ostream& operator<<(std::ostream &os, const Rule &obj);
     Point* getTarget();

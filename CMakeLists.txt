@@ -27,7 +27,10 @@ add_executable(
   rule/ruleLimitBuilder.cpp
   rule/ruleShapeBuilder.cpp
   rule/ruleTargetBuilder.cpp
-
+  rule/behaviorProvider/cannonBehaviorProvider.cpp
+  rule/behaviorProvider/chariotBehaviorProvider.cpp
+  rule/behaviorProvider/defaultBehaviorProvider.cpp
+  rule/behaviorProvider/soldierBehaviorProvider.cpp
 )
 
 target_link_libraries(

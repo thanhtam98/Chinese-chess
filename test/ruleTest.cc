@@ -10,6 +10,11 @@
 #include "rule/ruleTargetBuilder.h"
 #include "test/mockBoard.h"
 #include "test/mockChessman.h"
+#include "rule/behaviorProvider/abstractBehaviorProvider.h"
+#include "rule/behaviorProvider/cannonBehaviorProvider.h"
+#include "rule/behaviorProvider/chariotBehaviorProvider.h"
+#include "rule/behaviorProvider/defaultBehaviorProvider.h"
+#include "rule/behaviorProvider/soldierBehaviorProvider.h"
 
 
 using ::testing::Return;
@@ -57,8 +62,7 @@ TEST(RunTest, testGetPlusShapeCase1)
       Point::of(6, 3),
       Point::of(7, 3),
       Point::of(8, 3)};
-  auto predicate = [] (Point *point, Rule &rule) {return true;};
-  Rule rule = Rule::create(&board).at(Point::of(4, 3)).getPlusShape(predicate);
+  Rule rule = Rule::create(&board).at(Point::of(4, 3)).getPlusShape(new DefaultBehaviorProvider());
   vector<Point *> actual = rule.getPossibleMove();
   listPossibleMoveCmp(expect, actual);
 }
@@ -84,9 +88,7 @@ TEST(RunTest, testGetPlusShapeCase2)
       Point::of(6, 9),
       Point::of(7, 9),
       Point::of(4, 9)};
-  auto predicate = [] (Point *point, Rule &rule) {return true;};
-  
-  Rule rule = Rule::create(&board).at(Point::of(8, 9)).getPlusShape(predicate);
+  Rule rule = Rule::create(&board).at(Point::of(8, 9)).getPlusShape(new DefaultBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
   listPossibleMoveCmp(expect, actual);
@@ -423,11 +425,8 @@ TEST(RunTest, testChariotChessman1)
       Point::of(4, 3),
       Point::of(2, 7)
   };
-  auto predicate = [] (Point *point, Rule &rule) {
-    IBoard *board = rule.getIBoard();
-    return !board->isOccupied(point->getX(), point->getY());
-  };
-  Rule rule = Rule::create(&board).at(Point::of(2, 3)).getPlusShape(predicate);
+
+  Rule rule = Rule::create(&board).at(Point::of(2, 3)).getPlusShape(new ChariotBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -465,11 +464,8 @@ TEST(RunTest, testChariotChessman2)
   vector<Point *> expect = {
       Point::of(8, 1)
   };
-  auto predicate = [] (Point *point, Rule &rule) {
-    IBoard *board = rule.getIBoard();
-    return !board->isOccupied(point->getX(), point->getY());
-  };
-  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getPlusShape(predicate);
+
+  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getPlusShape(new ChariotBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -503,12 +499,10 @@ TEST(RunTest, testSoldierChessman1)
   vector<Point *> expect = {
       Point::of(3, 4)
   };
-  auto predicate = [] (Point *point, Rule &rule) {
-    return false;
-  };
+
   std::vector <direction_code> list = {DOWN,LEFT,RIGHT};
 
-  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(predicate,list);
+  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider(),list);
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -554,7 +548,7 @@ TEST(RunTest, testSoldierChessman2)
   };
   std::vector <direction_code> list = {UP};
 
-  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(predicate,list);
+  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider(),list);
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -617,13 +611,8 @@ TEST(RunTest, testCannonChessman1)
       Point::of(4, 2),
       Point::of(1, 2)
   };
-  auto predicate = [] (Point *point, Rule &rule) {
-    IBoard *board = rule.getIBoard();
-    return !board->isOccupied(point->getX(), point->getY());
-  };
-  std::vector <direction_code> list = {};
-  Rule rule = Rule::create(&board).at(Point::of(3, 2)).getPlusShape(predicate,list,
-              RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::cannonHandleFalse);
+
+  Rule rule = Rule::create(&board).at(Point::of(3, 2)).getPlusShape(new CannonBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -702,13 +691,8 @@ TEST(RunTest, testCannonChessman2)
       Point::of(6, 4),
       Point::of(7, 4)
   };
-  auto predicate = [] (Point *point, Rule &rule) {
-    IBoard *board = rule.getIBoard();
-    return !board->isOccupied(point->getX(), point->getY());
-  };
-  std::vector <direction_code> list = {};
-  Rule rule = Rule::create(&board).at(Point::of(8, 4)).getPlusShape(predicate,list,
-              RuleShapeBuilder::defaultHandleTrue, RuleShapeBuilder::cannonHandleFalse);
+
+  Rule rule = Rule::create(&board).at(Point::of(8, 4)).getPlusShape(new CannonBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
 
