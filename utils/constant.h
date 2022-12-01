@@ -22,10 +22,14 @@ enum chessman_code {
 };
 
 enum direction_code {
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN,
+    WEST,
+    EAST,
+    NORTH,
+    SOUTH,
+    NORTH_WEST,
+    NORTH_EAST,
+    SOUTH_WEST,
+    SOUTH_EAST,
     DIR_SIZE    
 };
 

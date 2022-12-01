@@ -32,3 +32,7 @@ void DefaultBehaviorProvider::handleFalse(Point *point, Rule &rule) {
         possibleMoves->push_back(point);
     }
 }
+
+vector<direction_code> DefaultBehaviorProvider::getListDir(){
+    return {WEST, EAST, NORTH, SOUTH};
+}

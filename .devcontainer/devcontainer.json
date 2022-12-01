@@ -19,7 +19,9 @@
 				"ms-vscode.cpptools",
 				"ms-vscode.cmake-tools",
 				"ms-vsliveshare.vsliveshare-pack",
-				"matepek.vscode-catch2-test-adapter"
+				"matepek.vscode-catch2-test-adapter",
+				"svipas.code-autocomplete",
+				"TabNine.tabnine-vscode"
 			]
 		}
 	},

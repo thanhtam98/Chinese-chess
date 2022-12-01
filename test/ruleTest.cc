@@ -500,7 +500,7 @@ TEST(RunTest, testSoldierChessman1)
       Point::of(3, 4)
   };
 
-  std::vector <direction_code> list = {DOWN,LEFT,RIGHT};
+  std::vector <direction_code> list = {SOUTH,WEST,EAST};
 
   Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider(),list);
 
@@ -546,7 +546,7 @@ TEST(RunTest, testSoldierChessman2)
   auto predicate = [] (Point *point, Rule &rule) {
     return false;
   };
-  std::vector <direction_code> list = {UP};
+  std::vector <direction_code> list = {NORTH};
 
   Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider(),list);
 

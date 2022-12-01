@@ -26,14 +26,34 @@ RuleLimitBuilder RuleShapeBuilder::getPlusShape(AbstractBehaviorProvider* behavi
     int y = target->getY();
     IBoard *board = rule.board;
 
+    // create class (listdir);
+    
+    // while (dir : Dir)
+    // {
+    //     while (obj.hasNext)
+    //     {
+    //         val = obj.getvalue
+    //         if (isContinuedAndAddPossibleMoves(predicate, val) )
+    //         {
+    //             behaviorProvider.
+    //         }
+    //         else
+    //         {
+    //             nextDir()
+    //         }
+    //     }       
+
+    //     }
+    // }
+
     /* Left ->  */
-    if (!Utils::isDirContainsInList(denyDirList, LEFT))
+    if (!Utils::isDirContainsInList(denyDirList, WEST))
         for (int i = x+1; i < BOARD_WIDTH; i++){
             if (isContinuedAndAddPossibleMoves(Point::of(i,y), behaviorProvider) == false)
                 break;
     }
     /* Right <-  */
-    if (!Utils::isDirContainsInList(denyDirList, RIGHT))
+    if (!Utils::isDirContainsInList(denyDirList, EAST))
     {
         for (int i = x-1; i >= 0; i--){
             if (isContinuedAndAddPossibleMoves(Point::of(i,y), behaviorProvider) == false)
@@ -41,7 +61,7 @@ RuleLimitBuilder RuleShapeBuilder::getPlusShape(AbstractBehaviorProvider* behavi
         }
     }
     /* Up  /\ */
-    if (!Utils::isDirContainsInList(denyDirList, UP))
+    if (!Utils::isDirContainsInList(denyDirList, NORTH))
     {
         for (int i = y+1; i < BOARD_LENGTH; i++){
             if (isContinuedAndAddPossibleMoves(Point::of(x,i), behaviorProvider) == false)
@@ -49,7 +69,7 @@ RuleLimitBuilder RuleShapeBuilder::getPlusShape(AbstractBehaviorProvider* behavi
         }
     }
     /* Down \/ */
-    if (!Utils::isDirContainsInList(denyDirList, DOWN))
+    if (!Utils::isDirContainsInList(denyDirList, SOUTH))
     {
         for (int i = y-1; i >= 0; i--){
             if (isContinuedAndAddPossibleMoves(Point::of(x,i), behaviorProvider) == false)

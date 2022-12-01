@@ -23,9 +23,9 @@ void CannonBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     direction_code dir ;
     
     if (targetX == stopX)
-        dir = (targetY > stopY) ? DOWN : UP;
+        dir = (targetY > stopY) ? SOUTH : NORTH;
     if (targetY == stopY)
-        dir = (targetX > stopX) ? LEFT : RIGHT;
+        dir = (targetX > stopX) ? WEST : EAST;
     
     changeForDirection(dir, stopX,stopY);
     while (Point::isWithinBoundary(stopX,stopY)){
@@ -45,16 +45,16 @@ void CannonBehaviorProvider::changeForDirection(direction_code dir, int &x, int 
 {
     switch (dir)
     {
-        case LEFT:
+        case WEST:
             x--;
             break;
-        case RIGHT:
+        case EAST:
             x++;
             break;
-        case UP:
+        case NORTH:
             y++;
             break;
-        case DOWN:
+        case SOUTH:
             y--;
             break;    
         default:
@@ -62,3 +62,4 @@ void CannonBehaviorProvider::changeForDirection(direction_code dir, int &x, int 
             break;
     }
 }
+
