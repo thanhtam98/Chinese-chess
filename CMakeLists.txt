@@ -31,6 +31,9 @@ add_executable(
   rule/behaviorProvider/chariotBehaviorProvider.cpp
   rule/behaviorProvider/defaultBehaviorProvider.cpp
   rule/behaviorProvider/soldierBehaviorProvider.cpp
+  rule/behaviorProvider/abstractBehaviorProvider.cpp
+  rule/behaviorProvider/directionIterator.cpp
+  
 )
 
 target_link_libraries(

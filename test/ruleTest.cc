@@ -491,6 +491,7 @@ TEST(RunTest, testSoldierChessman1)
 
   EXPECT_CALL(targetChessman, getTeam())
               .WillRepeatedly(Return(RED));
+              
   EXPECT_CALL(blackChessman, getTeam())
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
@@ -503,7 +504,6 @@ TEST(RunTest, testSoldierChessman1)
   std::vector <direction_code> list = {SOUTH,WEST,EAST};
 
   Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider(),list);
-
   vector<Point *> actual = rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
@@ -548,7 +548,8 @@ TEST(RunTest, testSoldierChessman2)
   };
   std::vector <direction_code> list = {NORTH};
 
-  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider(),list);
+  Rule rule = Rule::create(&board).at(Point::of(5, 7))
+        .getPlusShape(new SoldierBehaviorProvider(),list);
 
   vector<Point *> actual = rule.getPossibleMove();
 
