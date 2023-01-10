@@ -503,7 +503,8 @@ TEST(RunTest, testSoldierChessman1)
 
   std::vector <direction_code> list = {SOUTH,WEST,EAST};
 
-  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider(),list);
+  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider());
+
   vector<Point *> actual = rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
@@ -548,8 +549,7 @@ TEST(RunTest, testSoldierChessman2)
   };
   std::vector <direction_code> list = {NORTH};
 
-  Rule rule = Rule::create(&board).at(Point::of(5, 7))
-        .getPlusShape(new SoldierBehaviorProvider(),list);
+  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider(),list);
 
   vector<Point *> actual = rule.getPossibleMove();
 

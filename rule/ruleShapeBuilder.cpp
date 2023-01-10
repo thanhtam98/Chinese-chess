@@ -21,9 +21,65 @@ bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
 }
 RuleLimitBuilder RuleShapeBuilder::getPlusShape(AbstractBehaviorProvider* behaviorProvider,
                                                 std::vector<direction_code> denyDirList){
+    Point* target = rule.target;
+    vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    int x = target->getX();
+    int y = target->getY();
+    IBoard *board = rule.board;
 
     behaviorProvider->handleDirection(rule);
+
+    // behaviorProvider->handleDirection(rule);
     
+    // while (dir : Dir)
+    // {
+    //     while (obj.hasNext)
+    //     {
+    //         val = obj.getvalue
+    //         if (isContinuedAndAddPossibleMoves(predicate, val) )
+    //         {
+    //             behaviorProvider.
+    //         }
+    //         else
+    //         {
+    //             nextDir()
+    //         }
+    //     }       
+
+    //     }
+    // }
+
+    // /* Left ->  */
+    // if (!Utils::isDirContainsInList(denyDirList, WEST))
+    //     for (int i = x+1; i < BOARD_WIDTH; i++){
+    //         if (isContinuedAndAddPossibleMoves(Point::of(i,y), behaviorProvider) == false)
+    //             break;
+    // }
+    // /* Right <-  */
+    // if (!Utils::isDirContainsInList(denyDirList, EAST))
+    // {
+    //     for (int i = x-1; i >= 0; i--){
+    //         if (isContinuedAndAddPossibleMoves(Point::of(i,y), behaviorProvider) == false)
+    //             break;
+    //     }
+    // }
+    // /* Up  /\ */
+    // if (!Utils::isDirContainsInList(denyDirList, NORTH))
+    // {
+    //     for (int i = y+1; i < BOARD_LENGTH; i++){
+    //         if (isContinuedAndAddPossibleMoves(Point::of(x,i), behaviorProvider) == false)
+    //             break;
+    //     }
+    // }
+    // /* Down \/ */
+    // if (!Utils::isDirContainsInList(denyDirList, SOUTH))
+    // {
+    //     for (int i = y-1; i >= 0; i--){
+    //         if (isContinuedAndAddPossibleMoves(Point::of(x,i), behaviorProvider) == false)
+    //             break;
+    //     }
+    // }
+  
     return RuleLimitBuilder{rule};
 }
 

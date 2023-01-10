@@ -7,31 +7,21 @@ bool SoldierBehaviorProvider::predicate(Point *point, Rule &rule) {
     return false;
 }
 
-std::vector<direction_code> SoldierBehaviorProvider::getListDir(Rule &rule){
-
-    Point *point = rule.getTarget();
-    IBoard *board = rule.board;
-    int x = point->getX();
-    int y = point->getY();
-    IChessman *chessman = board->getChessman(x,y);
+vector<direction_code> SoldierBehaviorProvider::getListDir(Rule &rule) {
+    Point* target = rule.getTarget();
+    IBoard* board = rule.getIBoard();
+    IChessman *chessman = board->getChessman(target->getX(), target->getY());
+    team_code team = chessman->getTeam();
 
     if(chessman == NULL){
         return vector<direction_code>();
     }
 
-    if (chessman->getTeam() == point->getTeam()){
-        if (chessman->getTeam() == RED){
-            return {NORTH};
-        }
-        else{
-            return {SOUTH};
-        } 
-    }
-    else{
-        if (chessman->getTeam() == RED){
-            return {NORTH, EAST, WEST};
-        }else{
-            return {SOUTH, EAST, WEST};
-        }
+    if (target->getTeam() == team) {
+        if (team == RED) return {NORTH};
+        else return {SOUTH};
+    } else {
+        if (team == RED) return {NORTH, WEST, EAST};
+        else return {SOUTH, WEST, EAST};
     }
 }

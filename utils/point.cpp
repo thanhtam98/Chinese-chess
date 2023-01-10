@@ -4,8 +4,10 @@
 Point* Point::cache[BOARD_LENGTH*BOARD_WIDTH] = {};
 // Point** Point::cache = Point::alloc_cache();
 Point* Point::of(int _x, int _y) {
-    if (!isWithinBoundary(_x, _y))
+    if (!isWithinBoundary(_x, _y)) {
+        std::cout << "x: " << _x << "; y: " << _y << std::endl;
         throw std::invalid_argument("Class Point: Invalid Coordinate");
+    }
     int index =  _y * BOARD_WIDTH + _x;
     if (cache[index] == nullptr) {
         return cache[index] = new Point(_x, _y);
