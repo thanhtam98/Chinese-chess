@@ -30,11 +30,19 @@ bool Point::isWithinPalace(int x, int y) {
 //     return p;
 // }
 team_code Point::getTeam() {
-    return y >  FRONTIER ?  RED : BLACK;
+    return y >  FRONTIER ?  BLACK : RED;
 }
 int Point::getX(){
     return x;
 }
 int Point::getY(){
     return y;
+}
+
+std::ostream& operator<<(std::ostream &os,  Point &obj)
+{
+    os << "[" << obj.getX() << ","
+                   << obj.getY() << "]";
+    os << endl;
+    return os;
 }

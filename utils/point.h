@@ -17,6 +17,7 @@ private:
     const int x;
     const int y;
     static Point *cache[BOARD_LENGTH*BOARD_WIDTH];
+    friend std::ostream& operator<<(std::ostream &os,  Point &obj);
     // static Point **cache;
     
 };

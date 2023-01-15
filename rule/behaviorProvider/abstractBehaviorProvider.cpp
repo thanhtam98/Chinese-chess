@@ -19,7 +19,7 @@ void AbstractBehaviorProvider::handleDirection(Rule &rule){
         while (dirInterator->hasNext())
         {
             Point *point = dirInterator->getNext();
-            std::cout << "Handle the point (" << point->getX() << ";" << point->getY() << ")";
+            std::cout << "Handle the point (" << *point;
             if (predicate(point, rule))
             {
                 std::cout << "[True]" << std::endl;

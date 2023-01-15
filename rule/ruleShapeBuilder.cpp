@@ -7,8 +7,7 @@
 
 bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
                     AbstractBehaviorProvider* behaviorProvider)
-{
-    if (behaviorProvider->predicate(point, rule))
+{ if (behaviorProvider->predicate(point, rule))
     {
         behaviorProvider->handleTrue(point, rule);
         return true;

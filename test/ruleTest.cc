@@ -484,7 +484,7 @@ TEST(RunTest, testSoldierChessman1)
               .WillOnce(Return(true));             
 /* Exclude chessmen */
   EXPECT_CALL(board,getChessman(3,4))
-              .WillOnce(Return(&blackChessman));
+              .WillRepeatedly(Return(&blackChessman));
 
   EXPECT_CALL(board,getChessman(3,3))
               .WillRepeatedly(Return(&targetChessman)); 
@@ -501,8 +501,6 @@ TEST(RunTest, testSoldierChessman1)
       Point::of(3, 4)
   };
 
-  std::vector <direction_code> list = {SOUTH,WEST,EAST};
-
   Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
@@ -518,14 +516,14 @@ TEST(RunTest, testSoldierChessman2)
   MockChessman blackChessman;
   MockChessman redChessman;
 
-   EXPECT_CALL(board,isOccupied(5,6))
+   EXPECT_CALL(board,isOccupied(5,8))
               .WillOnce(Return(true)); 
    EXPECT_CALL(board,isOccupied(6,7))
               .WillOnce(Return(true)); 
    EXPECT_CALL(board,isOccupied(4,7))
               .WillOnce(Return(false));             
 /* Exclude chessmen */
-  EXPECT_CALL(board,getChessman(5,6))
+  EXPECT_CALL(board,getChessman(5,8))
               .WillOnce(Return(&redChessman)); 
   EXPECT_CALL(board,getChessman(6,7))
               .WillOnce(Return(&blackChessman));
@@ -549,7 +547,7 @@ TEST(RunTest, testSoldierChessman2)
   };
   std::vector <direction_code> list = {NORTH};
 
-  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider(),list);
+  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider());
 
   vector<Point *> actual = rule.getPossibleMove();
 

@@ -8,7 +8,7 @@ bool DefaultBehaviorProvider::predicate(Point *point, Rule &rule) {
 }
 
 void DefaultBehaviorProvider::handleTrue(Point *point, Rule &rule) {
-    std::vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    std::vector<Point*> *possixbleMoves = &(rule.possibleMoves);
     possibleMoves->push_back(point);
 }
 
