@@ -5,7 +5,7 @@ build:
   before_script:
     - apk update && apk add g++
   script:
-    - g++ -g -I./ **/*.cpp *.cpp -o chinese-chess
+    - g++ -g -I./ **/*.cpp **/**/*.cpp *.cpp -o chinese-chess
   artifacts:
     paths:
       - chinese-chess
