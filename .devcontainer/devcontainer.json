@@ -21,7 +21,8 @@
 				"ms-vsliveshare.vsliveshare-pack",
 				"matepek.vscode-catch2-test-adapter",
 				"svipas.code-autocomplete",
-				"TabNine.tabnine-vscode"
+				"TabNine.tabnine-vscode",
+				"ms-vscode.cpptools-themes"
 			]
 		}
 	},

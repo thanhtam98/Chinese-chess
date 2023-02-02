@@ -4,7 +4,13 @@
 #include "logic/iChessman.h"
 #include "utils/constant.h"
 #include "logic/iBoard.h"
-
+/**
+ * @brief This is the implementation of the IBoard interface
+ * It creates and manages all chessmen infomation
+ * It also provides some relative functions.
+ * @param
+ * 
+*/
 class Board : public IBoard{
 public:
     static Board* getInstance();
@@ -15,7 +21,6 @@ private:
     Board() {};
     static Board* instance;
     IChessman* map[BOARD_WIDTH][BOARD_LENGTH];
-    
 };
 
 #endif

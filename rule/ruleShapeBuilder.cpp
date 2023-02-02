@@ -5,6 +5,11 @@
 #include "utils/utils.h"
 #include <iostream>
 
+#include "rule/behaviorProvider/chariotBehaviorProvider.h"
+#include "rule/behaviorProvider/cannonBehaviorProvider.h"
+#include "rule/behaviorProvider/soldierBehaviorProvider.h"
+#include "rule/behaviorProvider/defaultBehaviorProvider.h"
+
 bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
                     AbstractBehaviorProvider* behaviorProvider)
 { if (behaviorProvider->predicate(point, rule))
@@ -18,66 +23,32 @@ bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
         return false;
     }
 }
-RuleLimitBuilder RuleShapeBuilder::getPlusShape(AbstractBehaviorProvider* behaviorProvider,
-                                                std::vector<direction_code> denyDirList){
+RuleLimitBuilder RuleShapeBuilder::getShape(){
     Point* target = rule.target;
     vector<Point*> *possibleMoves = &(rule.possibleMoves);
     int x = target->getX();
     int y = target->getY();
     IBoard *board = rule.board;
+    IChessman *chessman = board->getChessman(x, y);
+    AbstractBehaviorProvider* _behaviorProvider = NULL;
+    switch (chessman->getCode()){
+        case CHARIOT:
+            _behaviorProvider = new ChariotBehaviorProvider();
+            break;
+        case SOLDIER:
+            _behaviorProvider = new SoldierBehaviorProvider();
+            break;
+        case CANNON:
+            _behaviorProvider = new CannonBehaviorProvider();
+            break;
+        default:
+            _behaviorProvider = new DefaultBehaviorProvider();
+            break;
+        
+    }
 
-    behaviorProvider->handleDirection(rule);
+    _behaviorProvider->handleDirection(rule);
 
-    // behaviorProvider->handleDirection(rule);
-    
-    // while (dir : Dir)
-    // {
-    //     while (obj.hasNext)
-    //     {
-    //         val = obj.getvalue
-    //         if (isContinuedAndAddPossibleMoves(predicate, val) )
-    //         {
-    //             behaviorProvider.
-    //         }
-    //         else
-    //         {
-    //             nextDir()
-    //         }
-    //     }       
-
-    //     }
-    // }
-
-    // /* Left ->  */
-    // if (!Utils::isDirContainsInList(denyDirList, WEST))
-    //     for (int i = x+1; i < BOARD_WIDTH; i++){
-    //         if (isContinuedAndAddPossibleMoves(Point::of(i,y), behaviorProvider) == false)
-    //             break;
-    // }
-    // /* Right <-  */
-    // if (!Utils::isDirContainsInList(denyDirList, EAST))
-    // {
-    //     for (int i = x-1; i >= 0; i--){
-    //         if (isContinuedAndAddPossibleMoves(Point::of(i,y), behaviorProvider) == false)
-    //             break;
-    //     }
-    // }
-    // /* Up  /\ */
-    // if (!Utils::isDirContainsInList(denyDirList, NORTH))
-    // {
-    //     for (int i = y+1; i < BOARD_LENGTH; i++){
-    //         if (isContinuedAndAddPossibleMoves(Point::of(x,i), behaviorProvider) == false)
-    //             break;
-    //     }
-    // }
-    // /* Down \/ */
-    // if (!Utils::isDirContainsInList(denyDirList, SOUTH))
-    // {
-    //     for (int i = y-1; i >= 0; i--){
-    //         if (isContinuedAndAddPossibleMoves(Point::of(x,i), behaviorProvider) == false)
-    //             break;
-    //     }
-    // }
   
     return RuleLimitBuilder{rule};
 }

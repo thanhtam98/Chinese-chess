@@ -41,58 +41,6 @@ void listPossibleMoveCmp(vector<Point *> expect, vector<Point *> actual)
   }
 }
 
-TEST(RunTest, testGetPlusShapeCase1)
-{
-  MockBoard board;
-  vector<Point *> expect = {
-      Point::of(4, 0),
-      Point::of(4, 1),
-      Point::of(4, 2),
-      Point::of(4, 4),
-      Point::of(4, 5),
-      Point::of(4, 6),
-      Point::of(4, 7),
-      Point::of(4, 8),
-      Point::of(4, 9),
-      Point::of(0, 3),
-      Point::of(1, 3),
-      Point::of(2, 3),
-      Point::of(3, 3),
-      Point::of(5, 3),
-      Point::of(6, 3),
-      Point::of(7, 3),
-      Point::of(8, 3)};
-  Rule rule = Rule::create(&board).at(Point::of(4, 3)).getPlusShape(new DefaultBehaviorProvider());
-  vector<Point *> actual = rule.getPossibleMove();
-  listPossibleMoveCmp(expect, actual);
-}
-
-TEST(RunTest, testGetPlusShapeCase2)
-{
-  MockBoard board;
-  vector<Point *> expect = {
-      Point::of(8, 0),
-      Point::of(8, 1),
-      Point::of(8, 2),
-      Point::of(8, 4),
-      Point::of(8, 5),
-      Point::of(8, 6),
-      Point::of(8, 7),
-      Point::of(8, 8),
-      Point::of(8, 3),
-      Point::of(0, 9),
-      Point::of(1, 9),
-      Point::of(2, 9),
-      Point::of(3, 9),
-      Point::of(5, 9),
-      Point::of(6, 9),
-      Point::of(7, 9),
-      Point::of(4, 9)};
-  Rule rule = Rule::create(&board).at(Point::of(8, 9)).getPlusShape(new DefaultBehaviorProvider());
-
-  vector<Point *> actual = rule.getPossibleMove();
-  listPossibleMoveCmp(expect, actual);
-}
 
 TEST(RunTest, testGetCrossShapeCase1)
 {
@@ -411,6 +359,8 @@ TEST(RunTest, testChariotChessman1)
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(CHARIOT));
     
   vector<Point *> expect = {
       Point::of(2, 0),
@@ -426,7 +376,7 @@ TEST(RunTest, testChariotChessman1)
       Point::of(2, 7)
   };
 
-  Rule rule = Rule::create(&board).at(Point::of(2, 3)).getPlusShape(new ChariotBehaviorProvider());
+  Rule rule = Rule::create(&board).at(Point::of(2, 3)).getShape();
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -460,13 +410,14 @@ TEST(RunTest, testChariotChessman2)
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
-    
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(CHARIOT));
+
   vector<Point *> expect = {
       Point::of(8, 1)
   };
 
-  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getPlusShape(new ChariotBehaviorProvider());
-
+  Rule rule = Rule::create(&board).at(Point::of(8, 0)).getShape();
   vector<Point *> actual = rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
@@ -496,12 +447,14 @@ TEST(RunTest, testSoldierChessman1)
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
-    
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(SOLDIER));
+
   vector<Point *> expect = {
       Point::of(3, 4)
   };
 
-  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getPlusShape(new SoldierBehaviorProvider());
+  Rule rule = Rule::create(&board).at(Point::of(3, 3)).getShape();
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -536,7 +489,8 @@ TEST(RunTest, testSoldierChessman2)
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
-    
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(SOLDIER));    
   vector<Point *> expect = {
       Point::of(6, 7),
       Point::of(4, 7)
@@ -547,7 +501,7 @@ TEST(RunTest, testSoldierChessman2)
   };
   std::vector <direction_code> list = {NORTH};
 
-  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getPlusShape(new SoldierBehaviorProvider());
+  Rule rule = Rule::create(&board).at(Point::of(5, 7)).getShape();
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -601,7 +555,8 @@ TEST(RunTest, testCannonChessman1)
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
-    
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(CANNON));   
   vector<Point *> expect = {
       Point::of(3, 0),
       Point::of(3, 1),
@@ -611,7 +566,7 @@ TEST(RunTest, testCannonChessman1)
       Point::of(1, 2)
   };
 
-  Rule rule = Rule::create(&board).at(Point::of(3, 2)).getPlusShape(new CannonBehaviorProvider());
+  Rule rule = Rule::create(&board).at(Point::of(3, 2)).getShape();
 
   vector<Point *> actual = rule.getPossibleMove();
 
@@ -674,6 +629,8 @@ TEST(RunTest, testCannonChessman2)
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(CANNON));  
     
   vector<Point *> expect = {
       Point::of(8, 1),
@@ -691,8 +648,7 @@ TEST(RunTest, testCannonChessman2)
       Point::of(7, 4)
   };
 
-  Rule rule = Rule::create(&board).at(Point::of(8, 4)).getPlusShape(new CannonBehaviorProvider());
-
+  Rule rule = Rule::create(&board).at(Point::of(8, 4)).getShape();
   vector<Point *> actual = rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);

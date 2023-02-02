@@ -9,8 +9,7 @@ private:
     bool isContinuedAndAddPossibleMoves(Point *point, AbstractBehaviorProvider* behaviorProvider);
 public:  
     RuleShapeBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
-    RuleLimitBuilder getPlusShape(AbstractBehaviorProvider* behaviorProvider,
-                                std::vector<direction_code> denyDirList = {});
+    RuleLimitBuilder getShape();
     RuleLimitBuilder getCrossShape();
     RuleLimitBuilder getElsShape();
 };

@@ -2,6 +2,9 @@
 #include "utils/point.h"
 #include "rule/rule.h"
 #include "rule/behaviorProvider/directionIterator.h"
+
+
+
 class AbstractBehaviorProvider {
 public:
     virtual bool predicate(Point *point, Rule &rule) = 0;

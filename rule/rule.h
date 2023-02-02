@@ -10,6 +10,11 @@ class DefaultBehaviorProvider;
 class CannonBehaviorProvider;
 class SoldierBehaviorProvider;
 
+/**
+ *  @brief 
+ *  rule work as a service to provide a set of moves of a chessman.
+ *  rule will ask the board for the chessman information
+*/
 class Rule
 {
 public:
