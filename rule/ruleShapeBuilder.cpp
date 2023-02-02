@@ -9,7 +9,7 @@
 #include "rule/behaviorProvider/cannonBehaviorProvider.h"
 #include "rule/behaviorProvider/soldierBehaviorProvider.h"
 #include "rule/behaviorProvider/defaultBehaviorProvider.h"
-
+#include "rule/behaviorProvider/advisorBehaviorProvider.h"
 bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
                     AbstractBehaviorProvider* behaviorProvider)
 { if (behaviorProvider->predicate(point, rule))
@@ -30,24 +30,27 @@ RuleLimitBuilder RuleShapeBuilder::getShape(){
     int y = target->getY();
     IBoard *board = rule.board;
     IChessman *chessman = board->getChessman(x, y);
-    AbstractBehaviorProvider* _behaviorProvider = NULL;
+    AbstractBehaviorProvider* behaviorProvider = NULL;
     switch (chessman->getCode()){
         case CHARIOT:
-            _behaviorProvider = new ChariotBehaviorProvider();
+            behaviorProvider = new ChariotBehaviorProvider();
             break;
         case SOLDIER:
-            _behaviorProvider = new SoldierBehaviorProvider();
+            behaviorProvider = new SoldierBehaviorProvider();
             break;
         case CANNON:
-            _behaviorProvider = new CannonBehaviorProvider();
+            behaviorProvider = new CannonBehaviorProvider();
+            break;
+        case ADVISOR:
+            behaviorProvider = new AdvisorBehaviorProvider();
             break;
         default:
-            _behaviorProvider = new DefaultBehaviorProvider();
+            behaviorProvider = new DefaultBehaviorProvider();
             break;
         
     }
 
-    _behaviorProvider->handleDirection(rule);
+    behaviorProvider->handleDirection(rule);
 
   
     return RuleLimitBuilder{rule};

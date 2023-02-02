@@ -1,4 +1,6 @@
 # Chinese chess
 
 ## Todo
-  [x] refactor the chessmans
+  [] Write elephant, general chessman rules.
+  [] Refactor horse chessman rule
+  [] Refactor behaviorProviders
