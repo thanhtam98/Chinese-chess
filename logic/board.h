@@ -17,7 +17,7 @@ public:
     static Board* getInstance();
     std::vector<Point*> get();
     bool isOccupied (int x, int y);
-    bool Board::isOccupied (Point *point);
+    bool isOccupied (Point *point);
     IChessman* getChessman(int x, int y);
     IChessman* getChessman(Point *point);
     
