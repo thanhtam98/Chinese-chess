@@ -4,6 +4,7 @@
 #include "logic/iChessman.h"
 #include "utils/constant.h"
 #include "logic/iBoard.h"
+#include "utils/point.h"
 /**
  * @brief This is the implementation of the IBoard interface
  * It creates and manages all chessmen infomation
@@ -16,7 +17,10 @@ public:
     static Board* getInstance();
     std::vector<Point*> get();
     bool isOccupied (int x, int y);
-    IChessman* getChessman(int x, int y);;
+    bool Board::isOccupied (Point *point);
+    IChessman* getChessman(int x, int y);
+    IChessman* getChessman(Point *point);
+    
 private:
     Board() {};
     static Board* instance;

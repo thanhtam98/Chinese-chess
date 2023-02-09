@@ -36,6 +36,7 @@ add_executable(
   rule/behaviorProvider/abstractBehaviorProvider.cpp
   rule/behaviorProvider/advisorBehaviorProvider.cpp
   rule/behaviorProvider/directionIterator.cpp
+  rule/behaviorProvider/elephantBehaviorProvider.cpp
   
 )
 

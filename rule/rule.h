@@ -10,7 +10,7 @@ class DefaultBehaviorProvider;
 class CannonBehaviorProvider;
 class SoldierBehaviorProvider;
 class AdvisorBehaviorProvider;
-
+class ElephantBehaviorProvider;
 /**
  *  @brief 
  *  rule work as a service to provide a set of moves of a chessman.
@@ -27,6 +27,7 @@ public:
     friend class CannonBehaviorProvider;
     friend class SoldierBehaviorProvider;
     friend class AdvisorBehaviorProvider;
+    friend class ElephantBehaviorProvider;
     static RuleTargetBuilder create(IBoard *_board);
     friend std::ostream& operator<<(std::ostream &os, const Rule &obj);
     Point* getTarget();

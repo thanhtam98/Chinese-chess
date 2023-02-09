@@ -10,6 +10,8 @@
 #include "rule/behaviorProvider/soldierBehaviorProvider.h"
 #include "rule/behaviorProvider/defaultBehaviorProvider.h"
 #include "rule/behaviorProvider/advisorBehaviorProvider.h"
+#include "rule/behaviorProvider/elephantBehaviorProvider.h"
+
 bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
                     AbstractBehaviorProvider* behaviorProvider)
 { if (behaviorProvider->predicate(point, rule))
@@ -43,6 +45,9 @@ RuleLimitBuilder RuleShapeBuilder::getShape(){
             break;
         case ADVISOR:
             behaviorProvider = new AdvisorBehaviorProvider();
+            break;
+        case ELEPHANT:
+            behaviorProvider = new ElephantBehaviorProvider();
             break;
         default:
             behaviorProvider = new DefaultBehaviorProvider();

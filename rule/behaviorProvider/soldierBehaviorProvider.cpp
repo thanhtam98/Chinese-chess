@@ -19,20 +19,20 @@ vector<direction_code> SoldierBehaviorProvider::getListDir(Rule &rule) {
     
     if (target->getTeam() == team) {
         if (team == RED) {
-            std::cout << "NORTH" << std::endl;
+            // std::cout << "NORTH" << std::endl;
             return {NORTH};
         }
         else{
-            std::cout << "SOUTH" << std::endl;
+            // std::cout << "SOUTH" << std::endl;
             return {SOUTH};
         } 
     } else {
         if (team == RED) {
-            std::cout << "NORTH, WEST, EAST" << std::endl;
+            // std::cout << "NORTH, WEST, EAST" << std::endl;
             return {NORTH, WEST, EAST};
 
         } else {
-            std::cout << "SOUTH, WEST, EAST" << std::endl;
+            // std::cout << "SOUTH, WEST, EAST" << std::endl;
             return {SOUTH, WEST, EAST};
         }
     }
