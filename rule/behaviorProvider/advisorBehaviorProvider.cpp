@@ -20,10 +20,10 @@ void AdvisorBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     int y = target->getY();
 
     if (!Point::isWithinPalace(point->getX(), point->getY())) {
-        std::cout << *point << "not in palace" << endl;
+        // std::cout << *point << "not in palace" << endl;
         return;
     }
-    std::cout << *point << " in palace" << endl;
+    // std::cout << *point << " in palace" << endl;
 
     if (!board->isOccupied(point->getX(),point->getY())){
         possibleMoves->push_back(point);

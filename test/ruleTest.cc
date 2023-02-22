@@ -846,3 +846,84 @@ TEST(RunTest, testElephantChessman2)
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
 }
+
+TEST(RunTest, testGeneralChessman1)
+{
+  MockBoard board;
+  MockChessman targetChessman; // red
+  MockChessman blackChessman;
+  MockChessman redChessman;
+
+  EXPECT_CALL(board,isOccupied(Point::of(3,0)))
+              .WillOnce(Return(true));
+  EXPECT_CALL(board,isOccupied(Point::of(5,0)))
+              .WillOnce(Return(true));  
+
+  EXPECT_CALL(board,isOccupied(Point::of(4,1)))
+              .WillOnce(Return(false));  
+
+            
+  EXPECT_CALL(board,getChessman(Point::of(5,0)))
+              .WillOnce(Return(&blackChessman));
+  EXPECT_CALL(board,getChessman(Point::of(3,0)))
+              .WillOnce(Return(&redChessman)); 
+  EXPECT_CALL(board,getChessman(4,0))
+              .WillRepeatedly(Return(&targetChessman));
+
+  EXPECT_CALL(targetChessman, getTeam())
+              .WillRepeatedly(Return(RED));
+  EXPECT_CALL(blackChessman, getTeam())
+              .WillRepeatedly(Return(BLACK));
+  EXPECT_CALL(redChessman, getTeam())
+              .WillRepeatedly(Return(RED));
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(GENERAL));  
+  vector<Point *> expect = {
+    Point::of(5,0),
+    Point::of(4,1)
+  };
+
+  Rule rule = Rule::create(&board).at(Point::of(4, 0)).getShape();
+  vector<Point *> actual = rule.getPossibleMove();
+
+  listPossibleMoveCmp(expect, actual);
+  // MOCK_METHOD
+}
+
+
+TEST(RunTest, testGeneralChessman2)
+{
+  MockBoard board;
+  MockChessman targetChessman; // red
+  MockChessman blackChessman;
+  MockChessman redChessman;
+
+  EXPECT_CALL(board,isOccupied(Point::of(4,7)))
+              .WillOnce(Return(true));
+  EXPECT_CALL(board,isOccupied(Point::of(3,8)))
+              .WillOnce(Return(false));
+            
+  EXPECT_CALL(board,getChessman(Point::of(4,7)))
+              .WillOnce(Return(&redChessman));
+  EXPECT_CALL(board,getChessman(3,7))
+              .WillRepeatedly(Return(&targetChessman));
+
+  EXPECT_CALL(targetChessman, getTeam())
+              .WillRepeatedly(Return(BLACK));
+  EXPECT_CALL(blackChessman, getTeam())
+              .WillRepeatedly(Return(BLACK));
+  EXPECT_CALL(redChessman, getTeam())
+              .WillRepeatedly(Return(RED));
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(GENERAL));  
+  vector<Point *> expect = {
+    Point::of(4,7),
+    Point::of(3,8)
+  };
+
+  Rule rule = Rule::create(&board).at(Point::of(3,7)).getShape();
+  vector<Point *> actual = rule.getPossibleMove();
+
+  listPossibleMoveCmp(expect, actual);
+  // MOCK_METHOD
+}
