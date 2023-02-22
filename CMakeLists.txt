@@ -3,7 +3,7 @@ project(chinese-chess)
 
 # GoogleTest requires at least C++14
 set(CMAKE_CXX_STANDARD 14)
-
+# set(CMAKE_BUILD_PARALLEL_LEVEL 12)
 include(FetchContent)
 FetchContent_Declare(
   googletest
@@ -38,6 +38,7 @@ add_executable(
   rule/behaviorProvider/directionIterator.cpp
   rule/behaviorProvider/elephantBehaviorProvider.cpp
   rule/behaviorProvider/generalBehaviorProvider.cpp
+  rule/behaviorProvider/horseBehaviorProvider.cpp
   
 )
 

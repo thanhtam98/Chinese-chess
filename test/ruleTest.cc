@@ -222,13 +222,13 @@ TEST(RunTest, testHorseChessman1)
   MockChessman redChessman;
 
 /* Hobbling */
-  EXPECT_CALL(board,isOccupied(4,4))
+  EXPECT_CALL(board,isOccupied(Point::of(4,4)))
               .WillOnce(Return(true));
-  EXPECT_CALL(board,isOccupied(5,3))
+  EXPECT_CALL(board,isOccupied(Point::of(5,3)))
               .WillOnce(Return(true));       
-  EXPECT_CALL(board,isOccupied(4,2))
+  EXPECT_CALL(board,isOccupied(Point::of(4,2)))
               .WillOnce(Return(false));
-  EXPECT_CALL(board,isOccupied(3,3))
+  EXPECT_CALL(board,isOccupied(Point::of(3,3)))
               .WillOnce(Return(false));       
 /* Exclude chessmen */
   EXPECT_CALL(board,isOccupied(2,4))
@@ -240,28 +240,31 @@ TEST(RunTest, testHorseChessman1)
   EXPECT_CALL(board,isOccupied(2,2))
               .WillOnce(Return(true));
 
-  EXPECT_CALL(board,getChessman(3,1))
+  EXPECT_CALL(board,getChessman(Point::of(3,1)))
               .WillOnce(Return(&redChessman)); 
-  EXPECT_CALL(board,getChessman(2,2))
+  EXPECT_CALL(board,getChessman(Point::of(2,2)))
               .WillOnce(Return(&blackChessman));
  /* */
+  EXPECT_CALL(board,getChessman(Point::of(4,3)))
+              .WillRepeatedly(Return(&targetChessman));         
   EXPECT_CALL(board,getChessman(4,3))
-              .WillOnce(Return(&blackChessman));         
+              .WillOnce(Return(&targetChessman));  
 
   EXPECT_CALL(targetChessman, getTeam())
-              .WillRepeatedly(Return(RED));
+              .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(blackChessman, getTeam())
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
-    
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(HORSE));  
   vector<Point *> expect = {
       Point::of(2,4),
       Point::of(3,1),
       Point::of(5,1) 
   };
-  Rule rule = Rule::create(&board).at(Point::of(4, 3)).
-        getElsShape().excludeHobbling().excludeChessmen();
+  
+  Rule rule = Rule::create(&board).at(Point::of(4, 3)).getShape();
   vector<Point *> actual = rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
@@ -276,35 +279,37 @@ TEST(RunTest, testHorseChessman2)
   MockChessman redChessman;
 
 /* Hobbling */
-  EXPECT_CALL(board,isOccupied(8,8))
+  EXPECT_CALL(board,isOccupied(Point::of(8,8)))
               .WillOnce(Return(true));
-  EXPECT_CALL(board,isOccupied(9,9))
+  EXPECT_CALL(board,isOccupied(Point::of(7,9)))
               .WillOnce(Return(false));  
-  EXPECT_CALL(board,isOccupied(7,9))
-              .WillOnce(Return(false));  
-  EXPECT_CALL(board,isOccupied(8,10))
-              .WillOnce(Return(false));  
+
 /* Exclude chessmen */
+
   EXPECT_CALL(board,isOccupied(6,8))
               .WillOnce(Return(true));
+  EXPECT_CALL(board,isOccupied(6,10))
+              .WillRepeatedly(Return(false));  
 
-  EXPECT_CALL(board,getChessman(6,8))
+  EXPECT_CALL(board,getChessman(Point::of(6,8)))
               .WillOnce(Return(&redChessman)); 
  /* */
+  EXPECT_CALL(board,getChessman(Point::of(8,9)))
+             .WillRepeatedly(Return(&targetChessman));  
   EXPECT_CALL(board,getChessman(8,9))
-              .WillOnce(Return(&redChessman));         
-
+             .WillOnce(Return(&targetChessman));  
   EXPECT_CALL(targetChessman, getTeam())
               .WillRepeatedly(Return(RED));
   EXPECT_CALL(blackChessman, getTeam())
               .WillRepeatedly(Return(BLACK));
   EXPECT_CALL(redChessman, getTeam())
               .WillRepeatedly(Return(RED));
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(HORSE));  
     
   vector<Point *> expect = {
   };
-  Rule rule = Rule::create(&board).at(Point::of(8,9)).
-        getElsShape().excludeHobbling().excludeChessmen();
+  Rule rule = Rule::create(&board).at(Point::of(8,9)).getShape();
   vector<Point *> actual = rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);

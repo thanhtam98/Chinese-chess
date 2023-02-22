@@ -12,6 +12,7 @@
 #include "rule/behaviorProvider/advisorBehaviorProvider.h"
 #include "rule/behaviorProvider/elephantBehaviorProvider.h"
 #include "rule/behaviorProvider/generalBehaviorProvider.h"
+#include "rule/behaviorProvider/horseBehaviorProvider.h"
 
 
 bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
@@ -53,6 +54,9 @@ RuleLimitBuilder RuleShapeBuilder::getShape(){
             break;
         case GENERAL:
             behaviorProvider = new GeneralBehaviorProvider();
+            break;
+        case HORSE:
+            behaviorProvider = new HorseBehaviorProvider();
             break;
         default:
             behaviorProvider = new DefaultBehaviorProvider();
