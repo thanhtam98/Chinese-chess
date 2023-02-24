@@ -7,7 +7,8 @@ using namespace std;
 enum team_code {
     RED,
     BLACK,
-    TEAM_SIZE
+    TEAM_SIZE,
+    T_NONE
 };
 
 enum chessman_code {
@@ -18,7 +19,8 @@ enum chessman_code {
     CHARIOT,
     CANNON,
     SOLDIER,
-    CHESSMAN_SIZE
+    CHESSMAN_SIZE,
+    C_NONE
 };
 
 enum direction_code {
@@ -31,6 +33,13 @@ enum direction_code {
     SOUTH_WEST,
     SOUTH_EAST,
     DIR_SIZE    
+};
+
+struct Piece {
+    chessman_code c;
+    team_code t;
+
+    bool operator!=(const Piece& other);
 };
 
 extern string chessman_name[TEAM_SIZE][CHESSMAN_SIZE];

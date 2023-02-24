@@ -41,12 +41,4 @@ private:
     Point* target;
     vector<Point*> possibleMoves;
     IBoard* board;
-    // Rule() {};
 };
-
-
-// // Rule::create() .at(Point::of(1,1))
-// .getPlusShape()
-// .getCrossShape() -> RuleLimitBuilder 
-// .getHorseShape()
-// >> return type 

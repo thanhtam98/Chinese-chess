@@ -1,8 +1,7 @@
 # Chinese chess
 
 ## Todo
-- [x] Write elephant, general chessman rules.
-- [ ] Refactor horse chessman rule
-- [ ] Refactor behaviorProviders
-- [ ] Write code for IBoard and IChessman
+- [x] Write code for IBoard and IChessman
+- [ ] Write newInstance for IChessman and implementations for every chessman
 - [ ] Design the User Interface
+- [ ] Refactor behaviorProviders [Optional]

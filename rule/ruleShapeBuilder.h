@@ -10,6 +10,4 @@ private:
 public:  
     RuleShapeBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
     RuleLimitBuilder getShape();
-    RuleLimitBuilder getCrossShape();
-    RuleLimitBuilder getElsShape();
 };

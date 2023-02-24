@@ -2,6 +2,8 @@
 #include "logic/iChessman.h"
 #include "utils/point.h"
 
+class IChessman;
+
 class IBoard {
 public:
 //    virtual std::vector<Point*> get() = 0;

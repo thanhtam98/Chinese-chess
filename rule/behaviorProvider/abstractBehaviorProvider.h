@@ -1,6 +1,7 @@
 #pragma once
 #include "utils/point.h"
 #include "rule/rule.h"
+#include "utils/constant.h"
 #include "rule/behaviorProvider/directionIterator.h"
 
 /**
@@ -27,4 +28,6 @@ public:
     virtual void handleFalse(Point *point, Rule &rule) = 0;
     virtual vector<direction_code> getListDir(Rule &rule) = 0;
     void handleDirection(Rule &rule);
+
+    static AbstractBehaviorProvider* newInstance(chessman_code code);
 };

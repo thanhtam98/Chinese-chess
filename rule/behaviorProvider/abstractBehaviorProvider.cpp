@@ -1,4 +1,12 @@
 #include "rule/behaviorProvider/abstractBehaviorProvider.h"
+#include "rule/behaviorProvider/chariotBehaviorProvider.h"
+#include "rule/behaviorProvider/cannonBehaviorProvider.h"
+#include "rule/behaviorProvider/soldierBehaviorProvider.h"
+#include "rule/behaviorProvider/defaultBehaviorProvider.h"
+#include "rule/behaviorProvider/advisorBehaviorProvider.h"
+#include "rule/behaviorProvider/elephantBehaviorProvider.h"
+#include "rule/behaviorProvider/generalBehaviorProvider.h"
+#include "rule/behaviorProvider/horseBehaviorProvider.h"
 #include <iostream>
 
 void AbstractBehaviorProvider::handleDirection(Rule &rule){
@@ -36,4 +44,25 @@ void AbstractBehaviorProvider::handleDirection(Rule &rule){
     }
     delete dirInterator;
 
+}
+
+AbstractBehaviorProvider* AbstractBehaviorProvider::newInstance(chessman_code code) {
+    switch (code){
+        case CHARIOT:
+            return new ChariotBehaviorProvider();
+        case SOLDIER:
+            return new SoldierBehaviorProvider();
+        case CANNON:
+            return new CannonBehaviorProvider();
+        case ADVISOR:
+            return new AdvisorBehaviorProvider();
+        case ELEPHANT:
+            return new ElephantBehaviorProvider();
+        case GENERAL:
+            return new GeneralBehaviorProvider();
+        case HORSE:
+            return new HorseBehaviorProvider();
+        default:
+            return new DefaultBehaviorProvider();       
+    }
 }
