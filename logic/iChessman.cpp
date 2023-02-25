@@ -5,5 +5,5 @@ bool IChessman::move(Point* point) {
 }
 
 IChessman* IChessman::newInstance(Piece *piece) {
-
+    return nullptr;
 }

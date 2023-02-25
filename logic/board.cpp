@@ -1,11 +1,11 @@
 #include "logic/board.h"
 
-Board* Board::instance = nullptr;
-Board* Board::getInstance() {
+IBoard* Board::instance = nullptr;
+IBoard* Board::getInstance() {
     if (instance == nullptr) {
         instance = new Board();
     }
-    instance->setup();
+    ((Board*) instance)->setup();
     return instance;
 }
 
@@ -29,19 +29,19 @@ IChessman* Board::getChessman(Point *point) {
 
 void Board::setup() {
     Piece pieces[BOARD_LENGTH][BOARD_WIDTH] = 
-    { {{.c = CHARIOT, .t = BLACK}, {.c = HORSE, .t = BLACK}, {.c = ELEPHANT, .t = BLACK}, {.c = ADVISOR, .t = BLACK}, {.c = GENERAL, .t = BLACK}, {.c = ADVISOR, .t = BLACK}, {.c = ELEPHANT, .t = BLACK}, {.c = HORSE, .t = BLACK}, {.c = CHARIOT, .t = BLACK} },
-      {{.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}},
-      {{.c = C_NONE, .t = T_NONE}, {.c = CANNON, .t = BLACK}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = CANNON, .t = BLACK}, {.c = C_NONE, .t = T_NONE}},
-      {{.c = SOLDIER, .t = BLACK}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = BLACK}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = BLACK}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = BLACK}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = BLACK}},
-      {{.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}},
-      {{.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}},
-      {{.c = SOLDIER, .t = RED}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = RED}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = RED}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = RED}, {.c = C_NONE, .t = T_NONE}, {.c = SOLDIER, .t = RED}},
-      {{.c = C_NONE, .t = T_NONE}, {.c = CANNON, .t = RED}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = CANNON, .t = RED}, {.c = C_NONE, .t = T_NONE}},
-      {{.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}, {.c = C_NONE, .t = T_NONE}},
-      {{.c = CHARIOT, .t = RED}, {.c = HORSE, .t = RED}, {.c = ELEPHANT, .t = RED}, {.c = ADVISOR, .t = RED}, {.c = GENERAL, .t = RED}, {.c = ADVISOR, .t = RED}, {.c = ELEPHANT, .t = RED}, {.c = HORSE, .t = RED}, {.c = CHARIOT, .t = RED} }
+    { {{CHARIOT, RED}, {HORSE, RED}, {ELEPHANT, RED}, {ADVISOR, RED}, {GENERAL, RED}, {ADVISOR, RED}, {ELEPHANT, RED}, {HORSE, RED}, {CHARIOT, RED} },
+      {{C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}},
+      {{C_NONE, T_NONE}, {CANNON, RED}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {CANNON, RED}, {C_NONE, T_NONE}},
+      {{SOLDIER, RED}, {C_NONE, T_NONE}, {SOLDIER, RED}, {C_NONE, T_NONE}, {SOLDIER, RED}, {C_NONE, T_NONE}, {SOLDIER, RED}, {C_NONE, T_NONE}, {SOLDIER, RED}},
+      {{C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}},
+      {{C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}},
+      {{SOLDIER, BLACK}, {C_NONE, T_NONE}, {SOLDIER, BLACK}, {C_NONE, T_NONE}, {SOLDIER, BLACK}, {C_NONE, T_NONE}, {SOLDIER, BLACK}, {C_NONE, T_NONE}, {SOLDIER, BLACK}},
+      {{C_NONE, T_NONE}, {CANNON, BLACK}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {CANNON, BLACK}, {C_NONE, T_NONE}},
+      {{C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}, {C_NONE, T_NONE}},
+      {{CHARIOT, BLACK}, {HORSE, BLACK}, {ELEPHANT, BLACK}, {ADVISOR, BLACK}, {GENERAL, BLACK}, {ADVISOR, BLACK}, {ELEPHANT, BLACK}, {HORSE, BLACK}, {CHARIOT, BLACK} }
     };
 
-    Piece blank = {.c = C_NONE, .t = T_NONE};
+    Piece blank = {C_NONE, T_NONE};
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {
             if (pieces[y][x] != blank) {

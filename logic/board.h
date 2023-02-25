@@ -15,8 +15,7 @@
 class Board : public IBoard{
 public:
     /* Singleton */
-    static Board* getInstance();
-    std::vector<Point*> get();
+    static IBoard* getInstance();
     bool isOccupied (int x, int y);
     bool isOccupied (Point *point);
     IChessman* getChessman(int x, int y);
@@ -25,11 +24,9 @@ public:
 private:
     Board() {};
     /* The single instance for Singleton */
-    static Board* instance;
+    static IBoard* instance;
     /* Intantiate chessmen and put them into the map */
     void setup();
-    /* A map showing all chessmen on the board and where they are */
-    IChessman* map[BOARD_WIDTH][BOARD_LENGTH];
 };
 
 #endif

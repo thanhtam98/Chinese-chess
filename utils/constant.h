@@ -39,6 +39,9 @@ struct Piece {
     chessman_code c;
     team_code t;
 
+    Piece() {};
+    Piece(chessman_code code, team_code team): c{code}, t{team} {};
+
     bool operator!=(const Piece& other);
 };
 
