@@ -2,6 +2,7 @@
 #include <vector>
 #include "utils/point.h"
 #include "logic/iBoard.h"
+#include "logic/iChessman.h"
 
 class RuleShapeBuilder;
 class RuleTargetBuilder;

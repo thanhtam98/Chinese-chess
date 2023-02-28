@@ -1,4 +1,5 @@
 #include "logic/board.h"
+#include "logic/chessman.h"
 
 IBoard* Board::instance = nullptr;
 IBoard* Board::getInstance() {
@@ -45,9 +46,9 @@ void Board::setup() {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {
             if (pieces[y][x] != blank) {
-                map[y][x] = IChessman::newInstance(&pieces[y][x]);
+                map[x][y] = Chessman::newInstance(pieces[y][x], Point::of(x,y));
             } else {
-                map[y][x] = nullptr;
+                map[x][y] = nullptr;
             }
         }
     }

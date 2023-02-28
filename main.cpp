@@ -11,8 +11,11 @@ using namespace std;
 int main(void)
 {
     cout << "Hello woasdasdasrld " << endl;
-    // IBoard* board = Board::getInstance();
+    IBoard* board = Board::getInstance();
+
     Point *point = Point::of(2,3);
+    // Rule rule = Rule::create(board).at(point).getShape();
+    // 
     cout << *point ;
     cout << "end of main " << endl;
 }

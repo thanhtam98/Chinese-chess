@@ -22,7 +22,8 @@
 				"matepek.vscode-catch2-test-adapter",
 				"svipas.code-autocomplete",
 				"TabNine.tabnine-vscode",
-				"ms-vscode.cpptools-themes"
+				"ms-vscode.cpptools-themes",
+				"foam.foam-vscode"
 			]
 		}
 	},

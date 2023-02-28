@@ -13,10 +13,10 @@ public:
     virtual bool move(Point* point) = 0; // provide for Iboard
     virtual team_code getTeam() = 0; // 
     virtual chessman_code getCode() = 0; //
-    static IChessman* newInstance(Piece *piece);
-private:
+    static IChessman* newInstance(Piece piece, Point *point);
+protected:
+    // vector <Point*> possibleMoves; // store the possible moves
     Point* slot;
-    team_code team;
-    chessman_code  code;
+    Piece  piece;
 };
 #endif
