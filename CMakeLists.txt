@@ -21,6 +21,7 @@ add_executable(
   test/pointTest.cc
   test/ruleTest.cc
   test/utilsTest.cc
+  utils/constant.cpp
   utils/point.cpp
   utils/utils.cpp
   rule/rule.cpp

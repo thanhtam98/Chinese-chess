@@ -9,5 +9,6 @@ public:
     MOCK_METHOD(bool, isOccupied, (Point *point), (override));
     MOCK_METHOD(IChessman*, getChessman, (int x, int y), (override));
     MOCK_METHOD(IChessman*, getChessman, (Point *point), (override));
-
+    MOCK_METHOD(void, move, (Point* from, Point* to), (override));
+    MOCK_METHOD(std::vector<Point*>, getPossibleMoves, (Point* target), (override));
 };

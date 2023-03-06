@@ -16,5 +16,4 @@ public:
     chessman_code getCode(); //
     Chessman(Piece piece, Point *point);
     static IChessman* newInstance(Piece piece, Point *point);
-
 };

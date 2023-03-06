@@ -20,7 +20,8 @@ public:
     bool isOccupied (Point *point);
     IChessman* getChessman(int x, int y);
     IChessman* getChessman(Point *point);
-    bool move(Point* from, Point* to);
+    void move(Point* from, Point* to) override;
+    std::vector<Point*> getPossibleMoves(Point* target) override;
 private:
     Board() {};
     /* The single instance for Singleton */

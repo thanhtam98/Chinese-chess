@@ -5,6 +5,7 @@
 #include "rule/ruleTargetBuilder.h"
 #include "rule/ruleLimitBuilder.h"
 #include "rule/ruleShapeBuilder.h"
+#include <ostream>
 
 IChessman* Chessman::newInstance(Piece piece, Point *point) {
     return new Chessman(piece, point);
@@ -31,7 +32,12 @@ bool Chessman::move(Point* new_point){
         return false;
     
     /* Can move the chessman */
-    // change slot
     this->slot = new_point;
     return true;
+}
+
+std::ostream& operator<<(std::ostream &os,  IChessman &obj)
+{
+    os << obj.piece.getName();
+    return os;
 }

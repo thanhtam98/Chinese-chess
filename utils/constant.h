@@ -38,11 +38,16 @@ enum direction_code {
 struct Piece {
     chessman_code c;
     team_code t;
+    static string names[CHESSMAN_SIZE];
 
     Piece() {};
     Piece(chessman_code code, team_code team): c{code}, t{team} {};
 
     bool operator!=(const Piece& other);
+
+    string getChessmanName();
+    string getTeamName();
+    string getName();
 };
 
 extern string chessman_name[TEAM_SIZE][CHESSMAN_SIZE];

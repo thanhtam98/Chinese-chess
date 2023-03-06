@@ -668,9 +668,7 @@ TEST(RunTest, testElephantChessman2)
   EXPECT_CALL(targetChessman, getCode())
               .WillOnce(Return(ELEPHANT));  
     
-  vector<Point *> expect = {
-
-  };
+  vector<Point *> expect = {};
 
   Rule rule = Rule::create(&board).at(Point::of(2, 4)).getShape();
   vector<Point *> actual = rule.getPossibleMove();

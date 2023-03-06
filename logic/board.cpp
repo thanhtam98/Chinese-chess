@@ -1,5 +1,6 @@
 #include "logic/board.h"
 #include "logic/chessman.h"
+#include <iostream>
 
 IBoard* Board::instance = nullptr;
 IBoard* Board::getInstance() {
@@ -26,6 +27,28 @@ IChessman* Board::getChessman(int x, int y) {
 
 IChessman* Board::getChessman(Point *point) {
     return map[point->getX()][point->getY()];
+}
+
+void Board::move(Point* from, Point* to) {
+    IChessman* fromChessman = getChessman(from);
+    if (isOccupied(to)) {
+        IChessman* toChessman = getChessman(to);
+        std::cout << "Delete chessman " << toChessman << std::endl;
+        delete toChessman;
+    } else {
+        map[to->getX()][to->getY()] = fromChessman;
+        map[from->getX()][from->getY()] = nullptr;
+    }
+    fromChessman->move(to);
+}
+
+std::vector<Point*> Board::getPossibleMoves(Point* target) {
+    IChessman* chessman = getChessman(target);
+    if (chessman) {
+        return chessman->getPossibleMoves();
+    } else {
+        return {};
+    }
 }
 
 void Board::setup() {

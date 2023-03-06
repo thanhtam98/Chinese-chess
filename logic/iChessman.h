@@ -14,6 +14,7 @@ public:
     virtual team_code getTeam() = 0; // 
     virtual chessman_code getCode() = 0; //
     static IChessman* newInstance(Piece piece, Point *point);
+    friend std::ostream& operator<<(std::ostream &os,  IChessman &obj);
 protected:
     // vector <Point*> possibleMoves; // store the possible moves
     Point* slot;
