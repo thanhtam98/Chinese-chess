@@ -2,8 +2,6 @@ image: mcr.microsoft.com/vscode/devcontainers/cpp:0-bullseye
 
 build:
   stage: build
-  before_script:
-    - sudo apt-get update && sudo apt-get install g++
   script:
     - g++ -g -std=c++14 -I./ **/*.cpp **/**/*.cpp main.cpp -Llibfinal/lib -lfinal -o chinese-chess
   artifacts:
@@ -12,8 +10,8 @@ build:
 
 test:
   stage: test
-  before_script:
-    - apk update && apk add g++ git make cmake
+  # before_script:
+
   script:
     - cmake -S . -B build
     - cmake --build build
