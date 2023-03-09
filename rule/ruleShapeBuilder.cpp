@@ -6,19 +6,6 @@
 #include <iostream>
 
 
-bool RuleShapeBuilder::isContinuedAndAddPossibleMoves(Point *point,
-                    AbstractBehaviorProvider* behaviorProvider)
-{ if (behaviorProvider->predicate(point, rule))
-    {
-        behaviorProvider->handleTrue(point, rule);
-        return true;
-    }
-    else
-    {
-        behaviorProvider->handleFalse(point, rule);
-        return false;
-    }
-}
 RuleLimitBuilder RuleShapeBuilder::getShape(){
     Point* target = rule.target;
     vector<Point*> *possibleMoves = &(rule.possibleMoves);

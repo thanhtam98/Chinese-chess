@@ -1,0 +1,47 @@
+============
+Coding style
+============
+
+Formatting
+----------
+* A new line should begin after 72 (max. 80) characters
+* Use 2 spaces indent. Do not use tabs!
+* Leave a space after the keywords if, switch, while, do, for, and return
+* Conditions are placed in parentheses with spaces -> if ( a > 5 )
+* Use one blank line before and after a for, if, switch, 
+  while, do..while code block
+* In parameter lists, leave a space after each comma
+* Starting curly brace "{" in a new line
+
+Naming
+------
+* class name: UpperCamelCase
+* Function: lowerCamelCase
+* Callback function: cb_lowerCamelCase (beginning with "cb_" as prefix)
+* Variable: lower_case_underscored
+
+Class declaration order
+-----------------------
+The declaration section order is:
+
+  * public:
+  * protected:
+  * private:
+
+Each declaration section should be in the following order:
+
+  * Using-declarations (using std::string;)
+  * Typedefs and Enumerations
+  * Constants (static const data members)
+  * Constructors
+  * Destructor
+  * Overloaded operators (=, +, -, +=. ...)
+  * Accessors (getXY)
+  * Mutators  (setXY)
+  * Inquiries (isXY)
+  * Methods, including static methods
+  * Event handler methods
+  * Callback methods
+  * Data Members (except static const data members)
+
+

@@ -1,7 +1,8 @@
 #pragma once
 #include "rule/behaviorProvider/abstractBehaviorProvider.h"
+#include "rule/behaviorProvider/defaultBehaviorProvider.h"
 
-class ElephantBehaviorProvider : public AbstractBehaviorProvider {
+class ElephantBehaviorProvider : public DefaultBehaviorProvider {
 public:
     virtual bool predicate(Point *point, Rule &rule) override;
     virtual void handleTrue(Point *point, Rule &rule) override;

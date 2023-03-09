@@ -1,4 +1,5 @@
 #include <iostream>
+#include "final/final.h"
 #include "ui/ui.h"
 #include "utils/constant.h"
 #include "utils/point.h"
@@ -8,14 +9,16 @@
 
 using namespace std;
 
-int main(void)
+auto main (int argc, char* argv[]) -> int 
 {
-    cout << "Hello woasdasdasrld " << endl;
-    IBoard* board = Board::getInstance();
+    finalcut::FApplication app(argc, argv);
+    finalcut::FDialog dialog(&app);
+    dialog.setText ("A dialog");
+    const finalcut::FPoint position{25, 5};
+    const finalcut::FSize size{30, 10};
+    dialog.setGeometry (position, size);
+    finalcut::FWidget::setMainWidget(&dialog);
+    dialog.show();
+    return app.exec();
 
-    Point *point = Point::of(2,3);
-    // Rule rule = Rule::create(board).at(point).getShape();
-    // 
-    cout << *point ;
-    cout << "end of main " << endl;
 }
