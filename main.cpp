@@ -8,17 +8,131 @@
 #include "logic/board.h"
 
 using namespace std;
+using namespace finalcut;
 
 auto main (int argc, char* argv[]) -> int 
-{
-    finalcut::FApplication app(argc, argv);
-    finalcut::FDialog dialog(&app);
-    dialog.setText ("A dialog");
-    const finalcut::FPoint position{25, 5};
-    const finalcut::FSize size{30, 10};
-    dialog.setGeometry (position, size);
-    finalcut::FWidget::setMainWidget(&dialog);
-    dialog.show();
-    return app.exec();
+{; 
+    printf("%c\n", 14); 
+    printf("┌──┬──┬\n") ; 
+    printf("├─┼─┼\n") ; 
+    printf("┌", 0x6C) ; 
+    printf("%c ", 0x6D) ;// # └
+    printf("%c ", 0x6E) ;// # ┼ 
+    printf("%c ", 0x71) ;// # ─
+    printf("%c ", 0x74) ;// # ├
+    printf("%c ", 0x75) ;// # ┤
+    printf("%c ", 0x76) ;// # ┴
+    printf("%c ", 0x77) ;// # ┬
+    printf("%c\n", 0x78);//  # │
+
+  FApplication app(argc, argv);
+
+  // The object dialog is managed by app
+  FDialog* dialog = new FDialog(&app);
+  dialog->setText ("Window Title");
+  dialog->setGeometry (FPoint{25, 5}, FSize{40, 10});
+
+  // The object input is managed by dialog
+  FLineEdit* input = new FLineEdit("predefined text", dialog);
+  input->setGeometry(FPoint{8, 2}, FSize{29, 1});
+  input->setLabelText (L"&Input");
+
+
+  // The object label is managed by dialog
+    FLabel* label = new FLabel ( "┌──┬─\n├──┼─\n"
+                             , dialog );
+  label->setGeometry (FPoint{3, 5}, FSize{5, 2});
+  FButton button{"車", dialog};
+  button.setGeometry (FPoint{3, 5}, FSize{4, 1});
+  button.unsetShadow(); 
+  button.addCallback
+  (
+    "clicked",                          // Callback signal
+    [] (FButton& button, FDialog& dgl)  // Lambda function
+    {
+      button.setColor(FColor::LightRed, FColor::Black);
+      dgl.redraw();
+    },
+    std::ref(button),                   // First function argument
+    std::ref(*dialog)                    // Second function argument
+  );
+
+  FWidget::setMainWidget(dialog);
+  dialog->show();
+  return app.exec();
 
 }
+
+// class dialogWidget : public FDialog
+// {
+//   public:
+//     explicit dialogWidget (FWidget* parent = nullptr)
+//       : FDialog{parent}
+//     {
+//       scrollview.setGeometry(FPoint{1, 1}, FSize{22, 11});
+//       scrollview.setScrollSize(FSize{60, 27});
+//       // Attention: getColorTheme() requires an initialized terminal
+//       const auto& wc = getColorTheme();
+//       setColor (wc->label_inactive_fg, wc->dialog_bg);
+//       scrollview.clearArea();
+//       FColorPair red (FColor::LightRed, wc->dialog_bg);
+//       FColorPair black (FColor::Black, wc->dialog_bg);
+//       FColorPair cyan (FColor::Cyan, wc->dialog_bg);
+
+//       static std::vector<direction> d
+//       {
+//         {"NW", FPoint{3,  13}, FPoint{1,  1},  black},
+//         {"N",  FPoint{10, 13}, FPoint{21, 1},  red},
+//         {"NE", FPoint{17, 13}, FPoint{41, 1},  black},
+//         {"W",  FPoint{3,  15}, FPoint{1,  10}, black},
+//         {"*",  FPoint{10, 15}, FPoint{21, 10}, black},
+//         {"E",  FPoint{17, 15}, FPoint{41, 10}, black},
+//         {"SW", FPoint{3,  17}, FPoint{1,  19}, black},
+//         {"S",  FPoint{10, 17}, FPoint{21, 19}, cyan},
+//         {"SE", FPoint{17, 17}, FPoint{41, 19}, black}
+//       };
+
+//       for (auto&& b : d)
+//       {
+//         scrollview.print() << std::get<2>(b) + FPoint{10, 5}
+//                            << std::get<3>(b) << std::get<0>(b);
+//         auto edit = new FLineEdit("direction " + std::get<0>(b), &scrollview);
+//         edit->setGeometry(std::get<2>(b) + FPoint{1, 1}, FSize{17, 1});
+//         auto btn = new FButton(std::move(std::get<0>(b)), this);
+//         btn->setGeometry(std::get<1>(b), FSize{4, 1});
+//         btn->unsetShadow();
+//         btn->addCallback
+//         (
+//           "clicked",
+//           this, &dialogWidget::cb_button, std::get<2>(b)
+//         );
+//       }
+//     }
+
+//   private:
+//     typedef std::tuple<FString, FPoint, FPoint, FColorPair> direction;
+
+//     void initLayout()
+//     {
+//       setText ("Dialog");
+//       setGeometry (FPoint{28, 2}, FSize{24, 21});
+//       FDialog::initLayout();
+//     }
+
+//     void cb_button (const FPoint& p)
+//     {
+//       scrollview.scrollTo(p);
+//     }
+
+//     FScrollView scrollview{this};
+// };
+
+// auto main (int argc, char* argv[]) -> int
+// {
+//   FApplication app(argc, argv);
+//   app.initTerminal();  // Terminal initialization
+//   dialogWidget dialog(&app);
+//   FWidget::setMainWidget(&dialog);
+//   dialog.show();
+//   return app.exec();
+// }
