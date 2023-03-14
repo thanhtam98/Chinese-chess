@@ -7,17 +7,16 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-
                 "-std=c++14",
-                "-I./",
-                "**/*.cpp",
-                "**/**/*.cpp",
-                "${file}",
-                "-L${fileDirname}/libfinal/lib",
+                "-I/workspaces/chinese-chess/",
+                "/workspaces/chinese-chess/**/*.cpp",
+                "/workspaces/chinese-chess/**/**/*.cpp",
+                "/workspaces/chinese-chess/main.cpp",
+                "-L/workspaces/chinese-chess/libfinal/lib",
+                "-Wl,-R/workspaces/chinese-chess/libfinal/lib",
                 "-lfinal",
                 "-o",
-                "${fileDirname}/chinese-chess",
-         
+                "/workspaces/chinese-chess/chinese-chess",
             ],
             "options": {
                 "cwd": "${fileDirname}"

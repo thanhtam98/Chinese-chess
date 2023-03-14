@@ -11,6 +11,8 @@
 
 ## How to install final cut lib to project
 ```
+sudo apt-get update
+sudo apt-get install autotools-dev automake autoconf autoconf-archive libtool pkg-config
 mkdir libfinal
 git clone https://github.com/gansm/finalcut.git
 cd finalcut

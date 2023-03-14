@@ -1,5 +1,5 @@
 #include "utils/utils.h"
-#include<bits/stdc++.h>
+#include <algorithm>
 
 void Utils::removePointFromVector(std::vector<Point*> *pointVector, int x, int y){
     if (Point::isWithinBoundary(x,y))
