@@ -26,6 +26,11 @@ auto main (int argc, char* argv[]) -> int
     printf("%c\n", 0x78);//  # │
 
   FApplication app(argc, argv);
+  auto lamda = [] (FButton& button, FDialog& dgl)  // Lambda function
+    {
+      button.setColor(FColor::LightRed, FColor::Black);
+      dgl.redraw();
+    };
 
   // The object dialog is managed by app
   FDialog* dialog = new FDialog(&app);
@@ -39,29 +44,31 @@ auto main (int argc, char* argv[]) -> int
 
 
   // The object label is managed by dialog
-    FLabel* label = new FLabel ( "┌──┬─\n├──┼─\n"
-                             , dialog );
-  label->setGeometry (FPoint{3, 5}, FSize{5, 2});
   FButton button{"車", dialog};
-  button.setGeometry (FPoint{3, 5}, FSize{4, 1});
+  button.setGeometry (FPoint{9, 5}, FSize{4, 1});
   button.unsetShadow(); 
-  button.addCallback
-  (
-    "clicked",                          // Callback signal
-    [] (FButton& button, FDialog& dgl)  // Lambda function
-    {
-      button.setColor(FColor::LightRed, FColor::Black);
-      dgl.redraw();
-    },
-    std::ref(button),                   // First function argument
-    std::ref(*dialog)                    // Second function argument
-  );
+  button.addCallback("clicked", lamda, std::ref(button), std::ref(*dialog));
+
+  FButton button2{"車", dialog};
+  button2.setGeometry (FPoint{13, 5}, FSize{4, 1});
+  button2.unsetShadow(); 
+  button2.addCallback("clicked", lamda, std::ref(button), std::ref(*dialog));
+
+  FLabel* label1 = new FLabel ( "┌───┬──\n│ ╲ │ \n├───┼─\n"
+                             , dialog );
+  label1->setGeometry (FPoint{3, 5}, FSize{6, 3});
+
+  FLabel* label2 = new FLabel ( "╱ │   │\n──┼───┼\n"
+                             , dialog );
+  label2->setGeometry (FPoint{9, 6}, FSize{7, 2});
 
   FWidget::setMainWidget(dialog);
   dialog->show();
   return app.exec();
 
 }
+
+
 
 // class dialogWidget : public FDialog
 // {
