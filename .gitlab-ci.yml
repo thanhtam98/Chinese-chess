@@ -3,7 +3,7 @@ image: mcr.microsoft.com/vscode/devcontainers/cpp:0-bullseye
 build:
   stage: build
   script:
-    - g++ -g -std=c++14 -I./ **/*.cpp **/**/*.cpp main.cpp -Llibfinal/lib -lfinal -o chinese-chess
+    - g++ -g -std=c++14 -I./ **/*.cpp **/**/*.cpp main.cpp -Llibfinal/lib -Wl,-Rlibfinal/lib -lfinal -o chinese-chess
   artifacts:
     paths:
       - chinese-chess
