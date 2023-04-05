@@ -21,4 +21,6 @@ autoreconf --install --force
 make
 sudo make install
 mv ../libfinal/include/final ../
+rm -rf ../finalcut
+cd ..
 ```

@@ -6,67 +6,87 @@
 #include "rule/rule.h"
 #include "logic/iBoard.h"
 #include "logic/board.h"
+#include "ui/BoardDialog.h"
 
 using namespace std;
 using namespace finalcut;
 
-auto main (int argc, char* argv[]) -> int 
-{; 
-    printf("%c\n", 14); 
-    printf("┌──┬──┬\n") ; 
-    printf("├─┼─┼\n") ; 
-    printf("┌", 0x6C) ; 
-    printf("%c ", 0x6D) ;// # └
-    printf("%c ", 0x6E) ;// # ┼ 
-    printf("%c ", 0x71) ;// # ─
-    printf("%c ", 0x74) ;// # ├
-    printf("%c ", 0x75) ;// # ┤
-    printf("%c ", 0x76) ;// # ┴
-    printf("%c ", 0x77) ;// # ┬
-    printf("%c\n", 0x78);//  # │
+auto main (int argc, char* argv[]) -> int
+{
+  // freopen("/workspaces/chinese-chess/log.txt","w",stdout);
+  // cout<<"Start the logfile" << endl;
 
-  FApplication app(argc, argv);
-  auto lamda = [] (FButton& button, FDialog& dgl)  // Lambda function
-    {
-      button.setColor(FColor::LightRed, FColor::Black);
-      dgl.redraw();
-    };
+  FApplication app{argc, argv};
 
-  // The object dialog is managed by app
-  FDialog* dialog = new FDialog(&app);
-  dialog->setText ("Window Title");
-  dialog->setGeometry (FPoint{25, 5}, FSize{40, 10});
+  BoardDialog board{&app};
 
-  // The object input is managed by dialog
-  FLineEdit* input = new FLineEdit("predefined text", dialog);
-  input->setGeometry(FPoint{8, 2}, FSize{29, 1});
-  input->setLabelText (L"&Input");
+  board.setGeometry(FPoint{1, 1}, FSize{60, 60}, false);
 
+  // Set dialog object mouse_draw as main widget
+  FWidget::setMainWidget(&board);
 
-  // The object label is managed by dialog
-  FButton button{"車", dialog};
-  button.setGeometry (FPoint{9, 5}, FSize{4, 1});
-  button.unsetShadow(); 
-  button.addCallback("clicked", lamda, std::ref(button), std::ref(*dialog));
-
-  FButton button2{"車", dialog};
-  button2.setGeometry (FPoint{13, 5}, FSize{4, 1});
-  button2.unsetShadow(); 
-  button2.addCallback("clicked", lamda, std::ref(button), std::ref(*dialog));
-
-  FLabel* label1 = new FLabel ( "┌───┬──\n│ ╲ │ \n├───┼─\n"
-                             , dialog );
-  label1->setGeometry (FPoint{3, 5}, FSize{6, 3});
-
-  FLabel* label2 = new FLabel ( "╱ │   │\n──┼───┼\n"
-                             , dialog );
-  label2->setGeometry (FPoint{9, 6}, FSize{7, 2});
-
-  FWidget::setMainWidget(dialog);
-  dialog->show();
+  // Show and start the application
+  board.show();
   return app.exec();
-
 }
+
+// auto main (int argc, char* argv[]) -> int 
+// {; 
+//     printf("%c\n", 14); 
+//     printf("┌──┬──┬\n") ; 
+//     printf("├─┼─┼\n") ; 
+//     printf("┌", 0x6C) ; 
+//     printf("%c ", 0x6D) ;// # └
+//     printf("%c ", 0x6E) ;// # ┼ 
+//     printf("%c ", 0x71) ;// # ─
+//     printf("%c ", 0x74) ;// # ├
+//     printf("%c ", 0x75) ;// # ┤
+//     printf("%c ", 0x76) ;// # ┴
+//     printf("%c ", 0x77) ;// # ┬
+//     printf("%c\n", 0x78);//  # │
+
+//   FApplication app(argc, argv);
+//   auto lamda = [] (FButton& button, FDialog& dgl)  // Lambda function
+//     {
+//       button.setColor(FColor::LightRed, FColor::Black);
+//       dgl.redraw();
+//     };
+
+//   // The object dialog is managed by app
+//   FDialog* dialog = new FDialog(&app);
+//   dialog->setText ("Window Title");
+//   dialog->setGeometry (FPoint{25, 5}, FSize{40, 10});
+
+//   // The object input is managed by dialog
+//   FLineEdit* input = new FLineEdit("predefined text", dialog);
+//   input->setGeometry(FPoint{8, 2}, FSize{29, 1});
+//   input->setLabelText (L"&Input");
+
+
+//   // The object label is managed by dialog
+//   FButton button{"車", dialog};
+//   button.setGeometry (FPoint{9, 5}, FSize{4, 1});
+//   button.unsetShadow(); 
+//   button.addCallback("clicked", lamda, std::ref(button), std::ref(*dialog));
+
+//   FButton button2{"車", dialog};
+//   button2.setGeometry (FPoint{13, 5}, FSize{4, 1});
+//   button2.unsetShadow(); 
+//   button2.addCallback("clicked", lamda, std::ref(button), std::ref(*dialog));
+
+//   FLabel* label1 = new FLabel ( "┌───┬──\n│ ╲ │ \n├───┼─\n"
+//                              , dialog );
+//   label1->setGeometry (FPoint{3, 5}, FSize{6, 3});
+
+//   FLabel* label2 = new FLabel ( "╱ │   │\n──┼───┼\n"
+//                              , dialog );
+//   label2->setGeometry (FPoint{9, 6}, FSize{7, 2});
+
+//   FWidget::setMainWidget(dialog);
+//   dialog->show();
+//   return app.exec();
+
+// }
 
 
 

@@ -1,0 +1,2234 @@
+2023-04-01  Markus Gans  <guru.mail@muenster.de>
+	* FApplication now has the ability to register mouse handler functions
+
+2023-03-24  Markus Gans  <guru.mail@muenster.de>
+	* Compile fix for clang++ 15 with std=c++20
+
+2023-03-16  Markus Gans  <guru.mail@muenster.de>
+	* Size and position changes in FDialog are now made immediately before 
+	  terminal output to speed up mouse-based changes
+
+2023-03-13  Markus Gans  <guru.mail@muenster.de>
+	* Speed up the drawing of shadows and boxes
+
+2023-02-28  Markus Gans  <guru.mail@muenster.de>
+	* Fix missing deletion of no_changes and printed attributes on transparency
+
+2023-02-24  Markus Gans  <guru.mail@muenster.de>
+	* Small speed-up of the print function
+
+2023-02-20  Markus Gans  <guru.mail@muenster.de>
+	* Fixes display problems with half-covered full-width characters 
+	  with color overlay
+	* Fixes display inconsistencies that occur when a full-width 
+	  character is used in combination with the terminal repeat (REP) 
+	  function
+
+2023-02-17  Markus Gans  <guru.mail@muenster.de>
+	* Fixes the conflict between reducing changes and hardware scrolling
+
+2023-02-14  Markus Gans  <guru.mail@muenster.de>
+	* Fixes the problem of insufficient space on resizing in FScrollView 
+	  by scrolling backwards
+
+2023-02-08  Markus Gans  <guru.mail@muenster.de>
+	* Better detection of the keypad center key
+
+2023-02-07  Markus Gans  <guru.mail@muenster.de>
+	* Keys are now identified via a hash map to speed up escape sequence 
+	  searches
+
+2023-02-04  Markus Gans  <guru.mail@muenster.de>
+	* Adapted color reset for st - simple terminal
+	* Fixes incorrect key detection caused by duplicate key sequences
+
+2023-01-29  Markus Gans  <guru.mail@muenster.de>
+	* Fixed invalid iterator on post-inserting an item in FListView
+	* The application will now be notified when the focus changes in 
+	  the terminal window, through the new onTermFocusIn() and 
+	  onTermFocusOut() event methods
+	* New methods removeColumn() and removeAllColumns() for 
+	  FListView to remove columns
+
+2023-01-22  Markus Gans  <guru.mail@muenster.de>
+	* Fix focus-in and focus-out errors FComboBox and FSpinBox
+
+2023-01-15  Markus Gans  <guru.mail@muenster.de>
+	* Speed-up of the update routine for virtual terminal
+
+2023-01-07  Markus Gans  <guru.mail@muenster.de>
+	* Accelerated copying of lines with transparent characters
+
+2023-01-05  Markus Gans  <guru.mail@muenster.de>
+	* Bugfix for broken scrollbar behavior in FScrollView widget
+	* Bugfix for infinite loop on input queue processing on exit
+
+2023-01-04  Markus Gans  <guru.mail@muenster.de>
+	* FObject now supports reverse iterators
+	* Small improvement of the display speed
+
+2023-01-03  Markus Gans  <guru.mail@muenster.de>
+	* The way how a widget gets the focus has been changed. It is now 
+	  a single step that includes sending focus events
+
+2022-12-26  Markus Gans  <guru.mail@muenster.de>
+	* Incomplete mouse sequences are no longer checked by 
+	  the keyboard parser
+	* Fixing the conflict between NOT_SET and FKey::Incomplete
+
+2022-12-24  Markus Gans  <guru.mail@muenster.de>
+	* Widget flags are now organized in a hierarchical structure
+
+2022-12-14  Markus Gans  <guru.mail@muenster.de>
+	* Simplifies the request of the encoding
+
+2022-12-08  Markus Gans  <guru.mail@muenster.de>
+	* Fixed the changes on printing of the last full-width character 
+	  in a virtual window
+	* Bugfix: getPrevCharLength() crashed on strings with a leading space
+
+2022-12-06  Markus Gans  <guru.mail@muenster.de>
+	* FLineEdit can set the alignment (left, center, or right) for 
+	  the content of the entry
+
+2022-12-04  Markus Gans  <guru.mail@muenster.de>
+	* Virtual windows now use C++ smart pointers for data storage
+
+2022-11-26  Markus Gans  <guru.mail@muenster.de>
+	* Removed the deprecated method isNull() in FString
+
+2022-11-25  Markus Gans  <guru.mail@muenster.de>
+	* New helper function to update the widget text of the status bar
+
+2022-11-20  Markus Gans  <guru.mail@muenster.de>
+	* FTimer specialization for FObject in FObjectTimer
+
+2022-11-12  Markus Gans  <guru.mail@muenster.de>
+	* Direct access to a character in a print area via coordinates
+
+2022-11-05  Markus Gans  <guru.mail@muenster.de>
+	* The new class FTimer now contains all timer methods
+
+2022-10-28  Markus Gans  <guru.mail@muenster.de>
+	* Generalize text reading from terminal
+
+2022-10-23  Markus Gans  <guru.mail@muenster.de>
+	* Queuing of mouse and keyboard inputs is now implemented with 
+	  a ring buffer
+
+2022-10-20  Markus Gans  <guru.mail@muenster.de>
+	* Speed-up code through more inline functions
+
+2022-10-18  Markus Gans  <guru.mail@muenster.de>
+	* To improve performance, the output buffer queue has been replaced 
+	  with a ring buffer
+
+2022-10-02  Markus Gans  <guru.mail@muenster.de>
+	* Strict use of trailing return type
+
+2022-06-13  Markus Gans  <guru.mail@muenster.de>
+	* Added a unit test for the FWidget class
+
+2022-05-29  Markus Gans  <guru.mail@muenster.de>
+	* Avoiding some friend classes
+
+2022-05-24  Markus Gans  <guru.mail@muenster.de>
+	* A unit test for the FEvent class was added
+
+2022-05-18  Markus Gans  <guru.mail@muenster.de>
+	* Fixed some errors
+
+2022-05-04  Markus Gans  <guru.mail@muenster.de>
+	* Bug fixes in FLineEdit: 
+	  - Swapped cursor move behavior in the methods stepCursorBackward() 
+	    and stepCursorForward() 
+	  - The inputText method now repositions the cursor on input and 
+	    updates the change directly on the screen 
+	  Thanks to Michael Lehn for reporting these issues
+
+2022-04-17  Markus Gans  <guru.mail@muenster.de>
+	* The FLineEdit and FTextView widgets got additional public methods for 
+	  more control. Many thanks to Michael Lehn for the good suggestions
+
+2022-03-01  Markus Gans  <guru.mail@muenster.de>
+	* Bugfix: Since February 14, setting the input cursor for the virtual 
+	  terminal did not work
+
+2022-03-01  Markus Gans  <guru.mail@muenster.de>
+	* A virtual window can now be placed above the virtual terminal
+
+2022-02-14  Markus Gans  <guru.mail@muenster.de>
+	* FVTerm::copyArea copies the data of the source area to the position 
+	  of the destination area
+	* FTermArea got methods to set the print position and to print data
+	* Added examples/xpmview to view X PixMap (XPM) images in a terminal
+
+2022-02-02  Markus Gans  <guru.mail@muenster.de>
+	* Depending on the number of dialog windows, FDialogListMenu 
+	  is now automatically enabled and disabled
+	* FFileDialog now shows the file filter in the title bar
+
+2022-01-29  Markus Gans  <guru.mail@muenster.de>
+	* Minor bug fix for resizing dialogs
+	* FTextView::FTextHighlight has received new constructors without 
+	  length information. That allows to highlight text up to the end 
+	  of the line
+
+2022-01-21  Markus Gans  <guru.mail@muenster.de>
+	* The trailing whitespaces in a FTextView line are now printed 
+	  in the line buffer. This allows you to make text highlighting 
+	  to the end of the line
+
+2022-01-16  Markus Gans  <guru.mail@muenster.de>
+	* Added examples/highlight-text to demonstrate text highlighting 
+	  in FTextView
+
+2022-01-15  Markus Gans  <guru.mail@muenster.de>
+	* Add text highlighting for FTextView. 
+	  Thanks to Michael Lehn for the idea
+
+2022-01-12  Markus Gans  <guru.mail@muenster.de>
+	* Dropdown menus are closed again on click outside the widget 
+	  if there is no widget at that position 
+	  (Broken since Nov 1, 2020)
+
+2022-01-11  Markus Gans  <guru.mail@muenster.de>
+	* Generalize the passing of the resize event to its parent dialog
+
+2022-01-09  Markus Gans  <guru.mail@muenster.de>
+	* Added a ring buffer to buffer unprocessed keyboard and mouse input
+	* Added a unit test for the FVTerm class
+	* The current mouse event is now cached in a shared_ptr
+
+2022-01-05  Markus Gans  <guru.mail@muenster.de>
+	* Sharing keyboard buffer length in FKeyboard and FMouse
+
+2022-01-02  Markus Gans  <guru.mail@muenster.de>
+	* Speed up UTF-8 input parsing
+
+2022-01-02  Markus Gans  <guru.mail@muenster.de>
+	* FTermArea now checks if there is a given terminal position 
+	  in its area
+
+2021-12-30  Markus Gans  <guru.mail@muenster.de>
+	* Resetting the terminal state on resizing
+
+2021-12-27  Markus Gans  <guru.mail@muenster.de>
+	* The number of cycles has been reduced to save CPU time
+
+2021-12-18  Markus Gans  <guru.mail@muenster.de>
+	* Move the border label methods from FButtonGroup to FScrollView
+
+2021-12-13  Markus Gans  <guru.mail@muenster.de>
+	* Faster string comparison between FString, char* std::string, 
+	  wchar_t and std:wstring
+
+2021-12-11  Markus Gans  <guru.mail@muenster.de>
+	* Correct mouse event after moving a window
+
+2021-11-16  Markus Gans  <guru.mail@muenster.de>
+	* A new example demonstrates parallax scrolling with multi-layered 
+	  stars
+
+2021-11-11  Markus Gans  <guru.mail@muenster.de>
+	* You can now use the constructor of the FVTerm class to specify 
+	  an alternative terminal output class that must be derived from 
+	  FOutput
+
+2021-11-06  Markus Gans  <guru.mail@muenster.de>
+	* Using the STL algorithms for the input fifo_buf
+
+2021-11-01  Markus Gans  <guru.mail@muenster.de>
+	* Switched to the language standard C++14
+
+2021-10-31  Markus Gans  <guru.mail@muenster.de>
+	* Version 0.8.0
+
+2021-10-28  Markus Gans  <guru.mail@muenster.de>
+	* The keyboard and timer examples now have flicker-free scrolling
+
+2021-10-24  Markus Gans  <guru.mail@muenster.de>
+	* Faster search for key strings through sorted arrays
+
+2021-10-23  Markus Gans  <guru.mail@muenster.de>
+	* Virtual windows now know their own window level
+	* String filter for FListBoxItem
+
+2021-10-22  Markus Gans  <guru.mail@muenster.de>
+	* Change FObjectList from std::list to std::vector
+
+2021-10-21  Markus Gans  <guru.mail@muenster.de>
+	* The tab stop printing was corrected
+
+2021-10-20  Markus Gans  <guru.mail@muenster.de>
+	* Implementation of the stringPrint() method in FTermcap
+
+2021-10-18  Markus Gans  <guru.mail@muenster.de>
+	* Speed up FTermcap::paddingPrint() by assigning the putchar function 
+	  only once
+
+2021-10-12  Markus Gans  <guru.mail@muenster.de>
+	* Speed up access to mouse objects in FMouseControl 
+	* The predefined escape sequences for keyboard keys are now 
+	  functional again
+	* Now, FINAL CUT also runs under GNU Hurd
+
+2021-10-08  Markus Gans  <guru.mail@muenster.de>
+	* The visibility of the FDialog title bar buttons can now be disabled
+
+2021-10-04  Markus Gans  <guru.mail@muenster.de>
+	* Preventing the focus of a container widget
+
+2021-10-01  Markus Gans  <guru.mail@muenster.de>
+	* The output buffer is now flushed before the terminal is scrolled
+
+2021-09-29  Markus Gans  <guru.mail@muenster.de>
+	* Faster FUnicode comparisons
+	* Less string comparison in FKeyboard
+
+2021-09-28  Markus Gans  <guru.mail@muenster.de>
+	* Optimization of attribute comparisons
+	* Reset the rdbuf of clog after deleting the logger object to prevent 
+	  an invalid pointer in the rdbuf
+	* FTermcap::getNumber now returns -1 if there is no value in the termcap 
+	  database
+
+2021-09-25  Markus Gans  <guru.mail@muenster.de>
+	* New FString auxiliary function FStringCaseCompare as strcasecmp 
+	  replacement
+	* Move attribute handling from FVTerm to FVTermAttribute
+
+2021-09-22  Markus Gans  <guru.mail@muenster.de>
+	* The request for a terminal size change now occurs only once per 
+	  event loop cycle
+
+2021-09-22  Markus Gans  <guru.mail@muenster.de>
+	* The individual FINAL CUT components have been moved to directories 
+	  to provide a better code overview
+	* Renaming the class FTermBuffer to FVTermBuffer, because only 
+	  virtual terminal data is buffered here
+
+2021-09-17  Markus Gans  <guru.mail@muenster.de>
+	* Output optimization: Wide strings are now converted to 
+	  UTF-8 strings before they are inserted into the output buffer
+	* Key maps now store the length of the string to speed up 
+	  key string parsing
+
+2021-09-15  Markus Gans  <guru.mail@muenster.de>
+	* setExitMessage is now a function without object dependencies, 
+	  so it can be called from anywhere
+	* New internal function unicode_to_utf8 which allows to convert 
+	  a wchar_t to a utf-8 string
+
+2021-09-14  Markus Gans  <guru.mail@muenster.de>
+	* More local static variables are used to prevent repeated 
+	  value assignments
+
+2021-09-12  Markus Gans  <guru.mail@muenster.de>
+	* The detected terminal type is now stored in FTermData
+
+2021-09-05  Markus Gans  <guru.mail@muenster.de>
+	* The methods for the physical terminal output of class FVTerm 
+	  were extracted and moved to the new class FVTermOutput. 
+	  The class FVTermOutput is the implementation of the abstract 
+	  class FOutput. This abstraction layer can be the basis for 
+	  an alternative implementation.
+
+2021-08-01  Markus Gans  <guru.mail@muenster.de>
+	* Fixed mutex deadlock in FObject
+
+2021-07-25  Markus Gans  <guru.mail@muenster.de>
+	* Function setMinimizable() to minimize FDialog windows added
+
+2021-07-18  Markus Gans  <guru.mail@muenster.de>
+	* Improved the GNU autoconf-archive check
+
+2021-06-26  Markus Gans  <guru.mail@muenster.de>
+	* Global non-constant variables are now encapsulated in classes
+
+2021-06-19  Markus Gans  <guru.mail@muenster.de>
+	* Moving the creator methods from FTerm to its own class
+
+2021-06-16  Markus Gans  <guru.mail@muenster.de>
+	* Converted the internal timer from timeval 
+	  to std::chrono::time_point<system_clock>
+
+2021-06-06  Markus Gans  <guru.mail@muenster.de>
+	* Bug fixing in FString and FTermDetection
+	* FTermDetection now has clean code by using FString instead of char*
+	* Replace std::strlen with stringLength
+
+2021-06-03  Markus Gans  <guru.mail@muenster.de>
+	* Some FString optimizations
+
+2021-05-30  Markus Gans  <guru.mail@muenster.de>
+	* FString internally changed from wchar_t* to std::wstring
+
+2021-05-24  Markus Gans  <guru.mail@muenster.de>
+	* Using std::string for the attribute buffer
+
+2021-05-22  Markus Gans  <guru.mail@muenster.de>
+	* Convert FOptiMove from char[] to std::string
+
+2021-05-13  Markus Gans  <guru.mail@muenster.de>
+	* Prevent duplicate widget in the close widget list
+
+2021-05-07  Markus Gans  <guru.mail@muenster.de>
+	* Some pointers were replaced by references
+
+2021-05-04  Markus Gans  <guru.mail@muenster.de>
+	* Prevent flickering when resizing terminals or redrawing 
+	  the screen via ctrl-l
+
+2021-05-02  Markus Gans  <guru.mail@muenster.de>
+	* Bugfix for sending multiple SIGWINCH signals from 
+	  gnome-terminal under Wayland
+
+2021-05-01  Markus Gans  <guru.mail@muenster.de>
+	* Replace some std::bind with lambda functions
+
+2021-04-30  Markus Gans  <guru.mail@muenster.de>
+	* Fixes Linux console bug from February 20, 2021
+
+2021-04-27  Markus Gans  <guru.mail@muenster.de>
+	* Code optimization at widget focus
+
+2021-04-24  Markus Gans  <guru.mail@muenster.de>
+	* Fixed mutex deadlock in FLogger
+
+2021-04-21  Markus Gans  <guru.mail@muenster.de>
+	* Fixes the detection of the terminal size after a SIGWINCH signal
+
+2021-04-18  Markus Gans  <guru.mail@muenster.de>
+	* Decoupling the FWidget and FWindow classes from FVTerm
+	* Avoid redrawing widgets when show() is called multiple times
+	* Readjustment of the root widget when the terminal size is changed
+
+2021-04-11  Markus Gans  <guru.mail@muenster.de>
+	* Better support for kitty terminals
+
+2021-03-31  Markus Gans  <guru.mail@muenster.de>
+	* argv is now stored internally as a std::vector container
+
+2021-03-30  Markus Gans  <guru.mail@muenster.de>
+	* Stops terminal refresh during dialog resizing until all 
+	  child widgets have been redrawn
+
+2021-03-28  Markus Gans  <guru.mail@muenster.de>
+	* Widget now have the virtual method initLayout() to set 
+	  the widget layouts automatically before the first drawing 
+	  on the terminal is done. Also texts in full-width characters, 
+	  whose character width is determined automatically, should be 
+	  calculated here.
+
+2021-03-15  Markus Gans  <guru.mail@muenster.de>
+	* Dynamic adjustment of the terminal refresh rate between 
+	  5 and 60 Hz
+
+2021-03-09  Markus Gans  <guru.mail@muenster.de>
+	* Implementation of an own padding print method for sending 
+	  control codes to the terminal
+
+2021-02-28  Markus Gans  <guru.mail@muenster.de>
+	* Removing the termcap library from the header files so 
+	  that FINAL CUT programs are not affected by the preprocessor 
+	  #define macros.
+	  Many thanks to Zhenyu Zhang for this optimization suggestion
+
+2021-02-24  Markus Gans  <guru.mail@muenster.de>
+	* Fixed the incorrect display on terminals without 
+	  UTF-8 character encoding
+
+2021-02-20  Markus Gans  <guru.mail@muenster.de>
+	* Optimize terminal output buffer queue with differencing
+	  for strings, and control characters and control sequences
+
+2021-02-09  Markus Gans  <guru.mail@muenster.de>
+	* Added support for combined unicode characters
+	* Added a unit test for the FTermBuffer class
+	* Added a unit test for the FTterm functions
+
+2020-12-31  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring to scoped enumerations
+
+2020-11-18  Markus Gans  <guru.mail@muenster.de>
+	* The terminal update rate is now limited to 60 Hz
+
+2020-11-14  Markus Gans  <guru.mail@muenster.de>
+	* Version 0.7.1
+	* Bugfix: The cursor position was not changed anymore 
+	  if there was no change to the content
+	* Forcing a direct update for faster terminal output
+
+2020-11-07  Markus Gans  <guru.mail@muenster.de>
+	* Version 0.7.0
+
+2020-11-04  Markus Gans  <guru.mail@muenster.de>
+	* Elimination of unnecessary terminal flushes
+
+2020-11-03  Markus Gans  <guru.mail@muenster.de>
+	* Use FIONREAD to get the number of characters available 
+	  for reading on stdin
+
+2020-11-02  Markus Gans  <guru.mail@muenster.de>
+	* Non-blocking reading before timeout after keystroke
+	* Every fourth event processing causes a terminal flush
+	* Call of TIOCLINUX only in the Linux console
+
+2020-11-01  Markus Gans  <guru.mail@muenster.de>
+	* Now FINAL CUT queues keyboard and mouse input to speed up 
+	  the processing of widget events
+
+2020-10-22  Markus Gans  <guru.mail@muenster.de>
+	* Repair terminal update skipping
+
+2020-10-20  Markus Gans  <guru.mail@muenster.de>
+	* For fast mouse movements the keyboard interval was increased 
+	  from 13.3 to 30 Hz
+
+2020-10-19  Markus Gans  <guru.mail@muenster.de>
+	* Optimize the terminal output speed
+
+2020-10-17  Markus Gans  <guru.mail@muenster.de>
+	* Fixes unit test segfault
+
+2020-10-11  Markus Gans  <guru.mail@muenster.de>
+	* Solaris build fix
+	* Added saving and restoring xterm titles to the stack 
+	  for vte terminals
+	* Menu key - activates the menu bar
+	* Shift-Menu - opens the dialog menu
+
+2020-10-08  Markus Gans  <guru.mail@muenster.de>
+	* Better keyboard support for urxvt terminals
+	* Screen reports (like Secondary DA) are now read directly
+	* Report Cursor Position (DECXCPR) support
+	* FListView and FListBox now have direct access to the list of client 
+	  elements via data()
+
+2020-10-05  Markus Gans  <guru.mail@muenster.de>
+	* Now hides the input cursor when a widget gets hidden
+
+2020-10-04  Markus Gans  <guru.mail@muenster.de>
+	* Replaces some C-style arrays with std::array
+	* Now you can use the arrow keys to move a window into the visible area
+	* Removes FData memory leak in FListBoxItem and FListViewItem
+
+2020-09-27  Markus Gans  <guru.mail@muenster.de>
+	* An explanation of the widget tree was added to the document 
+	  of the first steps
+
+2020-09-26  Markus Gans  <guru.mail@muenster.de>
+	* FData improvements
+	* The number of FObject children can now be limited with 
+	  setMaxChildren()
+	* FApplication can now have no more than one child widget
+
+2020-09-25  Markus Gans  <guru.mail@muenster.de>
+	* std::clog now streams everything to the FLogger object
+	* Added a unit test for the FData class
+
+2020-09-23  Markus Gans  <guru.mail@muenster.de>
+	* Bugfix: empty FString() + wchar_t
+
+2020-09-22  Markus Gans  <guru.mail@muenster.de>
+	* Bugfix in FDialog::setSize(): Automatic size adjustment and 
+	  simultaneous widget movement are now possible.
+
+2020-09-18  Markus Gans  <guru.mail@muenster.de>
+	* The generic data type FDataPtr is now deprecated and was 
+	  completely replaced by the template class FData
+
+2020-09-11  Markus Gans  <guru.mail@muenster.de>
+	* Fixes a problem with mouse input in Cygwin in non-blocking read mode
+
+2020-09-08  Markus Gans  <guru.mail@muenster.de>
+	* Speed up the reaction time of the gpm mouse
+	* FListView now correctly adjusts the size of the scrollbar, 
+	  when expanding and collapsing by double-clicking
+
+2020-08-30  Markus Gans  <guru.mail@muenster.de>
+	* Adding Windows Terminal detection
+
+2020-08-15  Markus Gans  <guru.mail@muenster.de>
+	* The call of the function setNonBlockingRead() resulted in 
+	  a high CPU load in idle mode. 
+	  Thanks to Pavel Stehule for reporting this problem.
+
+2020-08-11  Markus Gans  <guru.mail@muenster.de>
+	* New callback backend was implemented. Callback functions with any 
+	  number of arguments are now possible.
+
+2020-07-19  Markus Gans  <guru.mail@muenster.de>
+	* API: Some method name changes: 
+	       FObject::delOwnTimer() -> FObject::delOwnTimers() 
+	       FObject::delAllTimer() -> FObject::delAllTimers() 
+	       FWidget::delCallbacks() -> FWidget::delAllCallbacks()
+
+2020-07-08  Markus Gans  <guru.mail@muenster.de>
+	* New data wrapper class FData
+
+2020-07-06  Markus Gans  <guru.mail@muenster.de>
+	* Add a document that describes how to create user themes
+
+2020-06-11  Markus Gans  <guru.mail@muenster.de>
+	* New widget FBusyIndicator to indicate background activity
+	* Added example/busy to demonstrate the functionality of this widget
+
+2020-06-07  Markus Gans  <guru.mail@muenster.de>
+	* The --log-file parameter stores log output to any file. The file 
+	  can be viewed directly on another terminal with "tail -f".
+
+2020-06-06  Markus Gans  <guru.mail@muenster.de>
+	* Now, the terminal is not initialized before the method show() 
+	  is called. Or you force it explicitly via the FApplication object.
+	* Simplification of FMouse::createMouseObject()
+
+2020-05-30  Markus Gans  <guru.mail@muenster.de>
+	* With the two new methods FApplication::setDarkTheme() and 
+	  FApplication::setDefaultTheme() you can now change the theme 
+	  within an application. An example can be found in examples/ui 
+	  via the menu items "View" -> "Dark mode".
+
+2020-05-29  Markus Gans  <guru.mail@muenster.de>
+	* Adding a dark theme. Can be activated with the --dark-theme parameter.
+
+2020-05-28  Markus Gans  <guru.mail@muenster.de>
+	* FColorPalette now also uses polymorphism, so you can now 
+	  easily create your own color palette theme
+
+2020-05-26  Markus Gans  <guru.mail@muenster.de>
+	* FWidgetColors now uses polymorphism, so you can now easily 
+	  create your own widget color theme
+	* FApplication has got the new virtual method processExternalUserEvent() 
+	  for user code
+
+2020-05-24  Markus Gans  <guru.mail@muenster.de>
+	* New class FStringStream implements input and output operations 
+	  on FString based streams
+	* Fixed memory leak in FString move assignment operator
+
+2020-05-21  Markus Gans  <guru.mail@muenster.de>
+	* Fixed the event queue in FApplication
+
+2020-05-16  Markus Gans  <guru.mail@muenster.de>
+	* More direct access to the static FTerm functions
+
+2020-05-13  Markus Gans  <guru.mail@muenster.de>
+	* The new class FLogger for logging, which can be redirected 
+	  to different I/O channels
+	* Adding the event-log example to show the logging functionality 
+
+2020-05-02  Markus Gans  <guru.mail@muenster.de>
+	* Transfer of all termcap functions into the FTermcap class
+
+2020-04-28  Markus Gans  <guru.mail@muenster.de>
+	* Adding the missing method getClientSize()
+	* Static code for the special built-in key sequences
+
+2020-04-15  Markus Gans  <guru.mail@muenster.de>
+	* Better support of general arrow keys
+	* Improved event handling code
+
+2020-04-13  Markus Gans  <guru.mail@muenster.de>
+	* Several small code improvements
+
+2020-04-09  Markus Gans  <guru.mail@muenster.de>
+	* A dialog can now be displayed without a framing border.
+	  Many thanks to basedtho for this tip
+
+2020-03-22  Markus Gans  <guru.mail@muenster.de>
+	* A small benchmakt test was added to the Rotozoomer example
+
+2020-03-08  Markus Gans  <guru.mail@muenster.de>
+	* A rotozoomer example was added to demonstrate the drawing speed 
+	  of FINAL CUT
+
+2020-03-07  Markus Gans  <guru.mail@muenster.de>
+	* Fixes keyboard input buffer problem when opening a modal dialog
+	* Exit the move-resize-mode when the close confirmation dialog 
+	  is displayed
+
+2020-03-05  Markus Gans  <guru.mail@muenster.de>
+	* Unbuffered reading of keystrokes for better latency
+	* Mouse adjustments when resizing an rxvt terminal
+
+2020-02-25  Markus Gans  <guru.mail@muenster.de>
+	* New command line switch "--no-terminal-data-request" to disable 
+	  font and title determination
+
+2020-02-19  Markus Gans  <guru.mail@muenster.de>
+	* Some small code improvements
+	* SGRoptimizer improved
+
+2020-02-16  Markus Gans  <guru.mail@muenster.de>
+	* Printing a FStyle object allows you to change video attributes
+
+2020-02-13  Markus Gans  <guru.mail@muenster.de>
+	* Rename setTransShadow() to setColorOverlay()
+
+2020-02-11  Markus Gans  <guru.mail@muenster.de>
+	* Fix collapse() and expand() in FListViewItem()
+
+2020-02-09  Markus Gans  <guru.mail@muenster.de>
+	* Adding a tty check for stdin
+	* An application structure diagram was added to the document 
+	  of the first steps
+
+2020-02-04  Markus Gans  <guru.mail@muenster.de>
+	* Fix in FListViewIterator
+	* Add screenshorts to the first steps document
+
+2020-02-02  Markus Gans  <guru.mail@muenster.de>
+	* The methods clear() and remove() were added to FListView
+	* Add some const type qualifiers
+	* A small GNU autoconf-archive check
+
+2020-01-12  Markus Gans  <guru.mail@muenster.de>
+	* Add a "widget layout" chapter to the first steps document
+
+2020-01-09  Markus Gans  <guru.mail@muenster.de>
+	* With setText() and clearText() the text in the edit line can be changed 
+	  without changing the content of the combo box
+	* The setCurrentItem() method was added to the FComboBox widget class. 
+	  Thanks cybin for the sample code
+
+2020-01-03  Markus Gans  <guru.mail@muenster.de>
+	* Illustrations to explain the widget layout
+
+2019-12-31  Markus Gans  <guru.mail@muenster.de>
+	* The new SGRoptimizer class allows several consecutive parameters 
+	  from the SGR (Select Graphic Rendition) attributes to be combined 
+	  into one
+
+2019-12-23  Markus Gans  <guru.mail@muenster.de>
+	* Correction for height and width alignment in adjustSize()
+	* Better setSize() implementation in some widgets
+
+2019-12-20  Markus Gans  <guru.mail@muenster.de>
+	* Fixed the drawing of FLabel widget with the default size 
+	  of 1×1 character.
+	  Thanks to terranpro for reporting this issue
+
+2019-12-16  Markus Gans  <guru.mail@muenster.de>
+	* New widget class FComboBox to provide a dropdown list 
+	  with an input field
+
+2019-11-17  Markus Gans  <guru.mail@muenster.de>
+	* Revision of FString number input stream
+
+2019-11-16  Markus Gans  <guru.mail@muenster.de>
+	* New widget class FSpinBox to provide spin boxes
+
+2019-11-06  Markus Gans  <guru.mail@muenster.de>
+	* Improved display of the NewFont midline 
+
+2019-11-03  Markus Gans  <guru.mail@muenster.de>
+	* Newfont specialization for 8x16 and 9x16 pixel character
+	* Fixes the display of reverse characters on the 16 color 
+	  Linux console
+
+2019-10-28  Markus Gans  <guru.mail@muenster.de>
+	* Unicode support for 8x16graph font
+
+2019-10-20  Markus Gans  <guru.mail@muenster.de>
+	* New method setInputType() in FLineEdit that allows to obscure 
+	  password entries
+	* FAcceleratorList reimplemented as non-pointer
+
+2019-10-15  Markus Gans  <guru.mail@muenster.de>
+	* Version 0.6.0
+
+2019-10-13  Markus Gans  <guru.mail@muenster.de>
+	* Compile fix for Cygwin and Linux on arm architectures
+	* A small color palette optimization
+	* Corrected east asian ambiguous character width for OpenBSD, NetBSD, 
+	  FreeBSD and Solaris
+
+2019-10-05  Markus Gans  <guru.mail@muenster.de>
+	* Internal redesign of the callback call
+	* Mapping of key functions in an associative container to simplify 
+	  onKeyPress() in FListBox, FListView, FTextView and FScrollView
+
+2019-10-01  Markus Gans  <guru.mail@muenster.de>
+	* Replacing null-terminated wide strings with FString objects
+	* Fix for getColumnWidth() with newfont character
+
+2019-09-29  Markus Gans  <guru.mail@muenster.de>
+	* Streaming into an FTextView() object
+	* Fixes the streaming of empty FString objects into a stream with 
+	  a width > 0
+	* The FString operator [] now returns a null character ('\0') 
+	  if the position is equal to the string length
+
+2019-09-28  Markus Gans  <guru.mail@muenster.de>
+	* Support for displaying full-width characters (2 columns wide) 
+	  on the terminal. This is particularly important for the correct 
+	  display of CJK characters
+
+2019-09-16  Markus Gans  <guru.mail@muenster.de>
+	* Improve FStartOptions implementation
+
+2019-09-08  Markus Gans  <guru.mail@muenster.de>
+	* Remove the lines of the #pragma pack() directive from the code 
+	  because they caused a misaligned address
+
+2019-09-06  Markus Gans  <guru.mail@muenster.de>
+	* Outsourcing the initialization data to a separate struct
+
+2019-09-04  Markus Gans  <guru.mail@muenster.de>
+	* The Cygwin and Linux console do not use cp437 character encoding 
+	  by default anymore
+
+2019-09-01  Markus Gans  <guru.mail@muenster.de>
+	* Removing public + protected data members from classes
+
+2019-08-25  Markus Gans  <guru.mail@muenster.de>
+	* More use of direct initializations
+
+2019-08-18  Markus Gans  <guru.mail@muenster.de>
+	* Solved problem detecting terminal size on quick changes
+	* Update VTerm information only in case of changes
+	* Fixes print() << FPoint() behavior in FScrollView
+
+2019-08-11  Markus Gans  <guru.mail@muenster.de>
+	* FRect has now got a scaleBy() method
+	* Convert drawBorder() to a non-member function using FRect
+	* Converts getHotkeyPos() for sharing into a non-member function
+
+2019-08-10  Markus Gans  <guru.mail@muenster.de>
+	* Pitch and duration of system speaker can now be changed 
+	  on OpenBSD
+
+2019-08-07  Markus Gans  <guru.mail@muenster.de>
+	* Fixes the Cygwin build
+
+2019-08-04  Markus Gans  <guru.mail@muenster.de>
+	* Reduce the number of interface parameters
+
+2019-07-31  Markus Gans  <guru.mail@muenster.de>
+	* Unit test for the move assignment operator and move constructor 
+	  in FPoint, FSize and FRect
+
+2019-07-28  Markus Gans  <guru.mail@muenster.de>
+	* FreeBSD can now change the frequency and duration 
+	  of the pc speaker signal
+	* Added a unit test for the FTermFreeBSD class to test 
+	  the FreeBSD console
+
+2019-07-21  Markus Gans  <guru.mail@muenster.de>
+	* Reduce include entries in the header files
+
+2019-07-14  Markus Gans  <guru.mail@muenster.de>
+	* Reduces the use of raw loops 
+	* Add a unit test for FTermOpenBSD to test the OpenBSD 
+	  and NetBSD console
+
+2019-06-30  Markus Gans  <guru.mail@muenster.de>
+	* Expanding the unit test for FTermLinux
+	* Update the cp437 unicode map
+	* Reducing the special cases for Solaris
+
+2019-06-19  Markus Gans  <guru.mail@muenster.de>
+	* Add a unit test for FTermLinux with a Linux console emulation 
+	  and a dedicated FSystem test instance
+
+2019-06-12  Markus Gans  <guru.mail@muenster.de>
+	* Fixes problem with scroll bar view after first draw
+
+2019-06-02  Markus Gans  <guru.mail@muenster.de>
+	* Avoid drawing the scroll bars if the widget is non-visible
+
+2019-05-27  Markus Gans  <guru.mail@muenster.de>
+	* Use the Singleton design pattern to get a single object instance 
+	  via FTerm
+
+2019-05-26  Marek Habersack <grendel@twistedcode.net>
+	* Fix a segfault when processing input to empty FListView
+
+2019-05-17  Markus Gans  <guru.mail@muenster.de>
+	* Move system calls to the new class FSystem
+
+2019-04-27  Markus Gans  <guru.mail@muenster.de>
+	* Add the reserve() method to FListBox to increase the capacity 
+	  of the list
+	* Use shrink_to_fit() to save memory space
+
+2019-03-24  Markus Gans  <guru.mail@muenster.de>
+	* Add a "scroll view" chapter to the first steps document
+
+2019-02-28  Markus Gans  <guru.mail@muenster.de>
+	* Add an lambda expression callback example to the first steps document
+
+2019-02-24  Markus Gans  <guru.mail@muenster.de>
+	* FLineEdit now has the ability to define a character input filter 
+	  via regular expression (regex)
+	* Now FLineEdit can define a maximum character length for the input
+	* The cursor position can now be set directly in FLineEdit
+	* Added the 7-segment example to demonstrate the use of FTermBuffer
+	  and FLineEdit input filters
+
+2019-02-07  Markus Gans  <guru.mail@muenster.de>
+	* Add a "dynamic layout" chapter into the first steps document
+
+2019-01-30  Markus Gans  <guru.mail@muenster.de>
+	* Printing an FColorPair object can change the foreground and 
+	  background color
+
+2019-01-27  Markus Gans  <guru.mail@muenster.de>
+	* The print command can now have an FPoint object as a parameter 
+	  to set the cursor position
+	* Refactoring of the FProgressbar drawing methods
+
+2019-01-24  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring of some methods in FVTerm and FDialog
+
+2019-01-21  Markus Gans  <guru.mail@muenster.de>
+	* More accurate interfaces through the strict use of FPoint() 
+	  and FSize()
+
+2019-01-16  Markus Gans  <guru.mail@muenster.de>
+	* New class FSize for storing dimensions
+
+2019-01-12  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FFileDialog::fileOpenChooser
+	* Refactoring FFileDialog::fileSaveChooser
+	* Refactoring FListBox::init()
+	* Refactoring FListView::init()
+	* Refactoring FTextView::init()
+	* Refactoring FTermXTerminal::resetXTermForeground()
+	* Refactoring FTermXTerminal::resetXTermBackground()
+	* Refactoring FTermXTerminal::resetXTermCursorColor()
+	* Refactoring FTermXTerminal::resetXTermMouseForeground()
+	* Refactoring FTermXTerminal::resetXTermMouseBackground()
+	* Refactoring FTermXTerminal::resetXTermHighlightBackground()
+
+2019-01-11  Markus Gans  <guru.mail@muenster.de>
+	* Generalize hide() method
+
+2019-01-09  Markus Gans  <guru.mail@muenster.de>
+	* Improvement in widget focusing
+	* Better widget visibility handling with the methods hide() and show()
+
+2019-01-05  Markus Gans  <guru.mail@muenster.de>
+	* Use of initializer_list for FListBox, FListView and FTextView
+
+2019-01-04  Markus Gans  <guru.mail@muenster.de>
+	* Use the final specifier
+
+2019-01-03  Markus Gans  <guru.mail@muenster.de>
+	* Improved PC encoding for Cygwin and Linux
+	* Integration of an output filter to replace missing characters
+	* Better Linux console support for UTF-8 encoding 
+	  (Default is PC charset encoding)
+	* Better background color for all terminals with a fixed color palette
+
+2018-12-31  Markus Gans  <guru.mail@muenster.de>
+	* Use the override specifier
+
+2018-12-30  Markus Gans  <guru.mail@muenster.de>
+	* Cygwin compiled fix for C++11
+
+2018-12-29  Markus Gans  <guru.mail@muenster.de>
+	* Text scrolling in FTextView was broken since February 17th!
+	* Replace redundant FString code with templates
+
+2018-12-28  Markus Gans  <guru.mail@muenster.de>
+	* Add the assignment operator (=) for FButton to set the button text
+	* Corrected shortening of overlong texts in the title bar of FDialog
+	* Add a "signals and callbacks" chapter into the first steps document
+
+2018-12-25  Markus Gans  <guru.mail@muenster.de>
+	* Add a "event processing" chapter into the first steps document
+
+2018-12-24  Markus Gans  <guru.mail@muenster.de>
+	* Events can not only be sent to FWidgets, but also to FObjects
+	* New event FUserEvent for user-defined events
+
+2018-12-19  Markus Gans  <guru.mail@muenster.de>
+	* Use of smart pointers
+	* Add a "memory management" chapter into the first steps document
+
+2018-12-17  Markus Gans  <guru.mail@muenster.de>
+	* Improve FButton mouse click animation
+	* Minor data type corrections
+	* Reactivate the event queue
+
+2018-12-15  Markus Gans  <guru.mail@muenster.de>
+	* Use of the C++11 auto specifier in the program code
+	* Code reduction by using of range-based for loop
+	* The example program for video attributes now replaces 
+	  the switch statement with a vector of lambda expressions
+
+2018-12-09  Markus Gans  <guru.mail@muenster.de>
+	* Better handling of the scroll bar maximum
+	* Deactivate copy constructor and assignment operator with "= delete"
+	* Use nullptr instead of 0 to initialize a pointer values
+
+2018-12-06  Markus Gans  <guru.mail@muenster.de>
+	* Easier handling of fc::SpecialCharacter
+
+2018-12-01  Markus Gans  <guru.mail@muenster.de>
+	* Switched to the language standard C++11
+	* Use delegated constructors and in-class default member initializers
+
+2018-12-01  Markus Gans  <guru.mail@muenster.de>
+	* Improved gpm wheel mouse support
+	* Fix compile in optimization level 2 for newer gcc
+
+2018-11-27  Markus Gans  <guru.mail@muenster.de>
+	* Correct vertical scroll bar position after sorting in FListView
+
+2018-11-25  Markus Gans  <guru.mail@muenster.de>
+	* Version 0.5.0
+	* Namespace fix in FTermFreeBSD and FTermOpenBSD 
+	* Fix compiler warning on non-x86 architectures
+
+2018-11-24  Markus Gans  <guru.mail@muenster.de>
+	* Improved Sun Microsystems workstation console quirks
+	* Handling environment variables with numbers in FTerm
+	* Memory management fix in example program transparent
+
+2018-11-21  Markus Gans  <guru.mail@muenster.de>
+	* New type FKey for key inputs
+	* The integer type of FPoint and FRect changed from short to int
+
+2018-11-18  Markus Gans  <guru.mail@muenster.de>
+	* The FListViewItem class now provides checkable list view items
+	* Adding the checklist example to demonstrate the checkable 
+	  FListViewItems
+	* A checkable FListViewItem now shows the input cursor
+
+2018-11-12  Markus Gans  <guru.mail@muenster.de>
+	* Clicking on the column header in FListView now changes the sort order
+
+2018-11-10  Markus Gans  <guru.mail@muenster.de>
+	* FListView now has a sort indicator to display the sort order
+
+2018-11-07  Markus Gans  <guru.mail@muenster.de>
+	* Use new type FColor for color values
+
+2018-11-05  Markus Gans  <guru.mail@muenster.de>
+	* FButton now uses the widget flags directly
+
+2018-11-04  Markus Gans  <guru.mail@muenster.de>
+	* Widget flags are now stored in a bit field
+
+2018-11-03  Markus Gans  <guru.mail@muenster.de>
+	* New method rgb2ColorIndex() to converts a 24-bit RGB color 
+	  to a 256-color compatible approximation
+
+2018-11-01  Markus Gans  <guru.mail@muenster.de>
+	* Moved FTerm debug access methods to FTermDebugData
+
+2018-10-29  Markus Gans  <guru.mail@muenster.de>
+	* FTerm is now a data member of FVTerm
+	* Fix FListBox prevListItem()
+	* Setting the value can_change_color_palette in FTermcapQuirks
+
+2018-10-26  Markus Gans  <guru.mail@muenster.de>
+	* Building Fix for a negative value check (gcc < 4.8)
+	* Adding the capacity() method to the FString class
+
+2018-10-21  Markus Gans  <guru.mail@muenster.de>
+	* Moving static attributes from FApplication to FWidget
+
+2018-10-17  Markus Gans  <guru.mail@muenster.de>
+	* Changed more variables from int to std::size_t
+
+2018-10-14  Markus Gans  <guru.mail@muenster.de>
+	* A width or height can not be negative. 
+	  For that reason the change from int to std::size_t
+	* FString fix for 32-bit architectures
+
+2018-10-13  Markus Gans  <guru.mail@muenster.de>
+	* Avoid using dynamic_cast so that you can compile Final Cut 
+	  without Run-Time Type Information (RTTI). 
+	  Thanks to user1095108 for reporting that.
+
+2018-10-11  Markus Gans  <guru.mail@muenster.de>
+	* FKeyboard now uses references for keyboard buffer passing
+
+2018-10-09  Markus Gans  <guru.mail@muenster.de>
+	* Terminal detection for newer vte libraries (>= 0.53.0)
+
+2018-10-08  Markus Gans  <guru.mail@muenster.de>
+	* Move all termcap code into FTermcap
+	* Some small code splits
+
+2018-10-05  Markus Gans  <guru.mail@muenster.de>
+	* Remove redundant program code from FString
+
+2018-10-03  Markus Gans  <guru.mail@muenster.de>
+	* At the end of the lifetime of an FMenuItem object, 
+	  delete its entry from the object list of the parent object
+	* Reduce the use of the new operators in the examples
+	* Adding a unit test for the FTermData class
+
+2018-10-01  Markus Gans  <guru.mail@muenster.de>
+	* Extract FTerm data members into the data class FTermData
+
+2018-09-28  Markus Gans  <guru.mail@muenster.de>
+	* FListView now has the ability to sort by columns
+
+2018-09-27  Markus Gans  <guru.mail@muenster.de>
+	* Move time event processing from FApplication to FObject
+
+2018-09-26  Markus Gans  <guru.mail@muenster.de>
+	* The FListViewItem class now has a getData() and a setData() method 
+	  similar to the FListBoxItem class.
+
+2018-09-24  Markus Gans  <guru.mail@muenster.de>
+	* Stricter use of the keyword virtual
+	* Add a first steps document
+
+2018-09-20  Markus Gans  <guru.mail@muenster.de>
+	* Added pkg-config file finalcut.pc
+	* The entire library source code is now encapsulated under 
+	  the namespace finalcut. All examples and tests have been 
+	  modified to fit the namespace.
+
+2018-09-16  Markus Gans  <guru.mail@muenster.de>
+	* Implement a ttytype test for the FTermDetection unit test
+
+2018-09-14  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FTermDetection with a terminal simulation 
+	  for common terminals
+	* Some minor terminal detection bug fixes
+
+2018-09-12  Markus Gans  <guru.mail@muenster.de>
+	* Removes the deprecated keyword "register" 
+	  from the source code
+
+2018-09-02  Markus Gans  <guru.mail@muenster.de>
+	* Fix mouse wheel behavior over horizontal scroll bars
+	  in FTextView
+	* Some small code improvements
+
+2018-09-01  Markus Gans  <guru.mail@muenster.de>
+	* Compiles now with newer gcc
+
+2018-08-31  Markus Gans  <guru.mail@muenster.de>
+	* Fixed a problem for a non-debug compilation
+
+2018-08-08  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FTermcapQuirks
+
+2018-07-29  Markus Gans  <guru.mail@muenster.de>
+	* Added numeric Keypad [/], [*], [-], [+] support
+	* Handling of keys that are substrings of other keys
+	* More tests in FKeyboard unit test
+
+2018-07-27  Markus Gans  <guru.mail@muenster.de>
+	* The array for keyboard input of UTF-8 characters was 
+	  not long enough for 4 bytes of UTF-8 codes.
+	* More tests in FKeyboard unit test
+
+2018-07-22  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FKeyboard
+
+2018-07-15  Markus Gans  <guru.mail@muenster.de>
+	* Keyboard functions are now in a separate class
+	* Fix Parameter passing in term::init_OptiAttr
+
+2018-07-08  Markus Gans  <guru.mail@muenster.de>
+	* Extension of the unit test of FOptiMove
+
+2018-07-01  Markus Gans  <guru.mail@muenster.de>
+	* All in FOptiMove required termcap values can now be passed 
+	  with a single struct
+
+2018-06-25  Markus Gans  <guru.mail@muenster.de>
+	* All termcap values required in FOptiAttr can now be passed 
+	  with a single struct
+
+2018-06-17  Markus Gans  <guru.mail@muenster.de>
+	* Added special console options for FreeBSD, NetBSD and OpenBSD
+
+2018-06-12  Markus Gans  <guru.mail@muenster.de>
+	* Linux functions from FTerm moved into the FTermLinux class
+
+2018-05-27  Markus Gans  <guru.mail@muenster.de>
+	* Move FreeBSD, NetBSD and OpenBSD functions to separate classes
+
+2018-05-20  Markus Gans  <guru.mail@muenster.de>
+	* Methods outsourcing from FTerm to FTermXTerminal
+
+2018-05-06  Markus Gans  <guru.mail@muenster.de>
+	* Some protected data members in FTerm moved to private
+
+2018-05-03  Markus Gans  <guru.mail@muenster.de>
+	* Fix resetColorMap in FTerm
+
+2018-05-02  Markus Gans  <guru.mail@muenster.de>
+	* Outsourcing of data from FTerm to the classes FTermios, 
+	  FTermDetection and FTermcapQuirks
+
+2018-04-19  Markus Gans  <guru.mail@muenster.de>
+	* Placing the terminal types in FTerm in a separate structure
+
+2018-04-15  Markus Gans  <guru.mail@muenster.de>
+	* Fake-reverse bugfix in FOptiAttr
+	* Strict use of fc::colornames in FOptiAttr
+	* Stream support for FPoint and FRect
+
+2018-04-11  Markus Gans  <guru.mail@muenster.de>
+	* Remove Cygwin bold color quirks fix in FOptiAttr
+	* Added unit test for FOptiAttr
+
+2018-04-08  Markus Gans  <guru.mail@muenster.de>
+	* Improved Linux terminal quirks
+	* Improvement in class FOptiAttr
+
+2018-04-02  Markus Gans  <guru.mail@muenster.de>
+	* Improved cygwin terminal quirks
+	* Optimized character set switching in FOptiAttr
+
+2018-03-30  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FOptiMove
+
+2018-03-28  Markus Gans  <guru.mail@muenster.de>
+	* Add boundary check to FOptiMove
+
+2018-03-25  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for the mouse classes
+	* Fixed small parsing errors with mouse events
+
+2018-03-17  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FObject
+	* Some minor bug fixes in FObject
+
+2018-03-13  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FRect
+
+2018-03-11  Markus Gans  <guru.mail@muenster.de>
+	* Added unit test for FPoint
+
+2018-03-10  Markus Gans  <guru.mail@muenster.de>
+	* Unit tests for the FString class completed
+	* Minor bug fixes in FString
+
+2018-02-25  Markus Gans  <guru.mail@muenster.de>
+	* First CppUnit tests implemented
+
+2018-02-22  Markus Gans  <guru.mail@muenster.de>
+	* Generalize mouse event passing in FMenuItem
+
+2018-02-19  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FTerm::init_termcaps
+	* Refactoring FTerm::init_encoding
+
+2018-02-18  Markus Gans  <guru.mail@muenster.de>
+	* Avoid scroll bar overshooting
+	* Refactoring FListView::onMouseMove
+	* Refactoring FDialog::initDialogMenu
+
+2018-02-17  Markus Gans  <guru.mail@muenster.de>
+	* Generalize scroll functions in FTextView
+	* Refactoring FButtonGroup::drawLabel
+	* Refactoring FToggleButton::drawLabel
+
+2018-02-11  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FWidget::focusNextChild and FWidget::focusPrevChild
+	* Refactoring FListView::onWheel
+	* Refactoring FListView::drawColumnLabels
+	* Refactoring FTerm::getSystemTermType
+	* Rename getTermName() to getTermFileName()
+
+2018-02-10  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FOptiMove::verticalMove and FOptiMove::horizontalMove
+	* Refactoring FVTerm::getCharacter
+	* Refactoring FWidget::drawBorder
+
+2018-02-02  Markus Gans  <guru.mail@muenster.de>
+	* Avoids flickering when redrawing a focused widget
+
+2018-01-31  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FSwitch::drawCheckButton
+	* Refactoring FWidget::redraw
+	* Refactoring FMessageBox::init 
+	* Refactoring FFileDialog::init 
+
+2018-01-30  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FLabel::draw
+	* Refactoring FFileDialog::readDir
+
+2018-01-28  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FApplication::processKeyboardEvent
+	* Shorter methods and a fix for recreating new windows 
+	  in the window example
+
+2018-01-25  Markus Gans  <guru.mail@muenster.de>
+	* UTF-8 fix for Solaris
+
+2018-01-24  Markus Gans  <guru.mail@muenster.de>
+	* Fixes compiler errors for latest Cygwin versions
+	* Widget color scheme settings moved to a separate class
+	* The color palette redefinition now has its own class
+
+2018-01-21  Markus Gans  <guru.mail@muenster.de>
+	* The Final Cut can now also be compiled under Cygwin
+	* Fixed bug in FScrollView::scrollTo
+	* Refactoring FStatusBar::drawKeys
+	* Refactoring FListView::drawListLine
+
+2018-01-17  Markus Gans  <guru.mail@muenster.de>
+	* Small array optimizations in the examples
+
+2018-01-14  Markus Gans  <guru.mail@muenster.de>
+	* Mouse functions are now in a separate class
+
+2018-01-05  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FVTerm::restoreVTerm
+	* Fixed buffer size in FOptiMove
+
+2018-01-03  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FOptiMove::relativeMove
+	* Refactoring attribute settings in FOptiAttr
+	* Refactoring FTerm::parseKeyString and timeout settings
+
+2018-01-02  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring of secondary device attributes parsing
+	* Small menu improvements
+
+2017-12-31  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring of the FListBox mouse event handler
+	* Refactoring of the FMenuBar mouse event handler
+	* Replace the switch-case in the calculator example by an STL map 
+	  with method pointers
+
+2017-12-29  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring of the FDialog mouse event handler
+
+2017-12-27  Markus Gans  <guru.mail@muenster.de>
+	* Generalize scroll functions in FScrollView
+	* Refactoring FScrollbar::drawBar
+	* Refactoring FLineEdit::onKeyPress
+	* Refactoring FMenu::onKeyPress
+	* Refactoring FDialog::onKeyPress
+	* Refactoring FDialog::drawTitleBar
+	* New FDialog methods moveUp(), moveDown(), moveLeft(), 
+	  moveRight(), reduceHeight(), expandHeight(), reduceWidth(), 
+	  and expandWidth()
+
+2017-12-25  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FButton::draw
+	* Passing more strings by reference
+
+2017-12-21  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FMenuBar::drawItems
+	* (de)allocation functions in FTerm
+
+2017-12-19  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FMenu::drawItems
+
+2017-12-17  Markus Gans  <guru.mail@muenster.de>
+	* The Final Cut now also compiles under Solaris
+
+2017-12-14  Markus Gans  <guru.mail@muenster.de>
+	* Add Sun Microsystems workstation console support
+
+2017-12-10  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring of the FMenu mouse event handler
+
+2017-12-08  Markus Gans  <guru.mail@muenster.de>
+	* More individual arithmetic operations methods in 
+	  the implementation of the calculator example
+
+2017-12-05  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FApplication::processMouseEvent
+	* Refactoring FApplication::processKeyboardEvent
+
+2017-12-02  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FListBox::drawList and FListBox::onKeyPress
+	* Refactoring FWidget::event
+
+2017-12-02  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FApplication::linuxModifierKeyCorrection and
+	  FVTerm::updateVTerm
+	* Fix getLinuxModifierKey() subcode value as non-const
+
+2017-11-30  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FVTerm::updateTerminalLine
+
+2017-11-26  Markus Gans  <guru.mail@muenster.de>
+	* Better code readability by splitting FOptiMove::moveCursor 
+	  into sub-functions
+	* Improved alignment of the code by changing the indentation 
+	  in Boolean expressions
+
+2017-11-25  Markus Gans  <guru.mail@muenster.de>
+	* Splitting quirks in serperate methods
+
+2017-11-24  Markus Gans  <guru.mail@muenster.de>
+	* Detects Linux console font with 512 characters and 
+	  reduces the number of colors to 8
+	* Color palette defined for 8 colors
+
+2017-11-23  Markus Gans  <guru.mail@muenster.de>
+	* Remove duplicated code from FOptiAttr::changeAttribute
+
+2017-11-22  Markus Gans  <guru.mail@muenster.de>
+	* Remove duplicated code in FVTerm::print
+
+2017-11-19  Markus Gans  <guru.mail@muenster.de>
+	* Splitting the FString example into sub-functions to make 
+	  the code more comprehensible
+
+2017-11-18  Markus Gans  <guru.mail@muenster.de>
+	* Improved command line paramenter handling
+	* New command line paramenter --no-terminal-detection
+	* New command line paramenter --no-color-change
+	* Splitting init_termcaps() into multiple submethods
+
+2017-11-11  Markus Gans  <guru.mail@muenster.de>
+	* Improved code coverage tests
+
+2017-11-08  Markus Gans  <guru.mail@muenster.de>
+	* Simulate invisible characters on terminals that do not 
+	  support this attribute
+
+2017-11-04  Markus Gans  <guru.mail@muenster.de>
+	* Version 0.4.0
+	* Change license from GPL v3 to LGPL v3
+
+2017-11-03  Markus Gans  <guru.mail@muenster.de>
+	* Small NewFont improvements
+	* Fixed bug: The window example called a callback method after 
+	  the child data was deleted
+
+2017-11-02  Markus Gans  <guru.mail@muenster.de>
+	* Move fonts into the root directory 
+
+2017-10-30  Markus Gans  <guru.mail@muenster.de>
+	* Fix scrollview functionality with new inheritance structure
+	* Add a standardized close confirmation dialog
+	* Only <final/final.h> can now be directly integrated in programs
+
+2017-10-29  Markus Gans  <guru.mail@muenster.de>
+	* Adaptation of the inheritance diagrams in the header files
+	* Add a standardized cb_exitApp callback method to FApplication
+
+2017-10-27  Markus Gans  <guru.mail@muenster.de>
+	* FWidget now inherits directly from FObject 
+
+2017-10-23  Markus Gans  <guru.mail@muenster.de>
+	* A FListView tree branch can now be expand and collapsed 
+	  with a single click
+
+2017-10-19  Markus Gans  <guru.mail@muenster.de>
+	* Optimized Color palette (less saturated colors)
+
+2017-10-18  Markus Gans  <guru.mail@muenster.de>
+	* Expand or collapse a tree element with a double-click
+	* FListView::adjustViewport() improved
+
+2017-10-15  Markus Gans  <guru.mail@muenster.de>
+	* FObject double free prevention of fc::empty_string
+
+2017-10-14  Markus Gans  <guru.mail@muenster.de>
+	* Fixed a bug in the FObject check of parent objects
+	* Replace the deprecated readdir_r function (CVE-2013-4237)
+	* First implementation of a tree view in the FListView 
+	  class (alpha state)
+
+2017-10-02  Markus Gans  <guru.mail@muenster.de>
+	* DECSCUSR - Set Cursor Style support for VTE >= 0.40.0 and 
+	  gnome-terminal >= 3.16
+	* Checks if the FScrollview viewport fits into the print area
+
+2017-10-02  Markus Gans  <guru.mail@muenster.de>
+	* SGR and URXVT mouse support for coordinates greater-than 
+	  255 columns or lines
+	* Add copyright information to the source files
+
+2017-09-21  Markus Gans  <guru.mail@muenster.de>
+	* New data type FStringList introduced
+	* Stream and assignment operator support for FLineEdit
+
+2017-09-20  Markus Gans  <guru.mail@muenster.de>
+	* FString has now got its own streaming functionality for 
+	  inbound and outbound type conversion
+	* Added stream and assignment operator support for FLabel
+
+2017-09-19  Markus Gans  <guru.mail@muenster.de>
+	* The command line help text is now available in all applications
+
+2017-09-17  Markus Gans  <guru.mail@muenster.de>
+	* FObject has received the iterator child access methods 
+	  begin() and end()
+	* All include files were moved to a separate directory
+	* std::scanf used now fields with width limit
+
+2017-09-15  Markus Gans  <guru.mail@muenster.de>
+	* Fix byte access in data type char_data
+
+2017-09-11  Markus Gans  <guru.mail@muenster.de>
+	* Some code improvements 
+	* Fix handling of negative numbers in FString::toLong()
+
+2017-09-09  Markus Gans  <guru.mail@muenster.de>
+	* Wrong UTF-8 string length fixed when attaching to FString
+
+2017-09-07  Markus Gans  <guru.mail@muenster.de>
+	* Type definition exported into a separate header file
+
+2017-09-03  Markus Gans  <guru.mail@muenster.de>
+	* Fixes wrong maximum line width in FListView
+
+2017-08-26  Markus Gans  <guru.mail@muenster.de>
+	* Improve code readability through spaces between 
+	  the operands and the operators
+
+2017-08-24  Markus Gans  <guru.mail@muenster.de>
+	* Rename fapp.{cpp,h} to fapplication.{cpp,h}
+
+2017-08-20  Markus Gans  <guru.mail@muenster.de>
+	* Screen characters got a union structure for a faster 
+	  attribute compare operation
+
+2017-08-11  Markus Gans  <guru.mail@muenster.de>
+	* Some code changes for GCC 7
+	* Implementation of a copy constructor for FPoint and FRect
+
+2017-08-06  Markus Gans  <guru.mail@muenster.de>
+	* Fix GNU Screen support for vte/gnome-terminals
+	* Advanced streaming functionality for FTermBuffer 
+	  and FVTerm::print()
+
+2017-07-31  Markus Gans  <guru.mail@muenster.de>
+	* New methods to retrieve or modify FListViewItem text or 
+	  a FListView column text for a specific column
+
+2017-07-28  Markus Gans  <guru.mail@muenster.de>
+	* Possibility for a FListView column to set 
+	  the alignment (left, center or right)
+
+2017-07-23  Markus Gans  <guru.mail@muenster.de>
+	* Check an object with isInstanceOf(...) whether it is 
+	  an instance of a specified class
+
+2017-07-18  Markus Gans  <guru.mail@muenster.de>
+	* New Widget class FListView (filled with FListViewItem) 
+	  to allow a multi-column data view
+	* Add the listview example to demonstrate FListView
+
+2017-07-11  Markus Gans  <guru.mail@muenster.de>
+	* New class FTermBuffer to buffer terminal outputs
+	* Add the possibility to print from the terminal buffer
+
+2017-07-03  Markus Gans  <guru.mail@muenster.de>
+	* Use more static const variables where it makes sense
+
+2017-06-26  Markus Gans  <guru.mail@muenster.de>
+	* FString::rtrim() and FString::left() now return an FString 
+	  object with the correct character length
+
+2017-06-18  Markus Gans  <guru.mail@muenster.de>
+	* Move the dragScroll enumeration into the fc namespace
+
+2017-06-11  Markus Gans  <guru.mail@muenster.de>
+	* New method FObject::isWidget()
+	* Non-widget objects inherit from FObjects will no longer 
+	  affect the widget lists
+
+2017-06-05  Markus Gans  <guru.mail@muenster.de>
+	* The focus and active flag is set centrally in FWidget
+
+2017-05-20  Markus Gans  <guru.mail@muenster.de>
+	* Recalculate the horizontal FListBox scroll bar size 
+	  on lazy conversion
+
+2017-05-19  Markus Gans  <guru.mail@muenster.de>
+	* FListBox: Import of data from a container via 
+	  "lazy conversion" during item print
+
+2017-04-23  Markus Gans  <guru.mail@muenster.de>
+	* Import of data from a standard container in FListBox 
+	  is now possible
+	* The new "listbox" example shows the handling with 
+	  standard containers
+
+2017-04-17  Markus Gans  <guru.mail@muenster.de>
+	* Speed up FString::setNumber() by using a decimal 
+	  string lookup table
+	* FString allocates no new memory if the size is sufficient
+
+2017-04-15  Markus Gans  <guru.mail@muenster.de>
+	* Fix unsigned integer underflow in FString::_insert()
+
+2017-04-14  Markus Gans  <guru.mail@muenster.de>
+	* The Final Cut compiles also under OpenBSD
+	* The alt key now always generates an esc prefix 
+	  on an OpenBSD and a NetBSD console
+
+2017-04-11  Markus Gans  <guru.mail@muenster.de>
+	* Enable xterm "metaSendsEscape" switch
+
+2017-04-09  Markus Gans  <guru.mail@muenster.de>
+	* The Final Cut compiles now also under NetBSD
+	* Rename preprocessor macro names with leading underscore
+
+2017-04-08  Markus Gans  <guru.mail@muenster.de>
+	* Looking in /etc/ttys for the type of terminal
+
+2017-04-06  Markus Gans  <guru.mail@muenster.de>
+	* Change cursor style on a FreeBSD console
+
+2017-04-05  Markus Gans  <guru.mail@muenster.de>
+	* Replace non-printable characters for Tera Term and 
+	  Cygwin terminal directly at start-up. Special cases 
+	  in the code are no longer necessary.
+	* New method setInsertCursorStyle() to change the appearance 
+	  of a cursor
+
+2017-04-02  Markus Gans  <guru.mail@muenster.de>
+	* Remap the meta key to left alt key at runtime 
+	  on the FreeBSD console for the accelerator key access
+	  (Console switching is still possible with 
+	   Ctrl-Alt-F1 through Ctrl-Alt-F8)
+	* Avoid non-printable ASCII codes < 0x1c on a FreeBSD console
+
+2017-03-30  Markus Gans  <guru.mail@muenster.de>
+	* Fixed bug: termcap "me" does not reset 
+	  the alternate character set
+
+2017-03-28  Markus Gans  <guru.mail@muenster.de>
+	* Improved graphic charset pairs (vt100) 
+	  for FreeBSD console
+
+2017-03-26  Markus Gans  <guru.mail@muenster.de>
+	* The Final Cut compiles now under FreeBSD
+	* A new test program to show the termcap variables
+
+2017-03-19  Markus Gans  <guru.mail@muenster.de>
+	* Add the "mouse" example to illustrate mouse programming
+
+2017-03-17  Markus Gans  <guru.mail@muenster.de>
+	* More constant character pointers
+
+2017-03-13  Markus Gans  <guru.mail@muenster.de>
+	* Corrects directly the input cursor position on window moving
+
+2017-03-12  Markus Gans  <guru.mail@muenster.de>
+	* The FButtonGroup now has a scrolling area 
+	  with on-demand scroll bars
+	* Add the "choice" example to demonstrate the FButtonGroup 
+	  auto-adjusting with on-demand scroll bars
+	* FRect can now combine two FRect objects
+	* The FButtonGroup got the possibility of index access 
+	  to a child button.
+	* Fixed bug in FString copy constructor
+
+2017-03-08  Markus Gans  <guru.mail@muenster.de>
+	* Improve input cursor positioning in FScrollView
+
+2017-02-24  Markus Gans  <guru.mail@muenster.de>
+	* Corrected swapped top and left offset variables 
+	  in the class FVTerm
+
+2017-02-24  Markus Gans  <guru.mail@muenster.de>
+	* FListBox gets the option to save a data pointer for 
+	  every FListBoxItem element
+	* Fixes incorrect return value of FString::toString()
+
+2017-02-19  Markus Gans  <guru.mail@muenster.de>
+	* New FWidget methods setMinimumWidth(), setMinimumHeight(), 
+	  setMaximumWidth() and setMaximumHeight() 
+	* FButtonGroup now inherits from FScrollView. This supports 
+	  many buttons to be displayed in a smaller frame.
+
+2017-02-18  Markus Gans  <guru.mail@muenster.de>
+	* Allows a window to have more than one FScrollView widget
+
+2017-02-07  Markus Gans  <guru.mail@muenster.de>
+	* Uses termcap capability U8 to identify terminals that 
+	  can't display vt100 line-drawing in UTF-8 mode
+
+2017-01-28  Markus Gans  <guru.mail@muenster.de>
+	* Allow to change the focus out from FScrollView to another widget
+
+2017-01-26  Markus Gans  <guru.mail@muenster.de>
+	* FScrollView now scrolls automatically to the focused widget
+
+2017-01-22  Markus Gans  <guru.mail@muenster.de>
+	* A FScrollView object can now have client widgets 
+	  on the scrolling area
+
+2017-01-15  Markus Gans  <guru.mail@muenster.de>
+	* Virtual window gets a preprocessing handler. This allows 
+	  a preprocessing method to be called before the vterm is updated.
+
+2017-01-07  Markus Gans  <guru.mail@muenster.de>
+	* Add scrollTo and scrollBy methods to FScrollView
+
+2017-01-03  Markus Gans  <guru.mail@muenster.de>
+	* FScrollView now has on-demand scroll bars
+	* Arrow keys support for FScrollView viewport scrolling
+
+2017-01-02  Markus Gans  <guru.mail@muenster.de>
+	* The new FScrollView widget provides a scrollable viewport 
+	  to change the area of interest
+	* The scrollview example illustrates the use of FScrollView class
+
+2016-12-28  Markus Gans  <guru.mail@muenster.de>
+	* Reduce public methods in FVTerm
+
+2016-12-27  Markus Gans  <guru.mail@muenster.de>
+	* Avoid non-working tab-cursor-movements on Linux terminals
+	  with activated PC or VT100 encoding
+
+2016-12-26  Markus Gans  <guru.mail@muenster.de>
+	* Add the ability to stream text into a widget's virtual window
+	  with print() << '#' << 5; or *this << ...
+
+2016-12-22  Markus Gans  <guru.mail@muenster.de>
+	* VTerm marks printed characters for a correct determination 
+	  of unchanged characters
+	* Correct gpm detection in configure script
+
+2016-12-18  Markus Gans  <guru.mail@muenster.de>
+	* Only perform VTerm updates on terminal updates
+	* Skipping the print of characters without changes
+	* Combined scrollAreaForward and scrollAreaReverse 
+	  with terminal scroll sequences
+
+2016-12-15  Markus Gans  <guru.mail@muenster.de>
+	* Reduce the character output by using character erase 
+	  and character repeat
+
+2016-12-11  Markus Gans  <guru.mail@muenster.de>
+	* Accelerates text line drawing by clear with CSI sequences 
+	  to begin or to end of the current line.
+
+2016-11-29  Markus Gans  <guru.mail@muenster.de>
+	* Restore the xterm window title and font 
+	  only if it could be read before
+
+2016-11-27  Markus Gans  <guru.mail@muenster.de>
+	* Some minor bug fixes
+	* Version 0.3.0
+
+2016-11-26  Markus Gans  <guru.mail@muenster.de>
+	* Improvements for ansi terminal emulators
+	* Add the opti-move test program
+	* Optimized the terminal clear screen
+
+2016-11-20  Markus Gans  <guru.mail@muenster.de>
+	* Increase speed on cygwin terminals
+	* Improve tty settings
+
+2016-11-13  Markus Gans  <guru.mail@muenster.de>
+	* Do not draw shadows on a Linux console if not 
+	  all characters are available
+
+2016-11-12  Markus Gans  <guru.mail@muenster.de>
+	* Better support for Linux terminals with 8 colors
+	* Optimized input cursor positioning for terminals without 
+	  hidden cursor
+	* Switch locale name from "en_US" to "C"
+	* Fix FString toLong()
+
+2016-11-06  Markus Gans  <guru.mail@muenster.de>
+	* The adjustment of xterm default colors now is configurable
+
+2016-11-05  Markus Gans  <guru.mail@muenster.de>
+	* Determine xterm maximum number of colors via OSC 4
+	* The method clearArea can now fill the background 
+	  with certain character
+
+2016-11-03  Markus Gans  <guru.mail@muenster.de>
+	* xterm should be able to use at least 16 colors
+
+2016-11-01  Markus Gans  <guru.mail@muenster.de>
+	* The class declaration now has a consistent order
+
+2016-10-17  Markus Gans  <guru.mail@muenster.de>
+	* Refactor the VGA attribute controller access code
+
+2016-10-15  Markus Gans  <guru.mail@muenster.de>
+	* Each virtual window gets its own virtual print cursor
+
+2016-10-14  Markus Gans  <guru.mail@muenster.de>
+	* Virtual windows can now store their own offset information
+	* Correct implementation of the move() method
+
+2016-10-13  Markus Gans  <guru.mail@muenster.de>
+	* Reduces in the code the number of friend classes
+
+2016-10-11  Markus Gans  <guru.mail@muenster.de>
+	* Separate the virtual terminal into a own class vterm
+
+2016-10-09  Markus Gans  <guru.mail@muenster.de>
+	* Remove some duplicate code
+
+2016-10-08  Markus Gans  <guru.mail@muenster.de>
+	* Add the possibility to scroll text up and down 
+	  in a virtual window
+
+2016-10-06  Markus Gans  <guru.mail@muenster.de>
+	* The input cursor is now controlled by the virtual terminal
+
+2016-10-02  Markus Gans  <guru.mail@muenster.de>
+	* FStatusBar and FMenuBar use now the always-on-top 
+	  window option
+
+2016-10-01  Markus Gans  <guru.mail@muenster.de>
+	* Add an always-on-top mode for window objects
+	* New FToolTip widget to show assisted information
+
+2016-09-30  Markus Gans  <guru.mail@muenster.de>
+	* Using arrow keys to move or to resize a window
+
+2016-09-28  Markus Gans  <guru.mail@muenster.de>
+	* The size is now dynamically changeable with the mouse 
+	  in a resizable window.
+
+2016-09-26  Markus Gans  <guru.mail@muenster.de>
+	* FLabel now transmits the Click events to the parent widget
+
+2016-09-25  Markus Gans  <guru.mail@muenster.de>
+	* Splitting gotoxy in printPos (local position) 
+	  and printPosTerm (global terminal position)
+	* Replacing the widget position variables by FRect objects
+	* Rename getGeometryShadow() to getGeometryWithShadow()
+	* Rename getGeometryGlobal() to getTermGeometry()
+	* Rename getGeometryGlobalShadow() to getTermGeometryWithShadow()
+	* Rename globalToLocalPos() to termToWidgetPos()
+	* Rename getGlobalX() to getTermX()
+	* Rename getGlobalY() to getTermY()
+	* Rename getGlobalPos() to getTermPos()
+	* setColor() without parameters sets the default widget colors
+	* New methods setMinimumSize(), setMaximumSize(), setFixedSize() 
+	  and setSize()
+
+2016-09-12  Markus Gans  <guru.mail@muenster.de>
+	* Activate the title bar menu with ctrl+^
+
+2016-09-11  Markus Gans  <guru.mail@muenster.de>
+	* New zoom interaction-elements to maximize a FDialog
+
+2016-09-08  Markus Gans  <guru.mail@muenster.de>
+	* Different color when focusing the title bar button
+	* Move clearArea() from FWidget to FTerm
+	* Move setWidth(), setHeight() and setGeometry from 
+	  FDialog to FWindow
+
+2016-09-04  Markus Gans  <guru.mail@muenster.de>
+	* FButton, FLineEdit and FProgressbar has shadow now enabled 
+	  by default
+	* FDialog has now transparent shadow as default
+
+2016-09-03  Markus Gans  <guru.mail@muenster.de>
+	* The method clearFlatBorder() replace now a double flatline 
+	  with a single flatline
+	* Add the possibility to set the double_flatline_mask for 
+	  every position on all sides
+
+2016-09-02  Markus Gans  <guru.mail@muenster.de>
+	* Method setGeometry assigns now the full widget size to 
+	  the double_flatline_mask (previously, it was the adjust size)
+
+2016-08-28  Markus Gans  <guru.mail@muenster.de>
+	* Remove obsolete code from FDialog
+	* An incorrect parameter can now return an error message 
+	  on program exit
+	* Termcap S2 and S3 fallback only for the vte/gnome-terminal 
+	  and the Linux terminal
+
+2016-08-27  Markus Gans  <guru.mail@muenster.de>
+	* A new inherit background option for characters
+	* Use inherit background for the simple shadows
+	* Updating the transparent example program
+
+2016-08-25  Markus Gans  <guru.mail@muenster.de>
+	* Use the new transparent shadow option in drawShadow()
+
+2016-08-21  Markus Gans  <guru.mail@muenster.de>
+	* Improved transparent shadow background
+	* Add "transparent" example to demonstrate transparency
+
+2016-08-20  Markus Gans  <guru.mail@muenster.de>
+	* Switch back to the own dialog when you closing a dialog menu
+	* switchToPrevWindow() is looking for another window 
+	  if no previous window was found
+
+2016-08-14  Markus Gans  <guru.mail@muenster.de>
+	* Screen characters now have a transparent 
+	  and a transparent shadow option
+
+2016-07-31  Markus Gans  <guru.mail@muenster.de>
+	* Rename setUpdateVTerm to updateVTerm
+	* Rename clrscr to clearArea
+	* The widget clearing method updates now only non-covered 
+	  characters on the virtual terminal.
+
+2016-07-31  Markus Gans  <guru.mail@muenster.de>
+	* Resetting the local window widget focus at 
+	  the end of the lifetime of a widget.
+	* Fix method setPos in the class FRect
+	* Add the windows example to show the window behavior
+
+2016-07-30  Markus Gans  <guru.mail@muenster.de>
+	* Delete all callbacks from a widget with delCallbacks()
+	* Remove dialog list item callback from the associated window
+
+2016-07-28  Markus Gans  <guru.mail@muenster.de>
+	* Improvements for the window focus
+
+2016-07-24  Markus Gans  <guru.mail@muenster.de>
+	* Add missing null pointer check in FOptiAttr before dereferencing
+	* Remove callbacks and accelerator keys from FDialogListMenu
+	  on closing of a dialog window
+	* Execute accelerator keys only once
+	* Improved window focus behavior
+
+2016-07-23  Markus Gans  <guru.mail@muenster.de>
+	* Add a modifier key correction for the Linux tty
+	* Support to read meta+enter from keyboard
+
+2016-07-16  Markus Gans  <guru.mail@muenster.de>
+	* Support to read meta+tab from keyboard
+
+2016-07-16  Markus Gans  <guru.mail@muenster.de>
+	* Switch to a specific dialog with meta key + 1..9
+	* Add more meta key escape sequences (for putty)
+
+2016-07-14  Markus Gans  <guru.mail@muenster.de>
+	* Adding a dialog list with the entries in the chronological 
+	  order of the generation
+
+2016-07-13  Markus Gans  <guru.mail@muenster.de>
+	* Bind accelerator key from the FMenuItem to the root widget
+
+2016-07-12  Markus Gans  <guru.mail@muenster.de>
+	* The status bar and the menu bar insert now the accelerator keys 
+	  into the global scope of the root widget
+
+2016-07-10  Markus Gans  <guru.mail@muenster.de>
+	* Remove obsolete code from FDialog destructor
+	* FDialog focus fix
+
+2016-07-08  Markus Gans  <guru.mail@muenster.de>
+	* Better code readability: control structures (if/else, while, switch) 
+	  are now separated by a blank line.
+
+2016-07-06  Markus Gans  <guru.mail@muenster.de>
+	* Stop terminal updates during processCloseWidget() is working
+
+2016-07-03  Markus Gans  <guru.mail@muenster.de>
+	* Add the new class FDialogListMenu to switch between dialog menus
+	* More consistent method names: 
+	  rename parentWidget() to getParentWidget()
+
+2016-06-27  Markus Gans  <guru.mail@muenster.de>
+	* Fix the use-after-free bug for previous_widget
+
+2016-06-26  Markus Gans  <guru.mail@muenster.de>
+	* Bug fix for FWindow::activatePrevWindow()
+
+2016-06-25  Markus Gans  <guru.mail@muenster.de>
+	* Move processNextEvent() code into sub functions
+
+2016-06-22  Markus Gans  <guru.mail@muenster.de>
+	* Adding required updateTerminal() calls for FMenuBar
+
+2016-06-19  Markus Gans  <guru.mail@muenster.de>
+	* Clear status bar text in FMenuBar::leaveMenuBar()
+	* Fixes some status bar update issues and focus problems
+
+2016-06-18  Markus Gans  <guru.mail@muenster.de>
+	* Improved status bar text updating at window change
+
+2016-06-16  Markus Gans  <guru.mail@muenster.de>
+	* Bug fix in FTerm updateVTerm() for updates from vdesktop
+	* Bug fix in FDialog onWindowActive() for combined setFocus() 
+	  and activateWindow()
+
+2016-06-13  Markus Gans  <guru.mail@muenster.de>
+	* Improved title bar menu integration
+
+2016-06-12  Markus Gans  <guru.mail@muenster.de>
+	* Add a title bar menu to close dialogs
+
+2016-05-24  Markus Gans  <guru.mail@muenster.de>
+	* Use nl_langinfo to determine the numeric thousands separator 
+	  for Fstring::setFormatedNumber as default parameter
+
+2016-05-22  Markus Gans  <guru.mail@muenster.de>
+	* Fix for menus in modal dialogs
+
+2016-05-16  Markus Gans  <guru.mail@muenster.de>
+	* Improve adjustSize()
+	* Implement adjustSizeGlobal() for all widgets
+	* Don't focus menus with focusFirstChild() and focusLastChild()
+	* Remove duplicate code
+
+2016-05-01  Markus Gans  <guru.mail@muenster.de>
+	* Better terminal identification
+
+2016-04-30  Markus Gans  <guru.mail@muenster.de>
+	* Improve 256 color terminal detection
+
+2016-04-19  Markus Gans  <guru.mail@muenster.de>
+	* Fix the missing typecast for SpecialCharacter in "ui.cpp"
+
+2016-02-04  Markus Gans  <guru.mail@muenster.de>
+	* KDE Konsole detection improved
+	* OSC sequence support for GNU Screen and tmux
+
+2016-01-31  Markus Gans  <guru.mail@muenster.de>
+	* Better escape sequences readability through 
+	  symbolic names like ESC, CSI or OSC
+
+2016-01-24  Markus Gans  <guru.mail@muenster.de>
+	* Moving widget flags into the class fc
+
+2016-01-17  Markus Gans  <guru.mail@muenster.de>
+	* Moving events into the class fc
+	* Avoid height and width underflow in adjustSize()
+	* Fix default color handling on Cygwin and Linux terminals
+
+2016-01-10  Markus Gans  <guru.mail@muenster.de>
+	* Better default color handling in FOptiAttr
+
+2016-01-07  Markus Gans  <guru.mail@muenster.de>
+	* Add the new class FOptiAttr to control video attributes and colors 
+	  for output on terminals
+
+2015-12-23  Markus Gans  <guru.mail@muenster.de>
+	* Add video attribute support for dim (half-bright) and italic
+	* An example program to test video attributes on your terminal
+
+2015-12-20  Markus Gans  <guru.mail@muenster.de>
+	* Add the possibility to switch off the cursor optimization 
+	  for bad ANSI-terminal implementations like HyperTerminal 
+	  (e.g. horizontal absolute position (ch) has there no function)
+	* Now you can activate the menu with ctrl+space, too. 
+	  (For terminals with no meta key support)
+
+2015-12-20  Markus Gans  <guru.mail@muenster.de>
+	* Bug fix in FTerm updateVTerm() for updates from vdesktop
+	* Add raiseWindow() to FMenuBar::leaveMenuBar()
+	* Fix allocation of null strings with the FString = operator
+	* Fix for non printable characters in Cygwin and TeraTerm
+	* Fix missing eat_newline_glitch (xn) in TeraTerm
+
+2015-12-19  Markus Gans  <guru.mail@muenster.de>
+	* Add delOwnTimer() for FObject
+	* Close sub-menu on right and middle click
+	* Version 0.2.0
+
+2015-12-18  Markus Gans  <guru.mail@muenster.de>
+	* Optimize menu example
+	* More string types for FString relational operators 
+
+2015-12-16  Markus Gans  <guru.mail@muenster.de>
+	* Avoid to show menus outside of the screen
+
+2015-12-12  Markus Gans  <guru.mail@muenster.de>
+	* Improve sub-sub-menu handling
+
+2015-12-10  Markus Gans  <guru.mail@muenster.de>
+	* PC encoding: Avoid to print ASCII sign 0x00..0x1f in xterm
+	* Newfont Bullet sign
+
+2015-12-08  Markus Gans  <guru.mail@muenster.de>
+	* Add "menu" example to demonstrate the behavior from FMenuBar, 
+	  FMenu, FMenuItem, FCheckMenuItem and FRadioMenuItem widgets.
+	* Show status bar messages, if no keys are available.
+
+2015-11-29  Markus Gans  <guru.mail@muenster.de>
+	* Better handling of empty strings in FLineEdit and FButton
+	* Add a sub-menu to the "ui.cpp" example
+
+2015-11-25  Markus Gans  <guru.mail@muenster.de>
+	* Small menu improvements
+
+2015-11-24  Markus Gans  <guru.mail@muenster.de>
+	* Improved mouse and keyboard handling in sub-menus
+
+2015-11-22  Markus Gans  <guru.mail@muenster.de>
+	* Add sub-menu support
+
+2015-11-19  Markus Gans  <guru.mail@muenster.de>
+	* Add the missing resetXTermHighlightBackground method
+
+2015-11-15  Markus Gans  <guru.mail@muenster.de>
+	* Add two new classes FCheckMenuItem and FRadioMenuItem 
+	  for menu check marks and menu option marks (bullets)
+
+2015-11-12  Markus Gans  <guru.mail@muenster.de>
+	* Improve menu accelerator keys
+	* Shows accelerator keys on the right side of the FMenu.
+
+2015-11-08  Markus Gans  <guru.mail@muenster.de>
+	* Activate the previous window in case if the menu is open and 
+	  the mouse click has activated no window.
+
+2015-11-07  Markus Gans  <guru.mail@muenster.de>
+	* Improved menu focus handling
+	* Menu supports newfont
+
+2015-11-05  Markus Gans  <guru.mail@muenster.de>
+	* Menu bar navigation without menu drop down
+
+2015-11-03  Markus Gans  <guru.mail@muenster.de>
+	* Improve keyboard shortcut handling in menus
+
+2015-11-01  Markus Gans  <guru.mail@muenster.de>
+	* First working version of an application menu, 
+	  it uses the new classes FMenuBar, FMenu and FMenuItem 
+	  (alpha state)
+
+2015-10-29  Markus Gans  <guru.mail@muenster.de>
+	* Support for the menu key
+
+2015-10-23  Markus Gans  <guru.mail@muenster.de>
+	* Color setting improvements
+
+2015-10-22  Markus Gans  <guru.mail@muenster.de>
+	* Make cursor visibility more standards compliant.
+
+2015-10-18  Markus Gans  <guru.mail@muenster.de>
+	* Hidden windows are now non-clickable
+
+2015-10-17  Markus Gans  <guru.mail@muenster.de>
+	* More faster header inline code
+	* Improve getXTermFont() and getXTermTitle()
+	* Newfont characters are now printable in FLabel, FMenuBar and FMenu.
+
+2015-10-16  Markus Gans  <guru.mail@muenster.de>
+	* Fixed: calculator behavior for negative values 
+	  in trigonometric functions
+
+2015-10-13  Markus Gans  <guru.mail@muenster.de>
+	* Reduce the number of getParent() function calls for print operations
+
+2015-10-11  Markus Gans  <guru.mail@muenster.de>
+	* Improve attribute setting for bold, reverse and underline output
+	* Better support for monochrom terminals
+
+2015-10-10  Markus Gans  <guru.mail@muenster.de>
+	* Deactivate a key from the status bar automatically 
+	  after getting back from the callback.
+
+2015-10-09  Markus Gans  <guru.mail@muenster.de>
+	* Eliminate duplicate code
+
+2015-10-06  Markus Gans  <guru.mail@muenster.de>
+	* Refactoring FTerm::init()
+
+2015-10-05  Markus Gans  <guru.mail@muenster.de>
+	* Improve compatibility with initialize_color
+	* Better support for TeraTerm
+
+2015-10-02  Markus Gans  <guru.mail@muenster.de>
+	* No terminal updates until input data is pending. 
+	  This speeds up the window moving with the mouse on terminals 
+	  with a high latency.
+	* Use now the select command before read ENQ and SEC_DA
+
+2015-09-29  Markus Gans  <guru.mail@muenster.de>
+	* Some code improvements
+
+2015-09-27  Markus Gans  <guru.mail@muenster.de>
+	* Add methods getPos and setPos to FRect and FWidget
+
+2015-09-24  Markus Gans  <guru.mail@muenster.de>
+	* Add macro _METHOD_CALLBACK and _FUNCTION_CALLBACK 
+	  to simplify the use callback functions
+	* The callback data pointer is now predefined with 
+	  NULL as default argument
+
+2015-09-23  Markus Gans  <guru.mail@muenster.de>
+	* Further code optimizations
+
+2015-09-22  Markus Gans  <guru.mail@muenster.de>
+	* Add the possibility to hide a virtual window
+	* Some code optimizations
+
+2015-09-18  Markus Gans  <guru.mail@muenster.de>
+	* Fixed compile error on 32-bit architectures
+
+2015-08-08  Markus Gans  <guru.mail@muenster.de>
+	* Bug fix in FDialog (use GlobalPos to move)
+	* Don't check mouse click position on title bar again 
+	  while FDialog is in move
+
+2015-07-26  Markus Gans  <guru.mail@muenster.de>
+	* init() method for the FStatusKey constructor 
+	  to avoid code duplication
+
+2015-07-18  Markus Gans  <guru.mail@muenster.de>
+	* Add multiple lines support for FLabel
+
+2015-07-12  Markus Gans  <guru.mail@muenster.de>
+	* Improve focusFirstChild() and focusLastChild()
+
+2015-07-09  Markus Gans  <guru.mail@muenster.de>
+	* Better contrast on 8 color terminals
+
+2015-07-06  Markus Gans  <guru.mail@muenster.de>
+	* Bug fix disable cursor on focus FSwitch
+	* Hold down the mouse button displays FSwitch in a different color.
+
+2015-07-04  Markus Gans  <guru.mail@muenster.de>
+	* New class FSwitch
+	* Add the watch example to demonstrate FSwitch
+	* Version 0.1.1
+
+2015-07-02  Markus Gans  <guru.mail@muenster.de>
+	* Add a joined right-left-line character to the newfont
+	* Use the object timer for the progress bar animation 
+	  in the ui example program
+
+2015-07-01  Markus Gans  <guru.mail@muenster.de>
+	* Use the object timer for the click animation in FButton
+
+2015-06-28  Markus Gans  <guru.mail@muenster.de>
+	* Add exception handling for toLong() and toULong() 
+	  in FString
+
+2015-06-27  Markus Gans  <guru.mail@muenster.de>
+	* Add toFloat(), toDouble() and setNumber(...) for 
+	  floating point values to FString
+
+2015-06-22  Markus Gans  <guru.mail@muenster.de>
+	* Add a simple calculator with trigonometric functions
+
+2015-06-21  Markus Gans  <guru.mail@muenster.de>
+	* Add the possibility to draw double lines on overlapped 
+	  flat lines for the 8x16graph font
+	* Bug fix in FButton (mouse click with unsetClickAnimation())
+
+2015-06-20  Markus Gans  <guru.mail@muenster.de>
+	* Add the possibility to change the colors from FButton
+
+2015-06-15  Markus Gans  <guru.mail@muenster.de>
+	* Add the possibility to turn off click animation 
+	  on FButton
+
+2015-06-14  Markus Gans  <guru.mail@muenster.de>
+	* correction for the modifier letter small x 
+	  in the character map
+
+2015-06-12  Markus Gans  <guru.mail@muenster.de>
+	* Add Some mathematical signs to the character map
+
+2015-05-28  Markus Gans  <guru.mail@muenster.de>
+	* Add keyword 'explicit' to some constructors
+
+2015-05-25  Markus Gans  <guru.mail@muenster.de>
+	* Add a Mandelbrot set program
+
+2015-05-24  Markus Gans  <guru.mail@muenster.de>
+	* Bug fix in FLineEdit (ypos from the label)
+	* Bug fix in FDialog onWindowActive (status bar check)
+
+2015-05-15  Markus Gans  <guru.mail@muenster.de>
+	* Remove never read value from code
+	* Add the possibility to use exec() from FMessageBox 
+	  to enter and leave the main event loop correctly
+	* Add a "hello world" example
+
