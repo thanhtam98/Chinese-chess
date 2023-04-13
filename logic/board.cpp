@@ -69,6 +69,9 @@ void Board::setup() {
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {
             if (pieces[y][x] != blank) {
+                // becarefull: 
+                // x is the line number
+                // y is the column number
                 map[x][y] = Chessman::newInstance(pieces[y][x], Point::of(x,y));
             } else {
                 map[x][y] = nullptr;

@@ -10,7 +10,7 @@
 
 
 ## How to install final cut lib to project
-```
+``` bash
 sudo apt-get update
 sudo apt-get install autotools-dev automake autoconf autoconf-archive libtool pkg-config
 mkdir libfinal
@@ -23,4 +23,10 @@ sudo make install
 mv ../libfinal/include/final ../
 rm -rf ../finalcut
 cd ..
+```
+
+## Troubleshoot
+In case of the terminal doest show chessman characters, please use the following command before running the game!
+``` bash
+export LC_ALL=en_US.UTF-8
 ```

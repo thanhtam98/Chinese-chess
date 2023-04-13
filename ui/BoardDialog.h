@@ -5,11 +5,6 @@
 using namespace finalcut;
 
 class BoardDialog : public FDialog {
-private:
-    IBoard* board;
-    FButton* pieces[BOARD_LENGTH][BOARD_WIDTH];
-    void mapFromBoard();
-
 public:
     explicit BoardDialog(FWidget* = nullptr);
     const FColor BLACK_BG = FColor::Black;
@@ -18,4 +13,11 @@ public:
     const FColor FOCUS_RED_BG = FColor::LightRed;
 
     void initLayout() override;
+private:
+    IBoard* board;
+    FButton* pieces[BOARD_WIDTH][BOARD_LENGTH];
+    FLabel * riverBoundaryLabel;
+    void initChessmanFromBoard();
+    void initOtherBoardItems();
+
 };

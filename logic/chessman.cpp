@@ -27,6 +27,9 @@ team_code Chessman::getTeam(){
 chessman_code Chessman::getCode(){
     return piece.c;
 }
+string Chessman::getName(){
+    return piece.getChessmanName();
+}
 bool Chessman::move(Point* new_point){
     if (new_point == slot)
         return false;
