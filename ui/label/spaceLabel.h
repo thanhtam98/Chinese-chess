@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ui/label/ILabel.h"
 #include <string>
 
 union CrossChar {
@@ -21,8 +22,12 @@ enum {
     FULL = 15
 };
 
-class SpaceButtonText {
+class SpaceLabel : public ILabel {
 public:
-    // explicit SpaceButtonText(int x, int y);
-    static std::string getText(int x, int y);
+    SpaceLabel(FWidget* parent, Point* pos): ILabel{parent, pos} {};
+    void initLayout() override;
+    void setTarget() override;
+    void unsetTarget() override;
+private:
+    std::string getCrossText();
 };

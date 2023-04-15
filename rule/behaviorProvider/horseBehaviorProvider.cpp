@@ -10,7 +10,7 @@ void HorseBehaviorProvider::supportHandleFalse(int x, int y, Rule &rule) {
     std::vector<Point*> *possibleMoves = &(rule.possibleMoves);
     IBoard *board = rule.board;
     IChessman *target_chessman = board->getChessman(rule.target);
-    cout << "x " << x << " y " << y << endl;
+    // cout << "x " << x << " y " << y << endl;
     if (!Point::isWithinBoundary(x,y))
         return;
     if (!board->isOccupied(x, y)){

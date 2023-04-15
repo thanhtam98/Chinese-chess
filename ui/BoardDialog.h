@@ -1,38 +1,51 @@
 #include "final/final.h"
 #include "logic/iBoard.h"
 #include "utils/constant.h"
+#include "ui/label/ILabel.h"
+#include "ui/label/riverBorderLabels.h"
+#include "ui/label/fortressLabels.h"
+#include "ui/label/verticalLineLabels.h"
+#include "ui/label/horizontalLabels.h"
+#include "ui/label/debugLabel.h"
+#include "utils/point.h"
+#include <vector>
 
 using namespace finalcut;
+
+const int PIECE_SIZE_X = 2;
+const int PIECE_SIZE_Y = 1;
+const int SPACE_SIZE_X = 3;
+const int SPACE_SIZE_Y = 1;
+const int SPACE_BW_PIECE_X = PIECE_SIZE_X + SPACE_SIZE_X;
+const int SPACE_BW_PIECE_Y = PIECE_SIZE_Y + SPACE_SIZE_Y;
+const int OFFSET_X = 2;
+const int OFFSET_Y = 1;
+const int SPACE_LABEL_SIZE_X = 3;
+const int SPACE_LABEL_SIZE_Y = 1;
+const FColor BLACK_BG = FColor::Black;
+const FColor FOCUS_BLACK_BG = FColor::Grey50;
+const FColor RED_BG = FColor::Red;
+const FColor FOCUS_RED_BG = FColor::Red1;
 
 class BoardDialog : public FDialog {
 public:
     explicit BoardDialog(FWidget* = nullptr);
-    const FColor BLACK_BG = FColor::Black;
-    const FColor FOCUS_BLACK_BG = FColor::Grey50;
-    const FColor RED_BG = FColor::Red;
-    const FColor FOCUS_RED_BG = FColor::LightRed;
-    static const int PIECE_SIZE_X = 4;
-    static const int PIECE_SIZE_Y = 1;
-    static const int SPACE_SIZE_X = 1;
-    static const int SPACE_SIZE_Y = 1;
-    static const int SPACE_BW_PIECE_X = PIECE_SIZE_X + SPACE_SIZE_X;
-    static const int SPACE_BW_PIECE_Y = PIECE_SIZE_Y + SPACE_SIZE_Y;
-    static const int OFFSET_X = 1;
-    static const int OFFSET_Y = 1;
-    static const int SPACE_LABEL_SIZE_X = 1;
-    static const int SPACE_LABEL_SIZE_Y = 1;
 
     void initLayout() override;
+    void setClickedPoint(Point* clicked);
+    Point* getClickedPoint();
+    void clickedCallback();
 private:
+    void setValueForTargetedPieces(bool value);
+
     IBoard* board;
-    FLabel* riverBoundaryLabel;
-    FLabel* horizontalLines[BOARD_WIDTH-1][BOARD_LENGTH];
-    FLabel* verticalLines[BOARD_WIDTH][BOARD_LENGTH-1];
-    FLabel* verticalLinesAtBorder[2];
-    FLabel* fortressLines[2][4];
-    FButton* pieces[BOARD_WIDTH][BOARD_LENGTH];
+    RiverBorderLabels riverBoundaryLabels{this};
+    FortressLabels fortressLabels{this};
+    VerticleLineLabels verticleLineLabels{this};
+    HorizontalLineLabels horizontalLineLabels{this};
+    DebugLabel debugLabel{this};
+    ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
 
-    void initChessmanFromBoard();
-    void initOtherBoardItems();
-
+    Point* clickedPoint;
+    vector<Point*> possibleMoves;
 };
