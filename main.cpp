@@ -18,6 +18,13 @@ auto main (int argc, char* argv[]) -> int
 
   FApplication app{argc, argv};
 
+  // Force terminal initialization without calling show()
+  app.initTerminal();
+
+  // The following lines require an initialized terminal
+  if ( finalcut::FTerm::canChangeColorPalette() )
+    app.setBackgroundColor(FColor::Default);
+
   BoardDialog board{&app};
 
   board.setGeometry(FPoint{1, 1}, FSize{50, 22}, false);

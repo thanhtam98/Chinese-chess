@@ -112,9 +112,7 @@
 #endif
 
 /* Define to 1 if you have the <sys/io.h> header file. */
-#ifndef F_HAVE_SYS_IO_H
-#define F_HAVE_SYS_IO_H 1
-#endif
+/* #undef HAVE_SYS_IO_H */
 
 /* Define to 1 if you have the <sys/kd.h> header file. */
 #ifndef F_HAVE_SYS_KD_H
