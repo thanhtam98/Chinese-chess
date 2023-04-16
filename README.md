@@ -7,6 +7,7 @@
 - [ ] Design the User Interface (Ref: https://github.com/gansm/finalcut/blob/main/doc/first-steps.md#first-steps-with-the-final-cut-widget-toolkit)
 - [ ] Refactor behaviorProviders [Optional] 
 - [ ] Refactor pieces to optimize memory usage [Optional]
+- [ ] Bug: After eliminating the opponent, the piece at the former location does not disappear.
 
 
 ## How to install final cut lib to project

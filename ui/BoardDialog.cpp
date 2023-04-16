@@ -80,13 +80,31 @@ void BoardDialog::moveCallback() {
 }
 
 void BoardDialog::swapPieces() {
-    // Change the Geometry of the Labels
-    pieces[clickedPoint->getX()][clickedPoint->getY()]->changePosition(toPoint);
-    pieces[toPoint->getX()][toPoint->getY()]->changePosition(clickedPoint);
-    // Swap 2 ILabels in pieces map as well
-    ILabel* tmpLabel = pieces[clickedPoint->getX()][clickedPoint->getY()];
-    pieces[clickedPoint->getX()][clickedPoint->getY()] = pieces[toPoint->getX()][toPoint->getY()];
-    pieces[toPoint->getX()][toPoint->getY()] = tmpLabel;
+    ILabel* toPiece = pieces[toPoint->getX()][toPoint->getY()];
+    ILabel* fromPiece = pieces[clickedPoint->getX()][clickedPoint->getY()];
+    if (dynamic_cast<SpaceLabel*>(toPiece) != nullptr) {
+        // If toPiece is a space label, we swap to labels
+        fromPiece->changePosition(toPoint);
+        toPiece->changePosition(clickedPoint);
+
+        // Swap the pieces in pieces array of the board dialog
+        pieces[clickedPoint->getX()][clickedPoint->getY()] = toPiece;
+        pieces[toPoint->getX()][toPoint->getY()] = fromPiece;
+
+    } else {
+        // If toPiece is a piece label, we delete the destined piece label
+        // (considered as eliminated), move the source piece label and
+        // create a space label where the source piece label was located.
+        fromPiece->changePosition(toPoint);
+        toPiece->changePosition(clickedPoint);
+
+        delete toPiece;
+        toPiece = nullptr;
+        pieces[clickedPoint->getX()][clickedPoint->getY()] = new SpaceLabel{this, clickedPoint};
+        pieces[clickedPoint->getX()][clickedPoint->getY()]->changePosition(clickedPoint);
+        pieces[toPoint->getX()][toPoint->getY()] = fromPiece;
+    }
+
     // Inform the board about the changes.
     board->move(clickedPoint, toPoint);
 }

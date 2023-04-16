@@ -4,6 +4,10 @@
 #include "logic/iChessman.h"
 #include "ui/BoardDialog.h"
 
+PieceLabel::~PieceLabel() {
+    setParent(nullptr);
+}
+
 void PieceLabel::initLayout() {
     IBoard* board = Board::getInstance();
     int x = this->pos->getX();

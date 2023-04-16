@@ -33,12 +33,12 @@ void Board::move(Point* from, Point* to) {
     IChessman* fromChessman = getChessman(from);
     if (isOccupied(to)) {
         IChessman* toChessman = getChessman(to);
-        std::cout << "Delete chessman " << toChessman << std::endl;
+        // std::cout << "Delete chessman " << toChessman << std::endl;
         delete toChessman;
-    } else {
-        map[to->getX()][to->getY()] = fromChessman;
-        map[from->getX()][from->getY()] = nullptr;
-    }
+    } 
+    map[to->getX()][to->getY()] = fromChessman;
+    map[from->getX()][from->getY()] = nullptr;
+
     fromChessman->move(to);
 }
 
