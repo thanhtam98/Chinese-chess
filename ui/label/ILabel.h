@@ -12,6 +12,7 @@ public:
     bool isTargeted();
     virtual void setTarget() = 0;
     virtual void unsetTarget() = 0;
+    virtual void changePosition(Point* to) = 0;
 protected:
     Point *pos;
     bool target;

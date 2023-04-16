@@ -8,7 +8,7 @@ void PieceLabel::initLayout() {
     IBoard* board = Board::getInstance();
     int x = this->pos->getX();
     int y = this->pos->getY();
-    IChessman* chessman = board->getChessman(x, BOARD_LENGTH - y -1);
+    IChessman* chessman = board->getChessman(x, y);
 
     team_code team = chessman->getTeam();
     if (target) {
@@ -33,8 +33,14 @@ void PieceLabel::onMouseDown(FMouseEvent* event) {
     BoardDialog* boardDialog = (BoardDialog*) getParent();
 
     if (event->getButton() == MouseButton::Left) {
-        boardDialog->setClickedPoint(pos);
-        emitCallback("clicked");
+        if (target) {
+            boardDialog->setToPoint(pos);
+            emitCallback("move");
+        } else {
+            boardDialog->setClickedPoint(pos);
+            emitCallback("clicked");
+        }
+
     }
 }
 
@@ -43,7 +49,7 @@ void PieceLabel::setTarget() {
     IBoard* board = Board::getInstance();
     int x = this->pos->getX();
     int y = this->pos->getY();
-    IChessman* chessman = board->getChessman(x, BOARD_LENGTH - y -1);
+    IChessman* chessman = board->getChessman(x, y);
 
     team_code team = chessman->getTeam();
     setBackgroundColor(team == BLACK ? FOCUS_BLACK_BG : FOCUS_RED_BG);
@@ -56,10 +62,19 @@ void PieceLabel::unsetTarget() {
     IBoard* board = Board::getInstance();
     int x = this->pos->getX();
     int y = this->pos->getY();
-    IChessman* chessman = board->getChessman(x, BOARD_LENGTH - y -1);
+    IChessman* chessman = board->getChessman(x, y);
 
     team_code team = chessman->getTeam();
     setBackgroundColor(team == BLACK ? BLACK_BG : RED_BG);
     setForegroundColor(FColor::White);
+    redraw();
+}
+
+void PieceLabel::changePosition(Point* to) {
+    pos = to;
+    setGeometry(
+        FPoint{to->getX()*SPACE_BW_PIECE_X+OFFSET_X, to->getY()*SPACE_BW_PIECE_Y+OFFSET_Y},
+        FSize{PIECE_SIZE_X,PIECE_SIZE_Y}
+    );
     redraw();
 }

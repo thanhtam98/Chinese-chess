@@ -34,9 +34,13 @@ public:
     void initLayout() override;
     void setClickedPoint(Point* clicked);
     Point* getClickedPoint();
-    void clickedCallback();
+    void setToPoint(Point* to);
+    Point* getToPoint();
 private:
     void setValueForTargetedPieces(bool value);
+    void clickedCallback();
+    void moveCallback();
+    void swapPieces();
 
     IBoard* board;
     RiverBorderLabels riverBoundaryLabels{this};
@@ -47,5 +51,6 @@ private:
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
 
     Point* clickedPoint;
+    Point* toPoint;
     vector<Point*> possibleMoves;
 };

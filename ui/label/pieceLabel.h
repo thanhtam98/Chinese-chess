@@ -10,4 +10,5 @@ public:
     void onMouseDown(FMouseEvent* event) override;
     void setTarget() override;
     void unsetTarget() override;
+    void changePosition(Point* to) override;
 };

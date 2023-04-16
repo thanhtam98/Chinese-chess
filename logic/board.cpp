@@ -6,8 +6,8 @@ IBoard* Board::instance = nullptr;
 IBoard* Board::getInstance() {
     if (instance == nullptr) {
         instance = new Board();
+        ((Board*) instance)->setup();
     }
-    ((Board*) instance)->setup();
     return instance;
 }
 

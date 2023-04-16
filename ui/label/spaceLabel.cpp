@@ -65,6 +65,22 @@ std::string SpaceLabel::getCrossText() {
         text = "──";
         break;
 
+    case NON_LEFT_DOWN:
+        text = "└─";
+        break;
+
+    case NON_LEFT_UP:
+        text = "┌─";
+        break;
+
+    case NON_RIGHT_DOWN:
+        text = "┘ ";
+        break;
+
+    case NON_RIGHT_UP:
+        text = "┐ ";
+        break;
+
     case FULL:
         text = "┼─";
         break;
@@ -85,5 +101,26 @@ void SpaceLabel::setTarget() {
 void SpaceLabel::unsetTarget() {
     target = false;
     setBackgroundColor(FColor::White);
+    redraw();
+}
+
+void SpaceLabel::onMouseDown(FMouseEvent* event) {
+    BoardDialog* boardDialog = (BoardDialog*) getParent();
+
+    if (event->getButton() == MouseButton::Left) {
+        if (target) {
+            boardDialog->setToPoint(pos);
+            emitCallback("move");
+        }
+    }
+}
+
+void SpaceLabel::changePosition(Point* to) {
+    pos = to;
+    setGeometry(
+        FPoint{to->getX()*SPACE_BW_PIECE_X+OFFSET_X, to->getY()*SPACE_BW_PIECE_Y+OFFSET_Y},
+        FSize{PIECE_SIZE_X,PIECE_SIZE_Y}
+    );
+    setText(getCrossText());
     redraw();
 }
