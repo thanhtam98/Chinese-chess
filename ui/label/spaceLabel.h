@@ -29,6 +29,7 @@ enum {
 class SpaceLabel : public ILabel {
 public:
     SpaceLabel(FWidget* parent, Point* pos): ILabel{parent, pos} {};
+    ~SpaceLabel() {};
     void initLayout() override;
     void onMouseDown(FMouseEvent* event) override;
     void setTarget() override;

@@ -97,12 +97,23 @@ void BoardDialog::swapPieces() {
         // create a space label where the source piece label was located.
         fromPiece->changePosition(toPoint);
         toPiece->changePosition(clickedPoint);
+        toPiece->hide();
 
         delete toPiece;
-        toPiece = nullptr;
-        pieces[clickedPoint->getX()][clickedPoint->getY()] = new SpaceLabel{this, clickedPoint};
-        pieces[clickedPoint->getX()][clickedPoint->getY()]->changePosition(clickedPoint);
         pieces[toPoint->getX()][toPoint->getY()] = fromPiece;
+        ILabel* newLabel = new SpaceLabel{this, clickedPoint};
+        pieces[clickedPoint->getX()][clickedPoint->getY()] = newLabel;
+        newLabel->show();
+        newLabel->addCallback(
+            "clicked",
+            this,
+            &BoardDialog::clickedCallback
+        );
+        newLabel->addCallback(
+            "move",
+            this,
+            &BoardDialog::moveCallback
+        );
     }
 
     // Inform the board about the changes.

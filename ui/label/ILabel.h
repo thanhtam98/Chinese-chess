@@ -8,6 +8,7 @@ using namespace finalcut;
 class ILabel : public FLabel {
 public:
     ILabel(FWidget* parent, Point* pos) : FLabel{parent}, pos{pos} {};
+    virtual ~ILabel() {};
     Point* getPosition();
     bool isTargeted();
     virtual void setTarget() = 0;
