@@ -104,11 +104,11 @@ void BoardDialog::swapPieces() {
         ILabel* newLabel = new SpaceLabel{this, clickedPoint};
         pieces[clickedPoint->getX()][clickedPoint->getY()] = newLabel;
         newLabel->show();
-        newLabel->addCallback(
-            "clicked",
-            this,
-            &BoardDialog::clickedCallback
-        );
+        // newLabel->addCallback(
+        //     "clicked",
+        //     this,
+        //     &BoardDialog::clickedCallback
+        // );
         newLabel->addCallback(
             "move",
             this,
