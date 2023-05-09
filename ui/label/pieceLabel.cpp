@@ -3,6 +3,7 @@
 #include "logic/board.h"
 #include "logic/iChessman.h"
 #include "ui/boardDialog.h"
+#include "ui/turn/ITurn.h"
 
 PieceLabel::~PieceLabel() {}
 
@@ -34,15 +35,16 @@ void PieceLabel::initLayout() {
 void PieceLabel::onMouseDown(FMouseEvent* event) {
     BoardDialog* boardDialog = (BoardDialog*) getParent();
 
+    team_code this_team = Board::getInstance()->getChessman(pos)->getTeam();
+
     if (event->getButton() == MouseButton::Left) {
         if (target) {
             boardDialog->setToPoint(pos);
             emitCallback("move");
-        } else {
+        } else if (ITurn::isSatisfiedTurn(this_team)) {
             boardDialog->setClickedPoint(pos);
             emitCallback("clicked");
         }
-
     }
 }
 

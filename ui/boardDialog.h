@@ -8,6 +8,7 @@
 #include "ui/label/horizontalLabels.h"
 #include "ui/label/debugLabel.h"
 #include "utils/point.h"
+#include "ui/label/teamSignalLabels.h"
 #include <vector>
 
 using namespace finalcut;
@@ -19,7 +20,7 @@ const int SPACE_SIZE_Y = 1;
 const int SPACE_BW_PIECE_X = PIECE_SIZE_X + SPACE_SIZE_X;
 const int SPACE_BW_PIECE_Y = PIECE_SIZE_Y + SPACE_SIZE_Y;
 const int OFFSET_X = 2;
-const int OFFSET_Y = 1;
+const int OFFSET_Y = 2;
 const int SPACE_LABEL_SIZE_X = 3;
 const int SPACE_LABEL_SIZE_Y = 1;
 const FColor BLACK_BG = FColor::Black;
@@ -47,6 +48,7 @@ private:
     FortressLabels fortressLabels{this};
     VerticleLineLabels verticleLineLabels{this};
     HorizontalLineLabels horizontalLineLabels{this};
+    TeamSignalLabels *teamSignalLabels;
     DebugLabel debugLabel{this};
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
 

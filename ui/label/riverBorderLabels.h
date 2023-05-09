@@ -1,5 +1,4 @@
 #pragma once
-
 #include "final/final.h"
 
 using namespace finalcut;

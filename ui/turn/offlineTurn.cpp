@@ -1,7 +1,5 @@
-#include <ui/turn/offlineTurn.h>
+#include "ui/turn/offlineTurn.h"
 
-int OfflineTurn::handle(void){
-
-    
-    return next();
-}
+bool OfflineTurn::_isSatisfiedTurn(team_code this_team) {
+    return this_team == team;
+} 

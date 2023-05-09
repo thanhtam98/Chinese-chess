@@ -7,7 +7,7 @@ HorizontalLineLabels::HorizontalLineLabels(FWidget* parent) {
             horizontalLines[i][j] = new FLabel{parent};
             horizontalLines[i][j]->setText("───");
             horizontalLines[i][j]->setGeometry(
-                FPoint{i*SPACE_BW_PIECE_X+OFFSET_X+PIECE_SIZE_X, j*SPACE_BW_PIECE_Y+1},
+                FPoint{i*SPACE_BW_PIECE_X+OFFSET_X+PIECE_SIZE_X, j*SPACE_BW_PIECE_Y+OFFSET_Y},
                 FSize{SPACE_LABEL_SIZE_X,SPACE_LABEL_SIZE_Y}
             );
             horizontalLines[i][j]->back();

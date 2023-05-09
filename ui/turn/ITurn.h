@@ -1,23 +1,28 @@
+#pragma once
 #include <iostream> 
 #include "utils/constant.h"
-#include "ui/boardDialog.h"
 
 class ITurn {
 
 public:
-    ITurn(team_code team, BoardDialog *board) : 
-        nextTurn(nullptr),team(team),board(board){};
+    ITurn(team_code team) : 
+        nextTurn(nullptr), team(team) {};
 
     ITurn *setNext(ITurn *handler);
-    int next(void);
-    virtual int handle(void) = 0;
+    // int next(void);
+    // virtual int handle(void) = 0;
+    team_code _getTeam();
+    virtual bool _isSatisfiedTurn(team_code this_team) = 0;
 
     static ITurn *setupTurns(ITurn *first, ITurn * second);
     static ITurn *getTurn(void); 
+    static bool isSatisfiedTurn(team_code this_team);
+    static void endTurn();
+    static team_code getTeam();
 
-private:
+protected:
     // static I
-    BoardDialog *board;
+    static ITurn *curTurn;
     team_code team;
     ITurn *nextTurn;
 };

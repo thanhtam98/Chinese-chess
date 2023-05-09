@@ -5,6 +5,10 @@
 #include "ui/label/ILabel.h"
 #include "ui/label/pieceLabel.h"
 #include "ui/label/spaceLabel.h"
+#include "ui/turn/ITurn.h"
+#include "ui/turn/offlineTurn.h"
+#include "ui/turn/debugTurn.h"
+#include "ui/label/teamSignalLabels.h"
 #include <string>
 
 using namespace std;
@@ -12,6 +16,9 @@ using namespace std;
 BoardDialog::BoardDialog(FWidget* parent) : FDialog{parent} {
     board = Board::getInstance();
     cout << "Init board" << endl;
+
+    //ITurn::setupTurns(new DebugTurn(), new DebugTurn());
+    ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {
@@ -33,6 +40,7 @@ BoardDialog::BoardDialog(FWidget* parent) : FDialog{parent} {
             );
         }
     }
+    teamSignalLabels = new TeamSignalLabels{this};
 }
 
 void BoardDialog::initLayout() {
@@ -77,6 +85,8 @@ void BoardDialog::moveCallback() {
     setValueForTargetedPieces(false);
     // Swap 2 pieces in case of normal move
     swapPieces();
+    ITurn::endTurn();
+    teamSignalLabels->changeTeamColor();
 }
 
 void BoardDialog::swapPieces() {

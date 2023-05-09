@@ -1,9 +1,9 @@
 #pragma once
 #include "ui/turn/ITurn.h"
 
-class OfflineTurn : public ITurn {
+class DebugTurn : public ITurn {
 public:
-    OfflineTurn(team_code team) : ITurn(team) {};
+    DebugTurn() : ITurn{T_NONE} {};
 
     bool _isSatisfiedTurn(team_code this_team) override;
 };
