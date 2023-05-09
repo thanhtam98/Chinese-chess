@@ -1,6 +1,6 @@
 #include <iostream> 
 #include "utils/constant.h"
-#include "ui/boardDiaglog.h"
+#include "ui/boardDialog.h"
 
 class ITurn {
 

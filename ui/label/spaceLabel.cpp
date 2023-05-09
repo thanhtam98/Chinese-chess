@@ -2,7 +2,7 @@
 #include "logic/iBoard.h"
 #include "logic/board.h"
 #include "logic/iChessman.h"
-#include "ui/BoardDialog.h"
+#include "ui/boardDialog.h"
 #include <string>
 
 void SpaceLabel::initLayout() {

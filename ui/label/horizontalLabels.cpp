@@ -1,5 +1,5 @@
 #include "ui/label/horizontalLabels.h"
-#include "ui/BoardDialog.h"
+#include "ui/boardDialog.h"
 
 HorizontalLineLabels::HorizontalLineLabels(FWidget* parent) {
     for (int i = 0; i < BOARD_WIDTH-1; i++) {

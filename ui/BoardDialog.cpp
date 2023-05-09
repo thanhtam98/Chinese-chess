@@ -1,4 +1,4 @@
-#include "ui/BoardDialog.h"
+#include "ui/boardDialog.h"
 #include "logic/board.h"
 #include "logic/iChessman.h"
 #include "utils/constant.h"

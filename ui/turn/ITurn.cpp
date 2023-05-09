@@ -9,7 +9,7 @@ int ITurn::next(void) {
     if (this->nextTurn) {
       return this->nextTurn->handle();
     }
-    return;
+    return 0;
 }
 
 ITurn* ITurn::setupTurns(ITurn *first, ITurn * second){

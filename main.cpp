@@ -6,7 +6,7 @@
 #include "rule/rule.h"
 #include "logic/iBoard.h"
 #include "logic/board.h"
-#include "ui/BoardDialog.h"
+#include "ui/boardDialog.h"
 
 using namespace std;
 using namespace finalcut;

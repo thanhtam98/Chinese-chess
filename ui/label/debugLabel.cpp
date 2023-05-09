@@ -1,5 +1,5 @@
 #include "ui/label/debugLabel.h"
-#include "ui/BoardDialog.h"
+#include "ui/boardDialog.h"
 #include "utils/constant.h"
 
 DebugLabel::DebugLabel(FWidget* parent) {
