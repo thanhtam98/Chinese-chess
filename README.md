@@ -4,10 +4,15 @@
 - [x] Write code for IBoard and IChessman
 - [x] Write newInstance for IChessman and implementations for every chessman
 - [x] Design move chessman mechanism
-- [ ] Design the User Interface (Ref: https://github.com/gansm/finalcut/blob/main/doc/first-steps.md#first-steps-with-the-final-cut-widget-toolkit)
+- [x] Design the User Interface (Ref: https://github.com/gansm/finalcut/blob/main/doc/first-steps.md#first-steps-with-the-final-cut-widget-toolkit)
 - [ ] Refactor behaviorProviders [Optional] 
 - [ ] Refactor pieces to optimize memory usage [Optional]
-- [ ] Bug: After eliminating the opponent, the piece at the former location does not disappear.
+- [x] Bug: After eliminating the opponent, the piece at the former location does not disappear.
+- [ ] Multi-platform support (build + run).
+- [ ] Design server-client model for online gaming (HTTP prefered)
+- [ ] Check when the game is over. (MVP: General is captured).
+- [ ] Checkmate detection: pubsub mechanism or brute-force.
+- [ ] Public to community network (Blog + Demo).
 
 
 ## How to install final cut lib to project
