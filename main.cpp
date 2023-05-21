@@ -1,12 +1,12 @@
 #include <iostream>
 #include "final/final.h"
-#include "ui/ui.h"
-#include "utils/constant.h"
-#include "utils/point.h"
-#include "rule/rule.h"
-#include "logic/iBoard.h"
-#include "logic/board.h"
-#include "ui/boardDialog.h"
+#include "ui.h"
+#include "constant.h"
+#include "point.h"
+#include "rule.h"
+#include "iBoard.h"
+#include "board.h"
+#include "boardDialog.h"
 
 using namespace std;
 using namespace finalcut;

@@ -2,19 +2,19 @@
 #include <iostream>
 #include <algorithm>
 
-#include "utils/constant.h"
-#include "utils/point.h"
-#include "rule/rule.h"
-#include "rule/ruleLimitBuilder.h"
-#include "rule/ruleShapeBuilder.h"
-#include "rule/ruleTargetBuilder.h"
+#include "constant.h"
+#include "point.h"
+#include "rule.h"
+#include "ruleLimitBuilder.h"
+#include "ruleShapeBuilder.h"
+#include "ruleTargetBuilder.h"
 #include "test/mockBoard.h"
 #include "test/mockChessman.h"
-#include "rule/behaviorProvider/abstractBehaviorProvider.h"
-#include "rule/behaviorProvider/cannonBehaviorProvider.h"
-#include "rule/behaviorProvider/chariotBehaviorProvider.h"
-#include "rule/behaviorProvider/defaultBehaviorProvider.h"
-#include "rule/behaviorProvider/soldierBehaviorProvider.h"
+#include "abstractBehaviorProvider.h"
+#include "cannonBehaviorProvider.h"
+#include "chariotBehaviorProvider.h"
+#include "defaultBehaviorProvider.h"
+#include "soldierBehaviorProvider.h"
 
 
 using ::testing::Return;

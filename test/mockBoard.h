@@ -1,7 +1,7 @@
 #pragma once
 #include <gtest/gtest.h>
 #include "gmock/gmock.h"
-#include "logic/iBoard.h"
+#include "iBoard.h"
 
 class MockBoard : public IBoard{
 public:

@@ -1,14 +1,14 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include "test/testUtils.h"
-#include "ui/ui.h"
-#include "utils/constant.h"
-#include "utils/point.h"
-#include "rule/rule.h"
-#include "rule/ruleLimitBuilder.h"
-#include "rule/ruleShapeBuilder.h"
-#include "rule/ruleTargetBuilder.h"
-#include "logic/iBoard.h"
+#include "ui.h"
+#include "constant.h"
+#include "point.h"
+#include "rule.h"
+#include "ruleLimitBuilder.h"
+#include "ruleShapeBuilder.h"
+#include "ruleTargetBuilder.h"
+#include "iBoard.h"
 
 TEST(PointTest, reusePointAdress) {
   Point* point1 = Point::of(2, 3);

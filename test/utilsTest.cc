@@ -2,12 +2,12 @@
 #include <iostream>
 #include <algorithm>
 
-#include "utils/point.h"
-#include "utils/utils.h"
-#include "rule/rule.h"
-#include "rule/ruleLimitBuilder.h"
-#include "rule/ruleShapeBuilder.h"
-#include "rule/ruleTargetBuilder.h"
+#include "point.h"
+#include "utils.h"
+#include "rule.h"
+#include "ruleLimitBuilder.h"
+#include "ruleShapeBuilder.h"
+#include "ruleTargetBuilder.h"
 #include "test/mockBoard.h"
 
 void listPointCmp(vector<Point *> expect, vector<Point *> actual)
