@@ -10,7 +10,7 @@ build:
       - build/chinese-chess
 
 test:
-  stage: testgi
+  stage: test
   # before_script:
 
   script:
