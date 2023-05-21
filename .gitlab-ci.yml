@@ -3,16 +3,15 @@ image: mcr.microsoft.com/vscode/devcontainers/cpp:0-bullseye
 build:
   stage: build
   script:
-    - g++ -g -std=c++14 -I./ **/*.cpp **/**/*.cpp main.cpp -Llibfinal/lib -Wl,-Rlibfinal/lib -l:libfinal.a -o chinese-chess
+    - cmake -S . -B build
+    - cmake --build build -j $(nproc)
   artifacts:
     paths:
-      - chinese-chess
+      - build/chinese-chess
 
 test:
-  stage: test
+  stage: testgi
   # before_script:
 
   script:
-    - cmake -S . -B build
-    - cmake --build build
     - cd build && ctest
