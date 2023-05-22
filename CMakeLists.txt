@@ -12,6 +12,7 @@ FetchContent_Declare(
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+include(CMakePrintHelpers)
 
 
 # add_subdirectory(finalcut)
@@ -48,7 +49,9 @@ set(SOURCES
 
 )
 set(FINALCUT
-    /workspaces/chinese-chess/libfinal/lib/libfinal.so)
+    ${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.so)
+
+cmake_print_variables(FINALCUT)
 
 # Create executable
 add_executable(chinese-chess ${SOURCES})
@@ -59,37 +62,38 @@ target_link_libraries(chinese-chess
     finalcut
 )
 add_library(finalcut SHARED IMPORTED)
-set_property(TARGET finalcut PROPERTY IMPORTED_LOCATION "/workspaces/chinese-chess/libfinal/lib/libfinal.so")
+set_property(TARGET finalcut PROPERTY IMPORTED_LOCATION ${FINALCUT})
 
 add_custom_target(
     build_finalcut
-    COMMAND [ ! -f ${FINALCUT} ] && cd /workspaces/chinese-chess/ && ./scripts/build_finalcut.sh && cd - || true
+    COMMAND [ ! -f ${FINALCUT} ] && cd ${CMAKE_SOURCE_DIR} && ./scripts/build_finalcut.sh && cd - || true
 )
+
 add_dependencies(chinese-chess build_finalcut)
 
-# enable_testing()
+enable_testing()
 
 
-# add_executable(
-#   mainTest
-#   test/pointTest.cc
-#   test/ruleTest.cc
-#   test/utilsTest.cc
-#   ${UTILS}
-#   ${RULE}
-#   ${BEHAVIOR}
+add_executable(
+  mainTest
+  test/pointTest.cc
+  test/ruleTest.cc
+  test/utilsTest.cc
+  ${UTILS}
+  ${RULE}
+  ${BEHAVIOR}
 
-# )
+)
 
-# target_link_libraries(
-#   mainTest
-#   GTest::gtest_main
-#   GTest::gmock_main
-# )
+target_link_libraries(
+  mainTest
+  GTest::gtest_main
+  GTest::gmock_main
+)
 
-# include(GoogleTest)
-# include_directories(
-#   .
-#   test
-#   ) 
-# gtest_discover_tests(mainTest)
+include(GoogleTest)
+include_directories(
+  .
+  test
+  ) 
+gtest_discover_tests(mainTest)

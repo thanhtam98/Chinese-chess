@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# rm -rf final
-# rm -rf libfinal
+rm -rf final
+rm -rf libfinal
 sudo apt-get update -y
 sudo apt-get install -y autotools-dev automake autoconf autoconf-archive libtool pkg-config
 mkdir libfinal
