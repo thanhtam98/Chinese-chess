@@ -14,4 +14,6 @@ test:
   # before_script:
 
   script:
+    - cmake -S . -B build
+    - cmake --build build -j $(nproc)
     - cd build && ctest
