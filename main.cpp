@@ -7,6 +7,7 @@
 #include "iBoard.h"
 #include "board.h"
 #include "boardDialog.h"
+#include "log.h"
 
 using namespace std;
 using namespace finalcut;
@@ -34,5 +35,6 @@ auto main (int argc, char* argv[]) -> int
 
   // Show and start the application
   board.show();
+  LOG << "hello_world";
   return app.exec();
 }
