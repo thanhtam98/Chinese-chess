@@ -3,7 +3,6 @@
 #include "board.h"
 #include "rule.h"
 #include "ruleTargetBuilder.h"
-#include "ruleLimitBuilder.h"
 #include "ruleShapeBuilder.h"
 #include <ostream>
 

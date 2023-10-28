@@ -6,7 +6,6 @@
 
 class RuleShapeBuilder;
 class RuleTargetBuilder;
-class RuleLimitBuilder;
 class DefaultBehaviorProvider;
 class CannonBehaviorProvider;
 class SoldierBehaviorProvider;
@@ -25,7 +24,6 @@ public:
     // friend class RuleBuilder;
     friend class RuleTargetBuilder;
     friend class RuleShapeBuilder;
-    friend class RuleLimitBuilder;
     friend class DefaultBehaviorProvider;
     friend class CannonBehaviorProvider;
     friend class SoldierBehaviorProvider;

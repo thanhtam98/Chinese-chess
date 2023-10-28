@@ -5,7 +5,6 @@
 #include "constant.h"
 #include "point.h"
 #include "rule.h"
-#include "ruleLimitBuilder.h"
 #include "ruleShapeBuilder.h"
 #include "ruleTargetBuilder.h"
 #include "iBoard.h"

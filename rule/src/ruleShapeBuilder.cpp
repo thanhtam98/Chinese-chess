@@ -1,12 +1,11 @@
 #include "ruleShapeBuilder.h"
-#include "ruleLimitBuilder.h"
 #include "abstractBehaviorProvider.h"
 #include "constant.h"
 #include "utils.h"
 #include <iostream>
 
 
-RuleLimitBuilder RuleShapeBuilder::getShape(){
+RuleShapeBuilder RuleShapeBuilder::getShape(){
     Point* target = rule.target;
     vector<Point*> *possibleMoves = &(rule.possibleMoves);
     int x = target->getX();
@@ -19,5 +18,5 @@ RuleLimitBuilder RuleShapeBuilder::getShape(){
     behaviorProvider->handleDirection(rule);
 
   
-    return RuleLimitBuilder{rule};
+    return *this;
 }

@@ -5,7 +5,6 @@
 #include "point.h"
 #include "utils.h"
 #include "rule.h"
-#include "ruleLimitBuilder.h"
 #include "ruleShapeBuilder.h"
 #include "ruleTargetBuilder.h"
 #include "test/mockBoard.h"

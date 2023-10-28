@@ -25,3 +25,27 @@ void Logger::write(int line, std::string fileName, std::string content) {
     }
     logger->file.close();
 }
+
+Logger& operator<<(Logger &logger, std::string content) {
+    logger.file.open(LOGGER_FILE, ios::out | ios::app);
+
+    if (logger.file) {
+        logger.file << content << endl;
+    } else {
+        logger.file << "Cannot open file" << endl;
+    }
+    logger.file.close();
+    return logger;
+}
+
+Logger& operator<<(Logger &logger, int content) {
+    logger.file.open(LOGGER_FILE, ios::out | ios::app);
+
+    if (logger.file) {
+        logger.file << content << endl;
+    } else {
+        logger.file << "Cannot open file" << endl;
+    }
+    logger.file.close();
+    return logger;
+}

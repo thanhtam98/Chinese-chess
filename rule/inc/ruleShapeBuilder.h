@@ -9,5 +9,5 @@ private:
     bool isContinuedAndAddPossibleMoves(Point *point, AbstractBehaviorProvider* behaviorProvider);
 public:  
     RuleShapeBuilder(Rule &rule) : AbstractRuleBuilder{rule} {};
-    RuleLimitBuilder getShape();
+    RuleShapeBuilder getShape();
 };
