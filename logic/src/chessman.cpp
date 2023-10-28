@@ -14,7 +14,7 @@ std::vector<Point*> Chessman::getPossibleMoves(){
     IBoard *board = Board::getInstance();
     Rule rule = Rule::create(board).at(slot).getShape();
     // return vector<Point*> {};
-    return rule.getPossibleMove();
+    return *rule.getPossibleMove();
 }
 Chessman::Chessman(Piece piece, Point *point){
     this->piece = piece;

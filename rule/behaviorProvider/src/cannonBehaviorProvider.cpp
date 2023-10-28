@@ -10,10 +10,10 @@ bool CannonBehaviorProvider::predicate(Point *point, Rule &rule) {
 }
 
 void CannonBehaviorProvider::handleFalse(Point *point, Rule &rule) {
-    vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
-    IBoard *board = rule.board;
-    Point* target = rule.target;
+    IBoard *board = rule.getIBoard();
+    Point* target = rule.getTarget();
     int targetX = target->getX();
     int targetY = target->getY();
     IChessman *targetChessman = board->getChessman(targetX,targetY);

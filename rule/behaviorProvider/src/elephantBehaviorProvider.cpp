@@ -6,16 +6,16 @@
 #include <math.h>
 
 bool ElephantBehaviorProvider::predicate(Point *point, Rule &rule) { 
-    IBoard *board = rule.board;
-    int targetX = rule.target->getX();
-    int targetY = rule.target->getY();
+    IBoard *board = rule.getIBoard();
+    int targetX = rule.getTarget()->getX();
+    int targetY = rule.getTarget()->getY();
     IChessman *targetChessman = board->getChessman(targetX,targetY);
     
     if  (board->isOccupied(point))
     {
         return false;
     }
-    Point* target = rule.target;
+    Point* target = rule.getTarget();
 
     int x = point->getX();
     int y = point->getY();
@@ -29,12 +29,12 @@ void ElephantBehaviorProvider::handleTrue(Point *point, Rule &rule) {
 }
 
 void ElephantBehaviorProvider::handleFalse(Point *point, Rule &rule) {
-    vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    vector<Point*> *possibleMoves = rule.getPossibleMove();
     int x = point->getX();
     int y = point->getY();
-    int targetX = rule.target->getX();
-    int targetY = rule.target->getY();
-    IBoard *board = rule.board;
+    int targetX = rule.getTarget()->getX();
+    int targetY = rule.getTarget()->getY();
+    IBoard *board = rule.getIBoard();
     IChessman *targetChessman = board->getChessman(targetX,targetY);
     
     if (targetChessman->getTeam() != point->getTeam()) 

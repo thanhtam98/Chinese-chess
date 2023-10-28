@@ -8,15 +8,15 @@ bool DefaultBehaviorProvider::predicate(Point *point, Rule &rule) {
 }
 
 void DefaultBehaviorProvider::handleTrue(Point *point, Rule &rule) {
-    std::vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     possibleMoves->push_back(point);
 }
 
 void DefaultBehaviorProvider::handleFalse(Point *point, Rule &rule) {
-    std::vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
-    IBoard *board = rule.board;
-    Point* target = rule.target;
+    IBoard *board = rule.getIBoard();
+    Point* target = rule.getTarget();
     int x = target->getX();
     int y = target->getY();
 

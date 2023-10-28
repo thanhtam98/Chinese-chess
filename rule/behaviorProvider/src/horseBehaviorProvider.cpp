@@ -7,9 +7,9 @@ bool HorseBehaviorProvider::predicate(Point *point, Rule &rule) {
     return false;
 }
 void HorseBehaviorProvider::supportHandleFalse(int x, int y, Rule &rule) {
-    std::vector<Point*> *possibleMoves = &(rule.possibleMoves);
-    IBoard *board = rule.board;
-    IChessman *target_chessman = board->getChessman(rule.target);
+    std::vector<Point*> *possibleMoves = rule.getPossibleMove();
+    IBoard *board = rule.getIBoard();
+    IChessman *target_chessman = board->getChessman(rule.getTarget());
     // cout << "x " << x << " y " << y << endl;
     if (!Point::isWithinBoundary(x,y))
         return;
@@ -24,10 +24,10 @@ void HorseBehaviorProvider::supportHandleFalse(int x, int y, Rule &rule) {
     
 }
 void HorseBehaviorProvider::handleFalse(Point *point, Rule &rule) {
-    std::vector<Point*> *possibleMoves = &(rule.possibleMoves);
+    std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
-    IBoard *board = rule.board;
-    Point* target = rule.target;
+    IBoard *board = rule.getIBoard();
+    Point* target = rule.getTarget();
     int x = target->getX();
     int y = target->getY();
 

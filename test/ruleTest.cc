@@ -91,7 +91,7 @@ TEST(RunTest, testHorseChessman1)
   };
   
   Rule rule = Rule::create(&board).at(Point::of(4, 3)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -136,7 +136,7 @@ TEST(RunTest, testHorseChessman2)
   vector<Point *> expect = {
   };
   Rule rule = Rule::create(&board).at(Point::of(8,9)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -209,7 +209,7 @@ TEST(RunTest, testChariotChessman1)
 
   Rule rule = Rule::create(&board).at(Point::of(2, 3)).getShape();
 
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -249,7 +249,7 @@ TEST(RunTest, testChariotChessman2)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(8, 0)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -287,7 +287,7 @@ TEST(RunTest, testSoldierChessman1)
 
   Rule rule = Rule::create(&board).at(Point::of(3, 3)).getShape();
 
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -334,7 +334,7 @@ TEST(RunTest, testSoldierChessman2)
 
   Rule rule = Rule::create(&board).at(Point::of(5, 7)).getShape();
 
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -399,7 +399,7 @@ TEST(RunTest, testCannonChessman1)
 
   Rule rule = Rule::create(&board).at(Point::of(3, 2)).getShape();
 
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -480,7 +480,7 @@ TEST(RunTest, testCannonChessman2)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(8, 4)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -518,7 +518,7 @@ TEST(RunTest, testAdvisorChessman1)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(3, 0)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -563,7 +563,7 @@ TEST(RunTest, testAdvisorChessman2)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(4, 8)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -618,7 +618,7 @@ TEST(RunTest, testElephantChessman1)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(4, 2)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -670,7 +670,7 @@ TEST(RunTest, testElephantChessman2)
   vector<Point *> expect = {};
 
   Rule rule = Rule::create(&board).at(Point::of(2, 4)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -713,7 +713,7 @@ TEST(RunTest, testGeneralChessman1)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(4, 0)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
@@ -751,7 +751,7 @@ TEST(RunTest, testGeneralChessman2)
   };
 
   Rule rule = Rule::create(&board).at(Point::of(3,7)).getShape();
-  vector<Point *> actual = rule.getPossibleMove();
+  vector<Point *> actual = *rule.getPossibleMove();
 
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD

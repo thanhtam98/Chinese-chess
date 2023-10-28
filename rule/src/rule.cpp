@@ -11,8 +11,8 @@ Point* Rule::getTarget()
 {
     return target;
 }
-vector<Point*> Rule::getPossibleMove(){
-    return possibleMoves;
+vector<Point*> *Rule::getPossibleMove(){
+    return &possibleMoves;
 }
 IBoard* Rule::getIBoard(){
     return board;
