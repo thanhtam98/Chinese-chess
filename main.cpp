@@ -35,6 +35,6 @@ auto main (int argc, char* argv[]) -> int
 
   // Show and start the application
   board.show();
-  LOG << "hello_world";
+  LOG("hello world!!");
   return app.exec();
 }

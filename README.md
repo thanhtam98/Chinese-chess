@@ -11,7 +11,7 @@
 - [x] Bug: After eliminating the opponent, the piece at the former location does not disappear.
 - [ ] Multi-platform support (build + run).
 - [ ] Design server-client model for online gaming (HTTP preferred).
-- [ ] Implement logging module.
+- [x] Implement logging module.
 - [ ] Check when the game is over. (MVP: General is captured).
 - [ ] Checkmate detection: pubsub mechanism or brute-force.
 - [ ] Public to community network (Blog + Demo).
