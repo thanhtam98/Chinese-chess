@@ -5,7 +5,7 @@
 - [x] Write newInstance for IChessman and implementations for every chessman
 - [x] Design move chessman mechanism
 - [x] Design the User Interface (Ref: https://github.com/gansm/finalcut/blob/main/doc/first-steps.md#first-steps-with-the-final-cut-widget-toolkit)
-- [ ] Refactor behaviorProviders [Optional] 
+- [x] Refactor behaviorProviders [Optional] 
 - [ ] Refactor pieces to optimize memory usage [Optional]
 - [ ] Refactor "include" in source tree.
 - [x] Bug: After eliminating the opponent, the piece at the former location does not disappear.
