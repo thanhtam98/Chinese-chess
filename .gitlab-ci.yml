@@ -3,6 +3,7 @@ image: mcr.microsoft.com/vscode/devcontainers/cpp:0-bullseye
 build:
   stage: build
   script:
+    - sudo apt-get update && sudo apt-get -y install libboost-all-dev
     - cmake -S . -B build
     - cmake --build build -j $(nproc)
   artifacts:
