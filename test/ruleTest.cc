@@ -756,3 +756,62 @@ TEST(RunTest, testGeneralChessman2)
   listPossibleMoveCmp(expect, actual);
   // MOCK_METHOD
 }
+
+TEST(RunTest, testGeneralChessmanFlying)
+{
+  MockBoard board;
+  MockChessman targetChessman; // red
+  MockChessman blackChessman;
+  MockChessman redChessman;
+  MockChessman oppositeGeneral;
+
+  EXPECT_CALL(board,isOccupied(Point::of(4,7)))
+              .WillOnce(Return(true));
+  EXPECT_CALL(board,isOccupied(Point::of(3,8)))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,6))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,5))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,4))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,3))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,2))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,1))
+              .WillOnce(Return(false));
+  EXPECT_CALL(board,isOccupied(3,0))
+              .WillOnce(Return(true));
+            
+  EXPECT_CALL(board,getChessman(Point::of(4,7)))
+              .WillRepeatedly(Return(&redChessman));
+  EXPECT_CALL(board,getChessman(3,7))
+              .WillRepeatedly(Return(&targetChessman));
+  EXPECT_CALL(board,getChessman(3,0))
+              .WillRepeatedly(Return(&oppositeGeneral));
+
+  EXPECT_CALL(targetChessman, getTeam())
+              .WillRepeatedly(Return(BLACK));
+  EXPECT_CALL(blackChessman, getTeam())
+              .WillRepeatedly(Return(BLACK));
+  EXPECT_CALL(redChessman, getTeam())
+              .WillRepeatedly(Return(RED));
+  EXPECT_CALL(targetChessman, getCode())
+              .WillOnce(Return(GENERAL));  
+  EXPECT_CALL(oppositeGeneral, getTeam())
+              .WillRepeatedly(Return(RED));
+  EXPECT_CALL(oppositeGeneral, getCode())
+              .WillRepeatedly(Return(GENERAL)); 
+  vector<Point *> expect = {
+    Point::of(4,7),
+    Point::of(3,8),
+    Point::of(3,0)
+  };
+
+  Rule rule = Rule::create(&board).at(Point::of(3,7)).getShape();
+  vector<Point *> actual = *rule.getPossibleMove();
+
+  listPossibleMoveCmp(expect, actual);
+  // MOCK_METHOD
+}

@@ -26,6 +26,17 @@ public:
 *  description: action when we change the direction (predicate returns false)
 */
     virtual void handleFalse(Point *point, Rule &rule) = 0;
+/*
+*  Function: handleBefore
+*  description: behavior before the predicate
+*/
+    virtual void handleBefore(Rule &rule) = 0;
+/*
+*  Function: handleFalse
+*  description: behavior after the predicate
+*/
+    virtual void handleAfter(Rule &rule) = 0;
+
     virtual vector<direction_code> getListDir(Rule &rule) = 0;
     void handleDirection(Rule &rule);
 

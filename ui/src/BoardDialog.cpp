@@ -17,8 +17,8 @@ BoardDialog::BoardDialog(FWidget* parent) : FDialog{parent} {
     board = Board::getInstance();
     cout << "Init board" << endl;
 
-    //ITurn::setupTurns(new DebugTurn(), new DebugTurn());
-    ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
+    ITurn::setupTurns(new DebugTurn(), new DebugTurn());
+    // ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {

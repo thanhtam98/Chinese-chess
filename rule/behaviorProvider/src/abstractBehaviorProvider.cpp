@@ -8,6 +8,7 @@
 #include "generalBehaviorProvider.h"
 #include "horseBehaviorProvider.h"
 #include <iostream>
+#include "log.h"
 
 void AbstractBehaviorProvider::handleDirection(Rule &rule){
     // std::cout << "Handle Direction===================" << std::endl;
@@ -15,6 +16,7 @@ void AbstractBehaviorProvider::handleDirection(Rule &rule){
     vector <direction_code> listDir = getListDir(rule);
 
     DirectionInterator *dirInterator = nullptr;
+    handleBefore(rule);
     for (direction_code dir : listDir)
     {
         if ( dirInterator == nullptr)
@@ -42,6 +44,7 @@ void AbstractBehaviorProvider::handleDirection(Rule &rule){
         }
         // std::cout << "There is no more point" << std::endl;
     }
+    handleAfter(rule);
     delete dirInterator;
 
 }

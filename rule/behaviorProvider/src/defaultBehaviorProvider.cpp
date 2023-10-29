@@ -33,6 +33,10 @@ void DefaultBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     }
 }
 
+void DefaultBehaviorProvider::handleBefore(Rule &rule) { }
+
+void DefaultBehaviorProvider::handleAfter(Rule &rule) { }
+
 vector<direction_code> DefaultBehaviorProvider::getListDir(Rule &rule){
     return {WEST, EAST, NORTH, SOUTH};
 }

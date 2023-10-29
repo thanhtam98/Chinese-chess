@@ -2,6 +2,7 @@
 #include "iBoard.h"
 #include "iChessman.h"
 #include "point.h"
+#include "log.h"
 #include <iostream>
 
 bool GeneralBehaviorProvider::predicate(Point *point, Rule &rule) {
@@ -32,4 +33,46 @@ void GeneralBehaviorProvider::handleFalse(Point *point, Rule &rule) {
         possibleMoves->push_back(point);
     }
 
+}
+
+void GeneralBehaviorProvider::handleAfter(Rule &rule) {
+    std::vector<Point*> *possibleMoves = rule.getPossibleMove();
+    IBoard *board = rule.getIBoard();
+    Point* target = rule.getTarget();
+    int x = target->getX();
+    int y = target->getY();
+    IChessman *targetChessman = board->getChessman(x, y);
+    // Check flying general move
+    // If the target chessman is Black General, we move up until meeting an
+    // occupied chessman
+    if (targetChessman->getTeam() == RED) {
+        LOG_F("Check flying general move for Red General");
+        y++;
+        while (++y <= BOARD_LENGTH) {
+            if (board->isOccupied(x, y)) {
+                LOG_F("Is occupied");
+                IChessman* chessman = board->getChessman(x, y);
+                if (chessman && chessman->getCode() == GENERAL && chessman->getTeam() == BLACK) {
+                    possibleMoves->push_back(Point::of(x, y));
+                }
+                break;
+            }
+            y++;
+        }
+    } else {
+        // Otherwise, move down
+        LOG_F("Check flying general move for Black General");
+        y--;
+        while (y >= 0) {
+            if (board->isOccupied(x, y)) {
+                LOG_F("Is occupied");
+                IChessman* chessman = board->getChessman(x, y);
+                if (chessman && chessman->getCode() == GENERAL && chessman->getTeam() == RED) {
+                    possibleMoves->push_back(Point::of(x, y));
+                }
+                break;
+            }
+            y--;
+        }
+    }
 }
