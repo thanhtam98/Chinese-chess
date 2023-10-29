@@ -17,7 +17,7 @@ auto main (int argc, char* argv[]) -> int
   // freopen("/workspaces/chinese-chess/log.txt","w",stdout);
   // cout<<"Start the logfile" << endl;
   string str = "Alo!";
-  LOG_F("Start the game %s", str);
+  LOG_F("Start the game %s", str.c_str());
   FApplication app{argc, argv};
 
   // Force terminal initialization without calling show()
