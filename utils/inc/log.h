@@ -12,10 +12,11 @@
     sprintf(buff, x __VA_OPT__(,) __VA_ARGS__); \
     Logger::write(__LINE__, __FILE__, string(buff)); \
 }
-#define MAX_BUFF 1024
+#define MAX_BUFF 100
 
 class Logger {
 public:
+    static char buff[MAX_BUFF];
     static void write(int line, std::string fileName, std::string content);
     friend Logger& operator<<(Logger &logger, std::string content);
     friend Logger& operator<<(Logger &logger, int content);
