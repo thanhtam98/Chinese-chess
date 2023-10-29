@@ -2,10 +2,17 @@
 #define __LOG_H__
 #include <string>
 #include <fstream>
+#include <cstdlib>
+#include <cstdarg>
 
 #define LOGGER_FILE "session.log"
 #define LOG (*Logger::getInstance())<<"[]"<<__FILE__<<":"<<__LINE__<<" --- "
-#define LOG_F(x) Logger::write(__LINE__, __FILE__, x)
+#define LOG_F(x,...) { \
+    char buff[MAX_BUFF]; \
+    sprintf(buff, x __VA_OPT__(,) __VA_ARGS__); \
+    Logger::write(__LINE__, __FILE__, string(buff)); \
+}
+#define MAX_BUFF 1024
 
 class Logger {
 public:

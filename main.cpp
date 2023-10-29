@@ -16,7 +16,6 @@ auto main (int argc, char* argv[]) -> int
 {
   // freopen("/workspaces/chinese-chess/log.txt","w",stdout);
   // cout<<"Start the logfile" << endl;
-
   LOG_F("Start the game");
   FApplication app{argc, argv};
 

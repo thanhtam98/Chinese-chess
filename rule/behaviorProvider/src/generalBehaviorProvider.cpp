@@ -46,11 +46,9 @@ void GeneralBehaviorProvider::handleAfter() {
     // If the target chessman is Black General, we move up until meeting an
     // occupied chessman
     if (targetChessman->getTeam() == RED) {
-        LOG_F("Check flying general move for Red General");
         y++;
         while (++y <= BOARD_LENGTH) {
             if (board->isOccupied(x, y)) {
-                LOG_F("Is occupied");
                 IChessman* chessman = board->getChessman(x, y);
                 if (chessman && chessman->getCode() == GENERAL && chessman->getTeam() == BLACK) {
                     possibleMoves->push_back(Point::of(x, y));
@@ -61,11 +59,9 @@ void GeneralBehaviorProvider::handleAfter() {
         }
     } else {
         // Otherwise, move down
-        LOG_F("Check flying general move for Black General");
         y--;
         while (y >= 0) {
             if (board->isOccupied(x, y)) {
-                LOG_F("Is occupied");
                 IChessman* chessman = board->getChessman(x, y);
                 if (chessman && chessman->getCode() == GENERAL && chessman->getTeam() == RED) {
                     possibleMoves->push_back(Point::of(x, y));
