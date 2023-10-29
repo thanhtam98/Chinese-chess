@@ -17,7 +17,7 @@ void GeneralBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     int x = target->getX();
     int y = target->getY();
 
-    if (!Point::isWithinPalace(point->getX(), point->getY())) {
+    if (!point->isWithinPalace()) {
         // std::cout << *point << "not in palace" << endl;
         return;
     }

@@ -10,7 +10,8 @@ public:
     int getX();
     int getY();
     static bool isWithinBoundary(int x, int y);
-    static bool isWithinPalace(int x, int y);
+    bool isWithinBoundary();
+    bool isWithinPalace();
 private:
     // Point() {};
     Point(int _x, int _y): x(_x), y(_y) {};

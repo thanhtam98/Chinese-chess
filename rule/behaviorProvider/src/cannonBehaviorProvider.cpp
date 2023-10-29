@@ -28,7 +28,7 @@ void CannonBehaviorProvider::handleFalse(Point *point, Rule &rule) {
         dir = (targetX > stopX) ? WEST : EAST;
     
     changeForDirection(dir, stopX,stopY);
-    while (Point::isWithinBoundary(stopX,stopY)){
+    while (point->isWithinBoundary()){
         if (board->isOccupied(stopX,stopY))
         {
             chessman = board->getChessman(stopX,stopY);
