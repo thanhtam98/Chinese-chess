@@ -3,7 +3,9 @@
 
 class ChariotBehaviorProvider : public DefaultBehaviorProvider {
 public:
-    virtual bool predicate(Point *point, Rule &rule) override;
+    ChariotBehaviorProvider(Rule& rule): DefaultBehaviorProvider(rule) {};
+
+    virtual bool predicate(Point *point) override;
     // virtual void handleTrue(Point *point, Rule &rule) override;
     // virtual void handleFalse(Point *point, Rule &rule) override;
     

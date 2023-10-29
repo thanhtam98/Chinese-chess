@@ -5,12 +5,12 @@
 #include "log.h"
 #include <iostream>
 
-bool GeneralBehaviorProvider::predicate(Point *point, Rule &rule) {
+bool GeneralBehaviorProvider::predicate(Point *point) {
     return false;
 }
 
 
-void GeneralBehaviorProvider::handleFalse(Point *point, Rule &rule) {
+void GeneralBehaviorProvider::handleFalse(Point *point) {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
     IBoard *board = rule.getIBoard();
@@ -35,7 +35,7 @@ void GeneralBehaviorProvider::handleFalse(Point *point, Rule &rule) {
 
 }
 
-void GeneralBehaviorProvider::handleAfter(Rule &rule) {
+void GeneralBehaviorProvider::handleAfter() {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IBoard *board = rule.getIBoard();
     Point* target = rule.getTarget();

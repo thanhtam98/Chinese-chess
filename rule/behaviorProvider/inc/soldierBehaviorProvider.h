@@ -3,6 +3,8 @@
 
 class SoldierBehaviorProvider : public DefaultBehaviorProvider {
 public:
-    virtual bool predicate(Point *point, Rule &rule) override;
-    vector<direction_code> getListDir(Rule &rule) override;    
+    SoldierBehaviorProvider(Rule& rule): DefaultBehaviorProvider(rule) {};
+
+    virtual bool predicate(Point *point) override;
+    vector<direction_code> getListDir() override;    
 };

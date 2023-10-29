@@ -3,16 +3,16 @@
 #include "iChessman.h"
 #include "iBoard.h"
 
-bool DefaultBehaviorProvider::predicate(Point *point, Rule &rule) {
+bool DefaultBehaviorProvider::predicate(Point *point) {
     return true;
 }
 
-void DefaultBehaviorProvider::handleTrue(Point *point, Rule &rule) {
+void DefaultBehaviorProvider::handleTrue(Point *point) {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     possibleMoves->push_back(point);
 }
 
-void DefaultBehaviorProvider::handleFalse(Point *point, Rule &rule) {
+void DefaultBehaviorProvider::handleFalse(Point *point) {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
     IBoard *board = rule.getIBoard();
@@ -33,10 +33,10 @@ void DefaultBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     }
 }
 
-void DefaultBehaviorProvider::handleBefore(Rule &rule) { }
+void DefaultBehaviorProvider::handleBefore() { }
 
-void DefaultBehaviorProvider::handleAfter(Rule &rule) { }
+void DefaultBehaviorProvider::handleAfter() { }
 
-vector<direction_code> DefaultBehaviorProvider::getListDir(Rule &rule){
+vector<direction_code> DefaultBehaviorProvider::getListDir(){
     return {WEST, EAST, NORTH, SOUTH};
 }

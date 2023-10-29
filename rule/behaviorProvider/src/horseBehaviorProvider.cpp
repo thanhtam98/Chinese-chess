@@ -3,10 +3,10 @@
 #include "iChessman.h"
 #include "point.h"
 #include <iostream>
-bool HorseBehaviorProvider::predicate(Point *point, Rule &rule) {
+bool HorseBehaviorProvider::predicate(Point *point) {
     return false;
 }
-void HorseBehaviorProvider::supportHandleFalse(int x, int y, Rule &rule) {
+void HorseBehaviorProvider::supportHandleFalse(int x, int y) {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IBoard *board = rule.getIBoard();
     IChessman *target_chessman = board->getChessman(rule.getTarget());
@@ -23,7 +23,7 @@ void HorseBehaviorProvider::supportHandleFalse(int x, int y, Rule &rule) {
     }
     
 }
-void HorseBehaviorProvider::handleFalse(Point *point, Rule &rule) {
+void HorseBehaviorProvider::handleFalse(Point *point) {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
     IBoard *board = rule.getIBoard();
@@ -46,20 +46,20 @@ void HorseBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     switch (dir)
     {
         case EAST:
-            supportHandleFalse(stopX+1, stopY+1, rule);
-            supportHandleFalse(stopX+1, stopY-1, rule);
+            supportHandleFalse(stopX+1, stopY+1);
+            supportHandleFalse(stopX+1, stopY-1);
             break;
         case NORTH:
-            supportHandleFalse(stopX-1, stopY+1, rule);
-            supportHandleFalse(stopX+1, stopY+1, rule);
+            supportHandleFalse(stopX-1, stopY+1);
+            supportHandleFalse(stopX+1, stopY+1);
             break;
         case SOUTH:
-            supportHandleFalse(stopX-1, stopY-1, rule);
-            supportHandleFalse(stopX+1, stopY-1, rule);
+            supportHandleFalse(stopX-1, stopY-1);
+            supportHandleFalse(stopX+1, stopY-1);
             break;
         case WEST:
-            supportHandleFalse(stopX-1, stopY+1, rule);
-            supportHandleFalse(stopX-1, stopY-1, rule);
+            supportHandleFalse(stopX-1, stopY+1);
+            supportHandleFalse(stopX-1, stopY-1);
             break; 
     default:
         break;

@@ -4,12 +4,12 @@
 #include "iChessman.h"
 #include "iBoard.h"
 
-bool CannonBehaviorProvider::predicate(Point *point, Rule &rule) {
+bool CannonBehaviorProvider::predicate(Point *point) {
     IBoard *board = rule.getIBoard();
     return !board->isOccupied(point->getX(), point->getY());
 }
 
-void CannonBehaviorProvider::handleFalse(Point *point, Rule &rule) {
+void CannonBehaviorProvider::handleFalse(Point *point) {
     vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
     IBoard *board = rule.getIBoard();

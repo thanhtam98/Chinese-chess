@@ -13,9 +13,9 @@ RuleShapeBuilder RuleShapeBuilder::getShape(){
     IBoard *board = rule.getIBoard();
     IChessman *chessman = board->getChessman(x, y);
     AbstractBehaviorProvider* behaviorProvider = 
-        AbstractBehaviorProvider::newInstance(chessman->getCode());
+        AbstractBehaviorProvider::newInstance(rule, chessman->getCode());
 
-    behaviorProvider->handleDirection(rule);
+    behaviorProvider->handleDirection();
 
   
     return *this;

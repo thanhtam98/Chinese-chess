@@ -3,11 +3,11 @@
 #include "iChessman.h"
 #include "point.h"
 #include <iostream>
-bool SoldierBehaviorProvider::predicate(Point *point, Rule &rule) {
+bool SoldierBehaviorProvider::predicate(Point *point) {
     return false;
 }
 
-vector<direction_code> SoldierBehaviorProvider::getListDir(Rule &rule) {
+vector<direction_code> SoldierBehaviorProvider::getListDir() {
     Point* target = rule.getTarget();
     IBoard* board = rule.getIBoard();
     IChessman *chessman = board->getChessman(target->getX(), target->getY());

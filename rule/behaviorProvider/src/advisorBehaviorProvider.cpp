@@ -4,14 +4,14 @@
 #include "iBoard.h"
 #include <iostream>
 
-bool AdvisorBehaviorProvider::predicate(Point *point, Rule &rule) { return false;
+bool AdvisorBehaviorProvider::predicate(Point *point) { return false;
 }
 
-void AdvisorBehaviorProvider::handleTrue(Point *point, Rule &rule) {
+void AdvisorBehaviorProvider::handleTrue(Point *point) {
 
 }
 
-void AdvisorBehaviorProvider::handleFalse(Point *point, Rule &rule) {
+void AdvisorBehaviorProvider::handleFalse(Point *point) {
     std::vector<Point*> *possibleMoves = rule.getPossibleMove();
     IChessman *chessman;
     IBoard *board = rule.getIBoard();
@@ -38,7 +38,7 @@ void AdvisorBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     }
 }
 
-vector<direction_code> AdvisorBehaviorProvider::getListDir(Rule &rule){
+vector<direction_code> AdvisorBehaviorProvider::getListDir(){
     return {NORTH_WEST,
             NORTH_EAST,
             SOUTH_WEST,

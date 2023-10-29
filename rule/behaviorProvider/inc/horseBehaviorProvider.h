@@ -3,8 +3,10 @@
 
 class HorseBehaviorProvider : public DefaultBehaviorProvider {
 public:
-    virtual bool predicate(Point *point, Rule &rule) override;
-    virtual void handleFalse(Point *point, Rule &rule) override;
+    HorseBehaviorProvider(Rule& rule): DefaultBehaviorProvider(rule) {};
+
+    virtual bool predicate(Point *point) override;
+    virtual void handleFalse(Point *point) override;
 private:
-    void supportHandleFalse(int x, int y, Rule &rule);
+    void supportHandleFalse(int x, int y);
 };

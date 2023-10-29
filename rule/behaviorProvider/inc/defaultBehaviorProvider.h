@@ -3,10 +3,12 @@
 
 class DefaultBehaviorProvider : public AbstractBehaviorProvider {
 public:
-    virtual bool predicate(Point *point, Rule &rule) override;
-    virtual void handleTrue(Point *point, Rule &rule) override;
-    virtual void handleFalse(Point *point, Rule &rule) override;
-    virtual void handleBefore(Rule &rule) override;
-    virtual void handleAfter(Rule &rule) override;
-    virtual vector<direction_code> getListDir(Rule &rule) override;
+    DefaultBehaviorProvider(Rule& rule): AbstractBehaviorProvider{rule} {};
+
+    virtual bool predicate(Point *point) override;
+    virtual void handleTrue(Point *point) override;
+    virtual void handleFalse(Point *point) override;
+    virtual void handleBefore() override;
+    virtual void handleAfter() override;
+    virtual vector<direction_code> getListDir() override;
 };

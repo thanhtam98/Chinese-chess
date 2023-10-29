@@ -5,7 +5,7 @@
 #include <iostream>
 #include <math.h>
 
-bool ElephantBehaviorProvider::predicate(Point *point, Rule &rule) { 
+bool ElephantBehaviorProvider::predicate(Point *point) { 
     IBoard *board = rule.getIBoard();
     int targetX = rule.getTarget()->getX();
     int targetY = rule.getTarget()->getY();
@@ -24,11 +24,11 @@ bool ElephantBehaviorProvider::predicate(Point *point, Rule &rule) {
 }
 
 /* */
-void ElephantBehaviorProvider::handleTrue(Point *point, Rule &rule) {
+void ElephantBehaviorProvider::handleTrue(Point *point) {
 
 }
 
-void ElephantBehaviorProvider::handleFalse(Point *point, Rule &rule) {
+void ElephantBehaviorProvider::handleFalse(Point *point) {
     vector<Point*> *possibleMoves = rule.getPossibleMove();
     int x = point->getX();
     int y = point->getY();
@@ -54,7 +54,7 @@ void ElephantBehaviorProvider::handleFalse(Point *point, Rule &rule) {
     }
 }
 
-vector<direction_code> ElephantBehaviorProvider::getListDir(Rule &rule){
+vector<direction_code> ElephantBehaviorProvider::getListDir(){
     return {NORTH_WEST,
             NORTH_EAST,
             SOUTH_WEST,

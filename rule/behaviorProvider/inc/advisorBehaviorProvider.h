@@ -4,8 +4,10 @@
 
 class AdvisorBehaviorProvider : public DefaultBehaviorProvider {
 public:
-    virtual bool predicate(Point *point, Rule &rule) override;
-    virtual void handleTrue(Point *point, Rule &rule) override;
-    virtual void handleFalse(Point *point, Rule &rule) override;
-    virtual vector<direction_code> getListDir(Rule &rule) override;
+    AdvisorBehaviorProvider(Rule& rule): DefaultBehaviorProvider(rule) {};
+
+    virtual bool predicate(Point *point) override;
+    virtual void handleTrue(Point *point) override;
+    virtual void handleFalse(Point *point) override;
+    virtual vector<direction_code> getListDir() override;
 };

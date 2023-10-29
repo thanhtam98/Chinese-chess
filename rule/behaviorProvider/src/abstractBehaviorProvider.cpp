@@ -10,13 +10,13 @@
 #include <iostream>
 #include "log.h"
 
-void AbstractBehaviorProvider::handleDirection(Rule &rule){
+void AbstractBehaviorProvider::handleDirection(){
     // std::cout << "Handle Direction===================" << std::endl;
     
-    vector <direction_code> listDir = getListDir(rule);
+    vector <direction_code> listDir = getListDir();
 
     DirectionInterator *dirInterator = nullptr;
-    handleBefore(rule);
+    handleBefore();
     for (direction_code dir : listDir)
     {
         if ( dirInterator == nullptr)
@@ -30,42 +30,42 @@ void AbstractBehaviorProvider::handleDirection(Rule &rule){
         {
             Point *point = dirInterator->getNext();
             // std::cout << "Handle the point (" << *point;
-            if (predicate(point, rule))
+            if (predicate(point))
             {
                 // std::cout << "[True]" << std::endl;
-                handleTrue(point, rule);
+                handleTrue(point);
             }
             else
             {
                 // std::cout << "[False]" << std::endl;
-                handleFalse(point, rule);
+                handleFalse(point);
                 break;
             }
         }
         // std::cout << "There is no more point" << std::endl;
     }
-    handleAfter(rule);
+    handleAfter();
     delete dirInterator;
 
 }
 
-AbstractBehaviorProvider* AbstractBehaviorProvider::newInstance(chessman_code code) {
+AbstractBehaviorProvider* AbstractBehaviorProvider::newInstance(Rule& rule, chessman_code code) {
     switch (code){
         case CHARIOT:
-            return new ChariotBehaviorProvider();
+            return new ChariotBehaviorProvider(rule);
         case SOLDIER:
-            return new SoldierBehaviorProvider();
+            return new SoldierBehaviorProvider(rule);
         case CANNON:
-            return new CannonBehaviorProvider();
+            return new CannonBehaviorProvider(rule);
         case ADVISOR:
-            return new AdvisorBehaviorProvider();
+            return new AdvisorBehaviorProvider(rule);
         case ELEPHANT:
-            return new ElephantBehaviorProvider();
+            return new ElephantBehaviorProvider(rule);
         case GENERAL:
-            return new GeneralBehaviorProvider();
+            return new GeneralBehaviorProvider(rule);
         case HORSE:
-            return new HorseBehaviorProvider();
+            return new HorseBehaviorProvider(rule);
         default:
-            return new DefaultBehaviorProvider();       
+            return new DefaultBehaviorProvider(rule);       
     }
 }
