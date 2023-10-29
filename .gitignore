@@ -3,7 +3,7 @@ chinese_chess
 build/*
 log.txt
 final-m1/*
-libfinal/**
+libfinal/
 Makefile
 final
 session.log
