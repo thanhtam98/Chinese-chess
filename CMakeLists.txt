@@ -3,6 +3,7 @@ project(chinese-chess VERSION 0.1)
 
 # GoogleTest requires at least C++14
 set(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 # set(CMAKE_BUILD_PARALLEL_LEVEL 12)
 include(FetchContent)
 FetchContent_Declare(
@@ -10,11 +11,28 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
 )
+# === websocket++ ===
+FetchContent_Declare(websocketpp
+GIT_REPOSITORY https://github.com/zaphoyd/websocketpp.git
+  GIT_TAG 0.8.2)
+FetchContent_GetProperties(websocketpp)
+if(NOT websocketpp_POPULATED)
+  FetchContent_Populate(websocketpp)
+  add_subdirectory(${websocketpp_SOURCE_DIR} ${websocketpp_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 include(CMakePrintHelpers)
 
 set(CMAKE_BUILD_TYPE Debug)
+# Dependencies
+find_package(Boost COMPONENTS system REQUIRED)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
+# Assign the include directories
+include_directories(${Boost_INCLUDE_DIRS})
 
 # add_subdirectory(finalcut)
 
@@ -59,8 +77,10 @@ add_executable(chinese-chess ${SOURCES})
 
 # Link libraries
 # include(finalcut)
+target_include_directories(chinese-chess PUBLIC ${websocketpp_SOURCE_DIR})
 target_link_libraries(chinese-chess
-    finalcut
+    PRIVATE finalcut
+    INTERFACE Boost::system Boost::thread Boost::regex
 )
 add_library(finalcut SHARED IMPORTED)
 set_property(TARGET finalcut PROPERTY IMPORTED_LOCATION ${FINALCUT})
