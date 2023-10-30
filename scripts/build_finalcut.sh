@@ -11,6 +11,7 @@ autoreconf --install --force
 ./configure --prefix=$(realpath ../libfinal)
 make
 sudo make install
+sudo chmod -R 777 $(realpath ../libfinal)
 mv ../libfinal/include/final ../
 rm -rf ../finalcut
 cd ..
