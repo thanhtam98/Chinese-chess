@@ -45,7 +45,8 @@ namespace websocketpp
                 scoped_lock_type lock(base::m_lock);
                 if(!this->dynamic_test(channel)) return;
                 // custom logging, e.g.: std::cout with specific format:
-                std::cout << "[MY_LOGGER]" << msg;
+                // std::cout << "[MY_LOGGER]" << msg;
+                LOG << msg ;
                 // add to Flog
             }
 
