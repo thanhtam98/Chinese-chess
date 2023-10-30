@@ -1,5 +1,6 @@
 #include "point.h"
 #include <iostream>
+#include <bits/stdc++.h> 
 
 Point* Point::cache[BOARD_LENGTH*BOARD_WIDTH] = {};
 // Point** Point::cache = Point::alloc_cache();
@@ -50,4 +51,10 @@ std::ostream& operator<<(std::ostream &os,  Point &obj)
                    << obj.getY() << "]";
     os << endl;
     return os;
+}
+
+std::string Point::to_string() {
+    char buff[10];
+    sprintf(buff, "[%d:%d]", x, y);
+    return string(buff);
 }

@@ -4,6 +4,7 @@
 #include "iChessman.h"
 #include "boardDialog.h"
 #include "ITurn.h"
+#include "log.h"
 
 PieceLabel::~PieceLabel() {}
 
@@ -35,14 +36,18 @@ void PieceLabel::initLayout() {
 void PieceLabel::onMouseDown(FMouseEvent* event) {
     BoardDialog* boardDialog = (BoardDialog*) getParent();
 
-    team_code this_team = Board::getInstance()->getChessman(pos)->getTeam();
+    IChessman* chessman = Board::getInstance()->getChessman(pos);
+    team_code this_team = chessman->getTeam();
 
     if (event->getButton() == MouseButton::Left) {
         if (target) {
-            boardDialog->setToPoint(pos);
+            boardDialog->setDestPoint(pos);
+            LOG_F("Chessman is moved to %s", pos->to_string().c_str());
+            LOG_F("%s is moved", chessman->getName().c_str());
             emitCallback("move");
         } else if (ITurn::isSatisfiedTurn(this_team)) {
-            boardDialog->setClickedPoint(pos);
+            boardDialog->setSourcePoint(pos);
+            LOG_F("%s at %s is clicked", chessman->getName().c_str(), pos->to_string().c_str());
             emitCallback("clicked");
         }
     }

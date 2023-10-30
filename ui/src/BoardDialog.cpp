@@ -15,7 +15,7 @@ using namespace std;
 
 BoardDialog::BoardDialog(FWidget* parent) : FDialog{parent} {
     board = Board::getInstance();
-    cout << "Init board" << endl;
+    LOG_F("Initialize the Board Dialog");
 
     ITurn::setupTurns(new DebugTurn(), new DebugTurn());
     // ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
@@ -44,30 +44,35 @@ BoardDialog::BoardDialog(FWidget* parent) : FDialog{parent} {
 }
 
 void BoardDialog::initLayout() {
-
     FDialog::initLayout();
 }
 
-void BoardDialog::setClickedPoint(Point* clicked) {
-    clickedPoint = clicked;
-}
-Point* BoardDialog::getClickedPoint() {
-    return clickedPoint;
+void BoardDialog::dispatchChessmanMove(Point* source, Point* destination) {
+    swapPieces();
+    ITurn::endTurn();
+    teamSignalLabels->changeTeamColor();
 }
 
-void BoardDialog::setToPoint(Point* to) {
-    toPoint = to;
+void BoardDialog::setSourcePoint(Point* clicked) {
+    sourcePoint = clicked;
 }
-Point* BoardDialog::getToPoint() {
-    return toPoint;
+Point* BoardDialog::getSourcePoint() {
+    return sourcePoint;
+}
+
+void BoardDialog::setDestPoint(Point* to) {
+    destPoint = to;
+}
+Point* BoardDialog::getDestPoint() {
+    return destPoint;
 }
 
 void BoardDialog::clickedCallback() {
     setValueForTargetedPieces(false);
-    possibleMoves = board->getPossibleMoves(clickedPoint);
+    possibleMoves = board->getPossibleMoves(sourcePoint);
     setValueForTargetedPieces(true);
 
-    debugLabel.log(pieces[clickedPoint->getX()][clickedPoint->getY()]->getText().toString());
+    debugLabel.log(pieces[sourcePoint->getX()][sourcePoint->getY()]->getText().toString());
     redraw();
 }
 
@@ -90,29 +95,29 @@ void BoardDialog::moveCallback() {
 }
 
 void BoardDialog::swapPieces() {
-    ILabel* toPiece = pieces[toPoint->getX()][toPoint->getY()];
-    ILabel* fromPiece = pieces[clickedPoint->getX()][clickedPoint->getY()];
+    ILabel* toPiece = pieces[destPoint->getX()][destPoint->getY()];
+    ILabel* fromPiece = pieces[sourcePoint->getX()][sourcePoint->getY()];
     if (dynamic_cast<SpaceLabel*>(toPiece) != nullptr) {
         // If toPiece is a space label, we swap to labels
-        fromPiece->changePosition(toPoint);
-        toPiece->changePosition(clickedPoint);
+        fromPiece->changePosition(destPoint);
+        toPiece->changePosition(sourcePoint);
 
         // Swap the pieces in pieces array of the board dialog
-        pieces[clickedPoint->getX()][clickedPoint->getY()] = toPiece;
-        pieces[toPoint->getX()][toPoint->getY()] = fromPiece;
+        pieces[sourcePoint->getX()][sourcePoint->getY()] = toPiece;
+        pieces[destPoint->getX()][destPoint->getY()] = fromPiece;
 
     } else {
         // If toPiece is a piece label, we delete the destined piece label
         // (considered as eliminated), move the source piece label and
         // create a space label where the source piece label was located.
-        fromPiece->changePosition(toPoint);
-        toPiece->changePosition(clickedPoint);
+        fromPiece->changePosition(destPoint);
+        toPiece->changePosition(sourcePoint);
         toPiece->hide();
 
         delete toPiece;
-        pieces[toPoint->getX()][toPoint->getY()] = fromPiece;
-        ILabel* newLabel = new SpaceLabel{this, clickedPoint};
-        pieces[clickedPoint->getX()][clickedPoint->getY()] = newLabel;
+        pieces[destPoint->getX()][destPoint->getY()] = fromPiece;
+        ILabel* newLabel = new SpaceLabel{this, sourcePoint};
+        pieces[sourcePoint->getX()][sourcePoint->getY()] = newLabel;
         newLabel->show();
         // newLabel->addCallback(
         //     "clicked",
@@ -127,5 +132,5 @@ void BoardDialog::swapPieces() {
     }
 
     // Inform the board about the changes.
-    board->move(clickedPoint, toPoint);
+    board->move(sourcePoint, destPoint);
 }

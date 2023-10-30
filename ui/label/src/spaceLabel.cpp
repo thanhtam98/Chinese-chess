@@ -125,7 +125,7 @@ void SpaceLabel::onMouseDown(FMouseEvent* event) {
 
     if (event->getButton() == MouseButton::Left) {
         if (target) {
-            boardDialog->setToPoint(pos);
+            boardDialog->setDestPoint(pos);
             emitCallback("move");
         }
     }

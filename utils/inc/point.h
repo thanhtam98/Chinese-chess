@@ -1,6 +1,7 @@
 #ifndef __POINT_H__
 #define __POINT_H__
 #include "constant.h"
+#include <string>
 
 class Point {
 public:
@@ -12,6 +13,7 @@ public:
     static bool isWithinBoundary(int x, int y);
     bool isWithinBoundary();
     bool isWithinPalace();
+    std::string to_string();
 private:
     // Point() {};
     Point(int _x, int _y): x(_x), y(_y) {};

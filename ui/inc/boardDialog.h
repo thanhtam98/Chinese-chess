@@ -32,12 +32,14 @@ class BoardDialog : public FDialog {
 public:
     explicit BoardDialog(FWidget* = nullptr);
 
+    void dispatchChessmanMove(Point* source, Point* destination);
     void initLayout() override;
-    void setClickedPoint(Point* clicked);
-    Point* getClickedPoint();
-    void setToPoint(Point* to);
-    Point* getToPoint();
+    void setSourcePoint(Point* source);
+    Point* getSourcePoint();
+    void setDestPoint(Point* dest);
+    Point* getDestPoint();
 private:
+    // Set/ Unset to draw/ re-draw possible moves with different colors
     void setValueForTargetedPieces(bool value);
     void clickedCallback();
     void moveCallback();
@@ -52,7 +54,7 @@ private:
     DebugLabel debugLabel{this};
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
 
-    Point* clickedPoint;
-    Point* toPoint;
+    Point* sourcePoint;
+    Point* destPoint;
     vector<Point*> possibleMoves;
 };
