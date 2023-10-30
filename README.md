@@ -7,12 +7,13 @@
 - [x] Design the User Interface (Ref: https://github.com/gansm/finalcut/blob/main/doc/first-steps.md#first-steps-with-the-final-cut-widget-toolkit)
 - [x] Refactor behaviorProviders [Optional] 
 - [ ] Refactor pieces to optimize memory usage [Optional]
-- [ ] Refactor "include" in source tree + Cmake.
-- [ ] Refactor Board Diaglog module.
-- [ ] Create API interface for GUI rendering.
+- [ ] Refactor "include" in source tree.
 - [x] Bug: After eliminating the opponent, the piece at the former location does not disappear.
 - [ ] Multi-platform support (build + run).
-- [ ] Design server-client model for online gaming (HTTP preferred).
+- [ ] Design server-client model for online gaming (websocketpp preferred).
+- [ ] Integrate websocketpp logging into internal logging system.
+- [ ] Design server.
+- [ ] Design client.
 - [x] Implement logging module.
 - [ ] Check when the game is over. (MVP: General is captured).
 - [ ] Checkmate detection: pubsub mechanism or brute-force.
