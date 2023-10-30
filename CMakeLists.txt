@@ -43,6 +43,7 @@ include_directories(rule/behaviorProvider/inc)
 include_directories(ui/inc)
 include_directories(ui/label/inc)
 include_directories(ui/turn/inc)
+include_directories(websockpp/inc)
 include_directories(final)
 include_directories(.)
 
@@ -53,11 +54,10 @@ FILE(GLOB BEHAVIOR rule/behaviorProvider/src/*.cpp)
 FILE(GLOB UI ui/src/*.cpp)
 FILE(GLOB LABEL ui/label/src/*.cpp)
 FILE(GLOB TURN ui/turn/src/*.cpp)
-
+FILE(GLOB WEBSOCKPP websocketpp/src/*cpp)
 
 # Set source files
-set(SOURCES
-    main.cpp
+set(DEP 
     ${UTILS}
     ${LOGIC}
     ${RULE}
@@ -65,7 +65,11 @@ set(SOURCES
     ${UI}
     ${LABEL}
     ${TURN}
-
+    ${WEBSOCKPP}
+    )
+set(SOURCES
+    main.cpp
+    ${DEP}
 )
 set(FINALCUT
     ${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.so)
@@ -74,6 +78,7 @@ cmake_print_variables(FINALCUT)
 
 # Create executable
 add_executable(chinese-chess ${SOURCES})
+# add_executable(client ${SOURCES})
 
 # Link libraries
 # include(finalcut)
