@@ -1,5 +1,5 @@
 #include "horizontalLabels.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 
 HorizontalLineLabels::HorizontalLineLabels(FWidget* parent) {
     for (int i = 0; i < BOARD_WIDTH-1; i++) {

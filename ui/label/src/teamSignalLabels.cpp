@@ -1,5 +1,5 @@
 #include "teamSignalLabels.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 #include "constant.h"
 #include "ITurn.h"
 

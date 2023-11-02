@@ -2,9 +2,10 @@
 #include "iBoard.h"
 #include "board.h"
 #include "iChessman.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 #include "ITurn.h"
 #include "log.h"
+#include "moveManager.h"
 
 PieceLabel::~PieceLabel() {}
 
@@ -34,19 +35,19 @@ void PieceLabel::initLayout() {
 }
 
 void PieceLabel::onMouseDown(FMouseEvent* event) {
-    BoardDialog* boardDialog = (BoardDialog*) getParent();
+    MainDialog* boardDialog = (MainDialog*) getParent();
 
     IChessman* chessman = Board::getInstance()->getChessman(pos);
     team_code this_team = chessman->getTeam();
 
     if (event->getButton() == MouseButton::Left) {
         if (target) {
-            boardDialog->setDestPoint(pos);
+            boardDialog->moveManager->setDestPoint(pos);
             LOG_F("This chessman is moved to %s", pos->to_string().c_str());
             LOG_F("%s at %s is captured", chessman->getName().c_str(), pos->to_string().c_str());
             emitCallback("move");
         } else if (ITurn::isSatisfiedTurn(this_team)) {
-            boardDialog->setSourcePoint(pos);
+            boardDialog->moveManager->setSourcePoint(pos);
             LOG_F("%s at %s is clicked", chessman->getName().c_str(), pos->to_string().c_str());
             emitCallback("clicked");
         }

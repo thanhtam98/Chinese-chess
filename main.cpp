@@ -6,7 +6,7 @@
 #include "rule.h"
 #include "iBoard.h"
 #include "board.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 #include "log.h"
 
 using namespace std;
@@ -27,7 +27,7 @@ auto main (int argc, char* argv[]) -> int
   if ( finalcut::FTerm::canChangeColorPalette() )
     app.setBackgroundColor(FColor::Default);
 
-  BoardDialog board{&app};
+  MainDialog board{&app};
 
   board.setGeometry(FPoint{1, 1}, FSize{46, 26}, false);
 

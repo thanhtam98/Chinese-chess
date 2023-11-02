@@ -1,5 +1,5 @@
 #include "debugLabel.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 #include "constant.h"
 
 DebugLabel::DebugLabel(FWidget* parent) {
