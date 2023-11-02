@@ -1,6 +1,6 @@
 #include "riverBorderLabels.h"
 #include "utils.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 
 RiverBorderLabels::RiverBorderLabels(FWidget* parent) {
     label1 = new FLabel{"楚", parent};

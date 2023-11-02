@@ -1,3 +1,4 @@
+#pragma once
 #include "final/final.h"
 #include "iBoard.h"
 #include "utils.h"
@@ -9,9 +10,13 @@
 #include "debugLabel.h"
 #include "utils.h"
 #include "teamSignalLabels.h"
+// #include "moveManager.h"
 #include <vector>
+#include <string>
 
 using namespace finalcut;
+
+class MoveManager;
 
 const int PIECE_SIZE_X = 2;
 const int PIECE_SIZE_Y = 1;
@@ -28,22 +33,21 @@ const FColor FOCUS_BLACK_BG = FColor::Grey50;
 const FColor RED_BG = FColor::Red;
 const FColor FOCUS_RED_BG = FColor::Red1;
 
-class BoardDialog : public FDialog {
+class MainDialog : public FDialog {
 public:
-    explicit BoardDialog(FWidget* = nullptr);
+    explicit MainDialog(FWidget* = nullptr);
+
+    friend class MoveManager;
 
     void dispatchChessmanMove(Point* source, Point* destination);
     void initLayout() override;
-    void setSourcePoint(Point* source);
-    Point* getSourcePoint();
-    void setDestPoint(Point* dest);
-    Point* getDestPoint();
-private:
-    // Set/ Unset to draw/ re-draw possible moves with different colors
-    void setValueForTargetedPieces(bool value);
     void clickedCallback();
     void moveCallback();
-    void swapPieces();
+
+    MoveManager* moveManager;
+
+private:
+    void addCallback(ILabel* label, std::string event);
 
     IBoard* board;
     RiverBorderLabels riverBoundaryLabels{this};
@@ -53,8 +57,4 @@ private:
     TeamSignalLabels *teamSignalLabels;
     DebugLabel debugLabel{this};
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
-
-    Point* sourcePoint;
-    Point* destPoint;
-    vector<Point*> possibleMoves;
 };

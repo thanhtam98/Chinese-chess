@@ -2,9 +2,10 @@
 #include "iBoard.h"
 #include "board.h"
 #include "iChessman.h"
-#include "boardDialog.h"
+#include "mainDialog.h"
 #include <string>
 #include "log.h"
+#include "moveManager.h"
 
 void SpaceLabel::initLayout() {
     IBoard* board = Board::getInstance();
@@ -122,11 +123,11 @@ void SpaceLabel::unsetTarget() {
 }
 
 void SpaceLabel::onMouseDown(FMouseEvent* event) {
-    BoardDialog* boardDialog = (BoardDialog*) getParent();
+    MainDialog* boardDialog = (MainDialog*) getParent();
 
     if (event->getButton() == MouseButton::Left) {
         if (target) {
-            boardDialog->setDestPoint(pos);
+            boardDialog->moveManager->setDestPoint(pos);
             LOG_F("This chessman is moved to %s", pos->to_string().c_str());
             emitCallback("move");
         }
