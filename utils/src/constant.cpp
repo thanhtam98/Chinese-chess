@@ -1,4 +1,4 @@
-#include "constant.h"
+#include "utils.h"
 
 string chessman_name[TEAM_SIZE][CHESSMAN_SIZE] = 
 {

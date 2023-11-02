@@ -1,15 +1,14 @@
 #include <iostream>
 #include "final/final.h"
 #include "ui.h"
-#include "constant.h"
-#include "point.h"
+#include "utils.h"
 #include "rule.h"
 #include "iBoard.h"
 #include "board.h"
 #include "boardDialog.h"
 #include "log.h"
 #include "websockpp.h"
-
+#include "utils.h"
 using namespace std;
 using namespace finalcut;
 

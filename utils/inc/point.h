@@ -1,6 +1,8 @@
 #ifndef __POINT_H__
 #define __POINT_H__
+#include "utils.h"
 #include "constant.h"
+
 #include <string>
 
 class Point {

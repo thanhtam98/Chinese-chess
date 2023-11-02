@@ -1,7 +1,7 @@
 #include "boardDialog.h"
 #include "board.h"
 #include "iChessman.h"
-#include "constant.h"
+#include "utils.h"
 #include "ILabel.h"
 #include "pieceLabel.h"
 #include "spaceLabel.h"

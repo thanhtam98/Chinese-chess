@@ -1,6 +1,6 @@
 #include "debugLabel.h"
 #include "boardDialog.h"
-#include "constant.h"
+#include "utils.h"
 
 DebugLabel::DebugLabel(FWidget* parent) {
     debug = new FLabel{parent};

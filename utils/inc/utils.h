@@ -1,9 +1,12 @@
 #pragma once
 
-#include "point.h"
 #include <algorithm>
 #include <vector>
 
+#include "utils.h"
+#include "log.h"
+#include "point.h"
+#include "constant.h"
 class Utils{
 private:
 

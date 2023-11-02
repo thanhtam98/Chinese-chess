@@ -1,7 +1,7 @@
 #include "generalBehaviorProvider.h"
 #include "iBoard.h"
 #include "iChessman.h"
-#include "point.h"
+#include "utils.h"
 #include "log.h"
 #include <iostream>
 

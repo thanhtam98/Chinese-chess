@@ -1,6 +1,6 @@
 #include "teamSignalLabels.h"
 #include "boardDialog.h"
-#include "constant.h"
+#include "utils.h"
 #include "ITurn.h"
 
 TeamSignalLabels::TeamSignalLabels(FWidget* parent) {

@@ -1,8 +1,7 @@
 #ifndef __CHESSMAN_H__
 #define __CHESSMAN_H__
-#include "point.h"
-#include "constant.h"
 #include <vector>
+#include "utils.h"
 
 /**
  * @brief indicate all information about a chessman.

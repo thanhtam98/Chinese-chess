@@ -1,8 +1,8 @@
 #pragma once
-#include "point.h"
 #include "rule.h"
-#include "constant.h"
+#include "utils.h"
 #include "directionIterator.h"
+#include "utils.h"
 
 /**
  *  class AbstractBehaviorProvider

@@ -1,7 +1,7 @@
 #include "soldierBehaviorProvider.h"
 #include "iBoard.h"
 #include "iChessman.h"
-#include "point.h"
+#include "utils.h"
 #include <iostream>
 bool SoldierBehaviorProvider::predicate(Point *point) {
     return false;
