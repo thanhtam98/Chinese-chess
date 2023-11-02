@@ -1,6 +1,5 @@
 #include "ruleShapeBuilder.h"
 #include "abstractBehaviorProvider.h"
-#include "constant.h"
 #include "utils.h"
 #include <iostream>
 

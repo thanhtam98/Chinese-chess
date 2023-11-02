@@ -2,9 +2,8 @@
 #define __BOARD_H__
 #include <vector>
 #include "iChessman.h"
-#include "constant.h"
 #include "iBoard.h"
-#include "point.h"
+#include "utils.h"
 /**
  * @brief This is the implementation of the IBoard interface
  * It creates and manages all chessmen infomation

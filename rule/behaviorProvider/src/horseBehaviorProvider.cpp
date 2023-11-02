@@ -1,7 +1,7 @@
 #include "horseBehaviorProvider.h"
 #include "iBoard.h"
 #include "iChessman.h"
-#include "point.h"
+#include "utils.h"
 #include <iostream>
 bool HorseBehaviorProvider::predicate(Point *point) {
     return false;

@@ -1,7 +1,8 @@
 #pragma once
-#include "iChessman.h"
-#include "point.h"
 #include <vector>
+
+#include "iChessman.h"
+#include "utils.h"
 
 class IChessman;
 

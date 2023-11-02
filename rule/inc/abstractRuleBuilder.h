@@ -2,7 +2,7 @@
 #define __RULE_ABSTRACT_BUILDER_H__
 #include "rule.h"
 #include <vector>
-#include "point.h"
+#include "utils.h"
 
 class AbstractRuleBuilder
 {

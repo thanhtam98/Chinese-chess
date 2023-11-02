@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "iBoard.h"
-#include "constant.h"
+#include "utils.h"
 
 class MockChessman : public IChessman{
 public:

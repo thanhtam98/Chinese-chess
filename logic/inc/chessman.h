@@ -1,8 +1,7 @@
 #pragma once
 
-#include "point.h"
-#include "constant.h"
 #include <vector>
+#include "utils.h"
 #include "iChessman.h"
 /**
  * @brief indicate all information about a chessman.

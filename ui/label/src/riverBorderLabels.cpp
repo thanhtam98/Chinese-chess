@@ -1,5 +1,5 @@
 #include "riverBorderLabels.h"
-#include "constant.h"
+#include "utils.h"
 #include "mainDialog.h"
 
 RiverBorderLabels::RiverBorderLabels(FWidget* parent) {

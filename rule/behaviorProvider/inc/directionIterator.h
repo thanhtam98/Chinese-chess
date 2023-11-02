@@ -1,6 +1,5 @@
 #pragma once
-#include "point.h"
-#include "constant.h"
+#include "utils.h"
 
 
 class DirectionInterator {

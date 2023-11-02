@@ -2,7 +2,6 @@
 #include <iostream>
 #include <algorithm>
 
-#include "point.h"
 #include "utils.h"
 #include "rule.h"
 #include "ruleShapeBuilder.h"
