@@ -34,7 +34,7 @@
             "type": "shell",
             "label": "Build Chinese-Chess Project",
             // "command": "cmake --build . --target Sidekick1",
-            "command": "cmake -S . -B build ; cmake --build build -j",
+            "command": "cmake -S . -B build ; cmake --build build ",
             "args": [],
             "options": {
                 "cwd": "${workspaceFolder}/"
