@@ -8,10 +8,13 @@
 using namespace std;
 using namespace finalcut;
 
-auto webSockHandler(void)
-{
+auto serverSockHandler(void){
       wServer s;
       s.run();
+}
+auto clientSockHandler(void){
+    wClient c;
+    c.run();
 }
 auto main (int argc, char* argv[]) -> int
 {
@@ -19,7 +22,15 @@ auto main (int argc, char* argv[]) -> int
   // cout<<"Start the logfile" << endl;
   string str = "Alo!";
   LOG_F("Start the game %s", str.c_str());
-  std::thread thread_object (webSockHandler);
+  std::thread wThread;
+  if (argc > 1){
+      wThread = thread(clientSockHandler);
+  }
+  else{
+      wThread = thread(serverSockHandler);
+  }
+  while(1);
+    // std::thread thread_object (clientSockHandler);
 
   FApplication app{argc, argv};
 
