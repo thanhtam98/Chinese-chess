@@ -1,6 +1,5 @@
 #include "pieceLabel.h"
 #include "iBoard.h"
-#include "board.h"
 #include "iChessman.h"
 #include "mainDialog.h"
 #include "ITurn.h"

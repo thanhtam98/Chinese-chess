@@ -54,7 +54,7 @@ FILE(GLOB BEHAVIOR rule/behaviorProvider/src/*.cpp)
 FILE(GLOB UI ui/src/*.cpp)
 FILE(GLOB LABEL ui/label/src/*.cpp)
 FILE(GLOB TURN ui/turn/src/*.cpp)
-FILE(GLOB WEBSOCKPP websocketpp/src/*cpp)
+FILE(GLOB WEBSOCKPP websockpp/src/*cpp)
 
 # Set source files
 set(DEP 

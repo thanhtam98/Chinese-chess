@@ -3,13 +3,14 @@
 #include "utils.h"
 #include "mainDialog.h"
 #include "websockpp.h"
+// #include "json/json.h"
 
 using namespace std;
 using namespace finalcut;
 
 auto webSockHandler(void)
 {
-      utility_server s;
+      wServer s;
       s.run();
 }
 auto main (int argc, char* argv[]) -> int
