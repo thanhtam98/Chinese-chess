@@ -1,10 +1,11 @@
 #include "moveManager.h"
 #include "spaceLabel.h"
 #include "mainDialog.h"
+#include "log.h"
 
-MoveManager::MoveManager(MainDialog *MainDialog){
+MoveManager::MoveManager(MainDialog *_mainDialog){
     board = Board::getInstance();
-    this->mainDialog = mainDialog;
+    this->mainDialog = _mainDialog;
 };
 
 
@@ -58,6 +59,7 @@ void MoveManager::movePiece() {
 void MoveManager::decorateTargetedPieces(bool value) {
     for (Point* point : possibleMoves) {
         if (value) {  
+            LOG_F("Decorate the point %s", point->to_string().c_str());
             mainDialog->pieces[point->getX()][point->getY()]->setTarget();
         } else {
             mainDialog->pieces[point->getX()][point->getY()]->unsetTarget();
