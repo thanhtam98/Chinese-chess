@@ -3,6 +3,7 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
 #include <websocketpp/client.hpp>
+#include <websocketpp/connection.hpp>
 
 #include <websocketpp/logger/syslog.hpp>
 #include <websocketpp/extensions/permessage_deflate/enabled.hpp>
@@ -10,6 +11,8 @@
 
 #define DEFAULT_WPORT 9002
 #define DEFAULT_WURI "ws://localhost"
+#define DEFALUT_OPCODE   websocketpp::frame::opcode::TEXT
+
 namespace websocketpp
 {
     namespace log
@@ -67,9 +70,12 @@ struct myConfig : public websocketpp::config::asio
     typedef websocketpp::transport::asio::endpoint<my_transport_config> transport_type;
 };
 
+
 typedef websocketpp::client<websocketpp::config::asio> client;
 typedef websocketpp::server<websocketpp::config::asio> server;
 
 // typedef websocketpp::server<myConfig> server;
 // typedef websocketpp::client<myConfig> client;
+typedef websocketpp::endpoint<websocketpp::connection<myConfig>,myConfig> endpoint;
+typedef websocketpp::connection_hdl connection;
 // typedef websocketpp::config::asio_client::message_type::ptr message_ptr;

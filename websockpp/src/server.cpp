@@ -10,9 +10,19 @@ void wServer::initEndpoint(){
     mEndpoint.init_asio();
     // Set the default message handler to the echo handler
     mEndpoint.set_message_handler(std::bind(
-        &wServer::msgHandler, this,
+        &wServer::onOpen, this,
         std::placeholders::_1, std::placeholders::_2
     ));
+    mEndpoint.set_message_handler(std::bind(
+        &wServer::onMessage, this,
+        std::placeholders::_1, std::placeholders::_2
+    ));
+    mEndpoint.set_close_handler(std::bind(
+        &wServer::onClose,this,
+        std::placeholders::_1
+    ));
+
+    mIsConnected = false;
 }
 wServer::wServer(){
     initEndpoint();
@@ -22,19 +32,25 @@ wServer::wServer(){
 wServer::wServer(int port){
     initEndpoint();
     mPort = port;
+
 }
 
-
-
-void wServer::msgHandler(websocketpp::connection_hdl hdl, server::message_ptr msg){
-    mEndpoint.send(hdl, msg->get_payload(), msg->get_opcode());
-}
 
 void  wServer::run(){
-        // Listen on port 9002
-        mEndpoint.listen(mPort);
-        // Queues a connection accept operation
-        mEndpoint.start_accept();
-        // Start the Asio io_service run loop
-        mEndpoint.run();
+    // Listen on port 9002
+    mEndpoint.listen(mPort);
+    // Queues a connection accept operation
+    mEndpoint.start_accept();
+    // Start the Asio io_service run loop
+    mEndpoint.run();
+}
+
+int wServer::_send(std::string const payload){
+    if (payload.length() == 0)
+        return -1;
+    // if (mConnection == )
+    if (mIsConnected == false)
+        return -1;   
+    mEndpoint.send(mConnection, payload, DEFALUT_OPCODE);    
+    return 0;
 }

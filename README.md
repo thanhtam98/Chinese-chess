@@ -6,15 +6,14 @@
 - [x] Design move chessman mechanism
 - [x] Design the User Interface (Ref: https://github.com/gansm/finalcut/blob/main/doc/first-steps.md#first-steps-with-the-final-cut-widget-toolkit)
 - [x] Refactor behaviorProviders [Optional] 
-- [ ] Refactor pieces to optimize memory usage [Optional]
-- [ ] Refactor "include" in source tree.
+- [x] Refactor "include" in source tree.
 - [x] Bug: After eliminating the opponent, the piece at the former location does not disappear.
+- [x] Integrate websocketpp logging into internal logging system.
+- [x] Implement logging module.
+- [ ] Refactor pieces to optimize memory usage [Optional]
 - [ ] Multi-platform support (build + run).
 - [ ] Design server-client model for online gaming (websocketpp preferred).
-- [ ] Integrate websocketpp logging into internal logging system.
-- [ ] Design server.
-- [ ] Design client.
-- [x] Implement logging module.
+- [ ] Design ConnectionBase class for both server and client.
 - [ ] Check when the game is over. (MVP: General is captured).
 - [ ] Checkmate detection: pubsub mechanism or brute-force.
 - [ ] Public to community network (Blog + Demo).
