@@ -7,29 +7,22 @@ ITurn* ITurn::setNext(ITurn* next){
     return next;
 }
 
-// int ITurn::next(void) {
-//     if (this->nextTurn) {
-//       return this->nextTurn->handle();
-//     }
-//     return 0;
-// }
-
-ITurn* ITurn::setupTurns(ITurn *first, ITurn * second){
+ITurn* ITurn::setup(ITurn *first, ITurn * second) {
     first->setNext(second);
     second->setNext(first);
     return curTurn = first;
 }
 
-ITurn* ITurn::getTurn(void) {
+ITurn* ITurn::get(void) {
     return curTurn;
 }
 
-void ITurn::endTurn() {
+void ITurn::end() {
     curTurn = curTurn->nextTurn;
 }
 
-bool ITurn::isSatisfiedTurn(team_code this_team) {
-    return getTurn()->_isSatisfiedTurn(this_team);
+bool ITurn::isSatisfied(team_code this_team) {
+    return get()->_isSatisfiedTurn(this_team);
 }
 
 team_code ITurn::getTeam() {

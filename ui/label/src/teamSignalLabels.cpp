@@ -4,7 +4,7 @@
 #include "ITurn.h"
 
 TeamSignalLabels::TeamSignalLabels(FWidget* parent) {
-    team_code turn_team = ITurn::getTurn()->getTeam();
+    team_code turn_team = ITurn::get()->getTeam();
     upper = new FLabel{parent};
     upper->setText("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
     upper->setForegroundColor(turn_team == BLACK ? BLACK_BG : RED_BG);
@@ -23,7 +23,7 @@ TeamSignalLabels::TeamSignalLabels(FWidget* parent) {
 }
 
 void TeamSignalLabels::changeTeamColor() {
-    team_code turn_team = ITurn::getTurn()->getTeam();
+    team_code turn_team = ITurn::get()->getTeam();
     upper->setForegroundColor(turn_team == BLACK ? BLACK_BG : RED_BG);
     lower->setForegroundColor(turn_team == BLACK ? BLACK_BG : RED_BG);
     upper->redraw();

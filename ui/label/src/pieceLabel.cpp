@@ -46,7 +46,7 @@ void PieceLabel::onMouseDown(FMouseEvent* event) {
             LOG_F("This chessman is moved to %s", pos->to_string().c_str());
             LOG_F("%s at %s is captured", chessman->getName().c_str(), pos->to_string().c_str());
             emitCallback("move");
-        } else if (ITurn::isSatisfiedTurn(this_team)) {
+        } else if (ITurn::isSatisfied(this_team)) {
             boardDialog->moveManager->setSourcePoint(pos);
             LOG_F("%s at %s is clicked", chessman->getName().c_str(), pos->to_string().c_str());
             emitCallback("clicked");

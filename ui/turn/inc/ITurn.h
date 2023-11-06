@@ -14,10 +14,10 @@ public:
     team_code _getTeam();
     virtual bool _isSatisfiedTurn(team_code this_team) = 0;
 
-    static ITurn *setupTurns(ITurn *first, ITurn * second);
-    static ITurn *getTurn(void); 
-    static bool isSatisfiedTurn(team_code this_team);
-    static void endTurn();
+    static ITurn *setup(ITurn *first, ITurn * second);
+    static ITurn *get(void); 
+    static bool isSatisfied(team_code this_team);
+    static void end();
     static team_code getTeam();
 
 protected:

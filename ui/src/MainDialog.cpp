@@ -18,7 +18,7 @@ MainDialog::MainDialog(FWidget* parent) : FDialog{parent} {
     board = Board::getInstance();
     LOG_F("Initialize the Board Dialog");
 
-    ITurn::setupTurns(new DebugTurn(), new DebugTurn());
+    ITurn::setup(new DebugTurn(), new DebugTurn());
     // ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
@@ -43,7 +43,7 @@ void MainDialog::initLayout() {
 
 void MainDialog::dispatchChessmanMove(Point* source, Point* destination) {
     moveManager->movePiece();
-    ITurn::endTurn();
+    ITurn::end();
     teamSignalLabels->changeTeamColor();
 }
 
@@ -57,7 +57,7 @@ void MainDialog::moveCallback() {
     moveManager->decorateTargetedPieces(false);
     // Swap 2 pieces in case of normal move
     moveManager->movePiece();
-    ITurn::endTurn();
+    ITurn::end();
     teamSignalLabels->changeTeamColor();
 }
 
