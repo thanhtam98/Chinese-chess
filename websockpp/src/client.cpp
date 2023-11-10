@@ -2,7 +2,8 @@
 #include "connectionBase.h"
 #include <string>
 
-void wClient::initEndpoint(){
+void wClient::initEndpoint()
+{
 
     // Set logging settings
     mEndpoint.set_error_channels(websocketpp::log::elevel::all);
@@ -10,22 +11,17 @@ void wClient::initEndpoint(){
     // Initialize Asio
     mEndpoint.init_asio();
     // Set the default message handler to the echo handler
+    mEndpoint.set_open_handler(
+        std::bind(&wClient::onOpen, this, ::_1));
     mEndpoint.set_message_handler(std::bind(
-        &wClient::onOpen, this,
-        std::placeholders::_1, std::placeholders::_2
-    ));
-    mEndpoint.set_message_handler(std::bind(
-        &wClient::onMessage, this,
-        std::placeholders::_1, std::placeholders::_2
-    ));
+        &wClient::onMessage, this, ::_1, ::_2));
     mEndpoint.set_close_handler(std::bind(
-        &wClient::onClose,this,
-        std::placeholders::_1
-    ));
+        &wClient::onClose, this, ::_1));
 
     mIsConnected = false;
 }
-wClient::wClient(string uri, int port){
+wClient::wClient(string uri, int port)
+{
     initEndpoint();
 
     mPort = port;
@@ -34,7 +30,8 @@ wClient::wClient(string uri, int port){
     mUri += std::to_string(mPort);
 }
 
-wClient::wClient(){
+wClient::wClient()
+{
     initEndpoint();
 
     mPort = DEFAULT_WPORT;
@@ -43,17 +40,18 @@ wClient::wClient(){
     mUri += std::to_string(mPort);
 }
 
-
 // void wClient::msgHandler(websocketpp::connection_hdl hdl, server::message_ptr msg)
 // {
 //    mEndpoint.send(hdl, msg->get_payload(), msg->get_opcode());
 // }
 
-void wClient::run(){
+void wClient::run()
+{
     websocketpp::lib::error_code ec;
-    client::connection_ptr con = mEndpoint.get_connection(mUri,ec);
+    client::connection_ptr con = mEndpoint.get_connection(mUri, ec);
 
-    if (ec){
+    if (ec)
+    {
         LOG_F(" Could not create connection because %s \n", ec.message());
         return;
     }
@@ -62,13 +60,13 @@ void wClient::run(){
     mEndpoint.run();
 }
 
-int wClient::_send(std::string const payload){
+int wClient::_send(std::string const payload)
+{
     if (payload.length() == 0)
         return -1;
     // if (mConnection == )
     if (mIsConnected == false)
-        return -1;   
-    mEndpoint.send(mConnection, payload, DEFALUT_OPCODE);    
+        return -1;
+    mEndpoint.send(mConnection, payload, DEFALUT_OPCODE);
     return 0;
 }
-

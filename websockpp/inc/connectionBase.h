@@ -2,7 +2,6 @@
 
 #include "wConfig.h"
 #include "utils.h"
-
 /**
  *  This interface indicates functions that have several features supporing communication. 
  *  MOVE From To 
@@ -16,13 +15,11 @@ public:
 
     virtual void run () = 0;
 
-
-
-
 private:
     virtual int _send(std::string const payload) = 0;
     int send(std::string const payload);
-    
+    string recv(void);
+    string recv(int time);
 protected:
     connection mConnection;
     bool mIsConnected;
@@ -30,7 +27,7 @@ protected:
     *  because we don't know what mConnection's constructor is
     */
     // endpoint mEndpoint;
-    void onOpen(websocketpp::connection_hdl hdl, server::message_ptr msg);
+    void onOpen(websocketpp::connection_hdl hdl);
     void onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg);
     void onClose(websocketpp::connection_hdl hdl);
 

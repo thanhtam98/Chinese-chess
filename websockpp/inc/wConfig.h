@@ -79,3 +79,9 @@ typedef websocketpp::server<websocketpp::config::asio> server;
 typedef websocketpp::endpoint<websocketpp::connection<myConfig>,myConfig> endpoint;
 typedef websocketpp::connection_hdl connection;
 // typedef websocketpp::config::asio_client::message_type::ptr message_ptr;
+
+
+using websocketpp::lib::placeholders::_1;
+using websocketpp::lib::placeholders::_2;
+using websocketpp::lib::bind;
+

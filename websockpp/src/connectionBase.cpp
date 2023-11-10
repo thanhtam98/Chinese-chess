@@ -9,16 +9,23 @@ int ConnectionBase::send(std::string const payload){
 
 }
 
-void ConnectionBase::onOpen(websocketpp::connection_hdl hdl, server::message_ptr msg){
+void ConnectionBase::onOpen(websocketpp::connection_hdl hdl){
     mIsConnected = true;
-    mConnection = hdl;   
+    mConnection = hdl;
+    cout << "onOpen" << endl;
+        send(" this is open message message on both side ");
+
+
+
 }
 void ConnectionBase::onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg){
-    mIsConnected = false;
     
+    cout << "onMessage" << endl;
 
 }
 void ConnectionBase::onClose(websocketpp::connection_hdl hdl){
     mIsConnected = false;
     // mConnection = nullptr;
+    cout << "onClose" << endl;
+
 }
