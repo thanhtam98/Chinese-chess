@@ -1,19 +1,20 @@
 #include <iostream>
+#include <nlohmann/json.hpp>
+
 #include "ui.h"
 #include "utils.h"
 #include "mainDialog.h"
 #include "websockpp.h"
-// #include "json/json.h"
 
 using namespace std;
 using namespace finalcut;
 
+wServer s;
+wClient c;
 auto serverSockHandler(void){
-      wServer s;
       s.run();
 }
 auto clientSockHandler(void){
-    wClient c;
     c.run();
 }
 auto main (int argc, char* argv[]) -> int
@@ -25,9 +26,19 @@ auto main (int argc, char* argv[]) -> int
   std::thread wThread;
   if (argc > 1){
       wThread = thread(clientSockHandler);
+      while(1){
+        sleep(2);
+        json js = json::parse(R"({"happy": true, "pi": 3.141})");
+        c.send(js);
+      }
   }
   else{
       wThread = thread(serverSockHandler);
+      while(1){
+        sleep(2);
+        json js = s.recv();
+        cout << js.dump(2) << endl;
+      }
   }
   while(1);
     // std::thread thread_object (clientSockHandler);

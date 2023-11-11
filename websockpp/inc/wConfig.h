@@ -9,7 +9,8 @@
 #include <websocketpp/extensions/permessage_deflate/enabled.hpp>
 #include <functional>
 
-#define DEFAULT_WPORT 9002
+
+#define DEFAULT_WPORT 9000
 #define DEFAULT_WURI "ws://localhost"
 #define DEFALUT_OPCODE   websocketpp::frame::opcode::TEXT
 

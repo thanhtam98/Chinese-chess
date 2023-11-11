@@ -16,6 +16,7 @@ void wServer::initEndpoint()
                                           ::_1));
 
     mIsConnected = false;
+    initSem();
 }
 wServer::wServer()
 {
