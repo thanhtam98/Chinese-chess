@@ -12,7 +12,7 @@ using namespace finalcut;
 wServer s;
 wClient c;
 auto serverSockHandler(void){
-      s.run();
+    s.run();
 }
 auto clientSockHandler(void){
     c.run();

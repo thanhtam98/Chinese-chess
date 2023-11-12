@@ -15,12 +15,9 @@ using json = nlohmann::json;
 
 class ConnectionBase {
 public:
-    void sendMsg(int opcode, Point from, Point to);
-    void sendMsg(int opcode, Point from);
 
     virtual void run () = 0;
     int send(json const js);
-    // int send(std::string const payload);
     json recv(void);
 
     string recv(int time);

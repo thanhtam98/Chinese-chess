@@ -10,10 +10,11 @@
 - [x] Bug: After eliminating the opponent, the piece at the former location does not disappear.
 - [x] Integrate websocketpp logging into internal logging system.
 - [x] Implement logging module.
+- [x] Design ConnectionBase class for both server and client.
+- [x] Design server-client model for online gaming (websocketpp preferred).
+- [ ] Design adapter class between moveManager and connectionBase
 - [ ] Refactor pieces to optimize memory usage [Optional]
 - [ ] Multi-platform support (build + run).
-- [ ] Design server-client model for online gaming (websocketpp preferred).
-- [ ] Design ConnectionBase class for both server and client.
 - [ ] Check when the game is over. (MVP: General is captured).
 - [ ] Checkmate detection: pubsub mechanism or brute-force.
 - [ ] Public to community network (Blog + Demo).
