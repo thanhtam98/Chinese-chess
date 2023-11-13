@@ -16,7 +16,8 @@
 - [ ] Design client.
 - [x] Implement logging module.
 - [ ] Check when the game is over. (MVP: General is captured).
-- [ ] Checkmate detection: pubsub mechanism or brute-force.
+- [ ] Checkmate detection: pubsub mechanism or brute-force. (optinal)
+- [ ] Implement in-check before any moving.
 - [ ] Public to community network (Blog + Demo).
 
 
