@@ -24,6 +24,9 @@ std::vector<Point*> umpire::checkMate(team_code team){
             /* Get the chessman based on it's location */
             IChessman *chessman = mBoard->getChessman(x,y);
             
+            if (chessman == nullptr) {
+                continue;
+            }
             /* Check if it is an oppment */
             if (chessman->getTeam() == genernalChessman->getTeam()){
                 continue;
