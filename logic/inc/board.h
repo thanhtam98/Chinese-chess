@@ -21,12 +21,15 @@ public:
     IChessman* getChessman(Point *point);
     void move(Point* from, Point* to) override;
     std::vector<Point*> getPossibleMoves(Point* target) override;
+    Point* getGeneralLocation(team_code team) override;
+    void setGeneralLocation(team_code team, Point* location) override;
 private:
     Board() {};
     /* The single instance for Singleton */
     static IBoard* instance;
     /* Intantiate chessmen and put them into the map */
     void setup();
+    Point* generalLocation[TEAM_SIZE];
 };
 
 #endif

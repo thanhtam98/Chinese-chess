@@ -40,6 +40,11 @@ void Board::move(Point* from, Point* to) {
     map[from->getX()][from->getY()] = nullptr;
 
     fromChessman->move(to);
+
+    /* Cache General locaion in order to fast checkmate */
+    if (fromChessman->getCode() == GENERAL){
+        setGeneralLocation(fromChessman->getTeam(), to);
+    }
 }
 
 std::vector<Point*> Board::getPossibleMoves(Point* target) {
@@ -51,6 +56,12 @@ std::vector<Point*> Board::getPossibleMoves(Point* target) {
     }
 }
 
+Point* Board::getGeneralLocation(team_code team){
+    return generalLocation[team];
+}
+void Board::setGeneralLocation(team_code team, Point* location){
+    generalLocation[team] = location;
+}
 void Board::setup() {
     Piece pieces[BOARD_LENGTH][BOARD_WIDTH] = 
     { {{CHARIOT, RED}, {HORSE, RED}, {ELEPHANT, RED}, {ADVISOR, RED}, {GENERAL, RED}, {ADVISOR, RED}, {ELEPHANT, RED}, {HORSE, RED}, {CHARIOT, RED} },

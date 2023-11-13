@@ -10,6 +10,7 @@ public:
     static Point *of(int _x, int _y);
     // static Point** alloc_cache();
     team_code getTeam();
+    team_code getOpponentTeam();
     int getX();
     int getY();
     static bool isWithinBoundary(int x, int y);

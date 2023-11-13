@@ -38,6 +38,9 @@ bool Point::isWithinPalace() {
 team_code Point::getTeam() {
     return y >  FRONTIER ?  BLACK : RED;
 }
+team_code Point::getOpponentTeam(){
+    return getTeam() == BLACK ? RED : BLACK;
+}
 int Point::getX(){
     return x;
 }

@@ -14,6 +14,9 @@ public:
     virtual IChessman* getChessman(Point *point) = 0;
     virtual void move(Point* from, Point* to) = 0;
     virtual std::vector<Point*> getPossibleMoves(Point* target) = 0;
+    virtual Point* getGeneralLocation(team_code team) = 0;
+    virtual void setGeneralLocation(team_code team, Point* location)  = 0;
+
 protected:
     /* A map showing all chessmen on the board and where they are */
     IChessman* map[BOARD_WIDTH][BOARD_LENGTH];
