@@ -13,23 +13,23 @@ using json = nlohmann::json;
  *  SEL  From
 */
 
+typedef std::function<void (json js)> ConnectionBaseCallback;
+
 class ConnectionBase {
 public:
 
     virtual void run () = 0;
     int send(json const js);
-    json recv(void);
+    void setRecvCallback(ConnectionBaseCallback cb);
 
-    string recv(int time);
     virtual int _send(std::string const payload) = 0;
     string _recv(void);
 private:
     
 protected:
     connection mConnection;
+    ConnectionBaseCallback mCallback;
     bool mIsConnected;
-    sem_t sem;
-    queue<string> recvList;
     /* temporary for connection established status
     *  because we don't know what mConnection's constructor is
     */

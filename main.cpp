@@ -5,12 +5,19 @@
 #include "utils.h"
 #include "mainDialog.h"
 #include "websockpp.h"
+#include "transfer.h"
 
 using namespace std;
 using namespace finalcut;
 
 wServer s;
 wClient c;
+void a (Point *from, Point *to){
+  cout << "MOVE " << *from << *to << endl;
+}
+void b (Point *from){
+  cout << "SEL: " << *from  << endl;
+}
 auto serverSockHandler(void){
     s.run();
 }
@@ -26,18 +33,22 @@ auto main (int argc, char* argv[]) -> int
   std::thread wThread;
   if (argc > 1){
       wThread = thread(clientSockHandler);
+      transfer trans{&c};
+      trans.setCallback(a,b);
       while(1){
         sleep(2);
-        json js = json::parse(R"({"happy": true, "pi": 3.141})");
-        c.send(js);
+        // trans.sendMsg(MOV, Point::of(3,2), Point::of(4,2));
+        // trans.sendMsg(SEL, Point::of(2,2));
       }
   }
   else{
       wThread = thread(serverSockHandler);
+      transfer trans{&s};
+      trans.setCallback(a,b);
       while(1){
         sleep(2);
-        json js = s.recv();
-        cout << js.dump(2) << endl;
+        trans.sendMsg(MOV, Point::of(3,2), Point::of(4,2));
+        trans.sendMsg(SEL, Point::of(2,2));
       }
   }
   while(1);

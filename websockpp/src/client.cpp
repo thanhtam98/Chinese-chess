@@ -40,11 +40,6 @@ wClient::wClient()
     mUri += std::to_string(mPort);
 }
 
-// void wClient::msgHandler(websocketpp::connection_hdl hdl, server::message_ptr msg)
-// {
-//    mEndpoint.send(hdl, msg->get_payload(), msg->get_opcode());
-// }
-
 void wClient::run()
 {
     websocketpp::lib::error_code ec;

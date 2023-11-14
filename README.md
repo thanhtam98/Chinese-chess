@@ -12,7 +12,7 @@
 - [x] Implement logging module.
 - [x] Design ConnectionBase class for both server and client.
 - [x] Design server-client model for online gaming (websocketpp preferred).
-- [ ] Design adapter class between moveManager and connectionBase
+- [x] Design adapter class between moveManager and connectionBase (callback recv refered)
 - [ ] Refactor pieces to optimize memory usage [Optional]
 - [ ] Multi-platform support (build + run).
 - [ ] Check when the game is over. (MVP: General is captured).
