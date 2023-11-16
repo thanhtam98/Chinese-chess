@@ -84,9 +84,13 @@ void Board::setup() {
                 // x is the line number
                 // y is the column number
                 map[x][y] = Chessman::newInstance(pieces[y][x], Point::of(x,y));
+                if (map[x][y]->getCode() == GENERAL){
+                    setGeneralLocation(map[x][y]->getTeam(), Point::of(x,y));
+                }
             } else {
                 map[x][y] = nullptr;
             }
         }
     }
+    
 }

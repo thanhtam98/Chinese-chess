@@ -59,6 +59,7 @@ void MainDialog::moveCallback() {
     moveManager->movePiece();
     ITurn::end();
     teamSignalLabels->changeTeamColor();
+    
 }
 
 void MainDialog::addCallback(ILabel* label, string event) {

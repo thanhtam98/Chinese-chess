@@ -1,6 +1,6 @@
 #include "umpire.h"
 
-umpire::umpire(IBoard *board){
+Umpire::Umpire(IBoard *board){
 
     mBoard = board;
 }
@@ -9,9 +9,9 @@ umpire::umpire(IBoard *board){
 /**
  * @brief check if the GENERAL of this team is being targeted.
 */
-std::vector<Point*> umpire::checkMate(team_code team){
+std::vector<Point*> Umpire::checkMate(team_code team){
 
-    if (mBoard != nullptr)
+    if (mBoard == nullptr)
         return {};
     
     std::vector<Point*> ret;

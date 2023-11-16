@@ -11,6 +11,7 @@ public:
     virtual ~ILabel() {};
     Point* getPosition();
     bool isTargeted();
+    virtual void setPotential() = 0;
     virtual void setTarget() = 0;
     virtual void unsetTarget() = 0;
     virtual void changePosition(Point* to) = 0;

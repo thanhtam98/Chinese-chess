@@ -16,6 +16,7 @@ public:
 
     static ITurn *setup(ITurn *first, ITurn * second);
     static ITurn *get(void); 
+    static ITurn *getOpposite();
     static bool isSatisfied(team_code this_team);
     static void end();
     static team_code getTeam();

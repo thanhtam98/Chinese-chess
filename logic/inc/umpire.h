@@ -2,10 +2,10 @@
 #include "iChessman.h"
 #include "iBoard.h"
 
-class umpire {
+class Umpire {
 
 public:
-    umpire(IBoard *board);
+    Umpire(IBoard *board);
 
     std::vector<Point*> checkMate(team_code team);
 private:

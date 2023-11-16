@@ -36,6 +36,7 @@ public:
     ~SpaceLabel() {};
     void initLayout() override;
     void onMouseDown(FMouseEvent* event) override;
+    void setPotential() override;
     void setTarget() override;
     void unsetTarget() override;
     void changePosition(Point* to) override;

@@ -1,10 +1,12 @@
 #include "moveManager.h"
 #include "spaceLabel.h"
 #include "mainDialog.h"
+#include "ITurn.h"
 
 MoveManager::MoveManager(MainDialog *MainDialog){
     board = Board::getInstance();
     this->mainDialog = MainDialog;
+    umpire = new Umpire(Board::getInstance());
 };
 
 
@@ -53,6 +55,7 @@ void MoveManager::movePiece() {
 
     // Inform the board about the changes.
     board->move(source, dest);
+    calculatePossiblePotentials();
 }
 
 void MoveManager::decorateTargetedPieces(bool value) {
@@ -64,9 +67,27 @@ void MoveManager::decorateTargetedPieces(bool value) {
         }
     }
 }
-
+void MoveManager::decoratePotentialPieces(bool value) {
+    for (Point* point : possiblePotentials) {
+        if (value) {  
+            mainDialog->pieces[point->getX()][point->getY()]->setPotential();
+        } else {
+            mainDialog->pieces[point->getX()][point->getY()]->unsetTarget();
+        }
+    }
+}
 void MoveManager::calculatePossibleMoves() {
     decorateTargetedPieces(false);
     possibleMoves = board->getPossibleMoves(source);
     decorateTargetedPieces(true);
+}
+
+void MoveManager::calculatePossiblePotentials(){
+    decoratePotentialPieces(false);
+    possiblePotentials = umpire->checkMate(ITurn::getTeam() == RED? BLACK: RED);
+    for  (auto i: possiblePotentials){
+        FLOG_H(" debug [%d:%d ] \n", i->getX(), i->getY());
+    }
+    decoratePotentialPieces(true);
+
 }

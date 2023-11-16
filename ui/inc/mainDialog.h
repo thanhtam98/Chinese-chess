@@ -32,6 +32,8 @@ const FColor BLACK_BG = FColor::Black;
 const FColor FOCUS_BLACK_BG = FColor::Grey50;
 const FColor RED_BG = FColor::Red;
 const FColor FOCUS_RED_BG = FColor::Red1;
+const FColor POTENTIAL_BLACK_BG = FColor::DarkRed;
+const FColor POTENTIAL_RED_BG = FColor::LightRed;
 
 class MainDialog : public FDialog {
 public:

@@ -16,6 +16,10 @@ ITurn* ITurn::setup(ITurn *first, ITurn * second) {
 ITurn* ITurn::get(void) {
     return curTurn;
 }
+ITurn* ITurn::getOpposite(){
+    return curTurn->nextTurn;
+}
+
 
 void ITurn::end() {
     curTurn = curTurn->nextTurn;
