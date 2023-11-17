@@ -5,7 +5,16 @@ Umpire::Umpire(IBoard *board){
     mBoard = board;
 }
 
+std::vector<Point*> Umpire::checkMate(void) {
+    std::vector<Point*> ret;
+    
+    auto red = checkMate(RED);
+    auto black = checkMate(BLACK);
 
+    ret.insert(ret.end(), red.begin(), red.end());
+    ret.insert(ret.end(), black.begin(), black.end());
+    return ret;
+}
 /**
  * @brief check if the GENERAL of this team is being targeted.
 */
@@ -41,6 +50,10 @@ std::vector<Point*> Umpire::checkMate(team_code team){
             }
 
         }
+    }
+    /* Also including GENERAL for clearly display*/
+    if (ret.size() != 0){
+        ret.push_back(generalLocation);
     }
     return ret;
 

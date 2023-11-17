@@ -28,12 +28,14 @@ const int OFFSET_X = 2;
 const int OFFSET_Y = 2;
 const int SPACE_LABEL_SIZE_X = 3;
 const int SPACE_LABEL_SIZE_Y = 1;
+
 const FColor BLACK_BG = FColor::Black;
 const FColor FOCUS_BLACK_BG = FColor::Grey50;
+const FColor POTENTIAL_BLACK_BG = FColor::Purple;
+
 const FColor RED_BG = FColor::Red;
 const FColor FOCUS_RED_BG = FColor::Red1;
-const FColor POTENTIAL_BLACK_BG = FColor::DarkRed;
-const FColor POTENTIAL_RED_BG = FColor::LightRed;
+const FColor POTENTIAL_RED_BG = FColor::Purple;
 
 class MainDialog : public FDialog {
 public:

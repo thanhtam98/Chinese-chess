@@ -84,10 +84,7 @@ void MoveManager::calculatePossibleMoves() {
 
 void MoveManager::calculatePossiblePotentials(){
     decoratePotentialPieces(false);
-    possiblePotentials = umpire->checkMate(ITurn::getTeam() == RED? BLACK: RED);
-    for  (auto i: possiblePotentials){
-        FLOG_H(" debug [%d:%d ] \n", i->getX(), i->getY());
-    }
+    possiblePotentials = umpire->checkMate();
     decoratePotentialPieces(true);
 
 }

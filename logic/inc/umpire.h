@@ -6,7 +6,7 @@ class Umpire {
 
 public:
     Umpire(IBoard *board);
-
+    std::vector<Point*> checkMate(void);
     std::vector<Point*> checkMate(team_code team);
 private:
     IBoard *mBoard;

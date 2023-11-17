@@ -68,7 +68,6 @@ void PieceLabel::setTarget() {
 }
 
 void PieceLabel::setPotential(){
-    target = true;
     IBoard* board = Board::getInstance();
     int x = this->pos->getX();
     int y = this->pos->getY();
@@ -76,7 +75,7 @@ void PieceLabel::setPotential(){
 
     team_code team = chessman->getTeam();
     setBackgroundColor(team == BLACK ? POTENTIAL_BLACK_BG : POTENTIAL_RED_BG);
-    setForegroundColor(FColor::Black);
+    // setForegroundColor(FColor::Black);
     redraw();
 }
 

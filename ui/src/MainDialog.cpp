@@ -19,7 +19,7 @@ MainDialog::MainDialog(FWidget* parent) : FDialog{parent} {
     LOG_F("Initialize the Board Dialog");
 
     ITurn::setup(new DebugTurn(), new DebugTurn());
-    // ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
+    // ITurn::setup(new OfflineTurn(RED), new OfflineTurn(BLACK));
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {

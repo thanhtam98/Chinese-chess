@@ -117,9 +117,10 @@ void SpaceLabel::setTarget() {
 }
 
 void SpaceLabel::setPotential() {
-    target = true;
-    setBackgroundColor(FColor::LightRed);
-    redraw();
+    /* Actually it dont do anything*/
+    // target = true;
+    // setBackgroundColor(FColor::LightRed);
+    // redraw();
 }
 
 void SpaceLabel::unsetTarget() {
