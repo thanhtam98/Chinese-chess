@@ -10,7 +10,7 @@
 #define LOG_F(x,...) { \
     char buff[MAX_BUFF]; \
     sprintf(buff, x __VA_OPT__(,) __VA_ARGS__); \
-    Logger::write(__LINE__, __FILE__, string(buff)); \
+    Logger::write(__LINE__, __FILE__, std::string(buff)); \
 }
 #define MAX_BUFF 100
 

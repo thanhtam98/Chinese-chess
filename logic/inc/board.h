@@ -23,6 +23,7 @@ public:
     std::vector<Point*> getPossibleMoves(Point* target) override;
     Point* getGeneralLocation(team_code team) override;
     void setGeneralLocation(team_code team, Point* location) override;
+    void endGame(team_code winningTeam) override;
 private:
     Board() {};
     /* The single instance for Singleton */

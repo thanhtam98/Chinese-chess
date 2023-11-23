@@ -16,8 +16,10 @@ public:
     virtual std::vector<Point*> getPossibleMoves(Point* target) = 0;
     virtual Point* getGeneralLocation(team_code team) = 0;
     virtual void setGeneralLocation(team_code team, Point* location)  = 0;
-
+    virtual void endGame(team_code winningTeam) = 0;
 protected:
     /* A map showing all chessmen on the board and where they are */
     IChessman* map[BOARD_WIDTH][BOARD_LENGTH];
+    bool isGameOver = false;
+    team_code winningTeam;
 };

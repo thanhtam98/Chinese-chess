@@ -10,7 +10,7 @@
 #include "debugLabel.h"
 #include "utils.h"
 #include "teamSignalLabels.h"
-// #include "moveManager.h"
+#include "endGameLabel.h"
 #include <vector>
 #include <string>
 
@@ -55,6 +55,7 @@ private:
     VerticleLineLabels verticleLineLabels{this};
     HorizontalLineLabels horizontalLineLabels{this};
     TeamSignalLabels *teamSignalLabels;
-    DebugLabel debugLabel{this};
+    // DebugLabel debugLabel{this};
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
+    // EndGameLabel endGameLabel{this};
 };

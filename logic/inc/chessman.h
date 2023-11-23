@@ -15,5 +15,6 @@ public:
     chessman_code getCode(); 
     string getName(); 
     Chessman(Piece piece, Point *point);
+    ~Chessman();
     static IChessman* newInstance(Piece piece, Point *point);
 };

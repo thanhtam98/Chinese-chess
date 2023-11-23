@@ -13,4 +13,5 @@ public:
     MOCK_METHOD(std::vector<Point*>, getPossibleMoves, (Point* target), (override));
     MOCK_METHOD(Point*, getGeneralLocation, (team_code team), (override));
     MOCK_METHOD(void, setGeneralLocation, (team_code team, Point* location), (override));
+    MOCK_METHOD(void, endGame, (team_code winningTeam), (override));
 };

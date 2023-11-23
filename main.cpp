@@ -31,7 +31,7 @@ auto main (int argc, char* argv[]) -> int
 
   MainDialog board{&app};
 
-  board.setGeometry(FPoint{1, 1}, FSize{46, 26}, false);
+  board.setGeometry(FPoint{1, 1}, FSize{46, 24}, false);
 
   // Set dialog object mouse_draw as main widget
   FWidget::setMainWidget(&board);

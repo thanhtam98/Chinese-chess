@@ -33,7 +33,10 @@ void Board::move(Point* from, Point* to) {
     IChessman* fromChessman = getChessman(from);
     if (isOccupied(to)) {
         IChessman* toChessman = getChessman(to);
-        // std::cout << "Delete chessman " << toChessman << std::endl;
+        if (toChessman->getCode() == GENERAL) {
+            LOG_F("Game ends. Team %s wins.", fromChessman->getTeam() == RED ? "RED" : "BLACK");
+            endGame(fromChessman->getTeam());
+        }
         delete toChessman;
     } 
     map[to->getX()][to->getY()] = fromChessman;
@@ -89,4 +92,9 @@ void Board::setup() {
             }
         }
     }
+}
+
+void Board::endGame(team_code _winningTeam) {
+    isGameOver = true;
+    winningTeam = _winningTeam;
 }

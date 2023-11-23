@@ -19,7 +19,6 @@ MainDialog::MainDialog(FWidget* parent) : FDialog{parent} {
     LOG_F("Initialize the Board Dialog");
 
     ITurn::setup(new DebugTurn(), new DebugTurn());
-    // ITurn::setupTurns(new OfflineTurn(RED), new OfflineTurn(BLACK));
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {
@@ -35,6 +34,7 @@ MainDialog::MainDialog(FWidget* parent) : FDialog{parent} {
     }
     teamSignalLabels = new TeamSignalLabels{this};
     moveManager = new MoveManager{this};
+    // endGameLabel.show(GAME_OVER, FColor::Cyan, FColor::BlueViolet);
 }
 
 void MainDialog::initLayout() {
@@ -49,7 +49,7 @@ void MainDialog::dispatchChessmanMove(Point* source, Point* destination) {
 
 void MainDialog::clickedCallback() {
     moveManager->calculatePossibleMoves();
-    debugLabel.log(pieces[moveManager->getSourcePoint()->getX()][moveManager->getSourcePoint()->getY()]->getText().toString());
+    // debugLabel.log(pieces[moveManager->getSourcePoint()->getX()][moveManager->getSourcePoint()->getY()]->getText().toString());
     redraw();
 }
 
