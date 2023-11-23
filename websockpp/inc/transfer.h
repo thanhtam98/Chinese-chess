@@ -13,10 +13,10 @@ enum  trans_code {
 typedef void (*MovCallback_t)(Point* from, Point* to);
 typedef void (*SelCallback_t)(Point* from);
 
-class transfer{
+class Transfer{
 
     public:
-        transfer(ConnectionBase *connection);
+        Transfer(ConnectionBase *connection);
         void setConnection(ConnectionBase *connection);
         void sendMsg(trans_code opcode, Point *from, Point *to);
         void sendMsg(trans_code opcode, Point *from);

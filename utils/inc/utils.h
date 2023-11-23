@@ -4,7 +4,6 @@
 #include <vector>
 #include <string>
 
-#include "utils.h"
 #include "log.h"
 #include "point.h"
 #include "constant.h"

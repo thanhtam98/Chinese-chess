@@ -1,22 +1,22 @@
 #include "transfer.h"
 
-transfer::transfer(ConnectionBase *connection){
+Transfer::Transfer(ConnectionBase *connection){
     mConnection = connection;
-    mConnection->setRecvCallback(std::bind(&transfer::dispatchMsg, this,::_1));
+    mConnection->setRecvCallback(std::bind(&Transfer::dispatchMsg, this,::_1));
 
 }
 
-void transfer::setConnection(ConnectionBase *connection){
+void Transfer::setConnection(ConnectionBase *connection){
     mConnection = connection;
-    mConnection->setRecvCallback(std::bind(&transfer::dispatchMsg, this,::_1));
+    mConnection->setRecvCallback(std::bind(&Transfer::dispatchMsg, this,::_1));
 
 }
-void transfer::setCallback(MovCallback_t mcb, SelCallback_t scb){
+void Transfer::setCallback(MovCallback_t mcb, SelCallback_t scb){
     mMovCallback = mcb;
     mSelCallback = scb;
 }
 
-void transfer::sendMsg(trans_code opcode, Point* from, Point* to){
+void Transfer::sendMsg(trans_code opcode, Point* from, Point* to){
 
     json js;
 
@@ -29,7 +29,7 @@ void transfer::sendMsg(trans_code opcode, Point* from, Point* to){
     mConnection->send(js);
 }
 
-void transfer::sendMsg(trans_code opcode, Point* from){
+void Transfer::sendMsg(trans_code opcode, Point* from){
 
     json js;
 
@@ -40,7 +40,7 @@ void transfer::sendMsg(trans_code opcode, Point* from){
     mConnection->send(js);
 }
 
-void transfer::dispatchMsg(json js){
+void Transfer::dispatchMsg(json js){
     // cout << "recv" << js.dump(0);
     trans_code code = js["opcode"];
     Point* from = Point::of(js["from"][0], js["from"][1]);

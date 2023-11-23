@@ -90,6 +90,7 @@ add_executable(chinese-chess ${SOURCES})
 target_include_directories(chinese-chess PUBLIC ${websocketpp_SOURCE_DIR})
 target_link_libraries(chinese-chess
     PRIVATE finalcut
+    # INTERFACE finalcut
     INTERFACE Boost::system Boost::thread Boost::regex
     PRIVATE nlohmann_json::nlohmann_json
 )

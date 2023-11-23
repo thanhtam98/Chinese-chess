@@ -2,7 +2,7 @@
 #include "iBoard.h"
 #include "board.h"
 #include "mainDialog.h"
-
+// #include "transfer.h"
 class MoveManager {
     public:
     explicit MoveManager(MainDialog* mainDialog);
@@ -22,4 +22,5 @@ class MoveManager {
     Point* source;
     Point* dest;
     vector<Point*> possibleMoves;
+    
 };

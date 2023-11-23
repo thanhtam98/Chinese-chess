@@ -2,6 +2,7 @@
 
 #include "wConfig.h"
 #include "utils.h"
+#undef null
 #include <nlohmann/json.hpp>
 #include <semaphore.h>
 #include <queue>

@@ -33,7 +33,7 @@ auto main (int argc, char* argv[]) -> int
   std::thread wThread;
   if (argc > 1){
       wThread = thread(clientSockHandler);
-      transfer trans{&c};
+      Transfer trans{&c};
       trans.setCallback(a,b);
       while(1){
         sleep(2);
@@ -43,7 +43,7 @@ auto main (int argc, char* argv[]) -> int
   }
   else{
       wThread = thread(serverSockHandler);
-      transfer trans{&s};
+      Transfer trans{&s};
       trans.setCallback(a,b);
       while(1){
         sleep(2);
@@ -51,7 +51,7 @@ auto main (int argc, char* argv[]) -> int
         trans.sendMsg(SEL, Point::of(2,2));
       }
   }
-  while(1);
+  // while(1);
     // std::thread thread_object (clientSockHandler);
 
   FApplication app{argc, argv};
