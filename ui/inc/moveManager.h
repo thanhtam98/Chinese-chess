@@ -13,8 +13,11 @@ class MoveManager {
     Point* getDestPoint();
     // Set/ Unset to draw/ re-draw possible moves with different colors
     void decorateTargetedPieces(bool value);
-    void movePiece();
-    void calculatePossibleMoves();
+    void movePiece(bool isNotify);
+    void movePieceTransferCb(Point* from, Point* to);
+    void selPieceTransferCb(Point* from);
+    void calculatePossibleMoves(bool isNotify);
+    Transfer *transfer;
 
     private:
     IBoard* board;

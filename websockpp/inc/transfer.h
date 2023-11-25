@@ -10,8 +10,8 @@ enum  trans_code {
     TOTAL_CODE
 };
 
-typedef void (*MovCallback_t)(Point* from, Point* to);
-typedef void (*SelCallback_t)(Point* from);
+typedef std::function<void(Point* from, Point* to)> MovCallback_t;
+typedef std::function<void(Point* from)> SelCallback_t;
 
 class Transfer{
 

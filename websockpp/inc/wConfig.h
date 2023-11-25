@@ -8,8 +8,7 @@
 #include <websocketpp/logger/syslog.hpp>
 #include <websocketpp/extensions/permessage_deflate/enabled.hpp>
 #include <functional>
-
-
+#include "log.h"
 #define DEFAULT_WPORT 9000
 #define DEFAULT_WURI "ws://localhost"
 #define DEFALUT_OPCODE   websocketpp::frame::opcode::TEXT
@@ -45,7 +44,8 @@ namespace websocketpp
                 if (!this->dynamic_test(channel))
                     return;
                 // custom logging, e.g.: std::cout with specific format:
-                std::cout << "[WEBSOCKPP]" << msg;
+                // std::cout << "[WEBSOCKPP]" << msg;
+                // LOG_F("[WEBSOCKPP] %s", msg.);
             }
 
         private:
@@ -72,11 +72,11 @@ struct myConfig : public websocketpp::config::asio
 };
 
 
-typedef websocketpp::client<websocketpp::config::asio> client;
-typedef websocketpp::server<websocketpp::config::asio> server;
+// typedef websocketpp::client<websocketpp::config::asio> client;
+// typedef websocketpp::server<websocketpp::config::asio> server;
 
-// typedef websocketpp::server<myConfig> server;
-// typedef websocketpp::client<myConfig> client;
+typedef websocketpp::server<myConfig> server;
+typedef websocketpp::client<myConfig> client;
 typedef websocketpp::endpoint<websocketpp::connection<myConfig>,myConfig> endpoint;
 typedef websocketpp::connection_hdl connection;
 // typedef websocketpp::config::asio_client::message_type::ptr message_ptr;

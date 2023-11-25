@@ -50,11 +50,11 @@ void Transfer::dispatchMsg(json js){
     case MOV:
         to = Point::of(js["to"][0], js["to"][1]);
         if (mMovCallback)
-            (*mMovCallback)(from, to);
+            (mMovCallback)(from, to);
         break;
     case SEL:
         if (mSelCallback)
-            (*mSelCallback)(from);
+            (mSelCallback)(from);
         break;
     default:
         break;

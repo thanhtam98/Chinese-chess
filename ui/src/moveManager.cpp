@@ -1,12 +1,24 @@
 #include "moveManager.h"
 #include "spaceLabel.h"
 #include "mainDialog.h"
+#include "websockpp.h"
 
-MoveManager::MoveManager(MainDialog *MainDialog){
+MoveManager::MoveManager(MainDialog *MainDialog)
+{
     board = Board::getInstance();
     this->mainDialog = MainDialog;
-};
 
+    ConnectionBase *con = ConnectionBase::getInstance();
+    if (con != nullptr)
+    {
+        con->run();
+        this->transfer = new Transfer{con};
+        this->transfer->setCallback(std::bind(&MoveManager::movePieceTransferCb, this,
+                                              ::_1, ::_2),
+                                    std::bind(&MoveManager::selPieceTransferCb, this,
+                                              ::_1));
+    }
+};
 
 void MoveManager::setSourcePoint(Point* clicked) {
     source = clicked;
@@ -21,8 +33,18 @@ void MoveManager::setDestPoint(Point* to) {
 Point* MoveManager::getDestPoint() {
     return dest;
 }
+void MoveManager::selPieceTransferCb(Point* from){
+    setSourcePoint(from);
+    calculatePossibleMoves(false);
+}
 
-void MoveManager::movePiece() {
+void MoveManager::movePieceTransferCb(Point* from, Point* to){
+    setSourcePoint(from);
+    setDestPoint(to);
+    movePiece(false);
+}
+
+void MoveManager::movePiece(bool isNotify){
     ILabel* toPiece = mainDialog->pieces[dest->getX()][dest->getY()];
     ILabel* fromPiece = mainDialog->pieces[source->getX()][source->getY()];
     if (dynamic_cast<SpaceLabel*>(toPiece) != nullptr) {
@@ -53,6 +75,9 @@ void MoveManager::movePiece() {
 
     // Inform the board about the changes.
     board->move(source, dest);
+    if (isNotify){
+        transfer->sendMsg(MOV, source, dest);
+    }
 }
 
 void MoveManager::decorateTargetedPieces(bool value) {
@@ -65,8 +90,11 @@ void MoveManager::decorateTargetedPieces(bool value) {
     }
 }
 
-void MoveManager::calculatePossibleMoves() {
+void MoveManager::calculatePossibleMoves(bool isNotify) {
     decorateTargetedPieces(false);
     possibleMoves = board->getPossibleMoves(source);
     decorateTargetedPieces(true);
+    if (isNotify){
+        transfer->sendMsg(SEL, source);
+    }
 }

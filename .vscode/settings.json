@@ -82,6 +82,10 @@
         "numbers": "cpp",
         "scoped_allocator": "cpp",
         "shared_mutex": "cpp",
-        "typeindex": "cpp"
-    }
+        "typeindex": "cpp",
+        "*.ipp": "cpp",
+        "strstream": "cpp",
+        "source_location": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

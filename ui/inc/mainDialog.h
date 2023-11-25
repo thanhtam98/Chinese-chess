@@ -58,5 +58,4 @@ private:
     TeamSignalLabels *teamSignalLabels;
     DebugLabel debugLabel{this};
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
-    Transfer *transfer;
 };

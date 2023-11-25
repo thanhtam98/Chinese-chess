@@ -5,25 +5,10 @@
 #include "utils.h"
 #include "mainDialog.h"
 #include "websockpp.h"
-#include "transfer.h"
-
+#include "connectionBase.h"
 using namespace std;
 using namespace finalcut;
 
-wServer s;
-wClient c;
-void a (Point *from, Point *to){
-  cout << "MOVE " << *from << *to << endl;
-}
-void b (Point *from){
-  cout << "SEL: " << *from  << endl;
-}
-auto serverSockHandler(void){
-    s.run();
-}
-auto clientSockHandler(void){
-    c.run();
-}
 auto main (int argc, char* argv[]) -> int
 {
   // freopen("/workspaces/chinese-chess/log.txt","w",stdout);
@@ -32,24 +17,10 @@ auto main (int argc, char* argv[]) -> int
   LOG_F("Start the game %s", str.c_str());
   std::thread wThread;
   if (argc > 1){
-      wThread = thread(clientSockHandler);
-      Transfer trans{&c};
-      trans.setCallback(a,b);
-      while(1){
-        sleep(2);
-        // trans.sendMsg(MOV, Point::of(3,2), Point::of(4,2));
-        // trans.sendMsg(SEL, Point::of(2,2));
-      }
+    ConnectionBase::setInstance(WCLIENT);
   }
   else{
-      wThread = thread(serverSockHandler);
-      Transfer trans{&s};
-      trans.setCallback(a,b);
-      while(1){
-        sleep(2);
-        trans.sendMsg(MOV, Point::of(3,2), Point::of(4,2));
-        trans.sendMsg(SEL, Point::of(2,2));
-      }
+    ConnectionBase::setInstance(WSERVER);
   }
   // while(1);
     // std::thread thread_object (clientSockHandler);

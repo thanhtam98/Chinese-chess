@@ -30,14 +30,16 @@ wServer::wServer(int port)
     mPort = port;
 }
 
-void wServer::run()
-{
+void wServer::_run(){
     // Listen on port 9002
     mEndpoint.listen(mPort);
     // Queues a connection accept operation
     mEndpoint.start_accept();
     // Start the Asio io_service run loop
     mEndpoint.run();
+}
+void wServer::run(){
+    wThread = thread(std::bind(&wServer::_run, this));
 }
 
 int wServer::_send(std::string const payload)

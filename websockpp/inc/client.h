@@ -10,6 +10,7 @@ public:
     wClient();
 
     void run();
+    void _run();
 
 private:
     client mEndpoint;

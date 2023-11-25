@@ -8,6 +8,7 @@ public:
     wServer(int port);
     wServer();
     void run() override;
+    void _run();
 private:
     server mEndpoint;
     int mPort;

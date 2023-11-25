@@ -40,7 +40,7 @@ wClient::wClient()
     mUri += std::to_string(mPort);
 }
 
-void wClient::run()
+void wClient::_run()
 {
     websocketpp::lib::error_code ec;
     client::connection_ptr con = mEndpoint.get_connection(mUri, ec);
@@ -53,6 +53,11 @@ void wClient::run()
 
     mEndpoint.connect(con);
     mEndpoint.run();
+}
+
+void wClient::run()
+{
+    wThread = thread(std::bind(&wClient::_run, this));
 }
 
 int wClient::_send(std::string const payload)

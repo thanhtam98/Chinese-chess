@@ -42,13 +42,13 @@ void MainDialog::initLayout() {
 }
 
 void MainDialog::dispatchChessmanMove(Point* source, Point* destination) {
-    moveManager->movePiece();
+    moveManager->movePiece(true);
     ITurn::endTurn();
     teamSignalLabels->changeTeamColor();
 }
 
 void MainDialog::clickedCallback() {
-    moveManager->calculatePossibleMoves();
+    moveManager->calculatePossibleMoves(true);
     debugLabel.log(pieces[moveManager->getSourcePoint()->getX()][moveManager->getSourcePoint()->getY()]->getText().toString());
     redraw();
 }
@@ -56,7 +56,7 @@ void MainDialog::clickedCallback() {
 void MainDialog::moveCallback() {
     moveManager->decorateTargetedPieces(false);
     // Swap 2 pieces in case of normal move
-    moveManager->movePiece();
+    moveManager->movePiece(true);
     ITurn::endTurn();
     teamSignalLabels->changeTeamColor();
 }
