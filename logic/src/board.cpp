@@ -11,6 +11,27 @@ IBoard* Board::getInstance() {
     return instance;
 }
 
+Board::Board(IBoard *t)
+{
+    for (int x = 0; x < BOARD_WIDTH; x++){
+        for (int y = 0; y < BOARD_LENGTH; y++){
+            if (t->getChessman(x, y) != nullptr){
+                map[x][y] = Chessman::newInstance(
+                    Piece(t->getChessman(x, y)->getCode(),
+                          t->getChessman(x, y)->getTeam()),
+                    Point::of(x, y));
+
+                if (map[x][y]->getCode() == GENERAL){
+                    setGeneralLocation(map[x][y]->getTeam(), Point::of(x, y));
+                }
+            }
+            else{
+                map[x][y] = nullptr;
+            }
+        }
+    }
+}
+
 bool Board::isOccupied (int x, int y) {
     if (!Point::isWithinBoundary(x, y)) return false;
     return (map[x][y] != nullptr);

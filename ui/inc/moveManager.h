@@ -18,6 +18,7 @@ class MoveManager {
     void movePiece();
     void calculatePossibleMoves();
     void calculatePossiblePotentials();
+    bool preCalculatePossiblePotentials();
     private:
     IBoard* board;
     Umpire* umpire;

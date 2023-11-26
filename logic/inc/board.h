@@ -15,6 +15,7 @@ class Board : public IBoard{
 public:
     /* Singleton */
     static IBoard* getInstance();
+    Board(IBoard *t);
     bool isOccupied (int x, int y);
     bool isOccupied (Point *point);
     IChessman* getChessman(int x, int y);

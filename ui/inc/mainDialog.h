@@ -31,11 +31,13 @@ const int SPACE_LABEL_SIZE_Y = 1;
 
 const FColor BLACK_BG = FColor::Black;
 const FColor FOCUS_BLACK_BG = FColor::Grey50;
-const FColor POTENTIAL_BLACK_BG = FColor::Purple;
+const FColor POTENTIAL_BLACK_BG = FColor::DeepPink6;
+const FColor POTENTIAL_GENERAL_BLACK_BG = FColor::DarkCyan2;
 
 const FColor RED_BG = FColor::Red;
 const FColor FOCUS_RED_BG = FColor::Red1;
-const FColor POTENTIAL_RED_BG = FColor::Purple;
+const FColor POTENTIAL_RED_BG = FColor::LightPink4;
+const FColor POTENTIAL_GENERAL_RED_BG = FColor::LightCyan3;
 
 class MainDialog : public FDialog {
 public:

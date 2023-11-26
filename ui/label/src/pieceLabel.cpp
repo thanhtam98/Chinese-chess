@@ -75,6 +75,11 @@ void PieceLabel::setPotential(){
 
     team_code team = chessman->getTeam();
     setBackgroundColor(team == BLACK ? POTENTIAL_BLACK_BG : POTENTIAL_RED_BG);
+
+    if (chessman->getCode() == GENERAL){
+        setBackgroundColor(team == BLACK ? POTENTIAL_GENERAL_BLACK_BG : 
+                                        POTENTIAL_GENERAL_RED_BG);
+    }
     // setForegroundColor(FColor::Black);
     redraw();
 }
