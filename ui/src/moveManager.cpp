@@ -20,34 +20,44 @@ MoveManager::MoveManager(MainDialog *MainDialog)
     }
 };
 
-void MoveManager::setSourcePoint(Point* clicked) {
+void MoveManager::setSourcePoint(Point *clicked)
+{
     source = clicked;
 }
-Point* MoveManager::getSourcePoint() {
+Point *MoveManager::getSourcePoint()
+{
     return source;
 }
 
-void MoveManager::setDestPoint(Point* to) {
+void MoveManager::setDestPoint(Point *to)
+{
     dest = to;
 }
-Point* MoveManager::getDestPoint() {
+Point *MoveManager::getDestPoint()
+{
     return dest;
 }
-void MoveManager::selPieceTransferCb(Point* from){
+void MoveManager::selPieceTransferCb(Point *from)
+{
     setSourcePoint(from);
     calculatePossibleMoves(false);
 }
 
-void MoveManager::movePieceTransferCb(Point* from, Point* to){
+void MoveManager::movePieceTransferCb(Point *from, Point *to)
+{
     setSourcePoint(from);
     setDestPoint(to);
+    decorateTargetedPieces(false);
     movePiece(false);
+    // refresh possible move
 }
 
-void MoveManager::movePiece(bool isNotify){
-    ILabel* toPiece = mainDialog->pieces[dest->getX()][dest->getY()];
-    ILabel* fromPiece = mainDialog->pieces[source->getX()][source->getY()];
-    if (dynamic_cast<SpaceLabel*>(toPiece) != nullptr) {
+void MoveManager::movePiece(bool isNotify)
+{
+    ILabel *toPiece = mainDialog->pieces[dest->getX()][dest->getY()];
+    ILabel *fromPiece = mainDialog->pieces[source->getX()][source->getY()];
+    if (dynamic_cast<SpaceLabel *>(toPiece) != nullptr)
+    {
         // If toPiece is a space label, we swap to labels
         fromPiece->changePosition(dest);
         toPiece->changePosition(source);
@@ -55,8 +65,9 @@ void MoveManager::movePiece(bool isNotify){
         // Swap the pieces in pieces array of the board dialog
         mainDialog->pieces[source->getX()][source->getY()] = toPiece;
         mainDialog->pieces[dest->getX()][dest->getY()] = fromPiece;
-
-    } else {
+    }
+    else
+    {
         // If toPiece is a piece label, we delete the destined piece label
         // (considered as eliminated), move the source piece label and
         // create a space label where the source piece label was located.
@@ -67,7 +78,7 @@ void MoveManager::movePiece(bool isNotify){
         delete toPiece;
         // Create a new space label and assign all necessary functionalities
         mainDialog->pieces[dest->getX()][dest->getY()] = fromPiece;
-        ILabel* newLabel = new SpaceLabel{mainDialog, source};
+        ILabel *newLabel = new SpaceLabel{mainDialog, source};
         mainDialog->pieces[source->getX()][source->getY()] = newLabel;
         newLabel->show();
         mainDialog->addCallback(newLabel, "move");
@@ -75,26 +86,34 @@ void MoveManager::movePiece(bool isNotify){
 
     // Inform the board about the changes.
     board->move(source, dest);
-    if (isNotify){
+    if (isNotify)
+    {
         transfer->sendMsg(MOV, source, dest);
     }
 }
 
-void MoveManager::decorateTargetedPieces(bool value) {
-    for (Point* point : possibleMoves) {
-        if (value) {  
+void MoveManager::decorateTargetedPieces(bool value)
+{
+    for (Point *point : possibleMoves)
+    {
+        if (value)
+        {
             mainDialog->pieces[point->getX()][point->getY()]->setTarget();
-        } else {
+        }
+        else
+        {
             mainDialog->pieces[point->getX()][point->getY()]->unsetTarget();
         }
     }
 }
 
-void MoveManager::calculatePossibleMoves(bool isNotify) {
+void MoveManager::calculatePossibleMoves(bool isNotify)
+{
     decorateTargetedPieces(false);
     possibleMoves = board->getPossibleMoves(source);
     decorateTargetedPieces(true);
-    if (isNotify){
+    if (isNotify)
+    {
         transfer->sendMsg(SEL, source);
     }
 }
