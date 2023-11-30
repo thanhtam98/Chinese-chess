@@ -2,6 +2,7 @@
 #include "spaceLabel.h"
 #include "mainDialog.h"
 #include "ITurn.h"
+#include "board.h"
 
 MoveManager::MoveManager(MainDialog *MainDialog){
     board = Board::getInstance();
@@ -109,6 +110,13 @@ void MoveManager::decoratePotentialPieces(bool value) {
         } else {
             mainDialog->pieces[point->getX()][point->getY()]->unsetTarget();
         }
+    }
+
+    if (!value){
+        mainDialog->pieces[board->getGeneralLocation(RED)->getX()]
+                            [board->getGeneralLocation(RED)->getY()]->unsetTarget();
+        mainDialog->pieces[board->getGeneralLocation(BLACK)->getX()]
+                            [board->getGeneralLocation(BLACK)->getY()]->unsetTarget();
     }
 }
 void MoveManager::calculatePossibleMoves() {
