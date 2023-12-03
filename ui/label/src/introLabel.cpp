@@ -22,9 +22,6 @@ u"   ▗▄▛▌ ▟▀█▌ ▀▘ ▌ ▀▜▀▌ ▀▀▜▌ ▀▀▜▌
 u" ▗▟▀▘ ▌ ▜██▌ ▄▖ ▌ ▄▟▄█▄▄▖ █▄▄▖ ▌ ▝▀██▌ ",
 u"▝▀    ▀▄   ▌ ▌▌ ▌    ▌   ▗▌   ▗▌    ▀▀ ",
 u"       ▝▀▀▀▀▀▘▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀        "
-// u"           ▝▀         ▀▘               ",
-// u"        ▟▀▘▟▜▛ ▀█▀▐▌█▚▛█▜▙▐▗▛▀         ",
-// u"        ▜▄▖▜▟▘  █ ▝▙▛▝▙▛▐▝█▝▙█         "
 };
 
 std::string IntroLabel::bg[] = {
@@ -48,9 +45,6 @@ std::string IntroLabel::bg[] = {
 "      221  011223344 3221100112        ",
 "       110011 23344332211001122        ",
 "                                       "
-// "                                       ",
-// "                                       ",
-// "                                       ",
 };
 
 std::string IntroLabel::fg[] = {
@@ -74,12 +68,9 @@ std::string IntroLabel::fg[] = {
 " 1111                            11111 ",
 "11                                  11 ",
 "                                       "
-// "                                       ",
-// "                                       ",
-// "                                       "
 };
 
-std::string IntroLabel::PRESS_KEY = "PRESS ANY KEY";
+std::string IntroLabel::PRESS_KEY = "CLICK OR PRESS ANY KEY";
 
 FColor IntroLabel::gradientColors[] = {
     FColor::White, FColor::Yellow1, FColor::Yellow, FColor::Orange1, 
@@ -133,7 +124,7 @@ IntroLabel::IntroLabel(FWidget* parent) {
             PRESS_ANY_X_OFFSET,
             ENDGAME_LABEL_OFFSET_Y + MAX_TILE_LENGTH,
         },
-        FSize{13, 1}
+        FSize{23, 1}
     );
 }
 

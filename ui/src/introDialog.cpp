@@ -27,6 +27,14 @@ void IntroDialog::onKeyPress(FKeyEvent* event) {
     const auto key_id = event->key();
     auto key_name = finalcut::FVTerm::getFOutput()->getKeyName(key_id);
     LOG_F("Key %s", key_name.c_str())
+    clearDialog();
+}
+
+void IntroDialog::onMouseDown(FMouseEvent* event) {
+    clearDialog();
+}
+
+void IntroDialog::clearDialog() {
     delAllTimers();
     delCallback();
     close();

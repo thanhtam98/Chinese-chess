@@ -17,7 +17,7 @@ class IntroLabel {
     static const int MAX_TILE_WIDTH = 40;
     static const int ENDGAME_LABEL_OFFSET_X = 3;
     static const int ENDGAME_LABEL_OFFSET_Y = 2;
-    static const int PRESS_ANY_X_OFFSET = 40 / 2 - 4;
+    static const int PRESS_ANY_X_OFFSET = 11;
     static const int GRADIENT_MAX = 8;
     static const int GRADIENT_WIDTH = 3;
     static std::string PRESS_KEY;

@@ -11,7 +11,10 @@ public:
     // void initLayout() override;
     void onTimer(FTimerEvent* event) override;
     void onKeyPress (FKeyEvent*) override;
+    void onMouseDown(FMouseEvent* event) override;
 private:
+    void clearDialog();
+
     IntroLabel* introLabel;
     int introTimerId, pressKeyTimerId, barsTimerId;
 };
