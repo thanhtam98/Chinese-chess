@@ -29,6 +29,6 @@ void IntroDialog::onKeyPress(FKeyEvent* event) {
     LOG_F("Key %s", key_name.c_str())
     delAllTimers();
     delCallback();
-    hide();
+    close();
     next();
 }

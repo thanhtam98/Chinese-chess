@@ -9,6 +9,7 @@
 
 BoardDialog::BoardDialog(FDialog* parent): FDialog{parent} {
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE, false);
+    setFocusable(false);
     board = Board::getInstance();
     LOG_F("Initialize the Board Dialog");
 
@@ -35,6 +36,7 @@ void BoardDialog::initLayout() {
 }
 
 void BoardDialog::clickedCallback() {
+    LOG_F("Clicked Event");
     moveManager->calculatePossibleMoves();
     // debugLabel.log(pieces[moveManager->getSourcePoint()->getX()][moveManager->getSourcePoint()->getY()]->getText().toString());
     redraw();

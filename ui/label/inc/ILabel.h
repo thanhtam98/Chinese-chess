@@ -16,5 +16,5 @@ public:
     virtual void changePosition(Point* to) = 0;
 protected:
     Point *pos;
-    bool target;
+    bool target = false;
 };
