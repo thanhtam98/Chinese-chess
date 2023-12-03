@@ -11,6 +11,7 @@
 #include "utils.h"
 #include "teamSignalLabels.h"
 #include "endGameLabel.h"
+#include "introLabel.h"
 #include <vector>
 #include <string>
 
@@ -44,18 +45,22 @@ public:
     void clickedCallback();
     void moveCallback();
 
+    void onTimer(FTimerEvent* event) override;
+
     MoveManager* moveManager;
 
 private:
     void addCallback(ILabel* label, std::string event);
 
     IBoard* board;
-    RiverBorderLabels riverBoundaryLabels{this};
-    FortressLabels fortressLabels{this};
-    VerticleLineLabels verticleLineLabels{this};
-    HorizontalLineLabels horizontalLineLabels{this};
+    // RiverBorderLabels riverBoundaryLabels{this};
+    // FortressLabels fortressLabels{this};
+    // VerticleLineLabels verticleLineLabels{this};
+    // HorizontalLineLabels horizontalLineLabels{this};
     TeamSignalLabels *teamSignalLabels;
     // DebugLabel debugLabel{this};
     ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
     // EndGameLabel endGameLabel{this};
+    IntroLabel* introLabel;
+    int introTimerId, pressKeyTimerId, barsTimerId;
 };

@@ -18,23 +18,28 @@ MainDialog::MainDialog(FWidget* parent) : FDialog{parent} {
     board = Board::getInstance();
     LOG_F("Initialize the Board Dialog");
 
-    ITurn::setup(new DebugTurn(), new DebugTurn());
+    // ITurn::setup(new DebugTurn(), new DebugTurn());
 
-    for (int x = 0; x < BOARD_WIDTH; x++) {
-        for (int y = 0; y < BOARD_LENGTH; y++) {
-            IChessman* chessman = board->getChessman(x, BOARD_LENGTH - y -1);
-            if (chessman) {
-                pieces[x][y] = new PieceLabel{this, Point::of(x, y)};
-                addCallback(pieces[x][y], "clicked");
-            } else {
-                pieces[x][y] = new SpaceLabel{this, Point::of(x, y)};
-            }
-            addCallback(pieces[x][y], "move");
-        }
-    }
-    teamSignalLabels = new TeamSignalLabels{this};
-    moveManager = new MoveManager{this};
+    // for (int x = 0; x < BOARD_WIDTH; x++) {
+    //     for (int y = 0; y < BOARD_LENGTH; y++) {
+    //         IChessman* chessman = board->getChessman(x, BOARD_LENGTH - y -1);
+    //         if (chessman) {
+    //             pieces[x][y] = new PieceLabel{this, Point::of(x, y)};
+    //             addCallback(pieces[x][y], "clicked");
+    //         } else {
+    //             pieces[x][y] = new SpaceLabel{this, Point::of(x, y)};
+    //         }
+    //         addCallback(pieces[x][y], "move");
+    //     }
+    // }
+    // teamSignalLabels = new TeamSignalLabels{this};
+    // moveManager = new MoveManager{this};
     // endGameLabel.show(GAME_OVER, FColor::Cyan, FColor::BlueViolet);
+    introTimerId = addTimer(200);
+    pressKeyTimerId = addTimer(500);
+    barsTimerId = addTimer(1500);
+    introLabel = new IntroLabel{this};
+    // introLabel.showAll();
 }
 
 void MainDialog::initLayout() {
@@ -67,4 +72,17 @@ void MainDialog::addCallback(ILabel* label, string event) {
         this,
         event.compare("move") == 0 ? &MainDialog::moveCallback : &MainDialog::clickedCallback
     );
+}
+
+void MainDialog::onTimer(FTimerEvent* event) {
+    if (event->getTimerId() == introTimerId) {
+        introLabel->setColor();
+    }
+    if (event->getTimerId() == pressKeyTimerId) {
+        introLabel->togglePressKey();
+    }
+    if (event->getTimerId() == barsTimerId) {
+        introLabel->toggleBars();
+    }
+    redraw();
 }
