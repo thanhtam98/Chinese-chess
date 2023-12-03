@@ -1,38 +1,30 @@
 #pragma once
 #include "final/final.h"
-#include "iBoard.h"
-#include "utils.h"
-#include "ILabel.h"
-#include "riverBorderLabels.h"
-#include "fortressLabels.h"
-#include "verticalLineLabels.h"
-#include "horizontalLabels.h"
-#include "debugLabel.h"
-#include "utils.h"
-#include "teamSignalLabels.h"
-#include "endGameLabel.h"
-#include "introLabel.h"
-#include <vector>
-#include <string>
+// #include "iBoard.h"
+// #include "utils.h"
+// #include "ILabel.h"
+// #include "riverBorderLabels.h"
+// #include "fortressLabels.h"
+// #include "verticalLineLabels.h"
+// #include "horizontalLabels.h"
+// #include "debugLabel.h"
+// #include "utils.h"
+// #include "teamSignalLabels.h"
+// #include "endGameLabel.h"
+// #include "introLabel.h"
+// #include <vector>
+// #include <string>
+#include "introDialog.h"
+#include "boardDialog.h"
 
 using namespace finalcut;
 
-class MoveManager;
+// class MoveManager;
 
-const int PIECE_SIZE_X = 2;
-const int PIECE_SIZE_Y = 1;
-const int SPACE_SIZE_X = 3;
-const int SPACE_SIZE_Y = 1;
-const int SPACE_BW_PIECE_X = PIECE_SIZE_X + SPACE_SIZE_X;
-const int SPACE_BW_PIECE_Y = PIECE_SIZE_Y + SPACE_SIZE_Y;
-const int OFFSET_X = 2;
-const int OFFSET_Y = 2;
-const int SPACE_LABEL_SIZE_X = 3;
-const int SPACE_LABEL_SIZE_Y = 1;
-const FColor BLACK_BG = FColor::Black;
-const FColor FOCUS_BLACK_BG = FColor::Grey50;
-const FColor RED_BG = FColor::Red;
-const FColor FOCUS_RED_BG = FColor::Red1;
+#define MAIN_DIALOG_POINT FPoint{1,1}
+#define WINDOW_WIDTH 46
+#define WINDOW_LENGTH 26
+#define WINDOW_SIZE FSize{WINDOW_WIDTH, WINDOW_LENGTH}
 
 class MainDialog : public FDialog {
 public:
@@ -40,27 +32,27 @@ public:
 
     friend class MoveManager;
 
-    void dispatchChessmanMove(Point* source, Point* destination);
+    // void dispatchChessmanMove(Point* source, Point* destination);
     void initLayout() override;
-    void clickedCallback();
-    void moveCallback();
+    // void clickedCallback();
+    // void moveCallback();
 
-    void onTimer(FTimerEvent* event) override;
+    // void onTimer(FTimerEvent* event) override;
 
-    MoveManager* moveManager;
+    // MoveManager* moveManager;
 
 private:
-    void addCallback(ILabel* label, std::string event);
+    // void addCallback(ILabel* label, std::string event);
 
-    IBoard* board;
+    // IBoard* board;
     // RiverBorderLabels riverBoundaryLabels{this};
     // FortressLabels fortressLabels{this};
     // VerticleLineLabels verticleLineLabels{this};
     // HorizontalLineLabels horizontalLineLabels{this};
-    TeamSignalLabels *teamSignalLabels;
+    // TeamSignalLabels *teamSignalLabels;
     // DebugLabel debugLabel{this};
-    ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
+    // ILabel* pieces[BOARD_WIDTH][BOARD_LENGTH];
     // EndGameLabel endGameLabel{this};
-    IntroLabel* introLabel;
-    int introTimerId, pressKeyTimerId, barsTimerId;
+    IntroDialog *introDialog;
+    BoardDialog *boardDialog;
 };

@@ -1,5 +1,5 @@
 #include "verticalLineLabels.h"
-#include "mainDialog.h"
+#include "boardDialog.h"
 
 VerticleLineLabels::VerticleLineLabels(FWidget* parent) {
     for (int i = 0; i < BOARD_WIDTH; i++) {

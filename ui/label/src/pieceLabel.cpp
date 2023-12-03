@@ -2,7 +2,7 @@
 #include "iBoard.h"
 #include "board.h"
 #include "iChessman.h"
-#include "mainDialog.h"
+#include "boardDialog.h"
 #include "ITurn.h"
 #include "log.h"
 #include "moveManager.h"
@@ -35,7 +35,7 @@ void PieceLabel::initLayout() {
 }
 
 void PieceLabel::onMouseDown(FMouseEvent* event) {
-    MainDialog* boardDialog = (MainDialog*) getParent();
+    BoardDialog* boardDialog = (BoardDialog*) getParent();
 
     IChessman* chessman = Board::getInstance()->getChessman(pos);
     team_code this_team = chessman->getTeam();

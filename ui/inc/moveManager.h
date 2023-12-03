@@ -1,11 +1,11 @@
 #pragma once
 #include "iBoard.h"
 #include "board.h"
-#include "mainDialog.h"
+#include "boardDialog.h"
 
 class MoveManager {
     public:
-    explicit MoveManager(MainDialog* mainDialog);
+    explicit MoveManager(BoardDialog* boardDialog);
 
     void setSourcePoint(Point* source);
     Point* getSourcePoint();
@@ -18,7 +18,7 @@ class MoveManager {
 
     private:
     IBoard* board;
-    MainDialog* mainDialog;
+    BoardDialog* mainDialog;
     Point* source;
     Point* dest;
     vector<Point*> possibleMoves;

@@ -1,10 +1,9 @@
 #include "moveManager.h"
 #include "spaceLabel.h"
-#include "mainDialog.h"
 
-MoveManager::MoveManager(MainDialog *MainDialog){
+MoveManager::MoveManager(BoardDialog *boardDialog){
     board = Board::getInstance();
-    this->mainDialog = MainDialog;
+    this->mainDialog = boardDialog;
 };
 
 

@@ -2,7 +2,7 @@
 #include "iBoard.h"
 #include "board.h"
 #include "iChessman.h"
-#include "mainDialog.h"
+#include "boardDialog.h"
 #include <string>
 #include "log.h"
 #include "moveManager.h"
@@ -123,7 +123,7 @@ void SpaceLabel::unsetTarget() {
 }
 
 void SpaceLabel::onMouseDown(FMouseEvent* event) {
-    MainDialog* boardDialog = (MainDialog*) getParent();
+    BoardDialog* boardDialog = (BoardDialog*) getParent();
 
     if (event->getButton() == MouseButton::Left) {
         if (target) {

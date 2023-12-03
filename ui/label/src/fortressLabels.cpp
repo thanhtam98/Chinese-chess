@@ -1,5 +1,5 @@
 #include "fortressLabels.h"
-#include "mainDialog.h"
+#include "boardDialog.h"
 
 FortressLabels::FortressLabels(FWidget* parent) {
     fortressLines[0][0] = new FLabel{parent};
