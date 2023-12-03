@@ -18,7 +18,7 @@ auto main (int argc, char* argv[]) -> int
   // cout<<"Start the logfile" << endl;
   string str = "Alo!";
   LOG_F("Start the game %s", str.c_str());
-  std::thread thread_object (webSockHandler);
+  // std::thread thread_object (webSockHandler);
 
   FApplication app{argc, argv};
 

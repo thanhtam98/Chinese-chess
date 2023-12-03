@@ -10,6 +10,7 @@
 class Chessman : public IChessman {
 public:
     std::vector <Point*> getPossibleMoves();
+    std::vector <Point*> getPossibleMoves(IBoard* board);
     bool move(Point* new_point); // provide for Iboard
     team_code getTeam();
     chessman_code getCode(); 

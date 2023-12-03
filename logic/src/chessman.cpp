@@ -18,6 +18,12 @@ std::vector<Point*> Chessman::getPossibleMoves(){
     return *rule.getPossibleMove();
 }
 
+std::vector<Point*> Chessman::getPossibleMoves(IBoard *board){
+
+    Rule rule = Rule::create(board).at(slot).getShape();
+    return *rule.getPossibleMove();
+}
+
 Chessman::Chessman(Piece piece, Point *point){
     this->piece = piece;
     this->slot = point;

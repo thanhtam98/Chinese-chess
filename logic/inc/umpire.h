@@ -2,13 +2,18 @@
 #include "iChessman.h"
 #include "iBoard.h"
 
-class umpire {
+
+class Umpire {
 
 public:
-    umpire(IBoard *board);
-
+    Umpire();
+    bool preCheckMate(Point* from, Point* to);
+    bool preCheckMate(Point* from, Point* to, team_code team);
+    std::vector<Point*> checkMate(void);
     std::vector<Point*> checkMate(team_code team);
+    std::vector<Point*> processCheckMate(team_code team);
 private:
     IBoard *mBoard;
+    void setBoard(IBoard* board);
     
 };

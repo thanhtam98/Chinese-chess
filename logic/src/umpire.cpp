@@ -1,17 +1,66 @@
 #include "umpire.h"
+#include "iBoard.h"
+#include "board.h"
+Umpire::Umpire(){
 
-umpire::umpire(IBoard *board){
-
+    // mBoard = board;
+}
+void Umpire::setBoard(IBoard* board){
     mBoard = board;
+}
+bool Umpire::preCheckMate(Point* from, Point* to, team_code team){
+    IBoard* snapshoot  = new Board(Board::getInstance());
+   
+    snapshoot->move(from, to);
+    setBoard(snapshoot);
+
+    auto result = processCheckMate(team);
+    
+    delete snapshoot;
+    return result.size() != 0 ? true : false;
+}
+
+bool Umpire::preCheckMate(Point* from, Point* to){
+    IBoard* snapshoot  = new Board(Board::getInstance());
+    snapshoot->move(from, to);
+
+    setBoard(snapshoot);
+
+    auto red = processCheckMate(RED);
+    auto black = processCheckMate(BLACK);
+   
+    delete snapshoot;
+    return red.size() + black.size() != 0 ? true : false;
+
 }
 
 
+std::vector<Point*> Umpire::checkMate(void) {
+    std::vector<Point*> ret;
+
+    setBoard(Board::getInstance());
+    
+    auto red = processCheckMate(RED);
+    auto black = processCheckMate(BLACK);
+
+    ret.insert(ret.end(), red.begin(), red.end());
+    ret.insert(ret.end(), black.begin(), black.end());
+    return ret;
+}
+
+std::vector<Point*> Umpire::checkMate(team_code team) {
+    std::vector<Point*> ret;
+
+    setBoard(Board::getInstance());
+
+    return processCheckMate(team);
+}
 /**
  * @brief check if the GENERAL of this team is being targeted.
 */
-std::vector<Point*> umpire::checkMate(team_code team){
-
-    if (mBoard != nullptr)
+std::vector<Point*> Umpire::processCheckMate(team_code team){
+   
+    if (mBoard == nullptr)
         return {};
     
     std::vector<Point*> ret;
@@ -33,7 +82,7 @@ std::vector<Point*> umpire::checkMate(team_code team){
             }
 
             std::vector<Point*> possibleMoves = 
-                chessman->getPossibleMoves();
+                chessman->getPossibleMoves(mBoard);
             
             if (std::find(possibleMoves.begin(), possibleMoves.end(),
                 generalLocation) != possibleMoves.end()){
@@ -42,6 +91,9 @@ std::vector<Point*> umpire::checkMate(team_code team){
 
         }
     }
+    /* Also including GENERAL for clearly display*/
+    if (ret.size() != 0){
+        ret.push_back(generalLocation);
+    }
     return ret;
-
 }
