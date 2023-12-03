@@ -2,6 +2,7 @@
 
 void IChain::setNext(IChain* next) {
     this->nextChain = next;
+    next->prevChain = this;
 }
 
 IChain* IChain::next() {
@@ -10,4 +11,12 @@ IChain* IChain::next() {
 
 bool IChain::hasNext() {
     return nextChain != nullptr;
+}
+
+IChain* IChain::back() {
+    return prevChain;
+}
+
+bool IChain::hasBack() {
+    return prevChain != nullptr;
 }
