@@ -2,6 +2,7 @@
 #include "final/final.h"
 #include "introDialog.h"
 #include "boardDialog.h"
+#include "configDialog.h"
 
 using namespace finalcut;
 
@@ -17,5 +18,6 @@ public:
     void initLayout() override;
 private:
     IntroDialog *introDialog;
+    ConfigDialog* configDialog;
     BoardDialog *boardDialog;
 };

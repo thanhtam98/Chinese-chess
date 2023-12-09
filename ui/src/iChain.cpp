@@ -1,8 +1,9 @@
 #include "iChain.h"
 
-void IChain::setNext(IChain* next) {
+IChain* IChain::setNext(IChain* next) {
     this->nextChain = next;
     next->prevChain = this;
+    return this;
 }
 
 IChain* IChain::next() {

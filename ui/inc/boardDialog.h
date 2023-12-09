@@ -35,6 +35,7 @@ const FColor FOCUS_RED_BG = FColor::Red1;
 const FColor POTENTIAL_RED_BG = FColor::LightPink4;
 const FColor POTENTIAL_GENERAL_RED_BG = FColor::LightCyan3;
 
+const FColor NOTEAM_BG = FColor::Grey93;
 
 class BoardDialog: public FDialog, public IChain {
 public:

@@ -9,8 +9,6 @@ public:
         nextTurn(nullptr), team(team) {};
 
     ITurn *setNext(ITurn *handler);
-    // int next(void);
-    // virtual int handle(void) = 0;
     team_code _getTeam();
     virtual bool _isSatisfiedTurn(team_code this_team) = 0;
 
@@ -20,9 +18,14 @@ public:
     static bool isSatisfied(team_code this_team);
     static void end();
     static team_code getTeam();
+    static ITurn* newDebugTurns();
+    static ITurn* newOnlineTurns(bool isRedGoingFirst = true);
+    static ITurn* newOfflineTurns(bool isRedGoingFirst = true);
 
 protected:
     // static I
+    static void clearTurns();
+
     static ITurn *curTurn;
     team_code team;
     ITurn *nextTurn;

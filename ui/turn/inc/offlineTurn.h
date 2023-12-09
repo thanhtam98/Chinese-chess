@@ -4,7 +4,7 @@
 
 class OfflineTurn : public ITurn {
 public:
-    OfflineTurn(team_code team) : ITurn(team) {
+    explicit OfflineTurn(team_code team) : ITurn(team) {
         LOG_F("OFFLINE MODE");
     };
 

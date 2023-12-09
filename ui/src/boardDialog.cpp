@@ -13,7 +13,7 @@ BoardDialog::BoardDialog(FDialog* parent): FDialog{parent} {
     board = Board::getInstance();
     LOG_F("Initialize the Board Dialog");
 
-    ITurn::setup(new DebugTurn(), new DebugTurn());
+    ITurn::newDebugTurns();
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {

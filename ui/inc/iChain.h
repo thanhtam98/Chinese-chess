@@ -2,7 +2,7 @@
 
 class IChain {
 public:
-    virtual void setNext(IChain* next);
+    virtual IChain* setNext(IChain* next);
     virtual IChain* next();
     virtual bool hasNext();
     virtual IChain* back();

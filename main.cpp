@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "mainDialog.h"
 #include "websockpp.h"
+#include "configDialog.h"
 
 using namespace std;
 using namespace finalcut;
