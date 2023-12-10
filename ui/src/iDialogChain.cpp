@@ -6,6 +6,7 @@ IChain* IDialogChain::next(int branch) {
         IDialogChain* next = (IDialogChain*) branches[branch];
         next->show();
     }
+    close();
     return IChain::next(branch);
 }
 

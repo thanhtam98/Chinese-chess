@@ -38,6 +38,5 @@ void IntroDialog::onMouseDown(FMouseEvent* event) {
 void IntroDialog::clearDialog() {
     delAllTimers();
     delCallback();
-    close();
     next();
 }
