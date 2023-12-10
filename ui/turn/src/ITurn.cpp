@@ -5,6 +5,8 @@
 
 ITurn* ITurn::curTurn = nullptr;
 
+std::function<void(void)> ITurn::setupHook = []{ LOG_F("Init hook") };
+
 ITurn* ITurn::setNext(ITurn* next){
     this->nextTurn = next;
     return next;
@@ -13,6 +15,7 @@ ITurn* ITurn::setNext(ITurn* next){
 ITurn* ITurn::setup(ITurn *first, ITurn * second) {
     first->setNext(second);
     second->setNext(first);
+    setupHook();
     return curTurn = first;
 }
 
@@ -48,22 +51,20 @@ ITurn* ITurn::newDebugTurns() {
 
 ITurn* ITurn::newOnlineTurns(bool isRedGoingFirst) {
     clearTurns();
-    ITurn* redTurn = new OfflineTurn(RED);
-    ITurn* blackTurn = new OfflineTurn(BLACK);
-    return setup(
-        isRedGoingFirst ? redTurn : blackTurn,
-        isRedGoingFirst ? blackTurn : redTurn
-    );
+    ITurn* redTurn = new OnlineTurn(RED);
+    ITurn* blackTurn = new OnlineTurn(BLACK);
+    ITurn* firstTurn = isRedGoingFirst ? redTurn : blackTurn;
+    ITurn* secondTurn = isRedGoingFirst ? blackTurn : redTurn;
+    return setup(firstTurn, secondTurn);
 }
 
 ITurn* ITurn::newOfflineTurns(bool isRedGoingFirst) {
     clearTurns();
-    ITurn* redTurn = new OnlineTurn(RED);
-    ITurn* blackTurn = new OnlineTurn(BLACK);
-    return setup(
-        isRedGoingFirst ? redTurn : blackTurn,
-        isRedGoingFirst ? blackTurn : redTurn
-    );
+    ITurn* redTurn = new OfflineTurn(RED);
+    ITurn* blackTurn = new OfflineTurn(BLACK);
+    ITurn* firstTurn = isRedGoingFirst ? redTurn : blackTurn;
+    ITurn* secondTurn = isRedGoingFirst ? blackTurn : redTurn;
+    return setup(firstTurn, secondTurn);
 }
 
 void ITurn::clearTurns() {

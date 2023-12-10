@@ -42,6 +42,9 @@ void ModeSelectionRadioButton::selectMode(){
             if (mode == OFFLINE) {
                 ITurn::newOfflineTurns();
             }
+            if (mode == ONLINE) {
+                ITurn::newOnlineTurns();
+            }
         }
     }
 }

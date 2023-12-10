@@ -29,6 +29,11 @@ BoardDialog::BoardDialog(FDialog* parent): FDialog{parent} {
     }
     teamSignalLabels = new TeamSignalLabels{this};
     moveManager = new MoveManager{this};
+
+    // Change this setupHook in order to trigger team color changes
+    ITurn::setupHook = [this]() {
+        teamSignalLabels->changeTeamColor();
+    };
 }
 
 void BoardDialog::initLayout() {

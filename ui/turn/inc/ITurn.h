@@ -1,16 +1,18 @@
 #pragma once
 #include <iostream> 
 #include "utils.h"
+#include <functional>
 
 class ITurn {
 
 public:
-    ITurn(team_code team) : 
-        nextTurn(nullptr), team(team) {};
+    ITurn(team_code team) : nextTurn(nullptr), team(team) {};
 
     ITurn *setNext(ITurn *handler);
     team_code _getTeam();
     virtual bool _isSatisfiedTurn(team_code this_team) = 0;
+
+    static std::function<void(void)> setupHook;
 
     static ITurn *setup(ITurn *first, ITurn * second);
     static ITurn *get(void); 
