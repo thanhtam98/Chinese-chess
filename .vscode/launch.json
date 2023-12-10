@@ -14,6 +14,15 @@
               "moduleLoad": false,
               "trace": true
             },
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb",
+            "setupCommands": [
+                {   // Display content in STL containers pretty
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
             "preLaunchTask": "Build Chinese-Chess Project",
             "cwd": "${workspaceFolder}"
 

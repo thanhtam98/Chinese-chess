@@ -50,7 +50,17 @@ struct Piece {
     string getName();
 };
 
+enum turn_mode {
+    ONLINE,
+    OFFLINE,
+    DEBUG,
+    M_NONE
+};
+
 extern string chessman_name[TEAM_SIZE][CHESSMAN_SIZE];
+
+const std::string RED_TEAM = "Red";
+const std::string BLACK_TEAM = "Black";
 
 #define BOARD_WIDTH      9   // x-axis
 #define BOARD_LENGTH     10  // y-axis

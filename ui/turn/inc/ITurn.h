@@ -23,10 +23,12 @@ public:
     static ITurn* newDebugTurns();
     static ITurn* newOnlineTurns(bool isRedGoingFirst = true);
     static ITurn* newOfflineTurns(bool isRedGoingFirst = true);
+    static turn_mode getMode();
 
 protected:
     // static I
     static void clearTurns();
+    static turn_mode mode;
 
     static ITurn *curTurn;
     team_code team;

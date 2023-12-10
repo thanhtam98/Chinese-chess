@@ -1,13 +1,12 @@
-#include "modeSelectionRadioButton.h"
+#include "modeSelection.h"
 #include <memory>
 #include <vector>
 #include "log.h"
 #include "ITurn.h"
 
 using namespace std;
-// using FRadioButtonPtr = shared_ptr<FRadioButton>;
 
-ModeSelectionRadioButton::ModeSelectionRadioButton(FDialog* parent) {
+ModeSelection::ModeSelection(FDialog* parent) {
     buttonGroup = new FButtonGroup(MODE_SELECTION_LABEL, parent);
     buttonGroup->setGeometry (FPoint{2, 15}, FSize{41, 5});
 
@@ -18,12 +17,12 @@ ModeSelectionRadioButton::ModeSelectionRadioButton(FDialog* parent) {
     options[1] = new FRadioButton(OFFLINE, buttonGroup);
     options[1]->setGeometry(FPoint{25, 2}, FSize{10, 1});
 
-    // Temporarily set DEBUG as default
+    // Temporarily set OFFLINE as default
     options[1]->setChecked();
     options[1]->setFocus();
 }
 
-void ModeSelectionRadioButton::addDebugTrick() {
+void ModeSelection::addDebugTrick() {
     FRadioButton *debugButton = new FRadioButton(DEBUG, buttonGroup);
     debugButton->setGeometry(FPoint{4, 3}, FSize{10, 1});
     debugButton->setChecked();
@@ -31,7 +30,7 @@ void ModeSelectionRadioButton::addDebugTrick() {
     debugButton->front();
 }
 
-void ModeSelectionRadioButton::selectMode(){
+void ModeSelection::select(){
     for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
         if (buttonGroup->isChecked(n)) {
             FString mode = buttonGroup->getButton(n)->getText();
@@ -47,4 +46,12 @@ void ModeSelectionRadioButton::selectMode(){
             }
         }
     }
+}
+
+void ModeSelection::hide() {
+    buttonGroup->hide();
+}
+
+void ModeSelection::show() {
+    buttonGroup->show();
 }

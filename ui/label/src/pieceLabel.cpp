@@ -23,7 +23,7 @@ void PieceLabel::initLayout() {
     }
     setText(chessman->getName());
     setForegroundColor(FColor::White);
-    setBold();
+    // setBold();
 
     front();
     setGeometry(

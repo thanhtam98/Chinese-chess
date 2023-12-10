@@ -6,7 +6,7 @@ IChain* IChain::setNext(IChain* next, int branch) {
     }
     branches[branch] = next;
     next->prevChain = this;
-    return this;
+    return next;
 }
 
 IChain* IChain::next(int branch) {
@@ -14,7 +14,7 @@ IChain* IChain::next(int branch) {
 }
 
 bool IChain::hasNext(int branch) {
-    return branches[branch] != nullptr;
+    return branches.size() != 0 && branches[branch] != nullptr;
 }
 
 IChain* IChain::back() {

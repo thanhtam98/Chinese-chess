@@ -1,11 +1,11 @@
 #pragma once
 #include "final/final.h"
 #include "introLabel.h"
-#include "iChain.h"
+#include "iDialogChain.h"
 
 using namespace finalcut;
 
-class IntroDialog: public FDialog, public IChain {
+class IntroDialog: public IDialogChain {
 public:
     explicit IntroDialog(FDialog* parent);
     // void initLayout() override;

@@ -2,7 +2,8 @@
 #include "mainDialog.h"
 #include "log.h"
 
-IntroDialog::IntroDialog(FDialog* parent): FDialog{parent} {
+IntroDialog::IntroDialog(FDialog* parent): IDialogChain{parent} {
+    setText("Intro Dialog");
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE, false);
     introTimerId = addTimer(200);
     pressKeyTimerId = addTimer(500);

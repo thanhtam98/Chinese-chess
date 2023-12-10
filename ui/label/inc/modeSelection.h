@@ -1,14 +1,17 @@
 #pragma once
 #include "final/final.h"
 #include <string>
+#include "selectableChain.h"
 
 using namespace finalcut;
 
-class ModeSelectionRadioButton {
+class ModeSelection: public SelectableChain {
 public:
-    explicit ModeSelectionRadioButton(FDialog* parent);
+    explicit ModeSelection(FDialog* parent);
 
-    void selectMode();
+    void select() override;
+    void hide() override;
+    void show() override;
     void addDebugTrick();
 private:
     const std::string ONLINE = "Online"; 

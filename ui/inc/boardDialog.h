@@ -7,7 +7,7 @@
 #include "verticalLineLabels.h"
 #include "horizontalLabels.h"
 #include "teamSignalLabels.h"
-#include "iChain.h"
+#include "iDialogChain.h"
 #include <string>
 
 using namespace finalcut;
@@ -37,7 +37,7 @@ const FColor POTENTIAL_GENERAL_RED_BG = FColor::LightCyan3;
 
 const FColor NOTEAM_BG = FColor::Grey93;
 
-class BoardDialog: public FDialog, public IChain {
+class BoardDialog: public IDialogChain {
 public:
     friend class MoveManager;
     explicit BoardDialog(FDialog* parent);

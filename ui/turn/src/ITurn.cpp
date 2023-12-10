@@ -4,6 +4,7 @@
 #include "onlineTurn.h"
 
 ITurn* ITurn::curTurn = nullptr;
+turn_mode ITurn::mode = M_NONE;
 
 std::function<void(void)> ITurn::setupHook = []{ LOG_F("Init hook") };
 
@@ -45,12 +46,14 @@ team_code ITurn::_getTeam() {
 
 ITurn* ITurn::newDebugTurns() {
     clearTurns();
+    mode = DEBUG;
     ITurn* debugTurn = new DebugTurn();
     return setup(debugTurn, debugTurn);
 }
 
 ITurn* ITurn::newOnlineTurns(bool isRedGoingFirst) {
     clearTurns();
+    mode = ONLINE;
     ITurn* redTurn = new OnlineTurn(RED);
     ITurn* blackTurn = new OnlineTurn(BLACK);
     ITurn* firstTurn = isRedGoingFirst ? redTurn : blackTurn;
@@ -60,6 +63,7 @@ ITurn* ITurn::newOnlineTurns(bool isRedGoingFirst) {
 
 ITurn* ITurn::newOfflineTurns(bool isRedGoingFirst) {
     clearTurns();
+    mode = OFFLINE;
     ITurn* redTurn = new OfflineTurn(RED);
     ITurn* blackTurn = new OfflineTurn(BLACK);
     ITurn* firstTurn = isRedGoingFirst ? redTurn : blackTurn;
@@ -76,4 +80,8 @@ void ITurn::clearTurns() {
         delete curTurn;
     }
     delete next;
+}
+
+turn_mode ITurn::getMode() {
+    return mode;
 }

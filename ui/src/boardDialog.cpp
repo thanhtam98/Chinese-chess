@@ -7,8 +7,9 @@
 #include "moveManager.h"
 #include "mainDialog.h"
 
-BoardDialog::BoardDialog(FDialog* parent): FDialog{parent} {
-    setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE, false);
+BoardDialog::BoardDialog(FDialog* parent): IDialogChain{parent} {
+    setText("Board Dialog");
+    setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE);
     setFocusable(false);
     board = Board::getInstance();
     LOG_F("Initialize the Board Dialog");

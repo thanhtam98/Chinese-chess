@@ -1,18 +1,20 @@
 #pragma once
 #include "final/final.h"
-#include "modeSelectionRadioButton.h"
-#include "iChain.h"
+#include "modeSelection.h"
+#include "iDialogChain.h"
+#include "selectableChain.h"
 
 using namespace finalcut;
 
-class ConfigDialog: public FDialog, public IChain {
+class ConfigDialog: public IDialogChain {
 public:
     explicit ConfigDialog(FDialog* parent);
-    void selectMode();
+    void okCallback();
+    void backCallback();
     void onKeyPress (FKeyEvent*) override;
 private:
-
-    ModeSelectionRadioButton* modeRadio;
-    FButton ok{"&OK", this};
-    FButton back{"&Back", this};
+    SelectableChain* currentSelection;
+    ModeSelection* modeSelection;
+    FButton ok{"Next &>", this};
+    FButton back{"&< Back", this};
 };
