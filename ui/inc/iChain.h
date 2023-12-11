@@ -10,5 +10,5 @@ public:
     virtual bool hasBack();
 protected:
     std::vector<IChain*> branches;
-    IChain* prevChain;
+    IChain* prevChain = nullptr;
 };

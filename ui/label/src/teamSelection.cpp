@@ -14,23 +14,31 @@ TeamSelection::TeamSelection(FDialog* parent) {
 
     // Set Red as default
     redButton->setChecked();
-    redButton->setFocus();
 }
 
-void TeamSelection::select() {
+int TeamSelection::select() {
     turn_mode mode = ITurn::getMode();
     if (buttonGroup->isChecked(2) && mode == OFFLINE) {
         ITurn::newOfflineTurns(false);
+        return 1;
     }
     if (buttonGroup->isChecked(2) && mode == ONLINE) {
         ITurn::newOnlineTurns(false);
+        return 0;
     }
+    return 0;
 }
 
 void TeamSelection::hide() {
+    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
+        buttonGroup->getButton(n)->hide();
+    }
     buttonGroup->hide();
 }
 
 void TeamSelection::show() {
     buttonGroup->show();
+    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
+        buttonGroup->getButton(n)->show();
+    }
 }

@@ -30,7 +30,7 @@ void ModeSelection::addDebugTrick() {
     debugButton->front();
 }
 
-void ModeSelection::select(){
+int ModeSelection::select(){
     for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
         if (buttonGroup->isChecked(n)) {
             FString mode = buttonGroup->getButton(n)->getText();
@@ -44,14 +44,21 @@ void ModeSelection::select(){
             if (mode == ONLINE) {
                 ITurn::newOnlineTurns();
             }
+            return n - 1;
         }
     }
 }
 
 void ModeSelection::hide() {
+    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
+        buttonGroup->getButton(n)->hide();
+    }
     buttonGroup->hide();
 }
 
 void ModeSelection::show() {
     buttonGroup->show();
+    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
+        buttonGroup->getButton(n)->show();
+    }
 }

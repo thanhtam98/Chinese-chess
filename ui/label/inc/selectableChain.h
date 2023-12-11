@@ -3,7 +3,7 @@
 
 class SelectableChain: public IChain {
 public:
-    virtual void select() = 0;
+    virtual int select() = 0;
     virtual void hide() = 0;
     virtual void show() = 0;
 

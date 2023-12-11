@@ -1,10 +1,16 @@
 #include "configDialog.h"
 #include "mainDialog.h"
+#include "teamSelection.h"
 
 ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     setText("Configuration Dialog");
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE);
     modeSelection = new ModeSelection{this};
+    TeamSelection* teamSelection = new TeamSelection{this};
+
+    modeSelection->setNext(teamSelection, 0);
+    modeSelection->setNext(teamSelection, 1);
+    currentSelection = modeSelection;
 
     ok.front();
     ok.setGeometry(FPoint{34, 20}, FSize{8, 1});
@@ -21,17 +27,15 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
         this,
         &ConfigDialog::backCallback
     );
-    back.setDisable();
-
-    currentSelection = modeSelection;
+    back.hide();
 }
 
 void ConfigDialog::okCallback() {
-    currentSelection->select();
-    if (currentSelection->hasNext()) {
-        currentSelection = (SelectableChain*) currentSelection->next();
+    int branch = currentSelection->select();
+    if (currentSelection->hasNext(branch)) {
+        currentSelection = (SelectableChain*) currentSelection->next(branch);
         if (currentSelection->hasBack()) {
-            back.setEnable();
+            back.show();
         }
     } else {
         next();
@@ -39,10 +43,9 @@ void ConfigDialog::okCallback() {
 }
 
 void ConfigDialog::backCallback() {
-    if (currentSelection->hasBack()) {
-        currentSelection->back();
-    } else {
-        back.setDisable();
+    currentSelection = (SelectableChain*) currentSelection->back();
+    if (!currentSelection->hasBack()) {
+        back.hide();
     }
 }
 

@@ -9,7 +9,7 @@ class ModeSelection: public SelectableChain {
 public:
     explicit ModeSelection(FDialog* parent);
 
-    void select() override;
+    int select() override;
     void hide() override;
     void show() override;
     void addDebugTrick();
