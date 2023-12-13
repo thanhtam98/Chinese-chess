@@ -43,6 +43,7 @@ include_directories(rule/behaviorProvider/inc)
 include_directories(ui/inc)
 include_directories(ui/label/inc)
 include_directories(ui/turn/inc)
+include_directories(ui/selection/inc)
 include_directories(websockpp/inc)
 include_directories(final)
 include_directories(.)
@@ -53,6 +54,7 @@ FILE(GLOB RULE rule/src/*.cpp)
 FILE(GLOB BEHAVIOR rule/behaviorProvider/src/*.cpp)
 FILE(GLOB UI ui/src/*.cpp)
 FILE(GLOB LABEL ui/label/src/*.cpp)
+FILE(GLOB SELECT ui/selection/src/*.cpp)
 FILE(GLOB TURN ui/turn/src/*.cpp)
 FILE(GLOB WEBSOCKPP websocketpp/src/*cpp)
 
@@ -64,6 +66,7 @@ set(DEP
     ${BEHAVIOR}
     ${UI}
     ${LABEL}
+    ${SELECT}
     ${TURN}
     ${WEBSOCKPP}
     )
