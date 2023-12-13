@@ -1,24 +1,24 @@
 #pragma once
 #include "final/final.h"
+#include "selectableChain.h"
 #include <string>
 #include <vector>
-#include "selectableChain.h"
 
 using namespace finalcut;
 
-class TeamSelection: public SelectableChain {
+class HostSelection: public SelectableChain {
 public:
-    static const int RED_OPTION = 0;
-    static const int BLACK_OPTION = 1;
+    static const int YES_OPTION = 0;
+    static const int NO_OPTION = 1;
 
-    explicit TeamSelection(FDialog* parent);
+    explicit HostSelection(FDialog* parent);
 
     int select() override;
     void hide() override;
     void show() override;
     void setFocus() override;
 private:
-    const std::string TEAM_SELECTION_LABEL = "Please choose the team who goes first";
+    const std::string HOST_SELECTION_LABEL = "Do you want to host the game?";
 
     FButtonGroup* buttonGroup;
     std::vector<FRadioButton *> options;

@@ -1,15 +1,23 @@
 #include "configDialog.h"
 #include "mainDialog.h"
 #include "teamSelection.h"
+#include "hostSelection.h"
+#include "ipSelection.h"
+#include "ipListSelection.h"
 
 ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     setText("Configuration Dialog");
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE);
     modeSelection = new ModeSelection{this};
     TeamSelection* teamSelection = new TeamSelection{this};
+    HostSelection* hostSelection = new HostSelection{this};
+    IpSelection* ipSelection = new IpSelection{this};
+    IpListSelection* ipListSelection = new IpListSelection{this};
 
-    modeSelection->setNext(teamSelection, 0);
-    modeSelection->setNext(teamSelection, 1);
+    modeSelection->setNext(hostSelection, ModeSelection::ONLINE_OPTION);
+    modeSelection->setNext(teamSelection, ModeSelection::OFFLINE_OPTION);
+    hostSelection->setNext(ipSelection, HostSelection::NO_OPTION);
+    hostSelection->setNext(ipListSelection, HostSelection::YES_OPTION);
     currentSelection = modeSelection;
 
     ok.front();

@@ -1,17 +1,23 @@
 #pragma once
 #include "final/final.h"
 #include <string>
+#include <vector>
 #include "selectableChain.h"
 
 using namespace finalcut;
 
 class ModeSelection: public SelectableChain {
 public:
+    static const int ONLINE_OPTION = 0;
+    static const int OFFLINE_OPTION = 1;
+    static const int DEBUG_OPTION = 2;
+
     explicit ModeSelection(FDialog* parent);
 
     int select() override;
     void hide() override;
     void show() override;
+    void setFocus() override;
     void addDebugTrick();
 private:
     const std::string ONLINE = "Online"; 
@@ -23,4 +29,5 @@ private:
     const std::string MODE_SELECTION_LABEL = "Please choose a mode";
 
     FButtonGroup* buttonGroup;
+    std::vector<FRadioButton *> options;
 };

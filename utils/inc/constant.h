@@ -62,6 +62,9 @@ extern string chessman_name[TEAM_SIZE][CHESSMAN_SIZE];
 const std::string RED_TEAM = "Red";
 const std::string BLACK_TEAM = "Black";
 
+const std::string YES = "Yes";
+const std::string NO = "No";
+
 #define BOARD_WIDTH      9   // x-axis
 #define BOARD_LENGTH     10  // y-axis
 #define FRONTIER         4

@@ -1,6 +1,5 @@
 #include "modeSelection.h"
 #include <memory>
-#include <vector>
 #include "log.h"
 #include "ITurn.h"
 
@@ -10,24 +9,27 @@ ModeSelection::ModeSelection(FDialog* parent) {
     buttonGroup = new FButtonGroup(MODE_SELECTION_LABEL, parent);
     buttonGroup->setGeometry (FPoint{2, 15}, FSize{41, 5});
 
-    vector<FRadioButton *> options(3);
-    options[0] = new FRadioButton(ONLINE, buttonGroup);
-    options[0]->setGeometry(FPoint{4, 2}, FSize{10, 1});
+    options.resize(2);
+    options[ONLINE_OPTION] = new FRadioButton(ONLINE, buttonGroup);
+    options[ONLINE_OPTION]->setGeometry(FPoint{4, 2}, FSize{10, 1});
 
-    options[1] = new FRadioButton(OFFLINE, buttonGroup);
-    options[1]->setGeometry(FPoint{25, 2}, FSize{10, 1});
+    options[OFFLINE_OPTION] = new FRadioButton(OFFLINE, buttonGroup);
+    options[OFFLINE_OPTION]->setGeometry(FPoint{25, 2}, FSize{10, 1});
 
     // Temporarily set OFFLINE as default
-    options[1]->setChecked();
-    options[1]->setFocus();
+    options[OFFLINE_OPTION]->setChecked();
+    options[OFFLINE_OPTION]->setFocus();
 }
 
 void ModeSelection::addDebugTrick() {
+    options.resize(3);
     FRadioButton *debugButton = new FRadioButton(DEBUG, buttonGroup);
     debugButton->setGeometry(FPoint{4, 3}, FSize{10, 1});
+    debugButton->back();
     debugButton->setChecked();
-    debugButton->setFocus();
-    debugButton->front();
+    options[DEBUG_OPTION] = debugButton;
+    // debugButton->setFocus();
+    // debugButton->front();
 }
 
 int ModeSelection::select(){
@@ -37,16 +39,19 @@ int ModeSelection::select(){
             LOG_F("Select: %s", mode.c_str());
             if (mode == DEBUG) {
                 ITurn::newDebugTurns();
+                return DEBUG_OPTION;
             }
             if (mode == OFFLINE) {
                 ITurn::newOfflineTurns();
+                return OFFLINE_OPTION;
             }
             if (mode == ONLINE) {
                 ITurn::newOnlineTurns();
+                return ONLINE_OPTION;
             }
-            return n - 1;
         }
     }
+    return ONLINE_OPTION;
 }
 
 void ModeSelection::hide() {
@@ -61,4 +66,14 @@ void ModeSelection::show() {
     for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
         buttonGroup->getButton(n)->show();
     }
+}
+
+void ModeSelection::setFocus() {
+    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
+        if (buttonGroup->isChecked(n)) {
+            options[n-1]->setFocus();
+            return;
+        }
+    }
+    options[OFFLINE_OPTION]->setFocus();
 }

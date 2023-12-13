@@ -5,6 +5,7 @@ IChain* SelectableChain::next(int branch) {
     if (hasNext(branch)) {
         SelectableChain* next = (SelectableChain*) branches[branch];
         next->show();
+        next->setFocus();
     }
     return IChain::next(branch);
 }
@@ -20,6 +21,7 @@ IChain* SelectableChain::back() {
     if (hasBack()) {
         SelectableChain* back = (SelectableChain*) prevChain;
         back->show();
+        back->setFocus();
     }
     return IChain::back();
 }
