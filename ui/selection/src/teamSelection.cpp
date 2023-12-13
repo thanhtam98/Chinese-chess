@@ -32,26 +32,7 @@ int TeamSelection::select() {
     return 0;
 }
 
-void TeamSelection::hide() {
-    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
-        buttonGroup->getButton(n)->hide();
-    }
-    buttonGroup->hide();
-}
-
-void TeamSelection::show() {
-    buttonGroup->show();
-    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
-        buttonGroup->getButton(n)->show();
-    }
-}
-
 void TeamSelection::setFocus() {
-    for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
-        if (buttonGroup->isChecked(n)) {
-            options[n-1]->setFocus();
-            return;
-        }
-    }
     options[RED_OPTION]->setFocus();
+    RadioButtonChain::setFocus();
 }
