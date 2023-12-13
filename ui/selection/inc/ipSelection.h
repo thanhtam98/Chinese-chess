@@ -7,9 +7,6 @@ using namespace finalcut;
 
 class IpSelection: public SelectableChain {
 public:
-    static const int DONE = 0;
-    static const int TIMEOUTED = 1;
-
     explicit IpSelection(FDialog* parent);
 
     int select() override;

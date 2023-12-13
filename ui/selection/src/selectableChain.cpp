@@ -5,10 +5,13 @@ IChain* SelectableChain::next(int branch) {
     if (hasNext(branch)) {
         SelectableChain* next = (SelectableChain*) branches[branch];
         next->show();
+        next->initHook();
         next->setFocus();
     }
     return IChain::next(branch);
 }
+
+inline void SelectableChain::initHook() {}
 
 IChain* SelectableChain::setNext(IChain* next, int branch) {
     SelectableChain* nextSelection = (SelectableChain*) next;
