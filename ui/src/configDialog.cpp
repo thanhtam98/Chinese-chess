@@ -74,4 +74,9 @@ void ConfigDialog::onKeyPress(FKeyEvent* event) {
 void ConfigDialog::onTimer(FTimerEvent* event) {
     serverWaitableChain->onTimer(event);
     clientWaitableChain->onTimer(event);
+    modeSelection->onTimer(event);
+}
+
+void ConfigDialog::initHook() {
+    modeSelection->initHook();
 }

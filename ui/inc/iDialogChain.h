@@ -10,5 +10,7 @@ public:
 
     virtual IChain* next(int branch = 0) override;
     virtual IChain* setNext(IChain* next, int branch = 0) override;
+
+    virtual inline void initHook();
 protected:
 };

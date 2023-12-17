@@ -7,6 +7,8 @@
 
 using namespace finalcut;
 
+#define DESC_COLOR FColor::Grey50
+
 class ConfigDialog: public IDialogChain {
 public:
     explicit ConfigDialog(FDialog* parent);
@@ -14,6 +16,8 @@ public:
     void backCallback();
     void onKeyPress (FKeyEvent*) override;
     void onTimer(FTimerEvent* event) override;
+
+    inline void initHook() override;
 private:
     FButton ok{"Next &>", this};
     FButton back{"&< Back", this};

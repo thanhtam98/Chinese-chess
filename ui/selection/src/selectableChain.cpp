@@ -24,6 +24,7 @@ IChain* SelectableChain::back() {
     if (hasBack()) {
         SelectableChain* back = (SelectableChain*) prevChain;
         back->show();
+        back->initHook();
         back->setFocus();
     }
     return IChain::back();
