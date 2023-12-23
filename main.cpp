@@ -1,18 +1,16 @@
 #include <iostream>
+#include <nlohmann/json.hpp>
+
 #include "ui.h"
 #include "utils.h"
 #include "mainDialog.h"
 #include "websockpp.h"
 #include "configDialog.h"
+#include "connectionBase.h"
 
 using namespace std;
 using namespace finalcut;
 
-auto webSockHandler(void)
-{
-      utility_server s;
-      s.run();
-}
 auto main (int argc, char* argv[]) -> int
 {
   // freopen("/workspaces/chinese-chess/log.txt","w",stdout);
@@ -20,6 +18,15 @@ auto main (int argc, char* argv[]) -> int
   string str = "Alo!";
   LOG_F("Start the game %s", str.c_str());
   // std::thread thread_object (webSockHandler);
+  // std::thread wThread;
+  // if (argc > 1){
+  //   ConnectionBase::setInstance(WCLIENT);
+  // }w
+  // else{
+  //   ConnectionBase::setInstance(WSERVER);
+  // }
+  // while(1);
+    // std::thread thread_object (clientSockHandler);
 
   FApplication app{argc, argv};
 

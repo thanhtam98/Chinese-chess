@@ -3,18 +3,35 @@
 #include "mainDialog.h"
 #include "ITurn.h"
 #include "board.h"
+#include "websockpp.h"
 
 MoveManager::MoveManager(BoardDialog *boardDialog){
     board = Board::getInstance();
     this->mainDialog = boardDialog;
     umpire = new Umpire();
-};
+    
+    // ConnectionBase *con = ConnectionBase::getInstance();
+}
 
+void MoveManager::setConnectionInstance(ConnectionBase *con){
 
-void MoveManager::setSourcePoint(Point* clicked) {
+    if (con != nullptr)
+    {
+        con->run();
+        this->transfer = new Transfer{con};
+        this->transfer->setCallback(std::bind(&MoveManager::movePieceTransferCb, this,
+                                              ::_1, ::_2),
+                                    std::bind(&MoveManager::selPieceTransferCb, this,
+                                              ::_1));
+    }
+}
+
+void MoveManager::setSourcePoint(Point *clicked)
+{
     source = clicked;
 }
-Point* MoveManager::getSourcePoint() {
+Point *MoveManager::getSourcePoint()
+{
     return source;
 }
 
@@ -22,8 +39,14 @@ void MoveManager::setDestPoint(Point* to) {
     LOG_F("Set dest point %s", to->to_string());
     dest = to;
 }
-Point* MoveManager::getDestPoint() {
+Point *MoveManager::getDestPoint()
+{
     return dest;
+}
+void MoveManager::selPieceTransferCb(Point *from)
+{
+    setSourcePoint(from);
+    calculatePossibleMoves(false);
 }
 
 /**
@@ -54,13 +77,21 @@ bool MoveManager::preCalculatePossiblePotentials(){
     // }    
     return !umpire->preCheckMate(source, dest, team);
 }
-bool MoveManager::movePiece() {
 
-    /* pre check*/
+void MoveManager::movePieceTransferCb(Point *from, Point *to)
+{
+    setSourcePoint(from);
+    setDestPoint(to);
+    decorateTargetedPieces(false);
+    movePiece(false);
+    // refresh possible move
+}
+
+bool MoveManager::movePiece(bool isNotify) {
+
     if (preCalculatePossiblePotentials() == false){
         return false;
     }
-    
 
     ILabel* toPiece = mainDialog->pieces[dest->getX()][dest->getY()];
     ILabel* fromPiece = mainDialog->pieces[source->getX()][source->getY()];
@@ -72,8 +103,9 @@ bool MoveManager::movePiece() {
         // Swap the pieces in pieces array of the board dialog
         mainDialog->pieces[source->getX()][source->getY()] = toPiece;
         mainDialog->pieces[dest->getX()][dest->getY()] = fromPiece;
-
-    } else {
+    }
+    else
+    {
         // If toPiece is a piece label, we delete the destined piece label
         // (considered as eliminated), move the source piece label and
         // create a space label where the source piece label was located.
@@ -84,7 +116,7 @@ bool MoveManager::movePiece() {
         delete toPiece;
         // Create a new space label and assign all necessary functionalities
         mainDialog->pieces[dest->getX()][dest->getY()] = fromPiece;
-        ILabel* newLabel = new SpaceLabel{mainDialog, source};
+        ILabel *newLabel = new SpaceLabel{mainDialog, source};
         mainDialog->pieces[source->getX()][source->getY()] = newLabel;
         newLabel->show();
         mainDialog->addCallback(newLabel, "move");
@@ -94,14 +126,24 @@ bool MoveManager::movePiece() {
     board->move(source, dest);
     calculatePossiblePotentials();
 
+    if (isNotify)
+    {
+        transfer->sendMsg(MOV, source, dest);
+    }
+
     return true;
 }
 
-void MoveManager::decorateTargetedPieces(bool value) {
-    for (Point* point : possibleMoves) {
-        if (value) {  
+void MoveManager::decorateTargetedPieces(bool value)
+{
+    for (Point *point : possibleMoves)
+    {
+        if (value)
+        {
             mainDialog->pieces[point->getX()][point->getY()]->setTarget();
-        } else {
+        }
+        else
+        {
             mainDialog->pieces[point->getX()][point->getY()]->unsetTarget();
         }
     }
@@ -122,15 +164,21 @@ void MoveManager::decoratePotentialPieces(bool value) {
                             [board->getGeneralLocation(BLACK)->getY()]->unsetTarget();
     }
 }
-void MoveManager::calculatePossibleMoves() {
-    decorateTargetedPieces(false);
-    possibleMoves = board->getPossibleMoves(source);
-    decorateTargetedPieces(true);
-}
+
 
 void MoveManager::calculatePossiblePotentials(){
     decoratePotentialPieces(false);
     possiblePotentials = umpire->checkMate();
     decoratePotentialPieces(true);
+}
 
+void MoveManager::calculatePossibleMoves(bool isNotify)
+{
+    decorateTargetedPieces(false);
+    possibleMoves = board->getPossibleMoves(source);
+    decorateTargetedPieces(true);
+    if (isNotify)
+    {
+        transfer->sendMsg(SEL, source);
+    }
 }

@@ -21,6 +21,11 @@ if(NOT websocketpp_POPULATED)
   add_subdirectory(${websocketpp_SOURCE_DIR} ${websocketpp_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
+# == json ===
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 include(CMakePrintHelpers)
@@ -56,7 +61,7 @@ FILE(GLOB UI ui/src/*.cpp)
 FILE(GLOB LABEL ui/label/src/*.cpp)
 FILE(GLOB SELECT ui/selection/src/*.cpp)
 FILE(GLOB TURN ui/turn/src/*.cpp)
-FILE(GLOB WEBSOCKPP websocketpp/src/*cpp)
+FILE(GLOB WEBSOCKPP websockpp/src/*.cpp)
 
 # Set source files
 set(DEP 
@@ -82,13 +87,15 @@ cmake_print_variables(FINALCUT)
 # Create executable
 add_executable(chinese-chess ${SOURCES})
 # add_executable(client ${SOURCES})
-
+ 
 # Link libraries
 # include(finalcut)
 target_include_directories(chinese-chess PUBLIC ${websocketpp_SOURCE_DIR})
 target_link_libraries(chinese-chess
     PRIVATE finalcut
+    # INTERFACE finalcut
     INTERFACE Boost::system Boost::thread Boost::regex
+    PRIVATE nlohmann_json::nlohmann_json
 )
 add_library(finalcut SHARED IMPORTED)
 set_property(TARGET finalcut PROPERTY IMPORTED_LOCATION ${FINALCUT})

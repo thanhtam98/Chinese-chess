@@ -3,6 +3,7 @@
 #include "board.h"
 #include "boardDialog.h"
 #include "umpire.h"
+#include "transfer.h"
 
 class MoveManager {
     public:
@@ -15,10 +16,16 @@ class MoveManager {
     // Set/ Unset to draw/ re-draw possible moves with different colors
     void decorateTargetedPieces(bool value);
     void decoratePotentialPieces(bool value);
-    bool movePiece();
-    void calculatePossibleMoves();
+    bool movePiece(bool isNotify);
     void calculatePossiblePotentials();
     bool preCalculatePossiblePotentials();
+    void movePieceTransferCb(Point* from, Point* to);
+    void selPieceTransferCb(Point* from);
+    void calculatePossibleMoves(bool isNotify);
+    void setConnectionInstance(ConnectionBase *con);
+
+    Transfer *transfer;
+
     private:
     IBoard* board;
     Umpire* umpire;
