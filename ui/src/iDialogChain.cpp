@@ -4,8 +4,8 @@ IChain* IDialogChain::next(int branch) {
     hide();
     if (hasNext(branch)) {
         IDialogChain* next = (IDialogChain*) branches[branch];
-        next->show();
         next->initHook();
+        next->show();
     }
     close();
     return IChain::next(branch);

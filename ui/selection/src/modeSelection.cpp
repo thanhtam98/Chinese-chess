@@ -1,8 +1,8 @@
 #include "modeSelection.h"
 #include <memory>
 #include "log.h"
-#include "ITurn.h"
 #include "configDialog.h"
+#include "configurator.h"
 
 using namespace std;
 
@@ -99,15 +99,15 @@ int ModeSelection::select(){
             FString mode = buttonGroup->getButton(n)->getText();
             LOG_F("Select: %s", mode.c_str());
             if (mode == DEBUG) {
-                ITurn::newDebugTurns();
+                Configurator::set(MODE, Configurator::DEBUG);
                 return DEBUG_OPTION;
             }
             if (mode == OFFLINE) {
-                ITurn::newOfflineTurns();
+                Configurator::set(MODE, Configurator::OFFLINE);
                 return OFFLINE_OPTION;
             }
             if (mode == ONLINE) {
-                ITurn::newOnlineTurns();
+                Configurator::set(MODE, Configurator::ONLINE);
                 return ONLINE_OPTION;
             }
         }

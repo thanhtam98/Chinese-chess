@@ -47,6 +47,7 @@ public:
     void dispatchChessmanMove(Point* source, Point* destination);
 
     MoveManager* moveManager;
+    void initHook() override;
 private:
     void addCallback(ILabel* label, std::string event);
     IBoard* board;

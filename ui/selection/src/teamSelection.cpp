@@ -1,6 +1,6 @@
 #include "teamSelection.h"
 #include "constant.h"
-#include "ITurn.h"
+#include "configurator.h"
 
 TeamSelection::TeamSelection(FDialog* parent) {
     buttonGroup = new FButtonGroup(TEAM_SELECTION_LABEL, parent);
@@ -20,14 +20,11 @@ TeamSelection::TeamSelection(FDialog* parent) {
 }
 
 int TeamSelection::select() {
-    turn_mode mode = ITurn::getMode();
-    if (buttonGroup->isChecked(BLACK_OPTION+1) && mode == OFFLINE) {
-        ITurn::newOfflineTurns(false);
-        return BLACK_OPTION;
+    if (buttonGroup->isChecked(RED_OPTION+1)) {
+        Configurator::set(TEAM, Configurator::RED);
     }
-    if (buttonGroup->isChecked(BLACK_OPTION+1) && mode == ONLINE) {
-        ITurn::newOnlineTurns(false);
-        return BLACK_OPTION;
+    if (buttonGroup->isChecked(BLACK_OPTION+1)) {
+        Configurator::set(TEAM, Configurator::BLACK);
     }
     return 0;
 }

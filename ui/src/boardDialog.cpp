@@ -6,6 +6,7 @@
 #include "spaceLabel.h"
 #include "moveManager.h"
 #include "mainDialog.h"
+#include "configurator.h"
 
 BoardDialog::BoardDialog(FDialog* parent): IDialogChain{parent} {
     setText("Board Dialog");
@@ -14,7 +15,7 @@ BoardDialog::BoardDialog(FDialog* parent): IDialogChain{parent} {
     board = Board::getInstance();
     LOG_F("Initialize the Board Dialog");
 
-    ITurn::newDebugTurns();
+    // ITurn::newDebugTurns();
 
     for (int x = 0; x < BOARD_WIDTH; x++) {
         for (int y = 0; y < BOARD_LENGTH; y++) {
@@ -28,13 +29,29 @@ BoardDialog::BoardDialog(FDialog* parent): IDialogChain{parent} {
             addCallback(pieces[x][y], "move");
         }
     }
-    teamSignalLabels = new TeamSignalLabels{this};
-    moveManager = new MoveManager{this};
 
-    // Change this setupHook in order to trigger team color changes
-    ITurn::setupHook = [this]() {
-        teamSignalLabels->changeTeamColor();
-    };
+    // // Change this setupHook in order to trigger team color changes
+    // ITurn::setupHook = [this]() {
+    //     teamSignalLabels->changeTeamColor();
+    // };
+}
+
+void BoardDialog::initHook() {
+    moveManager = new MoveManager{this};
+    teamSignalLabels = new TeamSignalLabels{this};
+
+    if (Configurator::get(MODE) == Configurator::ONLINE) {
+        ITurn::newOfflineTurns(Configurator::get(TEAM) == Configurator::RED);
+    }
+    if (Configurator::get(MODE) == Configurator::OFFLINE) {
+        ITurn::newOnlineTurns(Configurator::get(TEAM) == Configurator::RED);
+    }
+    if (Configurator::get(MODE) == Configurator::DEBUG) {
+        ITurn::newDebugTurns();
+    }
+
+    teamSignalLabels->changeTeamColor();
+    redraw();
 }
 
 void BoardDialog::initLayout() {
