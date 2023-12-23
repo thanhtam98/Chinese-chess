@@ -54,11 +54,11 @@ bool MoveManager::preCalculatePossiblePotentials(){
     // }    
     return !umpire->preCheckMate(source, dest, team);
 }
-void MoveManager::movePiece() {
+bool MoveManager::movePiece() {
 
     /* pre check*/
     if (preCalculatePossiblePotentials() == false){
-        return;
+        return false;
     }
     
 
@@ -93,6 +93,8 @@ void MoveManager::movePiece() {
     // Inform the board about the changes.
     board->move(source, dest);
     calculatePossiblePotentials();
+
+    return true;
 }
 
 void MoveManager::decorateTargetedPieces(bool value) {

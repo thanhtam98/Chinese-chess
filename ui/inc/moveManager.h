@@ -15,7 +15,7 @@ class MoveManager {
     // Set/ Unset to draw/ re-draw possible moves with different colors
     void decorateTargetedPieces(bool value);
     void decoratePotentialPieces(bool value);
-    void movePiece();
+    bool movePiece();
     void calculatePossibleMoves();
     void calculatePossiblePotentials();
     bool preCalculatePossiblePotentials();

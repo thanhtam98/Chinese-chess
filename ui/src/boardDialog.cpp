@@ -49,9 +49,14 @@ void BoardDialog::clickedCallback() {
 }
 
 void BoardDialog::moveCallback() {
+    bool ret = false;
+
     moveManager->decorateTargetedPieces(false);
     // Swap 2 pieces in case of normal move
-    moveManager->movePiece();
+    ret = moveManager->movePiece();
+    if (ret == false)
+        return;
+    
     ITurn::end();
     teamSignalLabels->changeTeamColor();
 }
@@ -65,7 +70,12 @@ void BoardDialog::addCallback(ILabel* label, string event) {
 }
 
 void BoardDialog::dispatchChessmanMove(Point* source, Point* destination) {
-    moveManager->movePiece();
+    bool ret = false;
+
+    ret = moveManager->movePiece();
+    if (ret == false)
+        return;
+
     ITurn::end();
     teamSignalLabels->changeTeamColor();
 }
