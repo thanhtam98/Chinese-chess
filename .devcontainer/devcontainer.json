@@ -2,6 +2,9 @@
     "name": "Chinese Chess Development",
     "image": "ubuntu:22.04",
     
+    // Platform configuration for ARM support
+    "platforms": ["linux/amd64", "linux/arm64"],
+    
     // Features to add to the dev container
     "features": {
         "ghcr.io/devcontainers/features/git:1": {},
@@ -23,7 +26,7 @@
             ],
             "settings": {
                 "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
-                "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+                "C_Cpp.default.intelliSenseMode": "linux-gcc-arm64",
                 "C_Cpp.default.compilerPath": "/usr/bin/gcc",
                 "C_Cpp.default.cStandard": "c17",
                 "C_Cpp.default.cppStandard": "c++14",

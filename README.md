@@ -14,12 +14,26 @@
 - [x] Design server-client model for online gaming (websocketpp preferred).
 - [x] Design adapter class between moveManager and connectionBase (callback recv refered)
 - [ ] Refactor pieces to optimize memory usage [Optional]
-- [ ] Multi-platform support (build + run).
+- [x] Multi-platform support (build + run) - Supports x86_64 and ARM64 architectures.
 - [ ] Check when the game is over. (MVP: General is captured).
 - [ ] Checkmate detection: pubsub mechanism or brute-force. (optinal)
 - [ ] Implement in-check before any moving.
 - [ ] Public to community network (Blog + Demo).
 
+## System Requirements
+
+### Supported Architectures
+- ✅ **x86_64** (Intel/AMD 64-bit)
+- ✅ **ARM64** (Apple Silicon, ARM servers, Raspberry Pi 4+)
+
+### Minimum Requirements
+- **RAM**: 4GB (8GB recommended)
+- **Storage**: 2GB free space
+- **OS**: Linux (Ubuntu 20.04+, CentOS 8+, Arch Linux)
+- **Docker**: Latest version with multi-platform support (for DevContainer)
+
+### For ARM Systems
+See [ARM_COMPATIBILITY.md](ARM_COMPATIBILITY.md) for detailed ARM setup instructions.
 
 ## How to install final cut lib to project
 ``` bash
