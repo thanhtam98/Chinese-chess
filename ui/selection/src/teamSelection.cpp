@@ -17,6 +17,8 @@ TeamSelection::TeamSelection(FDialog* parent) {
 
     // Set Red as default
     redButton->setChecked();
+    // Hide all elements as default
+    hide();
 }
 
 int TeamSelection::select() {

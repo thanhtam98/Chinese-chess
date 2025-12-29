@@ -4,6 +4,7 @@
 #include "ITurn.h"
 #include "board.h"
 #include "websockpp.h"
+#include "configurator.h"
 
 MoveManager::MoveManager(BoardDialog *boardDialog){
     board = Board::getInstance();
@@ -46,7 +47,7 @@ Point *MoveManager::getDestPoint()
 void MoveManager::selPieceTransferCb(Point *from)
 {
     setSourcePoint(from);
-    calculatePossibleMoves(false);
+    calculatePossibleMoves(Configurator::get(MODE) == Configurator::ONLINE);
 }
 
 /**
@@ -83,11 +84,11 @@ void MoveManager::movePieceTransferCb(Point *from, Point *to)
     setSourcePoint(from);
     setDestPoint(to);
     decorateTargetedPieces(false);
-    movePiece(false);
+    movePiece(Configurator::get(MODE) == Configurator::ONLINE);
     // refresh possible move
 }
 
-bool MoveManager::movePiece(bool isNotify) {
+bool MoveManager::movePiece(bool shouldNotify) {
 
     if (preCalculatePossiblePotentials() == false){
         return false;
@@ -126,8 +127,7 @@ bool MoveManager::movePiece(bool isNotify) {
     board->move(source, dest);
     calculatePossiblePotentials();
 
-    if (isNotify)
-    {
+    if (shouldNotify) {
         transfer->sendMsg(MOV, source, dest);
     }
 
@@ -172,12 +172,12 @@ void MoveManager::calculatePossiblePotentials(){
     decoratePotentialPieces(true);
 }
 
-void MoveManager::calculatePossibleMoves(bool isNotify)
+void MoveManager::calculatePossibleMoves(bool shouldNotify)
 {
     decorateTargetedPieces(false);
     possibleMoves = board->getPossibleMoves(source);
     decorateTargetedPieces(true);
-    if (isNotify)
+    if (shouldNotify)
     {
         transfer->sendMsg(SEL, source);
     }

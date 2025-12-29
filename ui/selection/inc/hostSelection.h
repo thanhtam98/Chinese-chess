@@ -15,6 +15,7 @@ public:
 
     int select() override;
     void setFocus() override;
+    
 private:
     const std::string HOST_SELECTION_LABEL = "Do you want to host the game?";
 };

@@ -44,7 +44,7 @@ void WaitableChain::setDone(bool value) {
 }
 
 void WaitableChain::onTimer(FTimerEvent* event) {
-    if (event->getTimerId() == waitingTimerId) {
+    if (event && event->getTimerId() == waitingTimerId) {
         waitingLabel->setText(FAIL_LABEL);
         okButton->setEnable();
         parent->redraw();

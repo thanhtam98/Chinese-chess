@@ -17,6 +17,8 @@ HostSelection::HostSelection(FDialog* parent) {
 
     // Set you as a client by default
     options[NO_OPTION]->setChecked();
+    // Hide all elements as default
+    hide();
 }
 
 int HostSelection::select() {

@@ -23,6 +23,6 @@ private:
     FButton back{"&< Back", this};
     SelectableChain* currentSelection;
     ModeSelection* modeSelection;
-    WaitableChain* serverWaitableChain;
-    WaitableChain* clientWaitableChain;
+    // WaitableChain* serverWaitableChain;
+    // WaitableChain* clientWaitableChain;
 };

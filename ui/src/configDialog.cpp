@@ -9,19 +9,20 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     setText("Configuration Dialog");
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE);
     modeSelection = new ModeSelection{this};
-    TeamSelection* teamSelection = new TeamSelection{this};
+    TeamSelection* teamSelectionForModeBranch = new TeamSelection{this};
+    TeamSelection* teamSelectionForHostBranch = new TeamSelection{this};
     HostSelection* hostSelection = new HostSelection{this};
-    IpSelection* ipSelection = new IpSelection{this};
-    IpListSelection* ipListSelection = new IpListSelection{this};
-    serverWaitableChain = new WaitableChain{this, &ok};
-    clientWaitableChain = new WaitableChain{this, &ok};
+    // IpSelection* ipSelection = new IpSelection{this};
+    // IpListSelection* ipListSelection = new IpListSelection{this};
+    // serverWaitableChain = new WaitableChain{this, &ok};
+    // clientWaitableChain = new WaitableChain{this, &ok};
 
     modeSelection->setNext(hostSelection, ModeSelection::ONLINE_OPTION);
-    modeSelection->setNext(teamSelection, ModeSelection::OFFLINE_OPTION);
-    hostSelection->setNext(ipSelection, HostSelection::NO_OPTION);
-    hostSelection->setNext(ipListSelection, HostSelection::YES_OPTION);
-    ipSelection->setNext(clientWaitableChain);
-    ipListSelection->setNext(serverWaitableChain);
+    modeSelection->setNext(teamSelectionForModeBranch, ModeSelection::OFFLINE_OPTION);
+    hostSelection->setNext(teamSelectionForHostBranch, HostSelection::YES_OPTION);
+    // hostSelection->setNext(ipListSelection, HostSelection::YES_OPTION);
+    // ipSelection->setNext(clientWaitableChain);
+    // ipListSelection->setNext(serverWaitableChain);
     currentSelection = modeSelection;
 
     ok.front();
@@ -72,8 +73,8 @@ void ConfigDialog::onKeyPress(FKeyEvent* event) {
 }
 
 void ConfigDialog::onTimer(FTimerEvent* event) {
-    serverWaitableChain->onTimer(event);
-    clientWaitableChain->onTimer(event);
+    // serverWaitableChain->onTimer(event);
+    // clientWaitableChain->onTimer(event);
     modeSelection->onTimer(event);
 }
 

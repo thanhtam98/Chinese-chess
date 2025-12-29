@@ -60,7 +60,7 @@ void BoardDialog::initLayout() {
 
 void BoardDialog::clickedCallback() {
     LOG_F("Clicked Event");
-    moveManager->calculatePossibleMoves(true);
+    moveManager->calculatePossibleMoves(Configurator::get(MODE) == Configurator::ONLINE);
     // debugLabel.log(pieces[moveManager->getSourcePoint()->getX()][moveManager->getSourcePoint()->getY()]->getText().toString());
     redraw();
 }
@@ -70,7 +70,7 @@ void BoardDialog::moveCallback() {
 
     moveManager->decorateTargetedPieces(false);
     // Swap 2 pieces in case of normal move
-    ret = moveManager->movePiece(true);
+    ret = moveManager->movePiece(Configurator::get(MODE) == Configurator::ONLINE);
     if (ret == false)
         return;
     
@@ -89,7 +89,7 @@ void BoardDialog::addCallback(ILabel* label, string event) {
 void BoardDialog::dispatchChessmanMove(Point* source, Point* destination) {
     bool ret = false;
 
-    ret = moveManager->movePiece(true);
+    ret = moveManager->movePiece(Configurator::get(MODE) == Configurator::ONLINE);
     if (ret == false)
         return;
 
