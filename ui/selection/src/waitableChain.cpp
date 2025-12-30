@@ -5,11 +5,15 @@ const std::string WaitableChain::WAITING_LABEL = "Please wait...";
 const std::string WaitableChain::SUCCESS_LABEL = "Successfully connect!";
 const std::string WaitableChain::FAIL_LABEL = "Failed! Please try again";
 
-WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _backButton, std::string waiting_text) {
+WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _backButton, 
+    std::string _waitingText, std::string _sucessText, std::string _failedText) {
     parent = _parent;
+    waitingText = _waitingText;
+    successText = _sucessText;
+    failedText = _failedText;
     waitingLabel = new FLabel{_parent};
-    waitingLabel->setText(waiting_text);
-    waitingLabel->setGeometry(FPoint{1, 1}, FSize{40, 1});
+    waitingLabel->setText(_waitingText);
+    waitingLabel->setGeometry(FPoint{1, 1}, FSize{40, 2});
 
     okButton = _okButton;
     backButton = _backButton;
@@ -36,7 +40,7 @@ int WaitableChain::select() {
         // }
         // branches[FAILED] = prevChain;
         // // done = NOT_IDENTIFIED;
-        waitingLabel->setText(WAITING_LABEL);
+        waitingLabel->setText(waitingText);
         return FAILED;
     }
     return FAILED;
@@ -45,10 +49,12 @@ int WaitableChain::select() {
 void WaitableChain::setDone(bool value) {
     if (value) {
         done = SUCCESS;
-        waitingLabel->setText(SUCCESS_LABEL);
+        waitingLabel->setText(successText);
+        // Delete Timer when success
+        parent->delTimer(waitingTimerId);
     } else {
         done = FAILURE;
-        waitingLabel->setText(FAIL_LABEL);
+        waitingLabel->setText(failedText);
     }
     okButton->setEnable();
     parent->redraw();

@@ -16,7 +16,11 @@ public:
     static const std::string SUCCESS_LABEL;
     static const std::string FAIL_LABEL;
 
-    explicit WaitableChain(FDialog* _parent, FButton* okButton, FButton* backButton, std::string waiting_text = WAITING_LABEL);
+    explicit WaitableChain(FDialog* _parent, FButton* okButton, FButton* backButton, 
+        std::string waitingText = WAITING_LABEL,
+        std::string sucessText = SUCCESS_LABEL,
+        std::string failedText = FAIL_LABEL
+    );
 
     virtual int select() override;
     virtual void hide() override;
@@ -39,6 +43,9 @@ protected:
     status done = FAILURE;
     Predicate _predicate;
     int waitingTimerId;
+    std::string waitingText;
+    std::string successText;
+    std::string failedText;
 
     void runAction();
 };
