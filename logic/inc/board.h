@@ -13,6 +13,9 @@
 */
 class Board : public IBoard{
 public:
+    // This variable is set after finishing configuration
+    static bool START_GAME;
+
     /* Singleton */
     static IBoard* getInstance();
     Board(IBoard *t);

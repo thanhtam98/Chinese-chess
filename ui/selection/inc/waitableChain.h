@@ -5,13 +5,18 @@
 
 using namespace finalcut;
 
+typedef std::function<bool()> Predicate;
+
 class WaitableChain: public SelectableChain {
 public:
     static const int DONE = 0;
     static const int FAILED = 1;
     static const int INTERVAL = 20000;
+    static const std::string WAITING_LABEL;
+    static const std::string SUCCESS_LABEL;
+    static const std::string FAIL_LABEL;
 
-    explicit WaitableChain(FDialog* _parent, FButton* okButton);
+    explicit WaitableChain(FDialog* _parent, FButton* okButton, FButton* backButton, std::string waiting_text = WAITING_LABEL);
 
     virtual int select() override;
     virtual void hide() override;
@@ -20,20 +25,20 @@ public:
     virtual void initHook() override;
     void onTimer(FTimerEvent* event);
     void setDone(bool value);
+    void setAction(Predicate predicate);
 protected:
-    const std::string WAITING_LABEL = "Please wait...";
-    const std::string SUCCESS_LABEL = "Successfully connect!";
-    const std::string FAIL_LABEL = "Failed! Please try again";
-
     enum status {
-        SUCCESS,
-        FAILURE,
-        NOT_IDENTIFIED
+        SUCCESS = true,
+        FAILURE = false
     };
 
     FDialog* parent;
     FLabel* waitingLabel;
     FButton* okButton;
-    status done = NOT_IDENTIFIED;
+    FButton* backButton;
+    status done = FAILURE;
+    Predicate _predicate;
     int waitingTimerId;
+
+    void runAction();
 };

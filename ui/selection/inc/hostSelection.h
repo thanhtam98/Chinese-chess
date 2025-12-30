@@ -8,8 +8,8 @@ using namespace finalcut;
 
 class HostSelection: public RadioButtonChain {
 public:
-    static const int YES_OPTION = 0;
-    static const int NO_OPTION = 1;
+    static const int SERVER = 0;
+    static const int CLIENT = 1;
 
     explicit HostSelection(FDialog* parent);
 

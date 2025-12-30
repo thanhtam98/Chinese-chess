@@ -2,6 +2,8 @@
 #include "chessman.h"
 #include <iostream>
 
+bool Board::START_GAME = false;
+
 IBoard* Board::instance = nullptr;
 IBoard* Board::getInstance() {
     if (instance == nullptr) {

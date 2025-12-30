@@ -1,6 +1,11 @@
 #include "iChain.h"
 
 IChain* IChain::setNext(IChain* next, int branch) {
+    // If branch is -1, set all path with the same next chain
+    if (branch == ALL_BRANCHES) {
+        branches.push_back(next);
+        return next;
+    }
     if (branch >= branches.size()) {
         branches.resize(branch + 1);
     }

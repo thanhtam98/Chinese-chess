@@ -1,5 +1,6 @@
 #include "server.h"
 #include "wConfig.h"
+#include "log.h"
 
 void wServer::initEndpoint()
 {
@@ -36,6 +37,7 @@ void wServer::_run(){
     // Queues a connection accept operation
     mEndpoint.start_accept();
     // Start the Asio io_service run loop
+    LOG_F("start the websocket server");
     mEndpoint.run();
 }
 void wServer::run(){

@@ -9,21 +9,21 @@ HostSelection::HostSelection(FDialog* parent) {
     options.resize(2);
     FRadioButton* yesButton = new FRadioButton(YES, buttonGroup);
     yesButton->setGeometry(FPoint{4, 2}, FSize{10, 1});
-    options[YES_OPTION] = yesButton;
+    options[SERVER] = yesButton;
 
     FRadioButton* noButton = new FRadioButton(NO, buttonGroup);
     noButton->setGeometry(FPoint{25, 2}, FSize{10, 1});
-    options[NO_OPTION] = noButton;
+    options[CLIENT] = noButton;
 
     // Set you as a client by default
-    options[NO_OPTION]->setChecked();
+    options[CLIENT]->setChecked();
     // Hide all elements as default
     hide();
 }
 
 int HostSelection::select() {
     for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
-        if ((n - 1) == YES_OPTION){
+        if ((n - 1) == SERVER){
             ConnectionBase::setInstance(WSERVER);
         } else {
             ConnectionBase::setInstance(WCLIENT);
@@ -32,10 +32,10 @@ int HostSelection::select() {
             return n - 1;
         }
     }
-    return YES_OPTION;
+    return SERVER;
 }
 
 void HostSelection::setFocus() {
-    options[NO_OPTION]->setFocus();
+    options[CLIENT]->setFocus();
     RadioButtonChain::setFocus();
 }
