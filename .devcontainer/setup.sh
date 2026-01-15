@@ -100,17 +100,17 @@ if ! id "vscode" &>/dev/null; then
 fi
 
 # Set up workspace permissions
-log_info "Setting up workspace permissions..."
-if chown -R vscode:vscode /workspaces/Chinese-chess; then
-    log_success "Workspace ownership set to vscode"
-else
-    log_warning "Skipping chown on /workspaces/Chinese-chess (not supported on this mount)"
-fi
-if chmod -R 755 /workspaces/Chinese-chess; then
-    log_success "Workspace permissions updated"
-else
-    log_warning "Skipping chmod on /workspaces/Chinese-chess (not supported on this mount)"
-fi
+# log_info "Setting up workspace permissions..."
+# if chown -R vscode:vscode /workspaces/Chinese-chess; then
+#     log_success "Workspace ownership set to vscode"
+# else
+#     log_warning "Skipping chown on /workspaces/Chinese-chess (not supported on this mount)"
+# fi
+# if chmod -R 755 /workspaces/Chinese-chess; then
+#     log_success "Workspace permissions updated"
+# else
+#     log_warning "Skipping chmod on /workspaces/Chinese-chess (not supported on this mount)"
+# fi
 
 # Switch to vscode user for remaining setup
 log_info "Switching to vscode user for project setup..."
