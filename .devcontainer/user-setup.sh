@@ -67,11 +67,11 @@ chmod +x scripts/*.sh
 chmod +x run_game.sh
 
 # Build the project
-if make build; then
+if make setup; then
     log_success "Project built successfully!"
 else
-    log_warning "Build failed, but this is normal for first-time setup"
-    log_info "You can run 'make setup' to complete the setup"
+    log_warning "Setup failed, please check dependencies"
+    log_info "You can run 'make deps' to install dependencies and 'make build' to build"
 fi
 
 # Run tests if build was successful
