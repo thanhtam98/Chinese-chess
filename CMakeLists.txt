@@ -198,6 +198,24 @@ target_include_directories(mainTest PRIVATE
 )
 
 # =============================================================================
+# Standalone instant Websocket Client
+# =============================================================================
+
+# Add an executable file for Websocket Client for the testing purposes
+# Build a tiny executable that only compiles websocketClient.cpp
+add_executable(websocketClient test/websocketClient.cpp)
+
+# websocketpp is header-only → just add include dir
+target_include_directories(websocketClient PRIVATE ${websocketpp_SOURCE_DIR})
+
+# websocketpp typically needs Boost (asio) + threads
+target_link_libraries(websocketClient
+  PRIVATE
+    Boost::system
+    Threads::Threads
+)
+
+# =============================================================================
 # Testing
 # =============================================================================
 
