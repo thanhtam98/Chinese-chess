@@ -1,6 +1,8 @@
 {
     "name": "Chinese Chess Development",
-    "image": "ubuntu:22.04",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
     
     // Platform configuration for ARM support
     "platforms": ["linux/amd64", "linux/arm64"],
@@ -48,7 +50,7 @@
     "forwardPorts": [],
     
     // Use 'postCreateCommand' to run commands after the container is created
-    "postCreateCommand": "bash .devcontainer/setup.sh",
+    "postCreateCommand": "sudo bash .devcontainer/setup.sh",
     
     // Configure tool-specific properties
     "remoteUser": "vscode",
@@ -67,5 +69,6 @@
     "shutdownAction": "none",
     
     // Override the default command
-    "overrideCommand": false
+    "overrideCommand": true,
+    "command": ["sleep", "infinity"]
 }
