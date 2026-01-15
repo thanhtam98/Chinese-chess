@@ -41,10 +41,10 @@ void BoardDialog::initHook() {
     teamSignalLabels = new TeamSignalLabels{this};
 
     if (Configurator::get(MODE) == Configurator::ONLINE) {
-        ITurn::newOfflineTurns(Configurator::get(TEAM) == Configurator::RED);
+        ITurn::newOnlineTurns(Configurator::get(TEAM) == Configurator::RED);
     }
     if (Configurator::get(MODE) == Configurator::OFFLINE) {
-        ITurn::newOnlineTurns(Configurator::get(TEAM) == Configurator::RED);
+        ITurn::newOfflineTurns(Configurator::get(TEAM) == Configurator::RED);
     }
     if (Configurator::get(MODE) == Configurator::DEBUG) {
         ITurn::newDebugTurns();
