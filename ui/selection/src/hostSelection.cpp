@@ -23,16 +23,16 @@ HostSelection::HostSelection(FDialog* parent) {
 
 int HostSelection::select() {
     for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
-        if ((n - 1) == SERVER){
-            ConnectionBase::setInstance(WSERVER);
-        } else {
-            ConnectionBase::setInstance(WCLIENT);
-        }
-        if (buttonGroup->isChecked(n)) {
+         if (buttonGroup->isChecked(n)) {
+            if ((n - 1) == SERVER) {
+                ConnectionBase::setInstance(WSERVER);
+            } else {
+                ConnectionBase::setInstance(WCLIENT);
+            }
             return n - 1;
         }
     }
-    return SERVER;
+    return SERVER; // Default to server
 }
 
 void HostSelection::setFocus() {
