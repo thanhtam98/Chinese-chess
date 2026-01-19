@@ -75,8 +75,10 @@ void WaitableChain::hide() {
 }
 
 void WaitableChain::runAction() {
-    _predicate();
-    setDone(SUCCESS);
+    if (_predicate != nullptr){
+        _predicate();
+        setDone(SUCCESS);
+    }
 }
 
 void WaitableChain::show() {

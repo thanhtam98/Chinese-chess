@@ -24,7 +24,17 @@
                 }
             ],
             "preLaunchTask": "Build Chinese-Chess Project",
-            "cwd": "${workspaceFolder}"
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "${workspaceFolder}/libfinal/lib:${env:LD_LIBRARY_PATH}"
+                },
+                {
+                    "name": "LC_ALL",
+                    "value": "en_US.UTF-8"
+                }
+            ]
 
         }          
 
