@@ -32,7 +32,7 @@ wServer::wServer(int port)
 }
 
 void wServer::_run(){
-    // Listen on port 9002
+    // Listen on port 9000
     mEndpoint.listen(mPort);
     // Queues a connection accept operation
     mEndpoint.start_accept();

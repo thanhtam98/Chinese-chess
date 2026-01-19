@@ -79,6 +79,10 @@ void WaitableChain::runAction() {
         _predicate();
         setDone(SUCCESS);
     }
+    else {
+        LOG_F("No action is set for WaitableChain");
+        // setDone(FAILURE);
+    }
 }
 
 void WaitableChain::show() {

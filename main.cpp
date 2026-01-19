@@ -1,4 +1,6 @@
+#include <cstring>
 #include <iostream>
+#include <vector>
 #include <nlohmann/json.hpp>
 
 #include "ui.h"
@@ -15,20 +17,25 @@ auto main (int argc, char* argv[]) -> int
 {
   // freopen("/workspaces/chinese-chess/log.txt","w",stdout);
   // cout<<"Start the logfile" << endl;
+  std::vector<char*> app_argv;
+  app_argv.reserve(static_cast<size_t>(argc));
+  app_argv.push_back(argv[0]);
+  for (int i = 1; i < argc; ++i) {
+    if (std::strcmp(argv[i], "-f") == 0) {
+      if (i + 1 < argc) {
+        Logger::setLogFilePath(argv[i + 1]);
+        ++i;
+      }
+      continue;
+    }
+    app_argv.push_back(argv[i]);
+  }
+  int app_argc = static_cast<int>(app_argv.size());
+
   string str = "Alo!";
   LOG_F("Start the game %s", str.c_str());
-  // std::thread thread_object (webSockHandler);
-  // std::thread wThread;
-  // if (argc > 1){
-  //   ConnectionBase::setInstance(WCLIENT);
-  // }w
-  // else{
-  //   ConnectionBase::setInstance(WSERVER);
-  // }
-  // while(1);
-    // std::thread thread_object (clientSockHandler);
 
-  FApplication app{argc, argv};
+  FApplication app{app_argc, app_argv.data()};
 
   // Force terminal initialization without calling show()
   app.initTerminal();

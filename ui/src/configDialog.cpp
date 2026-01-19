@@ -20,11 +20,11 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
         "Please wait for the host to be set up...",
         "The server is now available \non localhost:9000"
     };
-    std::function<bool()> startServer = [] {
+    std::function<bool()> startConnection = [] {
         ConnectionBase::getInstance()->run();
         return true;
     };
-    serverWaitableChain->setAction(startServer);
+    serverWaitableChain->setAction(startConnection);
 
     clientWaitableChain = new WaitableChain{this, &ok, &back};
 
@@ -35,6 +35,7 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     serverWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
 
     hostSelection->setNext(clientWaitableChain, HostSelection::CLIENT);
+    clientWaitableChain->setAction(startConnection);
     // ipSelection->setNext(clientWaitableChain);
     // ipListSelection->setNext(serverWaitableChain);
     currentSelection = modeSelection;

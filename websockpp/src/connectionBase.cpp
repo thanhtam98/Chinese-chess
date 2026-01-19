@@ -32,7 +32,7 @@ ConnectionBase* ConnectionBase::setInstance(connection_type type){
 int ConnectionBase::send(json js){
     
     string payload = js.dump();
-    // cout <<" Sending" <<payload << endl;
+    LOG_F("Sending json: %s", payload.c_str());
     /* Futher modification for payload  */
     return  _send(payload);    
 }
@@ -46,12 +46,13 @@ void ConnectionBase::setRecvCallback(
 void ConnectionBase::onOpen(websocketpp::connection_hdl hdl){
     mIsConnected = true;
     mConnection = hdl;
-    // cout << "onOpen" << endl;
-
+    LOG_F("onOpen");
+    // Notify upper layers that connection is established
+    // Todo:
 }
 void ConnectionBase::onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg){
 
-    // cout << "onMessage" << msg->get_payload() << endl;
+    LOG_F("onMessage received: %s", msg->get_payload().c_str());
     string payload = msg->get_payload();
     /* Call the upper layers*/
     if (mCallback)
@@ -61,8 +62,7 @@ void ConnectionBase::onMessage(websocketpp::connection_hdl hdl, server::message_
 void ConnectionBase::onClose(websocketpp::connection_hdl hdl){
     mIsConnected = false;
     // mConnection = nullptr;
-    // cout << "onClose" << endl;
-
+    LOG_F("onClose ");
 }
 
 void ConnectionBase::initSem(){

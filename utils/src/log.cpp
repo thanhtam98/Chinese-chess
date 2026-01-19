@@ -5,9 +5,23 @@
 using namespace::std;
 
 Logger* Logger::instance = nullptr;
+std::string Logger::logFilePath = LOGGER_FILE;
+
+void Logger::setLogFilePath(const std::string& path) {
+    if (path.empty()) {
+        logFilePath = LOGGER_FILE;
+        return;
+    }
+    logFilePath = path;
+}
+
+const std::string& Logger::getLogFilePath() {
+    return logFilePath;
+}
+
 Logger* Logger::getInstance() {
     if (instance == nullptr) {
-        remove(LOGGER_FILE);
+        remove(logFilePath.c_str());
         instance = new Logger();
     }
     return instance;
@@ -15,7 +29,7 @@ Logger* Logger::getInstance() {
 
 void Logger::write(int line, std::string fileName, std::string content) {
     Logger* logger = getInstance();
-    logger->file.open(LOGGER_FILE, ios::out | ios::app);
+    logger->file.open(logFilePath, ios::out | ios::app);
 
     if (logger->file) {
         logger->file << "[" << fileName << ":" <<
@@ -27,7 +41,7 @@ void Logger::write(int line, std::string fileName, std::string content) {
 }
 
 Logger& operator<<(Logger &logger, std::string content) {
-    logger.file.open(LOGGER_FILE, ios::out | ios::app);
+    logger.file.open(Logger::getLogFilePath(), ios::out | ios::app);
 
     if (logger.file) {
         logger.file << content << endl;
@@ -39,7 +53,7 @@ Logger& operator<<(Logger &logger, std::string content) {
 }
 
 Logger& operator<<(Logger &logger, int content) {
-    logger.file.open(LOGGER_FILE, ios::out | ios::app);
+    logger.file.open(Logger::getLogFilePath(), ios::out | ios::app);
 
     if (logger.file) {
         logger.file << content << endl;

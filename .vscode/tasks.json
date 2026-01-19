@@ -16,6 +16,21 @@
             "problemMatcher": []
         },
         {
+            "type": "shell",
+            "label": "Build Chinese-Chess Debug",
+            "command": "cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug && cmake --build build",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Configure and build with debug symbols.",
+            "problemMatcher": []
+        },
+        {
             "type": "cppbuild",
             "label": "C/C++: g++ build active file",
             "command": "/usr/bin/g++",

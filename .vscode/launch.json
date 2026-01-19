@@ -23,7 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build Chinese-Chess Project",
+            "preLaunchTask": "Build Chinese-Chess Debug",
             "cwd": "${workspaceFolder}",
             "environment": [
                 {
