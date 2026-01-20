@@ -61,6 +61,7 @@ apt-get install -y \
     wget \
     unzip \
     vim \
+    tmux \
     nano
 
 # Install Boost libraries

@@ -21,6 +21,7 @@ enum connection_type {
 } ;
 
 typedef std::function<void (json js)> ConnectionBaseCallback;
+typedef std::function<void (void)> ConnectionBaseConnectCallback;
 
 class ConnectionBase {
 public:
@@ -29,6 +30,7 @@ public:
     virtual void run () = 0;
     int send(json const js);
     void setRecvCallback(ConnectionBaseCallback cb);
+    void setConnectCallback(ConnectionBaseConnectCallback cb);
 
     virtual int _send(std::string const payload) = 0;
     string _recv(void);
@@ -38,6 +40,7 @@ protected:
     std::thread wThread;
     connection mConnection;
     ConnectionBaseCallback mCallback;
+    ConnectionBaseConnectCallback mConnectCallback;
     bool mIsConnected;
     /* temporary for connection established status
     *  because we don't know what mConnection's constructor is

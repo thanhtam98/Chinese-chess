@@ -42,13 +42,18 @@ void ConnectionBase::setRecvCallback(
     mCallback = cb;
 }
 
+void ConnectionBase::setConnectCallback(
+            ConnectionBaseConnectCallback cb){
+    mConnectCallback = cb;
+}
 
 void ConnectionBase::onOpen(websocketpp::connection_hdl hdl){
     mIsConnected = true;
     mConnection = hdl;
     LOG_F("onOpen");
     // Notify upper layers that connection is established
-    // Todo:
+    if (mConnectCallback)
+        mConnectCallback();
 }
 void ConnectionBase::onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg){
 

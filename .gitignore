@@ -7,3 +7,5 @@ libfinal/
 Makefile
 final
 session.log
+
+*.log
