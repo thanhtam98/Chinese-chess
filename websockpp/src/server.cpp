@@ -47,10 +47,18 @@ void wServer::run(){
 int wServer::_send(std::string const payload)
 {
     if (payload.length() == 0)
+    {
+        LOG_F(" Empty payload, not sending");
         return -1;
-    // if (mConnection == )
-    if (mIsConnected == false)
+    }
+    // if (mConnection == nullptr){
+    //     LOG_F(" No connection established yet");
+    //     return -1;
+    // }
+    if (mIsConnected == false){
+        LOG_F(" Connection not established yet");
         return -1;
+    }
     mEndpoint.send(mConnection, payload, DEFALUT_OPCODE);
     return 0;
 }

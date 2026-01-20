@@ -11,14 +11,15 @@ MoveManager::MoveManager(BoardDialog *boardDialog){
     this->mainDialog = boardDialog;
     umpire = new Umpire();
     
-    // ConnectionBase *con = ConnectionBase::getInstance();
+    ConnectionBase *con = ConnectionBase::getInstance();
+    setConnectionInstance(con);
 }
 
 void MoveManager::setConnectionInstance(ConnectionBase *con){
 
     if (con != nullptr)
     {
-        con->run();
+        // con->run(); // Moved to configDialog.cpp
         this->transfer = new Transfer{con};
         this->transfer->setCallback(std::bind(&MoveManager::movePieceTransferCb, this,
                                               ::_1, ::_2),
@@ -47,7 +48,7 @@ Point *MoveManager::getDestPoint()
 void MoveManager::selPieceTransferCb(Point *from)
 {
     setSourcePoint(from);
-    calculatePossibleMoves(Configurator::get(MODE) == Configurator::ONLINE);
+    calculatePossibleMoves(false);
 }
 
 /**
@@ -84,7 +85,7 @@ void MoveManager::movePieceTransferCb(Point *from, Point *to)
     setSourcePoint(from);
     setDestPoint(to);
     decorateTargetedPieces(false);
-    movePiece(Configurator::get(MODE) == Configurator::ONLINE);
+    movePiece(false);
     // refresh possible move
 }
 
