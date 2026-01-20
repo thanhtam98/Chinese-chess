@@ -2,13 +2,15 @@
 #include "utils.h"
 #include "wConfig.h"
 #include "connectionBase.h"
+#include <future>
 
 class wServer : public ConnectionBase {
 public:
     wServer(int port);
     wServer();
-    void run() override;
+    std::future<void> run() override;
     void _run();
+    void _setup();
 private:
     server mEndpoint;
     int mPort;

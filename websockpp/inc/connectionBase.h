@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <semaphore.h>
 #include <queue>
+#include <future>
 
 using json = nlohmann::json;
 /**
@@ -27,7 +28,7 @@ class ConnectionBase {
 public:
     static ConnectionBase* setInstance(connection_type type);
     static ConnectionBase* getInstance();
-    virtual void run () = 0;
+    virtual std::future<void> run() = 0;
     int send(json const js);
     void setRecvCallback(ConnectionBaseCallback cb);
     void setConnectCallback(ConnectionBaseConnectCallback cb);

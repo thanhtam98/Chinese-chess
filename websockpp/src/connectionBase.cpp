@@ -55,6 +55,7 @@ void ConnectionBase::onOpen(websocketpp::connection_hdl hdl){
     if (mConnectCallback)
         mConnectCallback();
 }
+
 void ConnectionBase::onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg){
 
     LOG_F("onMessage received: %s", msg->get_payload().c_str());

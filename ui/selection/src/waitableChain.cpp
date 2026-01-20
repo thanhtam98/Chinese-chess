@@ -47,6 +47,7 @@ int WaitableChain::select() {
 }
 
 void WaitableChain::setDone(bool value) {
+    LOG_F("Done the action and go on with the returned results");
     if (value) {
         done = SUCCESS;
         waitingLabel->setText(successText);
@@ -54,7 +55,7 @@ void WaitableChain::setDone(bool value) {
         parent->delTimer(waitingTimerId);
     } else {
         done = FAILURE;
-        waitingLabel->setText(failedText);
+        waitingLabel->setText(failedText + ": \n" + errorMessage);
     }
     okButton->setEnable();
     parent->redraw();
@@ -75,13 +76,18 @@ void WaitableChain::hide() {
 }
 
 void WaitableChain::runAction() {
-    if (_predicate != nullptr){
-        _predicate();
-        setDone(SUCCESS);
-    }
-    else {
+    LOG_F("Run the action of the chain");
+    if (_predicate != nullptr) {
+        try {
+            _predicate().get();
+            setDone(SUCCESS);
+        } catch (const std::exception &e) {
+            LOG_F("Error : %s", e.what());
+            errorMessage = e.what();
+            setDone(FAILURE);
+        }
+    } else {
         LOG_F("No action is set for WaitableChain");
-        // setDone(FAILURE);
     }
 }
 

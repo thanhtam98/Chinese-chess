@@ -2,10 +2,11 @@
 #include "final/final.h"
 #include "selectableChain.h"
 #include <string>
+#include <future>
 
 using namespace finalcut;
 
-typedef std::function<bool()> Predicate;
+typedef std::function<std::future<void>()> Predicate;
 
 class WaitableChain: public SelectableChain {
 public:
@@ -46,6 +47,7 @@ protected:
     std::string waitingText;
     std::string successText;
     std::string failedText;
+    std::string errorMessage;
 
     void runAction();
 };

@@ -9,8 +9,9 @@ public:
     wClient(string uri, int port);
     wClient();
 
-    void run();
+    std::future<void> run();
     void _run();
+    void _setup();
 
 private:
     client mEndpoint;

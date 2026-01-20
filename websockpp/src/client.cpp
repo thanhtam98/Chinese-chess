@@ -40,28 +40,39 @@ wClient::wClient()
     mUri += std::to_string(mPort);
 }
 
-void wClient::_run()
-{
+void wClient::_setup() {
     websocketpp::lib::error_code ec;
     client::connection_ptr con = mEndpoint.get_connection(mUri, ec);
 
-    if (ec)
-    {
+    if (ec) {
         LOG_F(" Could not create connection because %s \n", ec.message());
-        return;
+        throw std::runtime_error("Could not create connection because " + ec.message());
     }
 
     mEndpoint.connect(con);
+}
+
+void wClient::_run() {
     mEndpoint.run();
 }
 
-void wClient::run()
-{
+std::future<void> wClient::run() {
+    std::promise<void> p;
+    auto fut = p.get_future();
+    try {
+        _setup();    
+    } catch (const std::exception &e) {
+        LOG_F("Error : %s", e.what());
+        p.set_exception(std::current_exception());
+        return fut;
+    }
     wThread = thread(std::bind(&wClient::_run, this));
+    LOG_F("Run as a client");
+    p.set_value();
+    return fut;
 }
 
-int wClient::_send(std::string const payload)
-{
+int wClient::_send(std::string const payload) {
     if (payload.length() == 0)
         return -1;
     // if (mConnection == )
