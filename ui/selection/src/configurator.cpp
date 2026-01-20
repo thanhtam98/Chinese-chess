@@ -5,6 +5,8 @@ std::string Configurator::OFFLINE = "of";
 std::string Configurator::DEBUG = "d";
 std::string Configurator::RED = "r";
 std::string Configurator::BLACK = "b";
+std::string Configurator::SERVER = "s";
+std::string Configurator::CLIENT = "c";
 
 std::string Configurator::properties[] = {};
 

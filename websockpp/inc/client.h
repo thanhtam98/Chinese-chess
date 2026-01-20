@@ -22,4 +22,6 @@ private:
     
     
     void initEndpoint();
+    void onFail(websocketpp::connection_hdl hdl);
+    std::string failMessage;
 };

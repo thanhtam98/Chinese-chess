@@ -84,6 +84,7 @@ void MoveManager::movePieceTransferCb(Point *from, Point *to)
 {
     setSourcePoint(from);
     setDestPoint(to);
+    ITurn::end();
     decorateTargetedPieces(false);
     movePiece(false);
     // refresh possible move

@@ -23,7 +23,7 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     auto startConnection = []() -> std::future<void> {
         return ConnectionBase::getInstance()->run();
     };
-    serverWaitableChain->setAction(startServerConnection);
+    serverWaitableChain->setAction(startConnection);
     
     modeSelection->setNext(hostSelection, ModeSelection::ONLINE_OPTION);
     modeSelection->setNext(teamSelectionForModeBranch, ModeSelection::OFFLINE_OPTION);

@@ -13,6 +13,8 @@ void wClient::initEndpoint()
     // Set the default message handler to the echo handler
     mEndpoint.set_open_handler(
         std::bind(&wClient::onOpen, this, ::_1));
+    mEndpoint.set_fail_handler(
+        std::bind(&wClient::onFail, this, ::_1));
     mEndpoint.set_message_handler(std::bind(
         &wClient::onMessage, this, ::_1, ::_2));
     mEndpoint.set_close_handler(std::bind(
@@ -45,7 +47,7 @@ void wClient::_setup() {
     client::connection_ptr con = mEndpoint.get_connection(mUri, ec);
 
     if (ec) {
-        LOG_F(" Could not create connection because %s \n", ec.message());
+        LOG_F("Could not create connection because %s \n", ec.message());
         throw std::runtime_error("Could not create connection because " + ec.message());
     }
 
@@ -60,6 +62,7 @@ std::future<void> wClient::run() {
     std::promise<void> p;
     auto fut = p.get_future();
     try {
+        LOG_F("Setup client");
         _setup();    
     } catch (const std::exception &e) {
         LOG_F("Error : %s", e.what());
@@ -68,6 +71,14 @@ std::future<void> wClient::run() {
     }
     wThread = thread(std::bind(&wClient::_run, this));
     LOG_F("Run as a client");
+    // Find some better approach than just waiting here,
+    // Can think of both the success and fail callbacks of this connection
+    std::this_thread::sleep_for(1s);
+    if (!failMessage.empty()) {
+        LOG_F("Error with the connection");
+        p.set_exception(std::make_exception_ptr(std::runtime_error(failMessage)));
+        return fut;
+    }
     p.set_value();
     return fut;
 }
@@ -80,4 +91,13 @@ int wClient::_send(std::string const payload) {
         return -1;
     mEndpoint.send(mConnection, payload, DEFALUT_OPCODE);
     return 0;
+}
+
+void wClient::onFail(websocketpp::connection_hdl hdl) {
+    LOG_F("Error happened");
+    client::connection_ptr con = mEndpoint.get_con_from_hdl(hdl);
+    if (con == nullptr) {
+        LOG_F("Null pointer");
+    }
+    failMessage = con->get_ec().message();
 }

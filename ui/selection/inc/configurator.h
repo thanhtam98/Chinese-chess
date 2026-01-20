@@ -17,6 +17,8 @@ public:
     static std::string DEBUG;
     static std::string RED;
     static std::string BLACK;
+    static std::string SERVER;
+    static std::string CLIENT;
 
     static void set(param_t param, std::string value);
     static std::string get(param_t param);

@@ -14,6 +14,7 @@ ITurn* ITurn::setNext(ITurn* next){
 }
 
 ITurn* ITurn::setup(ITurn *first, ITurn * second) {
+    // LOG_F("First: %d, Second: %d", static_cast<int>(first->getTeam()), static_cast<int>(second->getTeam()));
     first->setNext(second);
     second->setNext(first);
     setupHook();

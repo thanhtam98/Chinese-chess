@@ -41,12 +41,15 @@ void BoardDialog::initHook() {
     teamSignalLabels = new TeamSignalLabels{this};
 
     if (Configurator::get(MODE) == Configurator::ONLINE) {
-        ITurn::newOnlineTurns(Configurator::get(TEAM) == Configurator::RED);
+        LOG_F("Set up an online mode");
+        ITurn::newOnlineTurns(true);
     }
     if (Configurator::get(MODE) == Configurator::OFFLINE) {
+        LOG_F("Set up an offline mode");
         ITurn::newOfflineTurns(Configurator::get(TEAM) == Configurator::RED);
     }
     if (Configurator::get(MODE) == Configurator::DEBUG) {
+        LOG_F("Set up an debug mode");
         ITurn::newDebugTurns();
     }
 

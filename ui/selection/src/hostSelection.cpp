@@ -2,6 +2,8 @@
 #include "constant.h"
 #include "connectionBase.h"
 #include "moveManager.h"
+#include "configurator.h"
+
 HostSelection::HostSelection(FDialog* parent) {
     buttonGroup = new FButtonGroup{HOST_SELECTION_LABEL, parent};
     buttonGroup->setGeometry (FPoint{2, 15}, FSize{41, 5});
@@ -26,8 +28,12 @@ int HostSelection::select() {
          if (buttonGroup->isChecked(n)) {
             if ((n - 1) == SERVER) {
                 ConnectionBase::setInstance(WSERVER);
+                Configurator::set(HOST, Configurator::SERVER);
+                Configurator::set(TEAM, Configurator::RED);
             } else {
                 ConnectionBase::setInstance(WCLIENT);
+                Configurator::set(HOST, Configurator::CLIENT);
+                Configurator::set(TEAM, Configurator::BLACK);
             }
             return n - 1;
         }
