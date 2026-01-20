@@ -1,6 +1,7 @@
 #include "teamSignalLabels.h"
 #include "boardDialog.h"
 #include "ITurn.h"
+#include "configurator.h"
 
 TeamSignalLabels::TeamSignalLabels(FWidget* parent) {
     bool isTurnSetUp = true;
@@ -30,6 +31,13 @@ TeamSignalLabels::TeamSignalLabels(FWidget* parent) {
 
 void TeamSignalLabels::changeTeamColor() {
     team_code turn_team = ITurn::get()->getTeam();
+    if (Configurator::get(MODE) == Configurator::ONLINE) {
+        auto configuredTeam = Configurator::get(TEAM);
+        if ((configuredTeam == Configurator::RED && turn_team == BLACK) ||
+            (configuredTeam == Configurator::BLACK && turn_team == RED)) {
+                turn_team = T_NONE;
+            }
+    }
     FColor teamColor = getTeamBgColor(turn_team);
     upper->setForegroundColor(teamColor);
     lower->setForegroundColor(teamColor);

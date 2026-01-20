@@ -84,9 +84,10 @@ void MoveManager::movePieceTransferCb(Point *from, Point *to)
 {
     setSourcePoint(from);
     setDestPoint(to);
-    ITurn::end();
     decorateTargetedPieces(false);
     movePiece(false);
+    ITurn::end();
+    mainDialog->redrawTeamSignal();
     // refresh possible move
 }
 

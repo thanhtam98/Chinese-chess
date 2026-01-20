@@ -99,3 +99,7 @@ void BoardDialog::dispatchChessmanMove(Point* source, Point* destination) {
     ITurn::end();
     teamSignalLabels->changeTeamColor();
 }
+
+void BoardDialog::redrawTeamSignal() {
+    teamSignalLabels->changeTeamColor();
+}

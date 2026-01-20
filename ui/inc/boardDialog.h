@@ -45,6 +45,7 @@ public:
     void clickedCallback();
     void moveCallback();
     void dispatchChessmanMove(Point* source, Point* destination);
+    void redrawTeamSignal();
 
     MoveManager* moveManager;
     void initHook() override;
