@@ -8,10 +8,8 @@
 #include "moveManager.h"
 
 void SpaceLabel::initLayout() {
-    IBoard* board = Board::getInstance();
     int x = pos->getX();
     int y = pos->getY();
-    IChessman* chessman = board->getChessman(x, BOARD_LENGTH - y -1);
 
     if (target) {
         setBackgroundColor(FColor::Grey93);

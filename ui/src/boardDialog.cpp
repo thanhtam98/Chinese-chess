@@ -89,17 +89,6 @@ void BoardDialog::addCallback(ILabel* label, string event) {
     );
 }
 
-void BoardDialog::dispatchChessmanMove(Point* source, Point* destination) {
-    bool ret = false;
-
-    ret = moveManager->movePiece(Configurator::get(MODE) == Configurator::ONLINE);
-    if (ret == false)
-        return;
-
-    ITurn::end();
-    teamSignalLabels->changeTeamColor();
-}
-
 void BoardDialog::redrawTeamSignal() {
     teamSignalLabels->changeTeamColor();
 }

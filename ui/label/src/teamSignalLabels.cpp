@@ -4,11 +4,8 @@
 #include "configurator.h"
 
 TeamSignalLabels::TeamSignalLabels(FWidget* parent) {
-    bool isTurnSetUp = true;
     team_code turn_team = T_NONE;
-    if (ITurn::get() == nullptr) {
-        isTurnSetUp = false; 
-    } else {
+    if (ITurn::get() != nullptr) {
         turn_team = ITurn::get()->getTeam();
     }
     FColor teamColor = getTeamBgColor(turn_team);

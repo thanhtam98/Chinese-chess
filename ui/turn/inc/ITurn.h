@@ -6,7 +6,7 @@
 class ITurn {
 
 public:
-    ITurn(team_code team) : nextTurn(nullptr), team(team) {};
+    ITurn(team_code team) : team(team), nextTurn(nullptr) {};
 
     ITurn *setNext(ITurn *handler);
     team_code _getTeam();

@@ -11,8 +11,6 @@ IChain* SelectableChain::next(int branch) {
     return IChain::next(branch);
 }
 
-inline void SelectableChain::initHook() {}
-
 IChain* SelectableChain::setNext(IChain* next, int branch) {
     SelectableChain* nextSelection = (SelectableChain*) next;
     nextSelection->hide();

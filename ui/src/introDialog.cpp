@@ -31,7 +31,7 @@ void IntroDialog::onKeyPress(FKeyEvent* event) {
     clearDialog();
 }
 
-void IntroDialog::onMouseDown(FMouseEvent* event) {
+void IntroDialog::onMouseDown(FMouseEvent* /*event*/) {
     clearDialog();
 }
 

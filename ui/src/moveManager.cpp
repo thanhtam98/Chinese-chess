@@ -38,7 +38,7 @@ Point *MoveManager::getSourcePoint()
 }
 
 void MoveManager::setDestPoint(Point* to) {
-    LOG_F("Set dest point %s", to->to_string());
+    LOG_F("Set dest point %s", to->to_string().c_str());
     dest = to;
 }
 Point *MoveManager::getDestPoint()

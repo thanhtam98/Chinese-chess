@@ -16,5 +16,3 @@ IChain* IDialogChain::setNext(IChain* next, int branch) {
     nextDialog->hide();
     return IChain::setNext(next, branch);
 }
-
-void IDialogChain::initHook() { }
