@@ -51,12 +51,12 @@ void WaitableChain::setDone(bool value) {
     if (value) {
         done = SUCCESS;
         waitingLabel->setText(successText);
-        // Delete Timer when success
-        parent->delTimer(waitingTimerId);
     } else {
         done = FAILURE;
         waitingLabel->setText(failedText + ": \n" + errorMessage);
     }
+    // Delete Timer when the waitable action is done
+    parent->delTimer(waitingTimerId);
     okButton->setEnable();
     parent->redraw();
 }

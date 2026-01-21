@@ -8,7 +8,7 @@
 #include "server.h"
 
 ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
-    setText("Configuration Dialog");
+    setText("Configuration");
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE);
     modeSelection = new ModeSelection{this};
     TeamSelection* teamSelectionForModeBranch = new TeamSelection{this};

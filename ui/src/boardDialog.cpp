@@ -9,7 +9,7 @@
 #include "configurator.h"
 
 BoardDialog::BoardDialog(FDialog* parent): IDialogChain{parent} {
-    setText("Board Dialog");
+    setText("Chinese Chess");
     setGeometry(MAIN_DIALOG_POINT, WINDOW_SIZE);
     setFocusable(false);
     board = Board::getInstance();
