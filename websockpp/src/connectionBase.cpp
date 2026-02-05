@@ -4,73 +4,97 @@
 
 ConnectionBase* ConnectionBase::instance = nullptr;
 
-ConnectionBase* ConnectionBase::getInstance(){
-    if (instance == nullptr){
+ConnectionBase* ConnectionBase::getInstance() {
+    if (instance == nullptr) {
         instance = new wServer();
     }
     return instance;
 }
 
-ConnectionBase* ConnectionBase::setInstance(connection_type type){
-    if (instance == nullptr){
-        switch (type)
-        {
-        case WSERVER:
-            instance = new wServer();
-            break;
-        case WCLIENT:
-            instance = new wClient();
-            break;
-        default:
-            break;
+ConnectionBase* ConnectionBase::setInstance(connection_type type) {
+    if (instance == nullptr) {
+        switch (type) {
+            case WSERVER:
+                instance = new wServer();
+                break;
+            case WCLIENT:
+                instance = new wClient();
+                break;
+            default:
+                break;
         }
     }
     return instance;
 }
 
-
-int ConnectionBase::send(json js){
-    
+int ConnectionBase::send(json js) {
     string payload = js.dump();
     LOG_F("Sending json: %s", payload.c_str());
-    /* Futher modification for payload  */
-    return  _send(payload);    
+    return _send(payload);
 }
 
-void ConnectionBase::setRecvCallback(
-            ConnectionBaseCallback cb){
+void ConnectionBase::setRecvCallback(ConnectionBaseCallback cb) {
     mCallback = cb;
 }
 
-void ConnectionBase::setConnectCallback(
-            ConnectionBaseConnectCallback cb){
+void ConnectionBase::setConnectCallback(ConnectionBaseConnectCallback cb) {
     mConnectCallback = cb;
 }
 
-void ConnectionBase::onOpen(websocketpp::connection_hdl hdl){
+void ConnectionBase::onOpen() {
     mIsConnected = true;
-    mConnection = hdl;
     LOG_F("onOpen");
-    // Notify upper layers that connection is established
-    if (mConnectCallback)
+    if (mConnectCallback) {
         mConnectCallback();
+    }
+    // Start reading messages
+    doRead();
 }
 
-void ConnectionBase::onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg){
-
-    LOG_F("onMessage received: %s", msg->get_payload().c_str());
-    string payload = msg->get_payload();
-    /* Call the upper layers*/
-    if (mCallback)
-        mCallback(json::parse(payload));
-
+void ConnectionBase::onMessage(const std::string& payload) {
+    LOG_F("onMessage received: %s", payload.c_str());
+    if (mCallback) {
+        try {
+            mCallback(json::parse(payload));
+        } catch (const std::exception& e) {
+            LOG_F("Error parsing JSON: %s", e.what());
+        }
+    }
 }
-void ConnectionBase::onClose(websocketpp::connection_hdl hdl){
+
+void ConnectionBase::onClose() {
     mIsConnected = false;
-    // mConnection = nullptr;
-    LOG_F("onClose ");
+    LOG_F("onClose");
 }
 
-void ConnectionBase::initSem(){
-
+void ConnectionBase::doRead() {
+    if (!mWs || !mIsConnected) {
+        return;
+    }
+    
+    mWs->async_read(
+        mBuffer,
+        [this](beast::error_code ec, std::size_t bytes_transferred) {
+            boost::ignore_unused(bytes_transferred);
+            
+            if (ec == websocket::error::closed) {
+                onClose();
+                return;
+            }
+            
+            if (ec) {
+                LOG_F("Read error: %s", ec.message().c_str());
+                onClose();
+                return;
+            }
+            
+            // Process the message
+            std::string payload = beast::buffers_to_string(mBuffer.data());
+            mBuffer.consume(mBuffer.size());
+            
+            onMessage(payload);
+            
+            // Continue reading
+            doRead();
+        });
 }

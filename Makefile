@@ -11,9 +11,19 @@ BUILD_DIR := build
 SCRIPTS_DIR := scripts
 LIBFINAL_DIR := libfinal
 
+# Platform detection
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+    NPROC := $(shell sysctl -n hw.ncpu)
+    LIB_EXT := dylib
+else
+    NPROC := $(shell nproc)
+    LIB_EXT := so
+endif
+
 # Default values
 BUILD_TYPE ?= Release
-JOBS ?= $(shell nproc)
+JOBS ?= $(NPROC)
 VERBOSE ?= false
 
 # Colors for output
@@ -164,9 +174,15 @@ run:
 .PHONY: run-debug
 run-debug:
 	@echo "$(BLUE)[INFO]$(NC) Running the game in debug mode..."
+ifeq ($(UNAME_S),Darwin)
+	@export DYLD_LIBRARY_PATH="$(PWD)/$(LIBFINAL_DIR)/lib:$$DYLD_LIBRARY_PATH" && \
+	 export LC_ALL=en_US.UTF-8 && \
+	 lldb $(BUILD_DIR)/$(PROJECT_NAME)
+else
 	@export LD_LIBRARY_PATH="$(PWD)/$(LIBFINAL_DIR)/lib:$$LD_LIBRARY_PATH" && \
 	 export LC_ALL=en_US.UTF-8 && \
 	 gdb --args $(BUILD_DIR)/$(PROJECT_NAME)
+endif
 
 # =============================================================================
 # Development targets
@@ -206,7 +222,7 @@ status:
 	@echo "  Tests: $(BUILD_DIR)/mainTest $(if $(wildcard $(BUILD_DIR)/mainTest),✓,✗)"
 	@echo ""
 	@echo "Libraries:"
-	@echo "  Finalcut: $(LIBFINAL_DIR)/lib/libfinal.so $(if $(wildcard $(LIBFINAL_DIR)/lib/libfinal.so),✓,✗)"
+	@echo "  Finalcut: $(LIBFINAL_DIR)/lib/libfinal.$(LIB_EXT) $(if $(wildcard $(LIBFINAL_DIR)/lib/libfinal.$(LIB_EXT)),✓,✗)"
 	@echo "=========================================="
 
 # =============================================================================

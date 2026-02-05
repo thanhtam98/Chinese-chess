@@ -17,13 +17,25 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
+# Cross-platform function to get number of CPU cores
+get_nproc() {
+    if command -v nproc >/dev/null 2>&1; then
+        nproc
+    elif [ "$(uname)" = "Darwin" ]; then
+        sysctl -n hw.ncpu
+    else
+        # Fallback to 1 if we can't determine
+        echo 1
+    fi
+}
+
 # Default values
 BUILD_TYPE="Release"
 CLEAN=false
 REBUILD_FINALCUT=false
 RUN_TESTS=false
 VERBOSE=false
-JOBS=$(nproc)
+JOBS=$(get_nproc)
 
 # =============================================================================
 # Functions
@@ -36,13 +48,13 @@ print_usage() {
     echo "  -t, --type TYPE        Build type (Debug|Release) [default: Release]"
     echo "  -c, --clean           Clean build directory before building"
     echo "  -f, --rebuild-finalcut Rebuild finalcut library from scratch"
-    echo "  -j, --jobs N           Number of parallel jobs [default: $(nproc)]"
+    echo "  -j, --jobs N           Number of parallel jobs [default: $(get_nproc)]"
     echo "  -v, --verbose          Verbose output"
     echo "  --test                 Run tests after building"
     echo "  -h, --help             Show this help message"
     echo ""
     echo "Examples:"
-    echo "  $0                     # Build in Release mode"
+    echo "  $0                     # Build  in Release mode"
     echo "  $0 -t Debug -c         # Clean build in Debug mode"
     echo "  $0 -f --test           # Rebuild finalcut and run tests"
 }
@@ -67,21 +79,44 @@ check_dependencies() {
     log_info "Checking system dependencies..."
     
     local missing_deps=()
+    local is_macos=false
+    
+    if [ "$(uname)" = "Darwin" ]; then
+        is_macos=true
+    fi
     
     # Check for required tools
     command -v cmake >/dev/null 2>&1 || missing_deps+=("cmake")
-    command -v g++ >/dev/null 2>&1 || missing_deps+=("g++")
     command -v git >/dev/null 2>&1 || missing_deps+=("git")
     command -v pkg-config >/dev/null 2>&1 || missing_deps+=("pkg-config")
     
-    # Check for Boost (try different methods)
-    if ! pkg-config --exists libboost-system 2>/dev/null && ! ldconfig -p | grep -q libboost_system; then
-        missing_deps+=("libboost-dev")
+    # Check for C++ compiler (platform-specific)
+    if [ "$is_macos" = true ]; then
+        command -v clang++ >/dev/null 2>&1 || missing_deps+=("clang++")
+    else
+        command -v g++ >/dev/null 2>&1 || missing_deps+=("g++")
+    fi
+    
+    # Check for Boost (platform-specific)
+    if [ "$is_macos" = true ]; then
+        # On macOS, check via Homebrew
+        if ! brew list boost &>/dev/null; then
+            missing_deps+=("boost")
+        fi
+    else
+        # On Linux, check via pkg-config or ldconfig
+        if ! pkg-config --exists boost 2>/dev/null && ! ldconfig -p 2>/dev/null | grep -q libboost_system; then
+            missing_deps+=("libboost-dev")
+        fi
     fi
     
     if [ ${#missing_deps[@]} -ne 0 ]; then
         log_error "Missing dependencies: ${missing_deps[*]}"
-        log_info "Install them with: sudo apt-get install ${missing_deps[*]}"
+        if [ "$is_macos" = true ]; then
+            log_info "Install them with: brew install ${missing_deps[*]}"
+        else
+            log_info "Install them with: sudo apt-get install ${missing_deps[*]}"
+        fi
         exit 1
     fi
     

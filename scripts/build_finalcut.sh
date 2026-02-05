@@ -2,6 +2,7 @@
 
 # =============================================================================
 # Finalcut Library Build Script
+# Cross-platform support for Linux and macOS
 # =============================================================================
 
 set -e  # Exit on any error
@@ -21,7 +22,17 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 FINALCUT_VERSION="0.9.1"
 CLEAN=true
 VERBOSE=false
-JOBS=$(nproc)
+
+# Platform detection
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    IS_MACOS=true
+    JOBS=$(sysctl -n hw.ncpu)
+    LIB_EXT="dylib"
+else
+    IS_MACOS=false
+    JOBS=$(nproc)
+    LIB_EXT="so"
+fi
 
 # =============================================================================
 # Functions
@@ -51,12 +62,27 @@ check_dependencies() {
     command -v git >/dev/null 2>&1 || missing_deps+=("git")
     command -v autoconf >/dev/null 2>&1 || missing_deps+=("autoconf")
     command -v automake >/dev/null 2>&1 || missing_deps+=("automake")
-    (command -v libtool >/dev/null 2>&1 || command -v libtoolize >/dev/null 2>&1) || missing_deps+=("libtool")
     command -v pkg-config >/dev/null 2>&1 || missing_deps+=("pkg-config")
+    
+    # Check for libtool (different names on different platforms)
+    if [[ "$IS_MACOS" == true ]]; then
+        # macOS with Homebrew uses glibtoolize
+        if ! command -v glibtoolize >/dev/null 2>&1 && ! command -v libtoolize >/dev/null 2>&1; then
+            missing_deps+=("libtool")
+        fi
+    else
+        if ! command -v libtoolize >/dev/null 2>&1 && ! command -v libtool >/dev/null 2>&1; then
+            missing_deps+=("libtool")
+        fi
+    fi
     
     if [ ${#missing_deps[@]} -ne 0 ]; then
         log_error "Missing dependencies: ${missing_deps[*]}"
-        log_info "Install them with: sudo apt-get install ${missing_deps[*]}"
+        if [[ "$IS_MACOS" == true ]]; then
+            log_info "Install them with: brew install ${missing_deps[*]}"
+        else
+            log_info "Install them with: sudo apt-get install ${missing_deps[*]}"
+        fi
         exit 1
     fi
     
@@ -74,15 +100,24 @@ clean_previous_build() {
 }
 
 download_finalcut() {
-    log_info "Downloading finalcut library (version $FINALCUT_VERSION)..."
+    log_info "Setting up finalcut library (version $FINALCUT_VERSION)..."
     
     cd "$PROJECT_ROOT"
     
     if [ ! -d "finalcut" ]; then
-        git clone --depth 1 --branch "$FINALCUT_VERSION" https://github.com/gansm/finalcut.git
-        log_success "Finalcut downloaded"
+        # Use vendored copy from third_party/ (offline build)
+        if [ -d "third_party/finalcut" ]; then
+            log_info "Copying finalcut from vendored third_party/finalcut..."
+            cp -r third_party/finalcut finalcut
+            log_success "Finalcut copied from vendored source"
+        else
+            # Fallback: download from GitHub if vendored copy not available
+            log_warning "Vendored finalcut not found, downloading from GitHub..."
+            git clone --depth 1 --branch "$FINALCUT_VERSION" https://github.com/gansm/finalcut.git
+            log_success "Finalcut downloaded from GitHub"
+        fi
     else
-        log_info "Finalcut directory already exists, skipping download"
+        log_info "Finalcut directory already exists, skipping setup"
     fi
 }
 
@@ -91,14 +126,26 @@ build_finalcut() {
     
     cd "$PROJECT_ROOT/finalcut"
     
+    # macOS: Set LIBTOOLIZE to glibtoolize if available
+    if [[ "$IS_MACOS" == true ]]; then
+        if command -v glibtoolize >/dev/null 2>&1; then
+            export LIBTOOLIZE=glibtoolize
+            log_info "Using glibtoolize for macOS"
+        fi
+    fi
+    
     # Generate configure script
     log_info "Generating configure script..."
     autoreconf --install --force
     
     # Configure
     log_info "Configuring build..."
+    
+    # Create libfinal directory first so we can get absolute path
+    mkdir -p "$PROJECT_ROOT/libfinal"
+    
     local configure_args=(
-        "--prefix=$(realpath ../libfinal)"
+        "--prefix=$PROJECT_ROOT/libfinal"
         "--enable-shared"
         "--disable-static"
     )
@@ -154,12 +201,22 @@ install_finalcut() {
 verify_installation() {
     log_info "Verifying installation..."
     
-    local lib_path="$PROJECT_ROOT/libfinal/lib/libfinal.so"
+    local lib_path="$PROJECT_ROOT/libfinal/lib/libfinal.${LIB_EXT}"
     local include_path="$PROJECT_ROOT/final"
     
     if [ ! -f "$lib_path" ]; then
-        log_error "Library not found: $lib_path"
-        return 1
+        # Try alternative library patterns
+        if [[ "$IS_MACOS" == true ]]; then
+            lib_path=$(find "$PROJECT_ROOT/libfinal/lib" -name "libfinal*.dylib" 2>/dev/null | head -n1)
+        else
+            lib_path=$(find "$PROJECT_ROOT/libfinal/lib" -name "libfinal.so*" 2>/dev/null | head -n1)
+        fi
+        
+        if [ -z "$lib_path" ] || [ ! -f "$lib_path" ]; then
+            log_error "Library not found in: $PROJECT_ROOT/libfinal/lib/"
+            ls -la "$PROJECT_ROOT/libfinal/lib/" 2>/dev/null || true
+            return 1
+        fi
     fi
     
     if [ ! -d "$include_path" ]; then
@@ -168,6 +225,7 @@ verify_installation() {
     fi
     
     log_success "Installation verified successfully"
+    log_info "Library found at: $lib_path"
     return 0
 }
 
@@ -186,6 +244,8 @@ echo "=========================================="
 echo "Finalcut Library Builder"
 echo "=========================================="
 echo "Version: $FINALCUT_VERSION"
+echo "Platform: $(uname -s) ($(uname -m))"
+echo "Library extension: $LIB_EXT"
 echo "Clean Build: $CLEAN"
 echo "Parallel Jobs: $JOBS"
 echo "Verbose: $VERBOSE"
@@ -209,7 +269,7 @@ install_finalcut
 if verify_installation; then
     log_success "Finalcut library built and installed successfully!"
     echo ""
-    echo "Library: $PROJECT_ROOT/libfinal/lib/libfinal.so"
+    echo "Library: $PROJECT_ROOT/libfinal/lib/libfinal.${LIB_EXT}"
     echo "Headers: $PROJECT_ROOT/final/"
     echo ""
 else

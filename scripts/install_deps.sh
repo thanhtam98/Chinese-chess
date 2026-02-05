@@ -2,6 +2,7 @@
 
 # =============================================================================
 # Chinese Chess Dependency Installation Script
+# Cross-platform support for Linux and macOS
 # =============================================================================
 
 set -e  # Exit on any error
@@ -36,7 +37,9 @@ log_error() {
 check_system() {
     log_info "Checking system information..."
     
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        SYSTEM="macos"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         if command -v apt-get >/dev/null 2>&1; then
             SYSTEM="ubuntu"
         elif command -v yum >/dev/null 2>&1; then
@@ -53,6 +56,38 @@ check_system() {
     fi
     
     log_success "Detected system: $SYSTEM"
+}
+
+install_macos_deps() {
+    log_info "Installing dependencies for macOS..."
+    
+    # Check for Homebrew
+    if ! command -v brew >/dev/null 2>&1; then
+        log_error "Homebrew not found."
+        log_info "Install Homebrew first: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+        exit 1
+    fi
+    
+    log_info "Updating Homebrew..."
+    brew update
+    
+    # Install build tools
+    log_info "Installing build tools..."
+    brew install cmake git pkg-config autoconf automake libtool
+    
+    # Install Boost (includes Beast for WebSocket)
+    log_info "Installing Boost libraries..."
+    brew install boost
+    
+    # Install ncurses (for Finalcut)
+    log_info "Installing ncurses..."
+    brew install ncurses
+    
+    # Install tmux (for running server/client in split panes)
+    log_info "Installing tmux..."
+    brew install tmux
+    
+    log_success "macOS dependencies installed successfully"
 }
 
 install_ubuntu_deps() {
@@ -84,7 +119,8 @@ install_ubuntu_deps() {
     log_info "Installing other dependencies..."
     $SUDO_CMD apt-get install -y \
         libncurses-dev \
-        libtinfo-dev
+        libtinfo-dev \
+        tmux
     
     log_success "Ubuntu dependencies installed successfully"
 }
@@ -99,7 +135,6 @@ install_centos_deps() {
         cmake \
         git \
         pkgconfig \
-        autotools \
         automake \
         autoconf \
         libtool
@@ -112,7 +147,8 @@ install_centos_deps() {
     # Install other dependencies
     log_info "Installing other dependencies..."
     $SUDO_CMD yum install -y \
-        ncurses-devel
+        ncurses-devel \
+        tmux
     
     log_success "CentOS dependencies installed successfully"
 }
@@ -127,7 +163,6 @@ install_arch_deps() {
         cmake \
         git \
         pkg-config \
-        autotools \
         automake \
         autoconf \
         libtool
@@ -140,7 +175,8 @@ install_arch_deps() {
     # Install other dependencies
     log_info "Installing other dependencies..."
     $SUDO_CMD pacman -S --noconfirm \
-        ncurses
+        ncurses \
+        tmux
     
     log_success "Arch dependencies installed successfully"
 }
@@ -152,13 +188,30 @@ verify_installation() {
     
     # Check for required tools
     command -v cmake >/dev/null 2>&1 || missing_tools+=("cmake")
-    command -v g++ >/dev/null 2>&1 || missing_tools+=("g++")
     command -v git >/dev/null 2>&1 || missing_tools+=("git")
     command -v pkg-config >/dev/null 2>&1 || missing_tools+=("pkg-config")
     
-    # Check for Boost (try multiple ways)
-    if ! pkg-config --exists libboost-system && ! ldconfig -p | grep -q libboost_system; then
-        missing_tools+=("boost")
+    # Check for C++ compiler
+    if [[ "$SYSTEM" == "macos" ]]; then
+        command -v clang++ >/dev/null 2>&1 || missing_tools+=("clang++")
+    else
+        command -v g++ >/dev/null 2>&1 || missing_tools+=("g++")
+    fi
+    
+    # Check for Boost
+    if [[ "$SYSTEM" == "macos" ]]; then
+        # On macOS, check if Boost is installed via Homebrew
+        if ! brew list boost &>/dev/null; then
+            missing_tools+=("boost")
+        fi
+    else
+        # On Linux, check via pkg-config or ldconfig
+        if ! pkg-config --exists libboost-system 2>/dev/null && ! ldconfig -p 2>/dev/null | grep -q libboost_system; then
+            # Try alternative check
+            if [ ! -d "/usr/include/boost" ] && [ ! -d "/usr/local/include/boost" ]; then
+                missing_tools+=("boost")
+            fi
+        fi
     fi
     
     if [ ${#missing_tools[@]} -ne 0 ]; then
@@ -177,13 +230,15 @@ verify_installation() {
 echo "=========================================="
 echo "Chinese Chess Dependency Installer"
 echo "=========================================="
+echo "Platform: $(uname -s) ($(uname -m))"
+echo "=========================================="
 
-# Check if running as root
-if [[ $EUID -eq 0 ]]; then
+# Check if running as root (not applicable on macOS)
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    SUDO_CMD=""
+elif [[ $EUID -eq 0 ]]; then
     log_warning "Running as root - this is OK in containerized environments"
     log_info "Proceeding with installation..."
-    # In containerized environments, we can run as root
-    # Remove sudo from commands when running as root
     SUDO_CMD=""
 else
     log_info "Running as regular user - using sudo for package installation"
@@ -194,6 +249,9 @@ fi
 check_system
 
 case $SYSTEM in
+    macos)
+        install_macos_deps
+        ;;
     ubuntu)
         install_ubuntu_deps
         ;;
@@ -215,7 +273,8 @@ if verify_installation; then
     log_success "All dependencies installed successfully!"
     echo ""
     echo "You can now build the project with:"
-    echo "  ./scripts/build.sh"
+    echo "  make setup    # Full setup (deps + finalcut + build)"
+    echo "  make build    # Build only"
     echo ""
 else
     log_error "Dependency verification failed"

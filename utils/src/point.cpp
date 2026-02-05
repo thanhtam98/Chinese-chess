@@ -1,6 +1,8 @@
 #include "utils.h"
 #include <iostream>
-#include <bits/stdc++.h> 
+#include <stdexcept>
+#include <string>
+#include <cstdio> 
 
 Point* Point::cache[BOARD_LENGTH*BOARD_WIDTH] = {};
 // Point** Point::cache = Point::alloc_cache();

@@ -4,9 +4,9 @@
 #include "utils.h"
 #undef null
 #include <nlohmann/json.hpp>
-#include <semaphore.h>
 #include <queue>
 #include <future>
+#include <mutex>
 
 using json = nlohmann::json;
 /**
@@ -19,10 +19,10 @@ enum connection_type {
     WSERVER,
     WCLIENT,
     NON_CONNECTION
-} ;
+};
 
-typedef std::function<void (json js)> ConnectionBaseCallback;
-typedef std::function<void (void)> ConnectionBaseConnectCallback;
+typedef std::function<void(json js)> ConnectionBaseCallback;
+typedef std::function<void(void)> ConnectionBaseConnectCallback;
 
 class ConnectionBase {
 public:
@@ -35,21 +35,25 @@ public:
 
     virtual int _send(std::string const payload) = 0;
     string _recv(void);
-private:
+    
+    virtual ~ConnectionBase() = default;
+
 protected:
     static ConnectionBase* instance;
     std::thread wThread;
-    connection mConnection;
+    
+    // Boost.Beast types
+    std::shared_ptr<net::io_context> mIoc;
+    std::shared_ptr<websocket::stream<beast::tcp_stream>> mWs;
+    beast::flat_buffer mBuffer;
+    
     ConnectionBaseCallback mCallback;
     ConnectionBaseConnectCallback mConnectCallback;
     bool mIsConnected;
-    /* temporary for connection established status
-    *  because we don't know what mConnection's constructor is
-    */
-    // endpoint mEndpoint;
-    void onOpen(websocketpp::connection_hdl hdl);
-    void onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg);
-    void onClose(websocketpp::connection_hdl hdl);
-    void initSem();
-
+    std::mutex mSendMutex;
+    
+    void onOpen();
+    void onMessage(const std::string& payload);
+    void onClose();
+    void doRead();
 };

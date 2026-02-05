@@ -1,5 +1,6 @@
 # =============================================================================
 # FindFinalcut.cmake
+# Cross-platform support for Linux and macOS
 # =============================================================================
 
 # Find the finalcut library and headers
@@ -17,9 +18,24 @@ set(FINALCUT_SEARCH_PATHS
     /usr
 )
 
+# Platform-specific library names
+if(APPLE)
+    set(FINALCUT_LIB_NAMES 
+        final
+        libfinal.dylib
+        libfinal.1.dylib
+    )
+else()
+    set(FINALCUT_LIB_NAMES 
+        final
+        libfinal.so
+        libfinal.so.1
+    )
+endif()
+
 # Find the library
 find_library(FINALCUT_LIBRARY
-    NAMES final
+    NAMES ${FINALCUT_LIB_NAMES}
     PATHS ${FINALCUT_SEARCH_PATHS}
     PATH_SUFFIXES lib lib64
     NO_DEFAULT_PATH
@@ -35,6 +51,7 @@ find_path(FINALCUT_INCLUDE_DIR
 
 # Debug output (uncomment for debugging)
 # message(STATUS "FINALCUT_SEARCH_PATHS: ${FINALCUT_SEARCH_PATHS}")
+# message(STATUS "FINALCUT_LIB_NAMES: ${FINALCUT_LIB_NAMES}")
 # message(STATUS "FINALCUT_LIBRARY: ${FINALCUT_LIBRARY}")
 # message(STATUS "FINALCUT_INCLUDE_DIR: ${FINALCUT_INCLUDE_DIR}")
 
@@ -58,6 +75,11 @@ if(FINALCUT_LIBRARY AND FINALCUT_INCLUDE_DIR)
 else()
     set(FINALCUT_FOUND FALSE)
     message(STATUS "Finalcut not found")
+    if(APPLE)
+        message(STATUS "  Expected library: libfinal.dylib in ${FINALCUT_SEARCH_PATHS}")
+    else()
+        message(STATUS "  Expected library: libfinal.so in ${FINALCUT_SEARCH_PATHS}")
+    endif()
 endif()
 
 # Handle the QUIETLY and REQUIRED arguments

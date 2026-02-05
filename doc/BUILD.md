@@ -48,17 +48,23 @@ make test
 ```
 Chinese-chess/
 ├── CMakeLists.txt          # Main CMake configuration
-├── Makefile               # Project management
-├── run_game.sh            # Game launcher
-├── BUILD.md               # This documentation
-├── scripts/               # Build scripts
-│   ├── build.sh           # Main build script
-│   ├── build_finalcut.sh  # Finalcut library builder
-│   ├── install_deps.sh    # Dependency installer
-│   └── run_tests.sh       # Test runner
-├── build/                 # Build output directory
-├── libfinal/              # Finalcut library installation
-└── final/                 # Finalcut headers
+├── Makefile                # Project management
+├── run_game.sh             # Game launcher
+├── tmux_start.sh           # tmux session launcher
+├── doc/                    # Documentation
+│   └── BUILD.md            # This documentation
+├── scripts/                # Build scripts
+│   ├── build.sh            # Main build script
+│   ├── build_finalcut.sh   # Finalcut library builder
+│   ├── install_deps.sh     # Dependency installer
+│   └── run_tests.sh        # Test runner
+├── third_party/            # Vendored dependencies (offline build)
+│   ├── googletest/         # GoogleTest 1.12.1
+│   ├── json/               # nlohmann/json 3.11.2
+│   └── finalcut/           # Finalcut 0.9.1 source
+├── build/                  # Build output directory (generated)
+├── libfinal/               # Finalcut library installation (generated)
+└── final/                  # Finalcut headers (generated)
 ```
 
 ## Build Scripts
@@ -98,9 +104,10 @@ The main build script provides comprehensive build management with the following
 
 ### Dependency Installer (`scripts/install_deps.sh`)
 
-Automatically installs system dependencies for different Linux distributions.
+Automatically installs system dependencies for different operating systems.
 
 **Supported Systems:**
+- macOS (Homebrew)
 - Ubuntu/Debian (apt-get)
 - CentOS/RHEL (yum)
 - Arch Linux (pacman)
@@ -108,6 +115,20 @@ Automatically installs system dependencies for different Linux distributions.
 **Usage:**
 ```bash
 ./scripts/install_deps.sh
+# or
+make deps
+```
+
+**macOS Manual Installation:**
+```bash
+brew install cmake boost autoconf automake libtool pkg-config ncurses tmux
+```
+
+**Ubuntu/Debian Manual Installation:**
+```bash
+sudo apt-get install build-essential cmake git pkg-config \
+    autoconf automake libtool libboost-all-dev \
+    libncurses-dev libtinfo-dev tmux
 ```
 
 ### Finalcut Builder (`scripts/build_finalcut.sh`)
@@ -115,11 +136,18 @@ Automatically installs system dependencies for different Linux distributions.
 Builds the finalcut library with proper configuration and error handling.
 
 **Features:**
+- Uses vendored source from `third_party/finalcut/` (offline build)
+- Falls back to GitHub clone if vendored source not available
+- Cross-platform support (Linux and macOS)
 - Automatic dependency checking
-- Version management (currently 0.9.2)
+- Version management (currently 0.9.1)
 - Clean build support
 - Parallel compilation
 - Installation verification
+
+**macOS Notes:**
+- Uses `glibtoolize` instead of `libtoolize`
+- Produces `.dylib` instead of `.so` library files
 
 ### Test Runner (`scripts/run_tests.sh`)
 
@@ -196,11 +224,16 @@ The CMakeLists.txt has been completely refactored with the following improvement
 - **Installation Support** - Proper installation targets
 
 ### External Dependencies
-- **GoogleTest** - Testing framework (FetchContent)
-- **WebSocket++** - WebSocket library (FetchContent)
-- **JSON** - JSON library (FetchContent)
-- **Boost** - System, thread, and regex libraries
-- **Finalcut** - Terminal UI library (custom build)
+
+**Vendored in `third_party/` (offline build support):**
+- **GoogleTest** 1.12.1 - Testing framework
+- **nlohmann/json** 3.11.2 - JSON library
+- **Finalcut** 0.9.1 - Terminal UI library (built with autotools)
+
+**System dependencies:**
+- **Boost** (1.66+) - System, thread, regex, and Beast (WebSocket) libraries
+- **ncurses** - Terminal handling (required by Finalcut)
+- **tmux** - Terminal multiplexer (for running server/client)
 
 ## Error Handling and Validation
 
@@ -224,12 +257,19 @@ All scripts include comprehensive dependency checking:
 ## Environment Setup
 
 ### Runtime Environment
-The `run_game.sh` script sets up the proper environment:
+The `run_game.sh` script sets up the proper environment for the current platform:
+
+**Linux:**
 ```bash
-#!/bin/bash
-export LD_LIBRARY_PATH="/workspaces/Chinese-chess/libfinal/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$(pwd)/libfinal/lib:$LD_LIBRARY_PATH"
 export LC_ALL=en_US.UTF-8
-cd /workspaces/Chinese-chess
+./build/chinese-chess "$@"
+```
+
+**macOS:**
+```bash
+export DYLD_LIBRARY_PATH="$(pwd)/libfinal/lib:$DYLD_LIBRARY_PATH"
+export LC_ALL=en_US.UTF-8
 ./build/chinese-chess "$@"
 ```
 
@@ -314,11 +354,33 @@ To update external dependencies, modify the FetchContent declarations in CMakeLi
 4. **Check dependencies** before building
 5. **Use verbose mode** for debugging
 
+## Platform Support
+
+### Supported Platforms
+- ✅ **Linux** (Ubuntu 20.04+, Debian, CentOS 8+, Arch Linux)
+- ✅ **macOS** (macOS 12+ with Homebrew, Intel and Apple Silicon)
+
+### macOS Specifics
+- Uses Homebrew for dependency management
+- Finalcut builds with `glibtoolize` (Homebrew's libtool)
+- Library extension: `.dylib` instead of `.so`
+- Works with Boost 1.90+ (uses Boost.Beast for WebSocket)
+
+### Offline Build Support
+All dependencies are vendored in `third_party/`:
+```
+third_party/
+├── googletest/    # GoogleTest 1.12.1
+├── json/          # nlohmann/json 3.11.2
+└── finalcut/      # Finalcut 0.9.1
+```
+
+No network access required after initial repository clone.
+
 ## Future Improvements
 
 Potential enhancements for the build system:
 - Docker support for consistent environments
 - CI/CD integration
-- Cross-platform support
 - Package management integration
 - Automated testing in different environments
