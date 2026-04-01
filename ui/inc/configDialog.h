@@ -24,5 +24,6 @@ private:
     SelectableChain* currentSelection;
     ModeSelection* modeSelection;
     WaitableChain* serverWaitableChain;
+    WaitableChain* acceptClientWaitableChain;
     WaitableChain* clientWaitableChain;
 };

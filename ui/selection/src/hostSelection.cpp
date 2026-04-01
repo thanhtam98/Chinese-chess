@@ -25,12 +25,15 @@ HostSelection::HostSelection(FDialog* parent) {
 
 int HostSelection::select() {
     for (auto n = 1; n <= int(buttonGroup->getCount()); n++) {
-         if (buttonGroup->isChecked(n)) {
+        LOG_F("Select Host");
+        if (buttonGroup->isChecked(n)) {
             if ((n - 1) == SERVER) {
+                LOG_F("Select Server");
                 ConnectionBase::setInstance(WSERVER);
                 Configurator::set(HOST, Configurator::SERVER);
                 Configurator::set(TEAM, Configurator::RED);
             } else {
+                LOG_F("Select Client");
                 ConnectionBase::setInstance(WCLIENT);
                 Configurator::set(HOST, Configurator::CLIENT);
                 Configurator::set(TEAM, Configurator::BLACK);

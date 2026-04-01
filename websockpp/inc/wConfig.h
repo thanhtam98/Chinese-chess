@@ -11,7 +11,7 @@
 #include "log.h"
 #define DEFAULT_WPORT 9000
 #define DEFAULT_WURI "ws://localhost"
-#define DEFALUT_OPCODE   websocketpp::frame::opcode::TEXT
+#define DEFAULT_OPCODE   websocketpp::frame::opcode::TEXT
 
 namespace websocketpp
 {

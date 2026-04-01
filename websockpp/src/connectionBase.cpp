@@ -3,6 +3,8 @@
 #include "client.h"
 
 ConnectionBase* ConnectionBase::instance = nullptr;
+connection_type ConnectionBase::_type = WSERVER;
+std::promise<void> ConnectionBase::waitOneClientPromise;
 
 ConnectionBase* ConnectionBase::getInstance(){
     if (instance == nullptr){
@@ -12,22 +14,29 @@ ConnectionBase* ConnectionBase::getInstance(){
 }
 
 ConnectionBase* ConnectionBase::setInstance(connection_type type){
-    if (instance == nullptr){
-        switch (type)
-        {
+    _type = type;
+    switch (type) {
         case WSERVER:
+            LOG_F("Set Server");
             instance = new wServer();
             break;
         case WCLIENT:
+            LOG_F("Set Client");
             instance = new wClient();
             break;
         default:
             break;
-        }
     }
     return instance;
 }
 
+std::future<void> ConnectionBase::getEnoughConnection() {
+    auto fut = waitOneClientPromise.get_future();
+
+    LOG_F("Start to scan the connections");
+    thread(&ConnectionBase::_scanConnections).detach();
+    return fut;
+}
 
 int ConnectionBase::send(json js){
     
@@ -72,5 +81,36 @@ void ConnectionBase::onClose(websocketpp::connection_hdl hdl){
 }
 
 void ConnectionBase::initSem(){
+}
 
+std::future<void> ConnectionBase::run() {
+    promise = std::make_unique<std::promise<void>>();
+    auto fut = promise->get_future();
+    try {
+        LOG_F("Setup server or client");
+        _setup();    
+    } catch (const std::exception &e) {
+        LOG_F("Error : %s", e.what());
+        promise->set_exception(std::current_exception());
+        promise.reset();
+        return fut;
+    }
+
+    if (wThread.joinable()) {
+        wThread.join(); 
+    }
+
+    wThread = thread(&ConnectionBase::_run, this);
+    LOG_F("Run as a server or client");
+    return fut;
+}
+
+void ConnectionBase::_scanConnections() {
+    while (ConnectionBase::getInstance()->connCount < 1) {
+        this_thread::sleep_for(100ms);
+    }
+    LOG_F("Only accept one connection");
+    waitOneClientPromise.set_value();
+    LOG_F("Stop listening");
+    ConnectionBase::getInstance()->stopListening();
 }

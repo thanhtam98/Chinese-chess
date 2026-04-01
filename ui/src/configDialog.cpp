@@ -20,20 +20,32 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
         "Please wait for the host to be set up...",
         "The server is now available \non localhost:9000"
     };
+    acceptClientWaitableChain = new WaitableChain{this, &ok, &back,
+        "The server is now available \non localhost:9000.\nPlease wait for client.",
+        "The client is now ready. Start the game!"
+    };
     auto startConnection = []() -> std::future<void> {
         return ConnectionBase::getInstance()->run();
     };
     serverWaitableChain->setAction(startConnection);
+
+    auto scanConnection = []() -> std::future<void> {
+        return ConnectionBase::getEnoughConnection();
+    };
+    acceptClientWaitableChain->setAction(scanConnection);
     
     modeSelection->setNext(hostSelection, ModeSelection::ONLINE_OPTION);
     modeSelection->setNext(teamSelectionForModeBranch, ModeSelection::OFFLINE_OPTION);
-    hostSelection->setNext(teamSelectionForHostBranch, HostSelection::SERVER);
+    hostSelection->setNext(serverWaitableChain, HostSelection::SERVER);
     teamSelectionForHostBranch->setNext(serverWaitableChain, IChain::ALL_BRANCHES);
     serverWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
+    serverWaitableChain->setNext(acceptClientWaitableChain, WaitableChain::DONE);
+    acceptClientWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
     
     clientWaitableChain = new WaitableChain{this, &ok, &back};
     hostSelection->setNext(clientWaitableChain, HostSelection::CLIENT);
     clientWaitableChain->setAction(startConnection);
+    clientWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
     currentSelection = modeSelection;
 
     ok.front();

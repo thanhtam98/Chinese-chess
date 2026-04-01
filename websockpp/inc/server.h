@@ -8,9 +8,7 @@ class wServer : public ConnectionBase {
 public:
     wServer(int port);
     wServer();
-    std::future<void> run() override;
-    void _run();
-    void _setup();
+    // std::future<void> run() override;
 private:
     server mEndpoint;
     int mPort;
@@ -23,4 +21,9 @@ private:
     //             server::message_ptr msg);
 
     void initEndpoint();
+    void onFail(websocketpp::connection_hdl hdl);
+    void onOpen(websocketpp::connection_hdl hdl) override;
+    void _run() override;
+    void _setup() override;
+    void stopListening() override;
 };

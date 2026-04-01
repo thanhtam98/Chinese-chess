@@ -13,7 +13,7 @@ WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _bac
     failedText = _failedText;
     waitingLabel = new FLabel{_parent};
     waitingLabel->setText(_waitingText);
-    waitingLabel->setGeometry(FPoint{1, 1}, FSize{40, 2});
+    waitingLabel->setGeometry(FPoint{1, 1}, FSize{40, 3});
 
     okButton = _okButton;
     backButton = _backButton;
@@ -59,6 +59,9 @@ void WaitableChain::setDone(bool value) {
     parent->delTimer(waitingTimerId);
     okButton->setEnable();
     parent->redraw();
+    if (value) {
+        okButton->emitCallback("clicked");
+    }
 }
 
 void WaitableChain::onTimer(FTimerEvent* event) {
@@ -79,7 +82,9 @@ void WaitableChain::runAction() {
     LOG_F("Run the action of the chain");
     if (_predicate != nullptr) {
         try {
+            LOG_F("Before the action");
             _predicate().get();
+            LOG_F("Complete the action");
             setDone(SUCCESS);
         } catch (const std::exception &e) {
             LOG_F("Error : %s", e.what());

@@ -9,9 +9,7 @@ public:
     wClient(string uri, int port);
     wClient();
 
-    std::future<void> run();
-    void _run();
-    void _setup();
+    // std::future<void> run();
 
 private:
     client mEndpoint;
@@ -19,9 +17,11 @@ private:
     string mUri;
 
     int _send(std::string const payload) override;
-    
+    void onOpen(websocketpp::connection_hdl hdl) override;
+    void stopListening() override;
     
     void initEndpoint();
     void onFail(websocketpp::connection_hdl hdl);
-    std::string failMessage;
+    void _run() override;
+    void _setup() override;
 };

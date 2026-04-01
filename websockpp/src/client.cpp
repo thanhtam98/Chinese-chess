@@ -42,45 +42,21 @@ wClient::wClient()
     mUri += std::to_string(mPort);
 }
 
+void wClient::_run() {
+    mEndpoint.run();
+}
+
 void wClient::_setup() {
+    mEndpoint.reset();
     websocketpp::lib::error_code ec;
-    client::connection_ptr con = mEndpoint.get_connection(mUri, ec);
+    client::connection_ptr cur_con = mEndpoint.get_connection(mUri, ec);
 
     if (ec) {
         LOG_F("Could not create connection because %s \n", ec.message());
         throw std::runtime_error("Could not create connection because " + ec.message());
     }
 
-    mEndpoint.connect(con);
-}
-
-void wClient::_run() {
-    mEndpoint.run();
-}
-
-std::future<void> wClient::run() {
-    std::promise<void> p;
-    auto fut = p.get_future();
-    try {
-        LOG_F("Setup client");
-        _setup();    
-    } catch (const std::exception &e) {
-        LOG_F("Error : %s", e.what());
-        p.set_exception(std::current_exception());
-        return fut;
-    }
-    wThread = thread(std::bind(&wClient::_run, this));
-    LOG_F("Run as a client");
-    // Find some better approach than just waiting here,
-    // Can think of both the success and fail callbacks of this connection
-    std::this_thread::sleep_for(1s);
-    if (!failMessage.empty()) {
-        LOG_F("Error with the connection");
-        p.set_exception(std::make_exception_ptr(std::runtime_error(failMessage)));
-        return fut;
-    }
-    p.set_value();
-    return fut;
+    mEndpoint.connect(cur_con);
 }
 
 int wClient::_send(std::string const payload) {
@@ -89,7 +65,7 @@ int wClient::_send(std::string const payload) {
     // if (mConnection == )
     if (mIsConnected == false)
         return -1;
-    mEndpoint.send(mConnection, payload, DEFALUT_OPCODE);
+    mEndpoint.send(mConnection, payload, DEFAULT_OPCODE);
     return 0;
 }
 
@@ -99,5 +75,16 @@ void wClient::onFail(websocketpp::connection_hdl hdl) {
     if (con == nullptr) {
         LOG_F("Null pointer");
     }
-    failMessage = con->get_ec().message();
+    promise->set_exception(std::make_exception_ptr(std::runtime_error(con->get_ec().message())));
+    promise.reset();
+}
+
+void wClient::onOpen(websocketpp::connection_hdl hdl) {
+    ConnectionBase::onOpen(hdl);
+    promise->set_value();
+    promise.reset();
+}
+
+void wClient::stopListening() {
+    // Do nothing
 }
