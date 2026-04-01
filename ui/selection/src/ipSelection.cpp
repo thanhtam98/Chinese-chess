@@ -9,6 +9,7 @@ IpSelection::IpSelection(FDialog* parent) {
     ip->setGeometry(FPoint{22, 16}, FSize{22, 1});
     ip->front();
     ip->getLabelObject()->front();
+    ip->getLabelObject()->setAlignment(finalcut::Align::Left);
     ip->setText("127.0.0.1");
 
     port = new FLineEdit{parent};
@@ -16,6 +17,7 @@ IpSelection::IpSelection(FDialog* parent) {
     port->setGeometry(FPoint{22, 18}, FSize{10, 1});
     port->front();
     port->getLabelObject()->front();
+    port->getLabelObject()->setAlignment(finalcut::Align::Left);
     port->setText("9000");
     
     instruction = new FLabel{parent};

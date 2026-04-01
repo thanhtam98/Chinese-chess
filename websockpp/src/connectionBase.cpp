@@ -3,15 +3,22 @@
 #include "client.h"
 #include "configurator.h"
 
-ConnectionBase* ConnectionBase::instance = nullptr;
+ConnectionBase* ConnectionBase::serverInstance = nullptr;
+ConnectionBase* ConnectionBase::clientInstance = nullptr;
 connection_type ConnectionBase::_type = WSERVER;
 std::promise<void> ConnectionBase::waitOneClientPromise;
 
 ConnectionBase* ConnectionBase::getInstance(){
-    if (instance == nullptr){
-        instance = new wServer();
+    if (serverInstance == nullptr && clientInstance == nullptr){
+        serverInstance = new wServer();
+        return serverInstance;
     }
-    return instance;
+    if (_type == WSERVER) {
+        return serverInstance;
+    } else {
+        return clientInstance;
+    }
+    return clientInstance;
 }
 
 ConnectionBase* ConnectionBase::setInstance(connection_type type){
@@ -19,16 +26,19 @@ ConnectionBase* ConnectionBase::setInstance(connection_type type){
     switch (type) {
         case WSERVER:
             LOG_F("Set Server");
-            instance = new wServer();
-            break;
+            if (serverInstance == nullptr) {
+                serverInstance = new wServer();
+            }
+            return serverInstance;
         case WCLIENT:
             LOG_F("Set Client");
-            instance = new wClient();
-            break;
+            if (clientInstance == nullptr) {
+                clientInstance = new wClient();
+            }
+            return clientInstance;
         default:
-            break;
+            return serverInstance;
     }
-    return instance;
 }
 
 void ConnectionBase::setPort(uint16_t port) {

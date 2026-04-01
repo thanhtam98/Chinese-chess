@@ -42,7 +42,8 @@ public:
     int connCount = 0;
 private:
 protected:
-    static ConnectionBase* instance;
+    static ConnectionBase* serverInstance;
+    static ConnectionBase* clientInstance;
     static std::promise<void> waitOneClientPromise;
     std::thread wThread;
     connection mConnection;

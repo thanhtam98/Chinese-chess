@@ -14,7 +14,7 @@ public:
     void show() override;
     void setFocus() override;
 private:
-    const std::string IP_SELECTION_LABEL = "Server's IP address";
+    const std::string IP_SELECTION_LABEL = "Server's IP address:";
     const std::string INSTRUCTION = "Look at the table of IP addresses in the\nServer window and enter one of them here.\nA valid IP address should look like\nX.X.X.X, with X in the range of 0-255.";
     const std::string ENTER_PORT_LABEL = "Server's Port number:";
 
