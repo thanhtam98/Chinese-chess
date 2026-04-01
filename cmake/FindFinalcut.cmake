@@ -11,9 +11,8 @@
 
 # Set search paths
 set(FINALCUT_SEARCH_PATHS
-    ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/libfinal
-    ${CMAKE_SOURCE_DIR}/finalcut
+    ${CMAKE_SOURCE_DIR}
     /usr/local
     /usr
 )
@@ -23,13 +22,13 @@ if(APPLE)
     set(FINALCUT_LIB_NAMES 
         final
         libfinal.dylib
-        libfinal.1.dylib
+        libfinal.0.dylib
     )
 else()
     set(FINALCUT_LIB_NAMES 
         final
         libfinal.so
-        libfinal.so.1
+        libfinal.so.0
     )
 endif()
 
@@ -42,10 +41,13 @@ find_library(FINALCUT_LIBRARY
 )
 
 # Find the include directory
+# We look for the "final/final.h" header.  The result should be the *parent*
+# directory so that source code can use  #include <final/final.h>.
+# For the local install this resolves to: <project>/libfinal/include
 find_path(FINALCUT_INCLUDE_DIR
-    NAMES final.h
+    NAMES final/final.h
     PATHS ${FINALCUT_SEARCH_PATHS}
-    PATH_SUFFIXES final include/final include
+    PATH_SUFFIXES include
     NO_DEFAULT_PATH
 )
 
@@ -68,6 +70,13 @@ if(FINALCUT_LIBRARY AND FINALCUT_INCLUDE_DIR)
             IMPORTED_LOCATION "${FINALCUT_LIBRARY}"
             INTERFACE_INCLUDE_DIRECTORIES "${FINALCUT_INCLUDE_DIR}"
         )
+        
+        # macOS: set install_name for dynamic linker
+        if(APPLE)
+            set_target_properties(finalcut PROPERTIES
+                IMPORTED_SONAME "libfinal.0.dylib"
+            )
+        endif()
     endif()
     
     message(STATUS "Found finalcut: ${FINALCUT_LIBRARY}")
@@ -75,10 +84,15 @@ if(FINALCUT_LIBRARY AND FINALCUT_INCLUDE_DIR)
 else()
     set(FINALCUT_FOUND FALSE)
     message(STATUS "Finalcut not found")
-    if(APPLE)
-        message(STATUS "  Expected library: libfinal.dylib in ${FINALCUT_SEARCH_PATHS}")
-    else()
-        message(STATUS "  Expected library: libfinal.so in ${FINALCUT_SEARCH_PATHS}")
+    if(NOT FINALCUT_LIBRARY)
+        if(APPLE)
+            message(STATUS "  Library not found (searched for libfinal.dylib in ${FINALCUT_SEARCH_PATHS})")
+        else()
+            message(STATUS "  Library not found (searched for libfinal.so in ${FINALCUT_SEARCH_PATHS})")
+        endif()
+    endif()
+    if(NOT FINALCUT_INCLUDE_DIR)
+        message(STATUS "  Headers not found (searched for final/final.h in ${FINALCUT_SEARCH_PATHS})")
     endif()
 endif()
 

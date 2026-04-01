@@ -73,7 +73,7 @@ install_macos_deps() {
     
     # Install build tools
     log_info "Installing build tools..."
-    brew install cmake git pkg-config autoconf automake libtool
+    brew install cmake git pkg-config autoconf automake libtool autoconf-archive
     
     # Install Boost (includes Beast for WebSocket)
     log_info "Installing Boost libraries..."

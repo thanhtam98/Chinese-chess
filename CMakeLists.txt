@@ -69,9 +69,12 @@ else()
     set(FINALCUT_LIB_EXT "so")
 endif()
 
-# Check if finalcut library exists, if not build it
+# Check if finalcut library exists, if not build it.
+# On macOS autotools may only create a versioned dylib (libfinal.0.dylib),
+# so also check for that variant.
 set(FINALCUT_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.${FINALCUT_LIB_EXT}")
-if(NOT EXISTS "${FINALCUT_LIBRARY_PATH}")
+set(FINALCUT_LIBRARY_PATH_V "${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.0.${FINALCUT_LIB_EXT}")
+if(NOT EXISTS "${FINALCUT_LIBRARY_PATH}" AND NOT EXISTS "${FINALCUT_LIBRARY_PATH_V}")
     message(STATUS "Finalcut library not found at ${FINALCUT_LIBRARY_PATH}. Building...")
     add_custom_target(
         build_finalcut
@@ -83,6 +86,10 @@ else()
     message(STATUS "Finalcut library found at: ${FINALCUT_LIBRARY_PATH}")
     add_custom_target(build_finalcut COMMENT "Finalcut library already exists")
 endif()
+
+# Clear cached find results so re-configures pick up fresh paths
+unset(FINALCUT_LIBRARY CACHE)
+unset(FINALCUT_INCLUDE_DIR CACHE)
 
 # Find finalcut using our custom module
 find_package(Finalcut REQUIRED)

@@ -189,10 +189,25 @@ install_finalcut() {
     # Fix permissions
     chmod -R 755 "$PROJECT_ROOT/libfinal"
     
-    # Move headers to expected location
+    # On macOS, autotools may only create versioned dylibs (libfinal.0.dylib).
+    # Create an unversioned symlink so CMake find_library can locate it.
+    if [[ "$IS_MACOS" == true ]]; then
+        local lib_dir="$PROJECT_ROOT/libfinal/lib"
+        if [ ! -f "$lib_dir/libfinal.dylib" ] && [ ! -L "$lib_dir/libfinal.dylib" ]; then
+            local versioned
+            versioned=$(ls "$lib_dir"/libfinal.*.dylib 2>/dev/null | head -n1)
+            if [ -n "$versioned" ]; then
+                ln -sf "$(basename "$versioned")" "$lib_dir/libfinal.dylib"
+                log_info "Created symlink: libfinal.dylib -> $(basename "$versioned")"
+            fi
+        fi
+    fi
+    
+    # Headers stay in libfinal/include/final/ (FindFinalcut.cmake looks there)
     if [ -d "$PROJECT_ROOT/libfinal/include/final" ]; then
-        mv "$PROJECT_ROOT/libfinal/include/final" "$PROJECT_ROOT/"
-        log_info "Headers moved to project root"
+        log_info "Headers installed at: $PROJECT_ROOT/libfinal/include/final/"
+    else
+        log_warning "Headers not found at expected location: $PROJECT_ROOT/libfinal/include/final/"
     fi
     
     log_success "Installation completed"
@@ -202,7 +217,7 @@ verify_installation() {
     log_info "Verifying installation..."
     
     local lib_path="$PROJECT_ROOT/libfinal/lib/libfinal.${LIB_EXT}"
-    local include_path="$PROJECT_ROOT/final"
+    local include_path="$PROJECT_ROOT/libfinal/include/final"
     
     if [ ! -f "$lib_path" ]; then
         # Try alternative library patterns
@@ -226,6 +241,7 @@ verify_installation() {
     
     log_success "Installation verified successfully"
     log_info "Library found at: $lib_path"
+    log_info "Headers found at: $include_path"
     return 0
 }
 
@@ -270,7 +286,7 @@ if verify_installation; then
     log_success "Finalcut library built and installed successfully!"
     echo ""
     echo "Library: $PROJECT_ROOT/libfinal/lib/libfinal.${LIB_EXT}"
-    echo "Headers: $PROJECT_ROOT/final/"
+    echo "Headers: $PROJECT_ROOT/libfinal/include/final/"
     echo ""
 else
     log_error "Installation verification failed"

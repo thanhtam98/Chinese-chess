@@ -215,7 +215,7 @@ status:
 	@echo "Directories:"
 	@echo "  Build: $(BUILD_DIR) $(if $(wildcard $(BUILD_DIR)),✓,✗)"
 	@echo "  Finalcut: $(LIBFINAL_DIR) $(if $(wildcard $(LIBFINAL_DIR)),✓,✗)"
-	@echo "  Headers: final $(if $(wildcard final),✓,✗)"
+	@echo "  Headers: $(LIBFINAL_DIR)/include/final $(if $(wildcard $(LIBFINAL_DIR)/include/final),✓,✗)"
 	@echo ""
 	@echo "Executables:"
 	@echo "  Game: $(BUILD_DIR)/$(PROJECT_NAME) $(if $(wildcard $(BUILD_DIR)/$(PROJECT_NAME)),✓,✗)"

@@ -4,8 +4,11 @@ build/*
 log.txt
 final-m1/*
 libfinal/
-Makefile
-final
+# Note: only ignore the generated Makefile at repo root, not third_party ones
+/Makefile
+# Ignore the generated finalcut headers at project root and the temp build dir
+/final
+/finalcut
 session.log
 
 *.log
