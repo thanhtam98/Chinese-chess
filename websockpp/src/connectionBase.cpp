@@ -111,6 +111,4 @@ void ConnectionBase::_scanConnections() {
     }
     LOG_F("Only accept one connection");
     waitOneClientPromise.set_value();
-    LOG_F("Stop listening");
-    ConnectionBase::getInstance()->stopListening();
 }

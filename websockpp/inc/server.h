@@ -25,5 +25,4 @@ private:
     void onOpen(websocketpp::connection_hdl hdl) override;
     void _run() override;
     void _setup() override;
-    void stopListening() override;
 };

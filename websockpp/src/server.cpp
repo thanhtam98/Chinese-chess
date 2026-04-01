@@ -81,10 +81,6 @@ void wServer::_run() {
 void wServer::onOpen(websocketpp::connection_hdl hdl) {
     ConnectionBase::onOpen(hdl);
     connCount++;
-}
-
-void wServer::stopListening() {
-    websocketpp::lib::error_code ec;
-    mEndpoint.stop_listening(ec);
-    LOG_F("Stop because: %s", ec.message().c_str());
+    LOG_F("Stop listening because we only need one client");
+    mEndpoint.stop_listening();
 }

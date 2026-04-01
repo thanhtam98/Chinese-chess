@@ -84,7 +84,3 @@ void wClient::onOpen(websocketpp::connection_hdl hdl) {
     promise->set_value();
     promise.reset();
 }
-
-void wClient::stopListening() {
-    // Do nothing
-}

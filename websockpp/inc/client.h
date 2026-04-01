@@ -18,7 +18,6 @@ private:
 
     int _send(std::string const payload) override;
     void onOpen(websocketpp::connection_hdl hdl) override;
-    void stopListening() override;
     
     void initEndpoint();
     void onFail(websocketpp::connection_hdl hdl);

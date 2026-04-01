@@ -54,7 +54,6 @@ protected:
     virtual void _run() = 0;
     virtual void _setup() = 0;
     static void _scanConnections();
-    virtual void stopListening() = 0;
     virtual void onOpen(websocketpp::connection_hdl hdl);
     void onMessage(websocketpp::connection_hdl hdl, server::message_ptr msg);
     void onClose(websocketpp::connection_hdl hdl);
