@@ -31,7 +31,7 @@ ConnectionBase* ConnectionBase::setInstance(connection_type type){
     return instance;
 }
 
-void ConnectionBase::setPort(int port) {
+void ConnectionBase::setPort(uint16_t port) {
     mPort = port;
 }
 

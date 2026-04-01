@@ -35,11 +35,7 @@ wClient::wClient(string uri, int port)
 wClient::wClient()
 {
     initEndpoint();
-
     mPort = DEFAULT_WPORT;
-    mUri += DEFAULT_WURI;
-    mUri += ":";
-    mUri += std::to_string(mPort);
 }
 
 void wClient::_run() {
@@ -49,6 +45,8 @@ void wClient::_run() {
 void wClient::_setup() {
     mEndpoint.reset();
     websocketpp::lib::error_code ec;
+    mUri = DEFAULT_WURI + mHost + ":" + std::to_string(mPort);
+    LOG_F("URI: %s", mUri);
     client::connection_ptr cur_con = mEndpoint.get_connection(mUri, ec);
 
     if (ec) {
@@ -83,4 +81,8 @@ void wClient::onOpen(websocketpp::connection_hdl hdl) {
     ConnectionBase::onOpen(hdl);
     promise->set_value();
     promise.reset();
+}
+
+void wClient::setHost(string host) {
+    mHost = host;
 }

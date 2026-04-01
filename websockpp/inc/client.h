@@ -10,10 +10,11 @@ public:
     wClient();
 
     // std::future<void> run();
-
+    void setHost(string host) override;
 private:
     client mEndpoint;
     string mUri;
+    string mHost;
 
     int _send(std::string const payload) override;
     void onOpen(websocketpp::connection_hdl hdl) override;

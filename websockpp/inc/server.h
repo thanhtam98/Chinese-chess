@@ -9,6 +9,7 @@ public:
     wServer(int port);
     wServer();
     // std::future<void> run() override;
+    void setHost(string host) override;
 private:
     server mEndpoint;
 

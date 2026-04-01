@@ -71,7 +71,7 @@ int IpListSelection::select() {
     const auto& item = ipList->getCurrentItem();
     Configurator::set(IP, item->getText(1).c_str());
     Configurator::set(PORT, port->getText().c_str());
-    ConnectionBase::getInstance()->setPort(static_cast<int>(std::atoi(port->getText().c_str())));
+    ConnectionBase::getInstance()->setPort(static_cast<uint16_t>(std::atoi(port->getText().c_str())));
     return 0;
 }
 

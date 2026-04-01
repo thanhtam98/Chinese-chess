@@ -33,9 +33,9 @@ wServer::wServer(int port)
 }
 
 void wServer::_setup() {
-    // Listen on port 9000
-    LOG_F("Listen on port 9000");
-    mEndpoint.listen(mPort);
+    std::error_code ec;
+    mEndpoint.listen(mPort, ec);
+    LOG_F("Listen on port %d, error: %s", mPort, ec.message().c_str());
     // Queues a connection accept operation
     LOG_F("Queues a connection accept operation");
     mEndpoint.start_accept();
@@ -83,4 +83,8 @@ void wServer::onOpen(websocketpp::connection_hdl hdl) {
     connCount++;
     LOG_F("Stop listening because we only need one client");
     mEndpoint.stop_listening();
+}
+
+void wServer::setHost(string host) {
+    // Ignore completely
 }
