@@ -12,7 +12,7 @@ public:
     static const int TIMEOUTED = 1;
     static std::vector<std::string> LOCALHOST_NAMES;
 
-    explicit IpListSelection(FDialog* parent);
+    explicit IpListSelection(FDialog* parent, FButton* _okButton);
 
     int select() override;
     void hide() override;
@@ -20,6 +20,10 @@ public:
     void setFocus() override;
 private:
     bool isLocalhost(std::string name);
+    const std::string ENTER_PORT_LABEL = "Port number:";
 
+    void callbackHideOrShowNextButton();
     FListView* ipList;
+    FButton* okButton;
+    FLineEdit* port;
 };

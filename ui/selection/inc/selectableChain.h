@@ -3,6 +3,9 @@
 
 class SelectableChain: public IChain {
 public:
+    static const int DONE = 0;
+    static const int FAILED = 1;
+    
     virtual int select() = 0;
     virtual void hide() = 0;
     virtual void show() = 0;

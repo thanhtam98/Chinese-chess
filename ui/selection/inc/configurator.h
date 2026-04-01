@@ -6,6 +6,7 @@ enum param_t {
     MODE,
     TEAM,
     IP,
+    PORT,
     HOST,
     PARAM_SIZE // Add new values above this line
 };

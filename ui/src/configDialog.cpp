@@ -6,6 +6,7 @@
 #include "ipListSelection.h"
 #include "wConfig.h"
 #include "server.h"
+#include "configurator.h"
 
 ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     setText("Configuration");
@@ -14,15 +15,33 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     TeamSelection* teamSelectionForModeBranch = new TeamSelection{this};
     TeamSelection* teamSelectionForHostBranch = new TeamSelection{this};
     HostSelection* hostSelection = new HostSelection{this};
-    // IpSelection* ipSelection = new IpSelection{this};
-    // IpListSelection* ipListSelection = new IpListSelection{this};
+    IpSelection* ipSelection = new IpSelection{this};
+    IpListSelection* ipListSelection = new IpListSelection{this, &ok};
+
+    auto successMessage0 = []() -> std::string {
+        std::string port = Configurator::get(PORT);
+        std::string ip = Configurator::get(IP);
+        return "The server is now available \non " + ip + ":" + port;
+    };
+    auto successMessage1 = []() -> std::string {
+        return "The client is now ready. Start the game!";
+    };
+    auto waitingMessage0 = []() -> std::string {
+        return "Please wait for the host to be set up...";
+    };
+    auto waitingMessage1 = []() -> std::string {
+        std::string port = Configurator::get(PORT);
+        std::string ip = Configurator::get(IP);
+        return "The server is now available \non " + ip + ":" + port + ".\nPlease wait for client.";
+    };
+
     serverWaitableChain = new WaitableChain{this, &ok, &back, 
-        "Please wait for the host to be set up...",
-        "The server is now available \non localhost:9000"
+        waitingMessage0,
+        successMessage0
     };
     acceptClientWaitableChain = new WaitableChain{this, &ok, &back,
-        "The server is now available \non localhost:9000.\nPlease wait for client.",
-        "The client is now ready. Start the game!"
+        waitingMessage1,
+        successMessage1
     };
     auto startConnection = []() -> std::future<void> {
         return ConnectionBase::getInstance()->run();
@@ -36,14 +55,16 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     
     modeSelection->setNext(hostSelection, ModeSelection::ONLINE_OPTION);
     modeSelection->setNext(teamSelectionForModeBranch, ModeSelection::OFFLINE_OPTION);
-    hostSelection->setNext(serverWaitableChain, HostSelection::SERVER);
+    hostSelection->setNext(ipListSelection, HostSelection::SERVER);
     teamSelectionForHostBranch->setNext(serverWaitableChain, IChain::ALL_BRANCHES);
+    ipListSelection->setNext(serverWaitableChain, SelectableChain::DONE);
     serverWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
     serverWaitableChain->setNext(acceptClientWaitableChain, WaitableChain::DONE);
     acceptClientWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
     
-    clientWaitableChain = new WaitableChain{this, &ok, &back};
-    hostSelection->setNext(clientWaitableChain, HostSelection::CLIENT);
+    clientWaitableChain = new WaitableChain{this, &ok, &back, waitingMessage0, successMessage1};
+    hostSelection->setNext(ipSelection, HostSelection::CLIENT);
+    ipSelection->setNext(clientWaitableChain, SelectableChain::DONE);
     clientWaitableChain->setAction(startConnection);
     clientWaitableChain->setNext(hostSelection, WaitableChain::FAILED);
     currentSelection = modeSelection;

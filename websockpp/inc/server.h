@@ -11,7 +11,6 @@ public:
     // std::future<void> run() override;
 private:
     server mEndpoint;
-    int mPort;
 
     int _send(std::string const payload) override;
 

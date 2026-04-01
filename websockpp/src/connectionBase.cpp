@@ -1,6 +1,7 @@
 #include "connectionBase.h"
 #include "server.h"
 #include "client.h"
+#include "configurator.h"
 
 ConnectionBase* ConnectionBase::instance = nullptr;
 connection_type ConnectionBase::_type = WSERVER;
@@ -28,6 +29,10 @@ ConnectionBase* ConnectionBase::setInstance(connection_type type){
             break;
     }
     return instance;
+}
+
+void ConnectionBase::setPort(int port) {
+    mPort = port;
 }
 
 std::future<void> ConnectionBase::getEnoughConnection() {

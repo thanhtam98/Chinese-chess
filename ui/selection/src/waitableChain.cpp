@@ -6,13 +6,13 @@ const std::string WaitableChain::SUCCESS_LABEL = "Successfully connect!";
 const std::string WaitableChain::FAIL_LABEL = "Failed! Please try again";
 
 WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _backButton, 
-    std::string _waitingText, std::string _sucessText, std::string _failedText) {
+    Message _waitingText, Message _successMess, std::string _failedText) {
     parent = _parent;
     waitingText = _waitingText;
-    successText = _sucessText;
+    successText = _successMess;
     failedText = _failedText;
     waitingLabel = new FLabel{_parent};
-    waitingLabel->setText(_waitingText);
+    // waitingLabel->setText(_waitingText);
     waitingLabel->setGeometry(FPoint{1, 1}, FSize{40, 3});
 
     okButton = _okButton;
@@ -40,7 +40,7 @@ int WaitableChain::select() {
         // }
         // branches[FAILED] = prevChain;
         // // done = NOT_IDENTIFIED;
-        waitingLabel->setText(waitingText);
+        waitingLabel->setText(waitingText());
         return FAILED;
     }
     return FAILED;
@@ -50,7 +50,7 @@ void WaitableChain::setDone(bool value) {
     LOG_F("Done the action and go on with the returned results");
     if (value) {
         done = SUCCESS;
-        waitingLabel->setText(successText);
+        waitingLabel->setText(successText());
     } else {
         done = FAILURE;
         waitingLabel->setText(failedText + ": \n" + errorMessage);
@@ -97,6 +97,7 @@ void WaitableChain::runAction() {
 }
 
 void WaitableChain::show() {
+    waitingLabel->setText(waitingText());
     waitingLabel->show();
     // start the action in a thread
     LOG_F("WaitableChain Show is called");

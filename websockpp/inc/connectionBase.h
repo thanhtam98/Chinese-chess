@@ -36,6 +36,7 @@ public:
     void setConnectCallback(ConnectionBaseConnectCallback cb);
 
     virtual int _send(std::string const payload) = 0;
+    void setPort(int port);
     string _recv(void);
     int connCount = 0;
 private:
@@ -48,6 +49,7 @@ protected:
     ConnectionBaseConnectCallback mConnectCallback;
     bool mIsConnected;
     std::unique_ptr<std::promise<void>> promise;
+    int mPort;
     /* temporary for connection established status
     *  because we don't know what mConnection's constructor is
     */

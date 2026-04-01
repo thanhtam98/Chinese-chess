@@ -13,7 +13,6 @@ public:
 
 private:
     client mEndpoint;
-    int mPort;
     string mUri;
 
     int _send(std::string const payload) override;

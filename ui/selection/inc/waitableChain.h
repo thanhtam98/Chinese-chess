@@ -7,6 +7,7 @@
 using namespace finalcut;
 
 typedef std::function<std::future<void>()> Predicate;
+typedef std::function<std::string()> Message;
 
 class WaitableChain: public SelectableChain {
 public:
@@ -18,8 +19,8 @@ public:
     static const std::string FAIL_LABEL;
 
     explicit WaitableChain(FDialog* _parent, FButton* okButton, FButton* backButton, 
-        std::string waitingText = WAITING_LABEL,
-        std::string sucessText = SUCCESS_LABEL,
+        Message _waitingMess,
+        Message _successMess,
         std::string failedText = FAIL_LABEL
     );
 
@@ -44,8 +45,8 @@ protected:
     status done = FAILURE;
     Predicate _predicate;
     int waitingTimerId;
-    std::string waitingText;
-    std::string successText;
+    Message waitingText;
+    Message successText;
     std::string failedText;
     std::string errorMessage;
 
