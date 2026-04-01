@@ -29,7 +29,7 @@ public:
     virtual void show() override;
     virtual void setFocus() override;
     virtual void initHook() override;
-    void onTimer(FTimerEvent* event);
+    // void onTimer(FTimerEvent* event);
     void setDone(bool value);
     void setAction(Predicate predicate);
 protected:
@@ -40,6 +40,7 @@ protected:
 
     FDialog* parent;
     FLabel* waitingLabel;
+    FLabel* errorLabel;
     FButton* okButton;
     FButton* backButton;
     status done = FAILURE;

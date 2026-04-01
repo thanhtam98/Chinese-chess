@@ -7,6 +7,7 @@
 #include "wConfig.h"
 #include "server.h"
 #include "configurator.h"
+#include "log.h"
 
 ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     setText("Configuration");
@@ -94,6 +95,7 @@ void ConfigDialog::okCallback() {
         if (currentSelection->hasBack()) {
             back.show();
         }
+        LOG_F("Go next to %s", currentSelection->name.c_str());
     } else {
         next();
     }
@@ -104,6 +106,7 @@ void ConfigDialog::backCallback() {
     if (!currentSelection->hasBack()) {
         back.hide();
     }
+    LOG_F("Go back to %s", currentSelection->name.c_str());
 }
 
 void ConfigDialog::onKeyPress(FKeyEvent* event) {
@@ -117,8 +120,8 @@ void ConfigDialog::onKeyPress(FKeyEvent* event) {
 }
 
 void ConfigDialog::onTimer(FTimerEvent* event) {
-    serverWaitableChain->onTimer(event);
-    clientWaitableChain->onTimer(event);
+    // serverWaitableChain->onTimer(event);
+    // clientWaitableChain->onTimer(event);
     modeSelection->onTimer(event);
 }
 

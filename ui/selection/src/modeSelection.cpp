@@ -7,6 +7,7 @@
 using namespace std;
 
 ModeSelection::ModeSelection(FDialog* parent) {
+    name = "mode_sel";
     _parent = parent;
     buttonGroup = new FButtonGroup(MODE_SELECTION_LABEL, parent);
     buttonGroup->setGeometry (FPoint{2, 15}, FSize{41, 5});

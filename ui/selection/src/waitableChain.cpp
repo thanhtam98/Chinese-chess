@@ -1,5 +1,6 @@
 #include "waitableChain.h"
 #include "log.h"
+#include <codecvt>
 
 const std::string WaitableChain::WAITING_LABEL = "Please wait...";
 const std::string WaitableChain::SUCCESS_LABEL = "Successfully connect!";
@@ -7,13 +8,26 @@ const std::string WaitableChain::FAIL_LABEL = "Failed! Please try again";
 
 WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _backButton, 
     Message _waitingText, Message _successMess, std::string _failedText) {
+    name = "waitable";
     parent = _parent;
     waitingText = _waitingText;
     successText = _successMess;
     failedText = _failedText;
     waitingLabel = new FLabel{_parent};
     // waitingLabel->setText(_waitingText);
-    waitingLabel->setGeometry(FPoint{1, 1}, FSize{40, 3});
+    waitingLabel->setGeometry(FPoint{2, 16}, FSize{40, 3});
+    errorLabel = new FLabel{parent};
+    std::wstring_convert<std::codecvt_utf8<char16_t>, char16_t> converter;
+    std::u16string errorDeco = \                           
+u"  ░░░░░░░░░░░░  ░░░░░    ░░  ░░░░░ \n\
+  ░█████░█████░░█████░░████▓░█████▓░\n\
+ ░██▓▓▓░░█▓░██░▒█░░██░██░░██░██░▒█▓░\n\
+░░██░░ ░████▓ ░████░░▒█▓░░██▒████   \n\
+░▒█████░██░██▒░█▓░██ ░████▓░██░▒█▓░ \n\
+  ░░░░░░░░░░░░░░░░░░ ░░░░░░░░░░░░  ";
+    errorLabel->setText(converter.to_bytes(errorDeco));
+    errorLabel->setGeometry(FPoint{7, 6}, FSize{41, 6});
+    errorLabel->setForegroundColor(FColor::Red2);
 
     okButton = _okButton;
     backButton = _backButton;
@@ -34,12 +48,6 @@ int WaitableChain::select() {
     if (done == SUCCESS) {
         return DONE;
     } else if (done == FAILURE) {
-        // // return to the previous confiuration step
-        // if (branches.size() <= FAILED) {
-        //     branches.resize(FAILED);
-        // }
-        // branches[FAILED] = prevChain;
-        // // done = NOT_IDENTIFIED;
         waitingLabel->setText(waitingText());
         return FAILED;
     }
@@ -56,26 +64,19 @@ void WaitableChain::setDone(bool value) {
         waitingLabel->setText(failedText + ": \n" + errorMessage);
     }
     // Delete Timer when the waitable action is done
-    parent->delTimer(waitingTimerId);
+    // parent->delTimer(waitingTimerId);
+    errorLabel->show();
     okButton->setEnable();
+    backButton->setEnable();
     parent->redraw();
     if (value) {
         okButton->emitCallback("clicked");
     }
 }
 
-void WaitableChain::onTimer(FTimerEvent* event) {
-    if (event && event->getTimerId() == waitingTimerId) {
-        waitingLabel->setText(FAIL_LABEL);
-        okButton->setEnable();
-        parent->redraw();
-        parent->delTimer(waitingTimerId);
-        done = FAILURE;
-    }
-}
-
 void WaitableChain::hide() {
     waitingLabel->hide();
+    errorLabel->hide();
 }
 
 void WaitableChain::runAction() {

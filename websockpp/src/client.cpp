@@ -10,6 +10,7 @@ void wClient::initEndpoint()
     // m_endpoint.set_access_channels(websocketpp::log::alevel::all ^ websocketpp::log::alevel::frame_payload);
     // Initialize Asio
     mEndpoint.init_asio();
+    mEndpoint.set_open_handshake_timeout(10000);
     // Set the default message handler to the echo handler
     mEndpoint.set_open_handler(
         std::bind(&wClient::onOpen, this, ::_1));
@@ -46,7 +47,7 @@ void wClient::_setup() {
     mEndpoint.reset();
     websocketpp::lib::error_code ec;
     mUri = DEFAULT_WURI + mHost + ":" + std::to_string(mPort);
-    LOG_F("URI: %s", mUri);
+    LOG_F("URI: %s", mUri.c_str());
     client::connection_ptr cur_con = mEndpoint.get_connection(mUri, ec);
 
     if (ec) {
@@ -75,6 +76,7 @@ void wClient::onFail(websocketpp::connection_hdl hdl) {
     }
     promise->set_exception(std::make_exception_ptr(std::runtime_error(con->get_ec().message())));
     promise.reset();
+    con->terminate(websocketpp::lib::error_code());
 }
 
 void wClient::onOpen(websocketpp::connection_hdl hdl) {

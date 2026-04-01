@@ -12,6 +12,7 @@
 std::vector<std::string> IpListSelection::LOCALHOST_NAMES = { "lo", "lo0" };
 
 IpListSelection::IpListSelection(FDialog* parent, FButton* _okButton) {
+    name = "iplist_sel";
     struct ifaddrs* ifAddrStruct = NULL;
     struct ifaddrs* ifa = NULL;
 

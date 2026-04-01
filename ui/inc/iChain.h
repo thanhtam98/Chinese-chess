@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 class IChain {
 public:
@@ -9,6 +10,7 @@ public:
     virtual bool hasNext(int branch = 0);
     virtual IChain* back();
     virtual bool hasBack();
+    std::string name;
 protected:
     std::vector<IChain*> branches;
     IChain* prevChain = nullptr;

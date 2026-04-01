@@ -5,6 +5,7 @@
 #include "configurator.h"
 
 HostSelection::HostSelection(FDialog* parent) {
+    name = "host_sel";
     buttonGroup = new FButtonGroup{HOST_SELECTION_LABEL, parent};
     buttonGroup->setGeometry (FPoint{2, 15}, FSize{41, 5});
 

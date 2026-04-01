@@ -4,6 +4,7 @@
 #include "connectionBase.h"
 
 IpSelection::IpSelection(FDialog* parent) {
+    name = "ip_sel";
     ip = new FLineEdit{parent};
     ip->setLabelText(IP_SELECTION_LABEL);
     ip->setGeometry(FPoint{22, 16}, FSize{22, 1});

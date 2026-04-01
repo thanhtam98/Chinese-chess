@@ -1,4 +1,5 @@
 #include "iChain.h"
+#include "log.h"
 
 IChain* IChain::setNext(IChain* next, int branch) {
     // If branch is -1, set all path with the same next chain
@@ -10,7 +11,10 @@ IChain* IChain::setNext(IChain* next, int branch) {
         branches.resize(branch + 1);
     }
     branches[branch] = next;
-    next->prevChain = this;
+    if (next->prevChain == nullptr) {
+        next->prevChain = this;
+    }
+    LOG_F("%s [%d] -> %s", this->name.c_str(), branch, next->name.c_str());
     return next;
 }
 

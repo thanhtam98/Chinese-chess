@@ -3,6 +3,7 @@
 #include "configurator.h"
 
 TeamSelection::TeamSelection(FDialog* parent) {
+    name = "team_sel";
     buttonGroup = new FButtonGroup(TEAM_SELECTION_LABEL, parent);
     buttonGroup->setGeometry (FPoint{2, 15}, FSize{41, 5});
 
