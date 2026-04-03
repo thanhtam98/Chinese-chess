@@ -33,7 +33,7 @@ ConfigDialog::ConfigDialog(FDialog* parent): IDialogChain{parent} {
     auto waitingMessage1 = []() -> std::string {
         std::string port = Configurator::get(PORT);
         std::string ip = Configurator::get(IP);
-        return "The server is now available \non " + ip + ":" + port + ".\nPlease wait for client.";
+        return "The server is now listening on\n" + ip + ":" + port + "\nPlease wait for your opponent!";
     };
 
     serverWaitableChain = new WaitableChain{this, &ok, &back, 

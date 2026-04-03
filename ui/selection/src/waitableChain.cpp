@@ -4,7 +4,7 @@
 
 const std::string WaitableChain::WAITING_LABEL = "Please wait...";
 const std::string WaitableChain::SUCCESS_LABEL = "Successfully connect!";
-const std::string WaitableChain::FAIL_LABEL = "Failed! Please try again";
+const std::string WaitableChain::FAIL_LABEL = "Please try again!";
 
 WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _backButton, 
     Message _waitingText, Message _successMess, std::string _failedText) {
@@ -15,7 +15,8 @@ WaitableChain::WaitableChain(FDialog* _parent, FButton* _okButton, FButton* _bac
     failedText = _failedText;
     waitingLabel = new FLabel{_parent};
     // waitingLabel->setText(_waitingText);
-    waitingLabel->setGeometry(FPoint{2, 16}, FSize{40, 3});
+    waitingLabel->setGeometry(FPoint{2, 14}, FSize{42, 3});
+    waitingLabel->setAlignment(Align::Center);
     errorLabel = new FLabel{parent};
     std::wstring_convert<std::codecvt_utf8<char16_t>, char16_t> converter;
     std::u16string errorDeco = \                           
@@ -61,7 +62,7 @@ void WaitableChain::setDone(bool value) {
         waitingLabel->setText(successText());
     } else {
         done = FAILURE;
-        waitingLabel->setText(failedText + ": \n" + errorMessage);
+        waitingLabel->setText("Reason: " + errorMessage + "\n\n" + failedText);
     }
     // Delete Timer when the waitable action is done
     // parent->delTimer(waitingTimerId);
