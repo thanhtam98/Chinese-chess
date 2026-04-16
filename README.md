@@ -4,6 +4,11 @@ There may be a bunch of Chinese Chess games which are playable in so many platfo
 
 ## Installation
 
+## Demo
+<div align="center" width="100%">
+  <img width="50%" src="doc/demo.gif" />
+</div>
+
 ## Gameplay
 ### Intro
 The intro has been drawn inspiration from many 8-bit RGB games back in 90s. You may find it old-fashioned and tedious, but it could fill many with nostalgia, believe me.

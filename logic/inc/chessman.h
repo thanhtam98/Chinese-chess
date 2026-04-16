@@ -18,4 +18,5 @@ public:
     Chessman(Piece piece, Point *point);
     ~Chessman();
     static IChessman* newInstance(Piece piece, Point *point);
+    Point* getLocation() override;
 };

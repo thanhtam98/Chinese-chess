@@ -61,11 +61,16 @@ void Board::move(Point* from, Point* to) {
             endGame(fromChessman->getTeam());
         }
         delete toChessman;
-    } 
+    }
+    // Remove the cached possible moves of the old position
+    this->moveCache->removePossibleMoves(fromChessman);
     map[to->getX()][to->getY()] = fromChessman;
     map[from->getX()][from->getY()] = nullptr;
 
     fromChessman->move(to);
+    // After moved, update the cache
+    this->moveCache->fillPossibleMoves(fromChessman, fromChessman->getPossibleMoves());
+    // Need to recalculate 
 
     /* Cache General locaion in order to fast checkmate */
     if (fromChessman->getCode() == GENERAL){
@@ -118,6 +123,18 @@ void Board::setup() {
             }
         }
     }
+    LOG_F("Set up MoveCache");
+    this->moveCache = MoveCache::getInstance();
+    for (int x = 0; x < BOARD_WIDTH; x++) {
+        for (int y = 0; y < BOARD_LENGTH; y++) {
+            IChessman* chessman = map[x][y];
+            if (chessman != nullptr) {
+                auto moves = chessman->getPossibleMoves(this);
+                this->moveCache->fillPossibleMoves(chessman, moves);
+            }
+        }
+    }
+    this->moveCache->dumpCache();
 }
 
 void Board::endGame(team_code _winningTeam) {

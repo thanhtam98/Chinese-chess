@@ -3,8 +3,10 @@
 
 #include "iChessman.h"
 #include "utils.h"
+#include "moveCache.h"
 
 class IChessman;
+class MoveCache;
 
 class IBoard {
 public:
@@ -21,5 +23,6 @@ protected:
     /* A map showing all chessmen on the board and where they are */
     IChessman* map[BOARD_WIDTH][BOARD_LENGTH];
     bool isGameOver = false;
+    MoveCache* moveCache;
     team_code winningTeam;
 };

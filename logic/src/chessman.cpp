@@ -58,6 +58,10 @@ bool Chessman::move(Point* new_point){
     return true;
 }
 
+Point* Chessman::getLocation() {
+    return this->slot;
+}
+
 std::ostream& operator<<(std::ostream &os,  IChessman &obj)
 {
     os << obj.piece.getName();

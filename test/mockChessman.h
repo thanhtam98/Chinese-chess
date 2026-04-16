@@ -12,4 +12,5 @@ public:
     MOCK_METHOD(team_code, getTeam, (), (override));
     MOCK_METHOD(chessman_code, getCode, (), (override));
     MOCK_METHOD(string, getName, (), (override));
+    MOCK_METHOD(Point*, getLocation, (), (override));
 };
