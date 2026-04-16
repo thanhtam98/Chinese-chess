@@ -6,7 +6,7 @@ There may be a bunch of Chinese Chess games which are playable in so many platfo
 
 ## Demo
 <div align="center" width="100%">
-  <img width="50%" src="doc/demo.gif" />
+  <img width="100%" src="doc/demo.gif" />
 </div>
 
 ## Gameplay
