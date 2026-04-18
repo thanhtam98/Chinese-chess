@@ -25,45 +25,35 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 # =============================================================================
 
 # Find required packages
-find_package(Boost COMPONENTS system thread regex REQUIRED)
+# Boost.Beast is header-only and part of Boost (since 1.66)
+# Note: Boost 1.90+ has system as header-only, so we don't request it as a component
+find_package(Boost REQUIRED COMPONENTS thread regex)
+
+# Boost 1.90+: system is header-only; create alias so Boost::system still links
+if(NOT TARGET Boost::system)
+    add_library(Boost::system INTERFACE IMPORTED)
+    if(TARGET Boost::headers)
+        set_target_properties(Boost::system PROPERTIES INTERFACE_LINK_LIBRARIES Boost::headers)
+    endif()
+endif()
+
 find_package(Threads REQUIRED)
 
 # Set threads preference
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 # =============================================================================
-# External Dependencies (FetchContent)
+# Local Dependencies (Vendored in third_party/)
 # =============================================================================
 
-include(FetchContent)
-
-# GoogleTest
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG release-1.12.1
-)
+# GoogleTest - local copy
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+add_subdirectory(third_party/googletest)
 
-# WebSocket++
-FetchContent_Declare(
-    websocketpp
-    GIT_REPOSITORY https://github.com/zaphoyd/websocketpp.git
-    GIT_TAG 0.8.2
-)
-FetchContent_GetProperties(websocketpp)
-if(NOT websocketpp_POPULATED)
-    FetchContent_Populate(websocketpp)
-    add_subdirectory(${websocketpp_SOURCE_DIR} ${websocketpp_BINARY_DIR} EXCLUDE_FROM_ALL)
-endif()
+# nlohmann/json - local copy
+add_subdirectory(third_party/json)
 
-# JSON
-FetchContent_Declare(
-    json 
-    URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz
-)
-FetchContent_MakeAvailable(json)
+# Note: WebSocket++ removed - using Boost.Beast instead (built into Boost)
 
 # =============================================================================
 # Finalcut Library Setup
@@ -72,10 +62,20 @@ FetchContent_MakeAvailable(json)
 # Add cmake modules to search path
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-# Check if finalcut library exists, if not build it
-set(FINALCUT_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.so")
-if(NOT EXISTS "${FINALCUT_LIBRARY_PATH}")
-    message(STATUS "Finalcut library not found. Building...")
+# Platform-specific library extension
+if(APPLE)
+    set(FINALCUT_LIB_EXT "dylib")
+else()
+    set(FINALCUT_LIB_EXT "so")
+endif()
+
+# Check if finalcut library exists, if not build it.
+# On macOS autotools may only create a versioned dylib (libfinal.0.dylib),
+# so also check for that variant.
+set(FINALCUT_LIBRARY_PATH "${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.${FINALCUT_LIB_EXT}")
+set(FINALCUT_LIBRARY_PATH_V "${CMAKE_SOURCE_DIR}/libfinal/lib/libfinal.0.${FINALCUT_LIB_EXT}")
+if(NOT EXISTS "${FINALCUT_LIBRARY_PATH}" AND NOT EXISTS "${FINALCUT_LIBRARY_PATH_V}")
+    message(STATUS "Finalcut library not found at ${FINALCUT_LIBRARY_PATH}. Building...")
     add_custom_target(
         build_finalcut
         COMMAND ${CMAKE_SOURCE_DIR}/scripts/build_finalcut.sh
@@ -86,6 +86,10 @@ else()
     message(STATUS "Finalcut library found at: ${FINALCUT_LIBRARY_PATH}")
     add_custom_target(build_finalcut COMMENT "Finalcut library already exists")
 endif()
+
+# Clear cached find results so re-configures pick up fresh paths
+unset(FINALCUT_LIBRARY CACHE)
+unset(FINALCUT_INCLUDE_DIR CACHE)
 
 # Find finalcut using our custom module
 find_package(Finalcut REQUIRED)
@@ -149,7 +153,6 @@ target_link_libraries(chinese-chess
     PRIVATE 
         finalcut
         nlohmann_json::nlohmann_json
-    INTERFACE 
         Boost::system 
         Boost::thread 
         Boost::regex
@@ -163,9 +166,6 @@ set_target_properties(chinese-chess PROPERTIES
     BUILD_WITH_INSTALL_RPATH TRUE
     INSTALL_RPATH_USE_LINK_PATH TRUE
 )
-
-# Include websocketpp headers
-target_include_directories(chinese-chess PUBLIC ${websocketpp_SOURCE_DIR})
 
 # Add dependency on finalcut build
 add_dependencies(chinese-chess build_finalcut)
@@ -198,21 +198,20 @@ target_include_directories(mainTest PRIVATE
 )
 
 # =============================================================================
-# Standalone instant Websocket Client
+# Standalone WebSocket Client (for testing)
 # =============================================================================
 
-# Add an executable file for Websocket Client for the testing purposes
-# Build a tiny executable that only compiles websocketClient.cpp
+# Build a simple WebSocket client using Boost.Beast for testing
 add_executable(websocketClient test/websocketClient.cpp)
 
-# websocketpp is header-only → just add include dir
-target_include_directories(websocketClient PRIVATE ${websocketpp_SOURCE_DIR})
+target_include_directories(websocketClient PRIVATE
+    ${Boost_INCLUDE_DIRS}
+)
 
-# websocketpp typically needs Boost (asio) + threads
 target_link_libraries(websocketClient
-  PRIVATE
-    Boost::system
-    Threads::Threads
+    PRIVATE
+        Boost::system
+        Threads::Threads
 )
 
 # =============================================================================
@@ -266,6 +265,8 @@ add_custom_target(rebuild-finalcut
 message(STATUS "=== Build Configuration ===")
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Platform: ${CMAKE_SYSTEM_NAME}")
 message(STATUS "Finalcut library: ${FINALCUT_LIBRARIES}")
 message(STATUS "Finalcut include: ${FINALCUT_INCLUDE_DIRS}")
+message(STATUS "Boost version: ${Boost_VERSION}")
 message(STATUS "==========================")
