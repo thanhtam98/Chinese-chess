@@ -34,6 +34,7 @@ wClient::~wClient() {
 }
 
 std::future<void> wClient::run() {
+    LOG_F("Run Client Action");
     promise = std::make_unique<std::promise<void>>();
     auto fut = promise->get_future();
     
@@ -46,23 +47,31 @@ std::future<void> wClient::run() {
         // Start the asynchronous connection process
         doConnect();
         
+        if (wThread.joinable()) {
+            wThread.join();
+        }
+
         // Run io_context in a separate thread
         wThread = std::thread([this]() {
+            if (mIoc->stopped()) {
+                LOG_F("Restart the context");
+                mIoc->restart(); 
+            }
             LOG_F("Client io_context running");
             mIoc->run();
             LOG_F("Client io_context stopped");
+            mIoc->reset();
         });
         
-        // Wait a bit for connection to establish
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        // // Wait a bit for connection to establish
+        // std::this_thread::sleep_for(std::chrono::seconds(1));
         
-        if (!mFailMessage.empty()) {
-            LOG_F("Connection failed: %s", mFailMessage.c_str());
-            promise->set_exception(std::make_exception_ptr(
-                std::runtime_error(mFailMessage)));
-        } else {
-            LOG_F("No error here?!");
-        }
+        // if (!mFailMessage.empty()) {
+        //     LOG_F("Connection failed: %s", mFailMessage.c_str());
+        //     promise->set_exception(std::make_exception_ptr(
+        //         std::runtime_error(mFailMessage)));
+        //     promise.reset();
+        // }
         
     } catch (const std::exception& e) {
         LOG_F("Client error: %s", e.what());
@@ -105,9 +114,9 @@ void wClient::onResolve(beast::error_code ec, tcp::resolver::results_type result
 
 void wClient::onConnect(beast::error_code ec, tcp::resolver::results_type::endpoint_type ep) {
     if (ec) {
-        mFailMessage = "Connect failed: " + ec.message();
+        mFailMessage = ec.message();
         LOG_F("%s", mFailMessage.c_str());
-        promise->set_exception(std::make_exception_ptr(std::runtime_error(ec.message())));
+        promise->set_exception(std::make_exception_ptr(std::runtime_error(mFailMessage)));
         promise.reset();
         return;
     }

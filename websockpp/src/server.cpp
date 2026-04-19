@@ -25,6 +25,7 @@ wServer::~wServer() {
 }
 
 std::future<void> wServer::run() {
+    LOG_F("Run Server Action");
     promise = std::make_unique<std::promise<void>>();
     auto fut = promise->get_future();
     
@@ -39,6 +40,10 @@ std::future<void> wServer::run() {
         
         // Start accepting connections
         doAccept();
+
+        if (wThread.joinable()) {
+            wThread.join();
+        }
         
         // Run io_context in a separate thread
         wThread = std::thread([this]() {
@@ -100,7 +105,6 @@ void wServer::onAccept(beast::error_code ec, tcp::socket socket) {
             // Increase connCount to notify ConnectionBase::_scanConnections and stop listening.
             connCount++;
             LOG_F("Stop listening because we only need one client");
-            // mEndpoint.stop_listening();
         });
 }
 
