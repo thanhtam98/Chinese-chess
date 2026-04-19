@@ -9,9 +9,12 @@ void Umpire::setBoard(IBoard* board){
     mBoard = board;
 }
 bool Umpire::preCheckMate(Point* from, Point* to, team_code team){
+    LOG_F("Pre checkmate");
     IBoard* snapshoot  = new Board(Board::getInstance());
    
+    LOG_F("Simulate move chessman");
     snapshoot->move(from, to);
+    LOG_F("Set board");
     setBoard(snapshoot);
 
     auto result = processCheckMate(team);
@@ -59,6 +62,7 @@ std::vector<Point*> Umpire::checkMate(team_code team) {
  * @brief check if the GENERAL of this team is being targeted.
 */
 std::vector<Point*> Umpire::processCheckMate(team_code team){
+    LOG_F("Process checkmate");
    
     if (mBoard == nullptr)
         return {};

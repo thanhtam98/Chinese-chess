@@ -61,12 +61,13 @@ std::future<void> wClient::run() {
             promise->set_exception(std::make_exception_ptr(
                 std::runtime_error(mFailMessage)));
         } else {
-            promise->set_value();
+            LOG_F("No error here?!");
         }
         
     } catch (const std::exception& e) {
         LOG_F("Client error: %s", e.what());
         promise->set_exception(std::current_exception());
+        promise.reset();
     }
     
     return fut;
@@ -86,6 +87,8 @@ void wClient::onResolve(beast::error_code ec, tcp::resolver::results_type result
     if (ec) {
         mFailMessage = "Resolve failed: " + ec.message();
         LOG_F("%s", mFailMessage.c_str());
+        promise->set_exception(std::make_exception_ptr(std::runtime_error(ec.message())));
+        promise.reset();
         return;
     }
     
@@ -104,6 +107,8 @@ void wClient::onConnect(beast::error_code ec, tcp::resolver::results_type::endpo
     if (ec) {
         mFailMessage = "Connect failed: " + ec.message();
         LOG_F("%s", mFailMessage.c_str());
+        promise->set_exception(std::make_exception_ptr(std::runtime_error(ec.message())));
+        promise.reset();
         return;
     }
     
@@ -135,10 +140,14 @@ void wClient::onHandshake(beast::error_code ec) {
     if (ec) {
         mFailMessage = "Handshake failed: " + ec.message();
         LOG_F("%s", mFailMessage.c_str());
+        promise->set_exception(std::make_exception_ptr(std::runtime_error(ec.message())));
+        promise.reset();
         return;
     }
     
     LOG_F("WebSocket handshake complete");
+    promise->set_value();
+    promise.reset();
     onOpen();
 }
 

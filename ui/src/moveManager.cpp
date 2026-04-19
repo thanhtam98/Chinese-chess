@@ -47,6 +47,7 @@ Point *MoveManager::getDestPoint()
 }
 void MoveManager::selPieceTransferCb(Point *from)
 {
+    LOG_F("Sel Callback");
     setSourcePoint(from);
     calculatePossibleMoves(false);
 }
@@ -59,6 +60,7 @@ void MoveManager::selPieceTransferCb(Point *from)
 */
 
 bool MoveManager::preCalculatePossiblePotentials(){
+    LOG_F("Pre calculate possible potentials");
     IChessman* chessman = board->getChessman(source);
     team_code team = chessman->getTeam();
     // auto result = umpire->checkMate(team);
@@ -82,6 +84,7 @@ bool MoveManager::preCalculatePossiblePotentials(){
 
 void MoveManager::movePieceTransferCb(Point *from, Point *to)
 {
+    LOG_F("Move Callback");
     setSourcePoint(from);
     setDestPoint(to);
     decorateTargetedPieces(false);
@@ -92,44 +95,47 @@ void MoveManager::movePieceTransferCb(Point *from, Point *to)
 }
 
 bool MoveManager::movePiece(bool shouldNotify) {
+    LOG_F("Move Piece");
 
     if (preCalculatePossiblePotentials() == false){
+        LOG_F("Checkmate satisfied");
         return false;
     }
 
     ILabel* toPiece = mainDialog->pieces[dest->getX()][dest->getY()];
     ILabel* fromPiece = mainDialog->pieces[source->getX()][source->getY()];
     if (dynamic_cast<SpaceLabel*>(toPiece) != nullptr) {
-        // If toPiece is a space label, we swap to labels
+        LOG_F("If toPiece is a space label, we swap to labels");
         fromPiece->changePosition(dest);
         toPiece->changePosition(source);
 
-        // Swap the pieces in pieces array of the board dialog
+        LOG_F("Swap the pieces in pieces array of the board dialog");
         mainDialog->pieces[source->getX()][source->getY()] = toPiece;
         mainDialog->pieces[dest->getX()][dest->getY()] = fromPiece;
     }
     else
     {
-        // If toPiece is a piece label, we delete the destined piece label
-        // (considered as eliminated), move the source piece label and
-        // create a space label where the source piece label was located.
+        LOG_F("If toPiece is a piece label, we delete the destined piece label \
+            (considered as eliminated), move the source piece label and create a \
+            space label where the source piece label was located.");
         fromPiece->changePosition(dest);
         toPiece->changePosition(source);
         toPiece->hide();
 
         delete toPiece;
-        // Create a new space label and assign all necessary functionalities
+        LOG_F("create a new space label and assign all necessary functionalities");
         mainDialog->pieces[dest->getX()][dest->getY()] = fromPiece;
         ILabel *newLabel = new SpaceLabel{mainDialog, source};
         mainDialog->pieces[source->getX()][source->getY()] = newLabel;
         newLabel->show();
-        mainDialog->addCallback(newLabel, "move");
+        mainDialog->addCallback(newLabel, "changed");
     }
 
-    // Inform the board about the changes.
+    LOG_F("Inform the board about the changes.");
     board->move(source, dest);
     calculatePossiblePotentials();
 
+    LOG_F("Notify MOV");
     if (shouldNotify) {
         transfer->sendMsg(MOV, source, dest);
     }

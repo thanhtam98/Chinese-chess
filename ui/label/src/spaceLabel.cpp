@@ -134,7 +134,7 @@ void SpaceLabel::onMouseDown(FMouseEvent* event) {
         if (target) {
             boardDialog->moveManager->setDestPoint(pos);
             LOG_F("This chessman is moved to %s", pos->to_string().c_str());
-            emitCallback("move");
+            emitCallback("changed");
         }
     }
 }

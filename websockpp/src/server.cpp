@@ -43,16 +43,18 @@ std::future<void> wServer::run() {
         // Run io_context in a separate thread
         wThread = std::thread([this]() {
             LOG_F("Server io_context running");
+            promise->set_value();
+            promise.reset();
             mIoc->run();
             LOG_F("Server io_context stopped");
         });
         
         LOG_F("Server started, waiting for connections");
-        promise->set_value();
         
     } catch (const std::exception& e) {
         LOG_F("Server error: %s", e.what());
         promise->set_exception(std::current_exception());
+        promise.reset();
     }
     
     return fut;
@@ -64,8 +66,6 @@ void wServer::doAccept() {
             onAccept(ec, std::move(socket));
         });
     LOG_F("start the websocket server");
-    promise->set_value();
-    promise.reset();
 }
 
 void wServer::onAccept(beast::error_code ec, tcp::socket socket) {

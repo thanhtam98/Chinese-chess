@@ -48,11 +48,13 @@ void Transfer::dispatchMsg(json js){
     switch (code)
     {
     case MOV:
+        LOG_F("Transfer MOV");
         to = Point::of(js["to"][0], js["to"][1]);
         if (mMovCallback)
             (mMovCallback)(from, to);
         break;
     case SEL:
+        LOG_F("Transfer SEL");
         if (mSelCallback)
             (mSelCallback)(from);
         break;

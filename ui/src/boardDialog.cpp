@@ -26,7 +26,7 @@ BoardDialog::BoardDialog(FDialog* parent): IDialogChain{parent} {
             } else {
                 pieces[x][y] = new SpaceLabel{this, Point::of(x, y)};
             }
-            addCallback(pieces[x][y], "move");
+            addCallback(pieces[x][y], "changed");
         }
     }
 
@@ -62,13 +62,14 @@ void BoardDialog::initLayout() {
 }
 
 void BoardDialog::clickedCallback() {
-    LOG_F("Clicked Event");
+    LOG_F("Clicked Callback");
     moveManager->calculatePossibleMoves(Configurator::get(MODE) == Configurator::ONLINE);
     // debugLabel.log(pieces[moveManager->getSourcePoint()->getX()][moveManager->getSourcePoint()->getY()]->getText().toString());
     redraw();
 }
 
 void BoardDialog::moveCallback() {
+    LOG_F("Move CallBack");
     bool ret = false;
 
     moveManager->decorateTargetedPieces(false);
@@ -85,7 +86,7 @@ void BoardDialog::addCallback(ILabel* label, string event) {
     label->addCallback(
         event,
         this,
-        event.compare("move") == 0 ? &BoardDialog::moveCallback : &BoardDialog::clickedCallback
+        event.compare("changed") == 0 ? &BoardDialog::moveCallback : &BoardDialog::clickedCallback
     );
 }
 
